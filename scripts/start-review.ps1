@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'environment.ps1')
 $FitnessEnvPath = Join-Path $FitnessProjectRoot '.env'
 $FitnessAllowedNames = @('FITNESS_BODY_LEAN','FITNESS_MOVEMENT_GUIDANCE','FITNESS_PRETRAINED_CORRECTION','FITNESS_ENABLE_CORRECTION_LABELS','FITNESS_DEEPSEEK_API_KEY')

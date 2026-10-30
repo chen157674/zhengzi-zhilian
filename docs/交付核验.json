@@ -7,5 +7,9 @@
   "observations": 3,
   "personal_statistics": 0,
   "mobile_overflow": false,
-  "page_errors": []
+  "page_errors": [],
+  "python_checks": 32,
+  "javascript_checks": 6,
+  "resource_files": 19,
+  "python_version": "3.12.14"
 }

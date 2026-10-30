@@ -5,6 +5,12 @@ AI健身动作分析与运动指导Web平台。第九届传智杯AI WEB网页开
 
 系统将训练画面、姿态观察、问题时间段、训练记录和AI解读组织在同一个Web工作流中，帮助使用者查看动作、定位问题、理解建议并回看训练过程。
 
+## 技术文档
+
+- [作品技术文档 PDF](docs/观动知姿作品技术文档.pdf)
+- [可编辑源稿](docs/作品技术文档.md)
+- 在依赖准备完成后运行 `python -B scripts/build_document.py` 可重新生成PDF。
+
 ## 核心功能
 
 - 摄像头实时分析与可选动作设置，呈现姿态骨架和当前指导。
@@ -29,7 +35,7 @@ AI健身动作分析与运动指导Web平台。第九届传智杯AI WEB网页开
 2. 创建环境、安装依赖和恢复固定模型：
 
    ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup.ps1 -Python python
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup.ps1
    ```
 
 3. 首次运行，创建本人管理员。用户名和密码由操作者在终端输入，不使用内置共享密码：
@@ -45,6 +51,8 @@ AI健身动作分析与运动指导Web平台。第九届传智杯AI WEB网页开
    ```
 
 5. 打开 `http://127.0.0.1:8765`，使用刚创建的账号登录。
+
+准备脚本优先查找已安装的Python 3.12；也可以使用`-Python`参数指定该版本解释器的完整路径。
 
 端口已占用时可改为8766等空闲端口。管理员账号建立后，可在页面管理测试账号。服务默认只监听本机回环地址。
 
