@@ -1,0 +1,4 @@
+# 可选的本地纠错输入候选；基础依赖先按 requirements.lock.txt 安装。
+ultralytics==8.4.191
+opencv-python==5.0.0.93
+h5py==3.15.1

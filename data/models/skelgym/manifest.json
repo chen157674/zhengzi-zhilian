@@ -1,0 +1,79 @@
+{
+  "repo": "Cuong2004/gym-exercise-classification",
+  "revision": "a2de267bdeebc1cabc747d3964493cced66ddd29",
+  "license": "MIT for checkpoints, explicitly stated by upstream GitHub README",
+  "license_evidence": "https://github.com/nxc1802/Gym_Classification/tree/f0edd0f555aba25f5e7e855202732ce7d244fee7#-dataset-licensing--ethical-compliance",
+  "files": [
+    {
+      "path": "data/models/skelgym/transformer-mix-v2.pt",
+      "url": "https://huggingface.co/Cuong2004/gym-exercise-classification/resolve/a2de267bdeebc1cabc747d3964493cced66ddd29/checkpoints/best_Transformer_T2.2_mix_v2.pt",
+      "sha256": "e83e0210a8478dbeda9bcd446cf0fa117a848a6695d841b946a8264dfc67bff8",
+      "bytes": 3682041
+    },
+    {
+      "path": "data/models/skelgym/provenance.json",
+      "url": "https://huggingface.co/Cuong2004/gym-exercise-classification/resolve/a2de267bdeebc1cabc747d3964493cced66ddd29/checkpoints/best_Transformer_T2.2_mix_v2.provenance.json",
+      "sha256": "12f0ad150d645398811a38ad45fbb16982d481f963aff2778221a7e8d1ad7e01",
+      "bytes": 2808
+    },
+    {
+      "path": "data/models/skelgym/transformer-world.pt",
+      "url": "https://huggingface.co/Cuong2004/gym-exercise-classification/resolve/a2de267bdeebc1cabc747d3964493cced66ddd29/checkpoints/seed42/best_Transformer_world_3d_seed42.pt",
+      "sha256": "bfcaf747ee7ef906f95834a619eec6a3bb37c71916a9509455468fe87f031c8e",
+      "bytes": 3685745
+    },
+    {
+      "path": "data/models/skelgym/normalization-world.npz",
+      "url": "https://huggingface.co/Cuong2004/gym-exercise-classification/resolve/a2de267bdeebc1cabc747d3964493cced66ddd29/artifacts/reference/seed42/normalization_world_3d.npz",
+      "sha256": "5c3d43542639af76785e14aa1643ff291415e20af70be51a7179b69c3c51eeba",
+      "bytes": 812
+    },
+    {
+      "path": "data/models/skelgym/world-provenance.json",
+      "url": "https://huggingface.co/Cuong2004/gym-exercise-classification/resolve/a2de267bdeebc1cabc747d3964493cced66ddd29/checkpoints/seed42/best_Transformer_world_3d_seed42.provenance.json",
+      "sha256": "6f4ec7ef27e161119e4145d836056656d73ad174c8be62034a8360af3ab19b72",
+      "bytes": 1012
+    }
+  ],
+  "status": "offline_candidate_not_runtime_enabled",
+  "mix_v2_status": "not_usable_missing_matching_63d_normalization_and_architecture_metadata_conflict",
+  "onnx": {
+    "path": "data\\models\\skelgym\\world-transformer.onnx",
+    "sha256": "08fb5b4efd9e70a066ac2b562561044a1b6e93c41abd8ff14fb1741caa563cd5",
+    "bytes": 1222382,
+    "input_shape": [
+      1,
+      32,
+      39
+    ],
+    "labels": [
+      "barbell biceps curl",
+      "bench press",
+      "chest fly machine",
+      "deadlift",
+      "decline bench press",
+      "hammer curl",
+      "hip thrust",
+      "incline bench press",
+      "lat pulldown",
+      "lateral raise",
+      "leg extension",
+      "leg raises",
+      "plank",
+      "pull Up",
+      "push-up",
+      "romanian deadlift",
+      "russian twist",
+      "shoulder press",
+      "squat",
+      "t bar row",
+      "tricep Pushdown",
+      "tricep dips"
+    ],
+    "normalization": "included_train_only_seed42_world",
+    "maximum_conversion_error": 1.1920928955078125e-07,
+    "pytorch": "2.8.0+cpu",
+    "onnx": "1.18.0",
+    "opset": 17
+  }
+}

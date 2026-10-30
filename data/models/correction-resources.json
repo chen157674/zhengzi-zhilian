@@ -1,0 +1,58 @@
+{
+  "resources": {
+    "hands": {
+      "bytes": 7819105,
+      "correction_accuracy_validated": false,
+      "documentation": "https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker",
+      "download_url": "https://huggingface.co/camenduru/HandRefiner/resolve/9567791b60899721946f8f4713fc45766cc3531c/hand_landmarker.task",
+      "downloaded_at_ms": 1793195039462,
+      "expected_sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "file": "hand_landmarker.task",
+      "hash_source": "https://huggingface.co/camenduru/HandRefiner/blob/9567791b60899721946f8f4713fc45766cc3531c/hand_landmarker.task",
+      "maximum_bytes": 15000000,
+      "minimum_bytes": 1000000,
+      "mirror": "https://huggingface.co/camenduru/HandRefiner/resolve/9567791b60899721946f8f4713fc45766cc3531c/hand_landmarker.task",
+      "model": "mediapipe-hand-float16-1",
+      "path": "data/models/hand_landmarker.task",
+      "production_enabled": false,
+      "purpose": "hand_landmarks_not_grip_error_labels",
+      "runtime_evidence": "data/verification/round3/correction-input-review.json",
+      "runtime_validated": true,
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "url": "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+      "runtime_validation_scope": "same-frame input inference on 9 prepared-video images; not grip correction accuracy",
+      "license_reference": "https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker"
+    },
+    "yolo": {
+      "bytes": 6255593,
+      "correction_accuracy_validated": false,
+      "documentation": "https://docs.ultralytics.com/models/yolo11/",
+      "download_url": "https://huggingface.co/Ultralytics/YOLO11/resolve/ef787449d1fe015a77a27ca4d375ed0fde69495c/yolo11n-pose.pt",
+      "downloaded_at_ms": 1793195650227,
+      "expected_sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0",
+      "file": "yolo11n-pose.pt",
+      "hash_source": "https://huggingface.co/Ultralytics/YOLO11/blob/ef787449d1fe015a77a27ca4d375ed0fde69495c/yolo11n-pose.pt",
+      "maximum_bytes": 10000000,
+      "minimum_bytes": 6000000,
+      "mirror": "https://huggingface.co/Ultralytics/YOLO11/resolve/ef787449d1fe015a77a27ca4d375ed0fde69495c/yolo11n-pose.pt",
+      "model": "ultralytics-yolo11n-pose-v8.3.0",
+      "path": "data/models/yolo11n-pose.pt",
+      "production_enabled": false,
+      "purpose": "body_pose_comparison_not_pretrained_grip_correction",
+      "runtime_evidence": "data/verification/round3/correction-input-review.json",
+      "runtime_validated": true,
+      "sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0",
+      "url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-pose.pt",
+      "runtime_validation_scope": "same-frame input inference on 9 prepared-video images; not grip correction accuracy",
+      "license_reference": "https://docs.ultralytics.com/models/yolo11/"
+    }
+  },
+  "schema_version": 1,
+  "runtime_versions": {
+    "ultralytics": "8.4.191",
+    "opencv-python": "5.0.0.93",
+    "mediapipe": "1.1.1",
+    "torch": "2.8.0+cu128",
+    "numpy": "2.5.4"
+  }
+}

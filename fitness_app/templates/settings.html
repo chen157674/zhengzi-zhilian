@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% block title %}设置 · 观动知姿{% endblock %}{% block page %}settings{% endblock %}
+{% block content %}
+<div class="design-container settings-hub">
+ <div class="page-heading"><h1>设置</h1></div>
+ <section class="settings-group"><h2>账号安全</h2>
+  <a class="security-row" href="/account/password" data-nav><div><strong>修改密码</strong><p>更新登录密码</p></div><span aria-hidden="true">›</span></a>
+  <a class="security-row" href="/account/sessions" data-nav><div><strong>登录管理</strong><p>查看当前登录，退出其他登录</p></div><span aria-hidden="true">›</span></a>
+ </section>
+ <section class="settings-group"><h2>AI 服务</h2>
+  <a class="security-row" href="/account/ai" data-nav><div><strong>密钥与偏好</strong><p>配置 AI 密钥、模型与训练历史引用</p></div><span aria-hidden="true">›</span></a>
+  {% if config.CORRECTION_LABELS_ENABLED %}<a class="security-row" href="/account/correction-labels" data-nav><div><strong>纠错标注</strong><p>一起确认视频中的动作问题</p></div><span aria-hidden="true">›</span></a>{% endif %}
+ </section>
+ {% if identity.role=='admin' %}<section class="settings-group"><h2>管理</h2>
+  <a class="security-row" href="/admin/users" data-nav><div><strong>账号管理</strong><p>管理用户与账号状态</p></div><span aria-hidden="true">›</span></a>
+ </section>{% endif %}
+</div>
+{% endblock %}

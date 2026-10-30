@@ -1,0 +1,33 @@
+# 用户数据、运行凭据与开发环境
+.venv/
+.tmp/
+.cache/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.key
+*.sqlite*
+*.db
+*.log
+*.pem
+*.pfx
+*.p12
+*.maintenance.lock
+# 固定版本的可下载权重不在Git中重复分发
+*.task
+*.onnx
+*.safetensors
+*.bin
+*.pt
+*.pth
+# 私人媒体和账号上传永不纳入仓库
+data/datasets/user-demos/
+data/avatars/
+data/uploads/
+node_modules/
+
+# 团队生成的小型骨架编码器用于复现
+!data/models/skelgym/world-features.onnx
+!data/models/skelgym/world-transformer.onnx

@@ -1,0 +1,1146 @@
+{
+  "schema_version": 1,
+  "action_id": "jumping_jack",
+  "source_id": "commons-jumping-jacks-segment",
+  "config": {
+    "cycle": {
+      "start_threshold": 0.45,
+      "direction": 1,
+      "exit_delta": 0.5,
+      "minimum_excursion": 0.8,
+      "turn_delta": 0.1,
+      "start_confirm_ms": 100,
+      "departure_confirm_ms": 33,
+      "turn_confirm_ms": 33,
+      "return_confirm_ms": 50,
+      "maximum_gap_ms": 200,
+      "minimum_cycle_ms": 300,
+      "maximum_cycle_ms": 30000,
+      "return_tolerance": 0.45
+    },
+    "maximum_closed_arm_angle": 40.0,
+    "maximum_closed_foot_gap": 0.9,
+    "minimum_closed_wrist_drop": 0.4,
+    "minimum_arm_excursion": 45.0,
+    "minimum_leg_excursion": 0.6,
+    "minimum_each_foot_excursion": 0.15,
+    "minimum_front_width": 0.3,
+    "smoothing_window": 3,
+    "algorithm_version": "jumping-jack-development-2"
+  },
+  "parameters_sha256": "04cf0d7ef819dcfc32c1d7085619f1ce522fc30b9d842d4ad0a882895178ef53",
+  "pose_cache_sha256": "7501a6d6916d5a8ef92a524e15b691ee3b84f63dcff656220609d59013073c1f",
+  "frames": 87,
+  "events": [
+    {
+      "side": "none",
+      "start_ms": 367,
+      "end_ms": 934,
+      "algorithm_version": "jumping-jack-development-2",
+      "feature_schema_version": "jumping-jack-image-geometry-1",
+      "assessments": []
+    },
+    {
+      "side": "none",
+      "start_ms": 1201,
+      "end_ms": 1768,
+      "algorithm_version": "jumping-jack-development-2",
+      "feature_schema_version": "jumping-jack-image-geometry-1",
+      "assessments": []
+    },
+    {
+      "side": "none",
+      "start_ms": 2002,
+      "end_ms": 2669,
+      "algorithm_version": "jumping-jack-development-2",
+      "feature_schema_version": "jumping-jack-image-geometry-1",
+      "assessments": []
+    }
+  ],
+  "reason_frame_counts": {
+    "created": 3,
+    "observable": 73,
+    "collecting_observations": 8,
+    "completed": 3
+  },
+  "transitions": [
+    {
+      "at_ms": 0,
+      "phase": "seeking_start",
+      "reason": "created"
+    },
+    {
+      "at_ms": 100,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 133,
+      "phase": "ready",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 200,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 367,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 400,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 767,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 868,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 934,
+      "phase": "ready",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 968,
+      "phase": "ready",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 1034,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 1201,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 1235,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 1568,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 1702,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 1768,
+      "phase": "ready",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 1802,
+      "phase": "ready",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 1869,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 2002,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 2035,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 2369,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 2603,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 2669,
+      "phase": "ready",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 2703,
+      "phase": "ready",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 2769,
+      "phase": "ready",
+      "reason": null
+    }
+  ],
+  "sampling_diagnostics": {
+    "2": {
+      "frames": 44,
+      "events": [
+        {
+          "side": "none",
+          "start_ms": 400,
+          "end_ms": 934,
+          "algorithm_version": "jumping-jack-development-2",
+          "feature_schema_version": "jumping-jack-image-geometry-1",
+          "assessments": []
+        },
+        {
+          "side": "none",
+          "start_ms": 1268,
+          "end_ms": 1802,
+          "algorithm_version": "jumping-jack-development-2",
+          "feature_schema_version": "jumping-jack-image-geometry-1",
+          "assessments": []
+        },
+        {
+          "side": "none",
+          "start_ms": 2069,
+          "end_ms": 2669,
+          "algorithm_version": "jumping-jack-development-2",
+          "feature_schema_version": "jumping-jack-image-geometry-1",
+          "assessments": []
+        }
+      ],
+      "reason_frame_counts": {
+        "created": 2,
+        "observable": 31,
+        "collecting_observations": 8,
+        "completed": 3
+      },
+      "transitions": [
+        {
+          "at_ms": 0,
+          "phase": "seeking_start",
+          "reason": "created"
+        },
+        {
+          "at_ms": 133,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 200,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 334,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 400,
+          "phase": "departing",
+          "reason": null
+        },
+        {
+          "at_ms": 467,
+          "phase": "moving",
+          "reason": null
+        },
+        {
+          "at_ms": 868,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 934,
+          "phase": "ready",
+          "reason": "completed"
+        },
+        {
+          "at_ms": 1001,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 1134,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 1268,
+          "phase": "departing",
+          "reason": null
+        },
+        {
+          "at_ms": 1335,
+          "phase": "moving",
+          "reason": null
+        },
+        {
+          "at_ms": 1668,
+          "phase": "returning",
+          "reason": null
+        },
+        {
+          "at_ms": 1735,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 1802,
+          "phase": "ready",
+          "reason": "completed"
+        },
+        {
+          "at_ms": 1869,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 2002,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 2069,
+          "phase": "departing",
+          "reason": null
+        },
+        {
+          "at_ms": 2135,
+          "phase": "moving",
+          "reason": null
+        },
+        {
+          "at_ms": 2469,
+          "phase": "returning",
+          "reason": null
+        },
+        {
+          "at_ms": 2603,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 2669,
+          "phase": "ready",
+          "reason": "completed"
+        },
+        {
+          "at_ms": 2736,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 2870,
+          "phase": "ready",
+          "reason": null
+        }
+      ]
+    },
+    "3": {
+      "frames": 29,
+      "events": [
+        {
+          "side": "none",
+          "start_ms": 501,
+          "end_ms": 1001,
+          "algorithm_version": "jumping-jack-development-2",
+          "feature_schema_version": "jumping-jack-image-geometry-1",
+          "assessments": []
+        },
+        {
+          "side": "none",
+          "start_ms": 1301,
+          "end_ms": 2703,
+          "algorithm_version": "jumping-jack-development-2",
+          "feature_schema_version": "jumping-jack-image-geometry-1",
+          "assessments": []
+        }
+      ],
+      "reason_frame_counts": {
+        "created": 1,
+        "observable": 21,
+        "collecting_observations": 5,
+        "completed": 2
+      },
+      "transitions": [
+        {
+          "at_ms": 0,
+          "phase": "seeking_start",
+          "reason": "created"
+        },
+        {
+          "at_ms": 100,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 200,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 400,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 501,
+          "phase": "departing",
+          "reason": null
+        },
+        {
+          "at_ms": 601,
+          "phase": "moving",
+          "reason": null
+        },
+        {
+          "at_ms": 901,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 1001,
+          "phase": "ready",
+          "reason": "completed"
+        },
+        {
+          "at_ms": 1101,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 1301,
+          "phase": "departing",
+          "reason": null
+        },
+        {
+          "at_ms": 1401,
+          "phase": "moving",
+          "reason": null
+        },
+        {
+          "at_ms": 1802,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 1902,
+          "phase": "returning",
+          "reason": null
+        },
+        {
+          "at_ms": 2603,
+          "phase": "confirming_return",
+          "reason": null
+        },
+        {
+          "at_ms": 2703,
+          "phase": "ready",
+          "reason": "completed"
+        },
+        {
+          "at_ms": 2803,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        }
+      ]
+    },
+    "6": {
+      "frames": 15,
+      "events": [],
+      "reason_frame_counts": {
+        "created": 1,
+        "observable": 2,
+        "collecting_observations": 1,
+        "jack_closed_start_unconfirmed": 11
+      },
+      "transitions": [
+        {
+          "at_ms": 0,
+          "phase": "seeking_start",
+          "reason": "created"
+        },
+        {
+          "at_ms": 200,
+          "phase": "ready",
+          "reason": null
+        },
+        {
+          "at_ms": 400,
+          "phase": "ready",
+          "reason": "collecting_observations"
+        },
+        {
+          "at_ms": 601,
+          "phase": "seeking_start",
+          "reason": "jack_closed_start_unconfirmed"
+        },
+        {
+          "at_ms": 2803,
+          "phase": "ready",
+          "reason": null
+        }
+      ]
+    }
+  },
+  "observations": [
+    {
+      "at_ms": 0,
+      "geometry": {
+        "arms": [
+          22.186881312537402,
+          23.366630871226675
+        ],
+        "wrist_drop": [
+          0.9696424892748303,
+          0.9709282690780073
+        ],
+        "gap": 15.127124786376953,
+        "center": 309.6801280975342,
+        "width": 43.51219177246094,
+        "ankles": [
+          303.2403373718262,
+          318.3674621582031
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 100,
+      "geometry": {
+        "arms": [
+          23.496450725536086,
+          23.725083627595808
+        ],
+        "wrist_drop": [
+          0.934509244610712,
+          0.9597968665474295
+        ],
+        "gap": 16.09375,
+        "center": 310.41996002197266,
+        "width": 43.55070114135742,
+        "ankles": [
+          302.39501953125,
+          318.48876953125
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 200,
+      "geometry": {
+        "arms": [
+          28.891027908222675,
+          27.596702033968956
+        ],
+        "wrist_drop": [
+          0.6813280564053157,
+          0.7674532515076764
+        ],
+        "gap": 16.97824478149414,
+        "center": 310.0073719024658,
+        "width": 43.6029052734375,
+        "ankles": [
+          302.12759017944336,
+          319.1058349609375
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 300,
+      "geometry": {
+        "arms": [
+          50.74262698986941,
+          46.67486880273038
+        ],
+        "wrist_drop": [
+          0.11196399375860554,
+          0.25165321117979134
+        ],
+        "gap": 36.663875579833984,
+        "center": 311.62291526794434,
+        "width": 42.43162155151367,
+        "ankles": [
+          291.6869926452637,
+          328.35086822509766
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 400,
+      "geometry": {
+        "arms": [
+          87.78619443289156,
+          78.42357971013487
+        ],
+        "wrist_drop": [
+          -0.3824112300896777,
+          -0.3324562601903048
+        ],
+        "gap": 81.43381118774414,
+        "center": 310.5377674102783,
+        "width": 40.390777587890625,
+        "ankles": [
+          270.4934501647949,
+          351.92726135253906
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 501,
+      "geometry": {
+        "arms": [
+          129.98062315594825,
+          116.93580199962658
+        ],
+        "wrist_drop": [
+          -0.548946893496369,
+          -0.5493724660671423
+        ],
+        "gap": 102.5291633605957,
+        "center": 309.3595790863037,
+        "width": 40.40580749511719,
+        "ankles": [
+          261.3224220275879,
+          363.8515853881836
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 601,
+      "geometry": {
+        "arms": [
+          140.68921822389487,
+          135.4689311822982
+        ],
+        "wrist_drop": [
+          -0.5796734009187112,
+          -0.5143462562597655
+        ],
+        "gap": 97.44638442993164,
+        "center": 311.452579498291,
+        "width": 40.863075256347656,
+        "ankles": [
+          263.3194160461426,
+          360.7658004760742
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 701,
+      "geometry": {
+        "arms": [
+          91.81582051921188,
+          90.26421683473154
+        ],
+        "wrist_drop": [
+          -0.4359637499732994,
+          -0.4558988128435552
+        ],
+        "gap": 92.93861389160156,
+        "center": 312.0222854614258,
+        "width": 44.334449768066406,
+        "ankles": [
+          265.90198516845703,
+          358.8405990600586
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 801,
+      "geometry": {
+        "arms": [
+          57.67562732352461,
+          49.30258826647921
+        ],
+        "wrist_drop": [
+          0.2327231067978714,
+          0.19074542167223962
+        ],
+        "gap": 57.23407745361328,
+        "center": 313.28712463378906,
+        "width": 42.72005081176758,
+        "ankles": [
+          285.3567123413086,
+          342.5907897949219
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 901,
+      "geometry": {
+        "arms": [
+          26.880715077659485,
+          23.01944978312279
+        ],
+        "wrist_drop": [
+          0.9148946569365195,
+          0.9572632094249681
+        ],
+        "gap": 25.785846710205078,
+        "center": 313.23636054992676,
+        "width": 42.70011901855469,
+        "ankles": [
+          302.60881423950195,
+          328.39466094970703
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 1001,
+      "geometry": {
+        "arms": [
+          14.916565004031563,
+          19.43576648487916
+        ],
+        "wrist_drop": [
+          1.0084029428624897,
+          0.910839173777461
+        ],
+        "gap": 24.387798309326172,
+        "center": 313.1541156768799,
+        "width": 42.051124572753906,
+        "ankles": [
+          303.2986640930176,
+          327.68646240234375
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 1101,
+      "geometry": {
+        "arms": [
+          37.10119099608792,
+          39.48505477305333
+        ],
+        "wrist_drop": [
+          0.5071146571653283,
+          0.39905835568551956
+        ],
+        "gap": 33.966617584228516,
+        "center": 312.1084499359131,
+        "width": 42.27607727050781,
+        "ankles": [
+          297.2921943664551,
+          331.2588119506836
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1201,
+      "geometry": {
+        "arms": [
+          73.08117888176231,
+          76.41367900881187
+        ],
+        "wrist_drop": [
+          -0.23878158925964524,
+          -0.30519626886904977
+        ],
+        "gap": 69.02362823486328,
+        "center": 310.9397315979004,
+        "width": 42.52540588378906,
+        "ankles": [
+          276.3459777832031,
+          345.3696060180664
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1301,
+      "geometry": {
+        "arms": [
+          135.18403632937475,
+          145.24559153500468
+        ],
+        "wrist_drop": [
+          -0.549277961599942,
+          -0.5706871653967311
+        ],
+        "gap": 46.35263442993164,
+        "center": 308.1262016296387,
+        "width": 42.69561767578125,
+        "ankles": [
+          292.324275970459,
+          338.6769104003906
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1401,
+      "geometry": {
+        "arms": [
+          132.95524936679607,
+          137.21078802399302
+        ],
+        "wrist_drop": [
+          -0.5432368438399843,
+          -0.5052572256473477
+        ],
+        "gap": 113.99553298950195,
+        "center": 308.37815284729004,
+        "width": 40.58980941772461,
+        "ankles": [
+          252.44047164916992,
+          366.4360046386719
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1502,
+      "geometry": {
+        "arms": [
+          88.87951890061844,
+          96.8250404901322
+        ],
+        "wrist_drop": [
+          -0.4252318391155984,
+          -0.4837201631674487
+        ],
+        "gap": 110.56318283081055,
+        "center": 310.0110721588135,
+        "width": 44.060726165771484,
+        "ankles": [
+          255.40460586547852,
+          365.96778869628906
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1602,
+      "geometry": {
+        "arms": [
+          50.34210929929028,
+          53.83420123047088
+        ],
+        "wrist_drop": [
+          0.5917476034109203,
+          0.18886190192353305
+        ],
+        "gap": 72.39315032958984,
+        "center": 311.64302825927734,
+        "width": 41.58933639526367,
+        "ankles": [
+          276.1600875854492,
+          348.55323791503906
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 1702,
+      "geometry": {
+        "arms": [
+          16.386665322902537,
+          19.250751414767347
+        ],
+        "wrist_drop": [
+          1.0218900411823502,
+          0.9689729219589387
+        ],
+        "gap": 27.48321533203125,
+        "center": 312.6366138458252,
+        "width": 43.260250091552734,
+        "ankles": [
+          300.48938751220703,
+          327.9726028442383
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 1802,
+      "geometry": {
+        "arms": [
+          16.361937986789073,
+          17.382418912771588
+        ],
+        "wrist_drop": [
+          1.0413846878194537,
+          1.0101033463222422
+        ],
+        "gap": 20.95449447631836,
+        "center": 312.3475170135498,
+        "width": 43.867130279541016,
+        "ankles": [
+          305.2639579772949,
+          326.2184524536133
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 1902,
+      "geometry": {
+        "arms": [
+          42.52611340855261,
+          41.65028041850834
+        ],
+        "wrist_drop": [
+          0.5620722488400569,
+          0.48593439365124924
+        ],
+        "gap": 27.838821411132812,
+        "center": 311.9513416290283,
+        "width": 43.27985763549805,
+        "ankles": [
+          301.44752502441406,
+          329.2863464355469
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2002,
+      "geometry": {
+        "arms": [
+          72.81848300218503,
+          67.54596502838449
+        ],
+        "wrist_drop": [
+          -0.1676821022182899,
+          -0.12438917217797028
+        ],
+        "gap": 54.961891174316406,
+        "center": 312.5461769104004,
+        "width": 44.46207046508789,
+        "ankles": [
+          286.63082122802734,
+          341.59271240234375
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2102,
+      "geometry": {
+        "arms": [
+          121.36617597590788,
+          103.81872124959493
+        ],
+        "wrist_drop": [
+          -0.5559479524463091,
+          -0.4878438307177446
+        ],
+        "gap": 98.04519653320312,
+        "center": 311.6136360168457,
+        "width": 42.94240951538086,
+        "ankles": [
+          263.4417724609375,
+          361.4869689941406
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2202,
+      "geometry": {
+        "arms": [
+          146.89588213702353,
+          137.74829826760018
+        ],
+        "wrist_drop": [
+          -0.546852959088532,
+          -0.48460047028362474
+        ],
+        "gap": 108.18418502807617,
+        "center": 311.3085651397705,
+        "width": 40.253963470458984,
+        "ankles": [
+          257.52790451049805,
+          365.7120895385742
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2302,
+      "geometry": {
+        "arms": [
+          173.0325561464386,
+          160.03815951622477
+        ],
+        "wrist_drop": [
+          -0.6530020687245447,
+          -0.584744098470178
+        ],
+        "gap": 103.58230590820312,
+        "center": 312.632532119751,
+        "width": 40.05430221557617,
+        "ankles": [
+          260.94470977783203,
+          364.52701568603516
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2402,
+      "geometry": {
+        "arms": [
+          88.92411527889423,
+          87.13938329449991
+        ],
+        "wrist_drop": [
+          -0.27271340882117723,
+          -0.3164677927764884
+        ],
+        "gap": 75.12191772460938,
+        "center": 313.60108375549316,
+        "width": 46.78485870361328,
+        "ankles": [
+          276.83055877685547,
+          351.95247650146484
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2503,
+      "geometry": {
+        "arms": [
+          55.89147735686035,
+          60.001731627211754
+        ],
+        "wrist_drop": [
+          0.45034642954110227,
+          0.2900510564046058
+        ],
+        "gap": 34.17695999145508,
+        "center": 313.9799690246582,
+        "width": 47.480201721191406,
+        "ankles": [
+          300.5904960632324,
+          334.7674560546875
+        ],
+        "upright_front": true,
+        "closed": false
+      }
+    },
+    {
+      "at_ms": 2603,
+      "geometry": {
+        "arms": [
+          27.033020702877508,
+          35.29352824770145
+        ],
+        "wrist_drop": [
+          0.9745297797094453,
+          0.8670970649708091
+        ],
+        "gap": 30.310230255126953,
+        "center": 316.0007953643799,
+        "width": 45.30189514160156,
+        "ankles": [
+          304.5266914367676,
+          334.83692169189453
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 2703,
+      "geometry": {
+        "arms": [
+          13.522209062736888,
+          19.565278155759287
+        ],
+        "wrist_drop": [
+          1.070683895867117,
+          1.021362937860753
+        ],
+        "gap": 29.346752166748047,
+        "center": 317.6873207092285,
+        "width": 43.70521545410156,
+        "ankles": [
+          302.89838790893555,
+          332.2451400756836
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    },
+    {
+      "at_ms": 2803,
+      "geometry": {
+        "arms": [
+          23.185393156854364,
+          19.875786617451176
+        ],
+        "wrist_drop": [
+          0.9740709878945443,
+          0.9760871014484923
+        ],
+        "gap": 34.11277770996094,
+        "center": 316.7527389526367,
+        "width": 44.24488067626953,
+        "ankles": [
+          300.2579116821289,
+          334.37068939208984
+        ],
+        "upright_front": true,
+        "closed": true
+      }
+    }
+  ],
+  "parameter_basis": "上游最低周期0.3秒保留；闭合臂角按本开发片段40°候选，腿距按稳定起点肩宽归一。双臂至少45°变化、腿距至少0.6肩宽、每腿向外至少0.15肩宽是联合运动证据，不是手臂完全举高／腿宽的质量合格线。张开使用同帧联合证据，返回取较大进度并核实手脚都合拢。 开合总数不依赖解剖侧名，双足按画面位置排序；正面肩宽/躯干比例候选下限0.3覆盖本片段最小0.347的投影波动。可靠合拢用独立返回确认窗口，平滑预热不当作断帧；连续下一次复用已确认返回起点。",
+  "evidence_status": "development_input_only_no_independent_ground_truth",
+  "limitations": [
+    "单一人物、正面低机位，尚无独立逐次真值",
+    "原片含其他动作，本输入仅取先核定的首2.9秒；不支持自动混合动作识别",
+    "不由骨架推断精确离地／触地；低采样率缺少阶段时拒判，不补次数"
+  ],
+  "view_observation_policy": "仅moving阶段的一次完整可见几何不确定观测可不推进阶段，清除转向确认与平滑窗口；下一有效观测必须在原maximum_gap_ms内。连续不确定、起点／返回确认、关键点丢失或身份不明仍清除周期，不插值、不补阶段。"
+}

@@ -1,0 +1,80 @@
+{
+  "generator": "Codex built-in image_gen",
+  "brief": "年轻中国成年运动人物插画，目标年龄感20～28岁；虚构人物，非真实用户身份",
+  "use": "注册时随机分配；不提供用户改选内置头像入口",
+  "count": 6,
+  "items": [
+    {
+      "id": "avatar-01",
+      "label": "运动伙伴01",
+      "url": "/static/avatars/avatar-01.png",
+      "path": "fitness_app/static/avatars/avatar-01.png",
+      "bytes": 1862873,
+      "sha256": "ba9ca8e31e8947798565bf7d68491ed2648d162498d5763bf95d07d0e7c71c44",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "avatar-02",
+      "label": "运动伙伴02",
+      "url": "/static/avatars/avatar-02.png",
+      "path": "fitness_app/static/avatars/avatar-02.png",
+      "bytes": 2089828,
+      "sha256": "379270a4f40c5e0140af1a93930bbe6a8ef371625dfa43470a3b8ee61e0ace6e",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "avatar-03",
+      "label": "运动伙伴03",
+      "url": "/static/avatars/avatar-03.png",
+      "path": "fitness_app/static/avatars/avatar-03.png",
+      "bytes": 2112350,
+      "sha256": "f8a29055729fb86ecb7848aca4dea452cfb514f88480117828d959cc515896d1",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "avatar-04",
+      "label": "运动伙伴04",
+      "url": "/static/avatars/avatar-04.png",
+      "path": "fitness_app/static/avatars/avatar-04.png",
+      "bytes": 2241026,
+      "sha256": "4ae3143ab30440f72706379745f65df197f52a247053b55cf7dc3dc41798156e",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "avatar-05",
+      "label": "运动伙伴05",
+      "url": "/static/avatars/avatar-05.png",
+      "path": "fitness_app/static/avatars/avatar-05.png",
+      "bytes": 2288711,
+      "sha256": "efb54b42de10147dea726fba6098317a086afd62f9b8aaf361f16ab155dd24ed",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "avatar-06",
+      "label": "运动伙伴06",
+      "url": "/static/avatars/avatar-06.png",
+      "path": "fitness_app/static/avatars/avatar-06.png",
+      "bytes": 2440070,
+      "sha256": "a2f5d658b372c3cb75b75d478adac6e68b89ffab0713036a0c73f13bdee4c19a",
+      "size": [
+        1254,
+        1254
+      ]
+    }
+  ]
+}

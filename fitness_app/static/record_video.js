@@ -1,0 +1,30 @@
+import {el,privateError} from './record_common.js';
+import {sendVideo,localPlayer,demoAttribution} from './video_source.js';
+import {api} from './app.js';
+import {recordCue,paintCue} from './correction_cue.js';
+
+export function historyVideo(container,sid,isDemo=false,record=null){
+  const video=el('video',undefined,'record-video');video.controls=true;video.preload='metadata';video.playsInline=true;video.hidden=true;video.setAttribute('aria-label','已匹配原视频回看');
+  const source=localPlayer(video),picker=el('input'),select=el('button','重新选择原视频','button secondary'),message=el('p','选择原视频后，可回看问题时段。','muted');
+  let disposed=false,hasSkeleton=false;const retained=el('p','','field-help');
+  picker.type='file';picker.accept='.mp4,video/mp4';picker.hidden=true;select.type='button';select.id='record-source-select';picker.id='record-source-file';
+  const actions=el('div',undefined,'record-video-actions'),label=el('label','显示骨骼关键点'),toggle=el('input');toggle.type='checkbox';toggle.disabled=true;label.prepend(toggle);actions.append(select,label);
+  const videoWrap=el('div',undefined,'video-preview-stage'),cue=el('aside',undefined,'video-correction');cue.hidden=true;const cueTitle=el('strong'),cueText=el('p');cueTitle.dataset.cueTitle='';cueText.dataset.cueText='';cue.append(cueTitle,cueText);videoWrap.append(video,cue);const update=()=>{if(record&&source.has()){const value=recordCue(record,video.currentTime*1000);if(value.state==='unassessable'){cue.hidden=true;return;}paintCue(cue,value);}};video.addEventListener('timeupdate',update);video.addEventListener('loadeddata',update);video.addEventListener('seeked',update);container.append(videoWrap,actions,picker,message,retained);
+  const credit=el('div');if(isDemo)container.append(credit);
+  select.onclick=()=>picker.click();
+  async function loadDemo(){
+    select.disabled=true;message.textContent='正在核对登记演示原片…';
+    try{const data=await api(`/api/v1/records/${sid}/demo-source`);if(disposed)return;demoAttribution(credit,data);source.setRemote(data.video_url);video.hidden=false;message.textContent=''}
+    catch(error){if(!privateError(error)){source.clear();video.hidden=true;message.textContent=error.message||'演示原片暂不可用'}}finally{select.disabled=false}
+  }
+  if(isDemo){select.textContent='重新加载演示原片';select.onclick=loadDemo;video.addEventListener('error',()=>{source.clear();video.hidden=true;message.textContent='演示原片暂时无法播放，请重新加载。'});loadDemo()}
+  picker.onchange=async()=>{
+    const file=picker.files[0];picker.value='';if(!file)return;
+    if(file.size>1024**3){message.textContent='单文件不能超过 1 GiB';return}
+    select.disabled=true;message.textContent='正在匹配原文件内容…';
+    try{await sendVideo(`/api/v1/records/${sid}/source-match`,file);source.set(file);video.hidden=false;message.textContent='原文件匹配成功，可按已保存问题时间回看。';toggle.disabled=!hasSkeleton;video.dispatchEvent(new Event('fitness-source-matched'))}
+    catch(error){if(!privateError(error))message.textContent=error.message||'匹配未确认，请重新选择。'}finally{select.disabled=false}
+  };
+  window.addEventListener('pagehide',()=>{disposed=true;source.clear()},{once:true});
+  return {video,toggle,updateRecord(value){record=value;update();},hasMatched:()=>source.has(),setSkeletonAvailable(value){actions.dataset.skeletonAvailable=String(value);hasSkeleton=value;toggle.disabled=!value||!source.has();retained.textContent=value?'可显示已保存的骨架':'';},seek(milliseconds){if(!source.has()){message.textContent='请先重新选择并匹配原视频，再定位问题。';select.focus();return}video.pause();video.currentTime=milliseconds/1000;video.scrollIntoView({block:'center'})}};
+}

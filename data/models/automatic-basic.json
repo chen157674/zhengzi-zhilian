@@ -1,0 +1,12 @@
+{
+  "version": "automatic-basic-2",
+  "mode": "basic_reference",
+  "enabled": true,
+  "visual_sha256": "936a612c46d1ec4c9a7c5e0a03d2c688091454b7e8a62ac1c34ae79159976c6c",
+  "pose_sha256": "7c1cad24ef5a07f2db9abde3b0388403d3130b7067e18621ad7b6578b995a39e",
+  "backbone_revision": "d15189d7028b43f1d3e65039190477f6af591c2a",
+  "authorization": "User clarified basic means all twelve actions must be automatically classifiable, not reduced category coverage",
+  "acceptance_scope": "all twelve actions: nine-class learned visual/pose models plus temporal geometry patterns for all twelve; no manual-only classes",
+  "formal_validation_passed": false,
+  "motion_version": "twelve-motion-patterns-1"
+}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}{% block page %}home{% endblock %}
+{% block head %}<link rel="stylesheet" href="/static/home_landing.css"><script type="module" src="/static/home_demo.js"></script><script type="module" src="/static/home_landing.js"></script>{% endblock %}
+{% set detail_photo = url_for('static', filename='home/realtime-precision.png') %}
+{% macro arm_marks() -%}
+<g class="detail-pose" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path class="detail-pose-line" d="M 524 330 L 365 431 L 224 431"/>
+<path class="detail-pose-line" d="M 944 331 L 1000 465 L 1083 446"/>
+<g class="detail-pose-joints"><circle cx="524" cy="330" r="10"/><circle cx="365" cy="431" r="10"/><circle cx="224" cy="431" r="10"/><circle cx="944" cy="331" r="10"/><circle cx="1000" cy="465" r="10"/><circle cx="1083" cy="446" r="10"/></g>
+</g>
+{%- endmacro %}
+{% block content %}<div class="home-shell landing-home">
+<section class="home-hero" aria-labelledby="home-title">
+<div class="hero-intro"><h1 id="home-title">看清每个动作，<br>练好下一组。</h1><p>哪里需要调整，直接在画面里告诉你。</p><div class="button-row home-actions"><a class="button home-cta" href="/realtime" data-nav>开始实时分析 <span aria-hidden="true">→</span></a><a class="button secondary home-cta" href="/video" data-nav>分析我的视频</a></div></div>
+{% if demo %}<div id="home-demo" data-video-url="{{ demo.video_url }}" data-track-url="{{ demo.track_url }}" data-source-sha="{{ demo.video.sha256 }}">
+<script type="application/json" id="home-demo-playlist">{{ demo_playlist|tojson }}</script>
+<div class="showcase-player" id="showcase-player"><video id="showcase-video" muted playsinline preload="metadata" {% if demo.poster_url %}poster="{{ demo.poster_url }}"{% endif %} aria-label="{{ demo.title }}内置演示"></video><canvas id="showcase-canvas" aria-hidden="true"></canvas>
+<div class="showcase-badges"><strong>{{ demo.title }} · 内置演示</strong></div>
+<aside id="showcase-feedback" class="demo-feedback" data-state="observing" aria-live="polite" aria-atomic="true"><span class="feedback-mark" aria-hidden="true">·</span><div><strong data-feedback-title>观察中</strong><p data-feedback-instruction hidden></p></div></aside>
+<div class="showcase-tools"><button class="button" type="button" id="showcase-play" hidden>播放演示</button><button class="button" type="button" id="showcase-toggle">播放演示</button><button class="button" type="button" id="showcase-fullscreen" disabled><span aria-hidden="true">⛶</span> 全屏</button></div><button class="button secondary showcase-exit" type="button" id="showcase-exit-fullscreen">退出全屏</button></div>
+<div id="showcase-error" class="showcase-unavailable" role="status" hidden><h2>演示加载失败</h2><button class="button secondary" id="showcase-retry">重新加载</button></div><div class="demo-caption"><a href="/video?demo=1" data-nav>试试这段视频 <span aria-hidden="true">↗</span></a></div><p id="showcase-status" class="sr-only" role="status">正在加载演示</p><span id="showcase-count" hidden></span>
+</div>{% else %}<div class="showcase-unavailable"><h2>演示暂不可用</h2><a class="button" href="/video" data-nav>分析我的视频</a></div>{% endif %}
+</section>
+<section class="home-detail" aria-labelledby="detail-title" data-home-section="detail">
+<div class="home-section-heading home-detail-copy"><h2 id="detail-title">动作里的细节，<br>正在被看见。</h2><p>打开摄像头，姿态提示跟随画面。</p></div>
+<figure class="home-detail-visual">
+<div class="home-detail-scene"><img class="home-detail-photo" src="{{ detail_photo }}" alt="男性坐在蝴蝶机靠背前，双手分别握住两侧手柄" width="1882" height="836" loading="lazy" decoding="async">
+<svg class="home-detail-overlay" viewBox="0 0 1882 836" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{{ arm_marks() }}</svg></div>
+<div class="home-detail-cue"><strong>双臂保持同高</strong></div>
+<div class="home-detail-loupe" aria-hidden="true"><svg viewBox="205 271 320 320"><image href="{{ detail_photo }}" width="1882" height="836"/>{{ arm_marks() }}</svg></div>
+<figcaption class="sr-only">动作提示示例</figcaption>
+</figure>
+<div class="home-detail-bottom"><div class="home-detail-notice"><span class="home-example-mark" aria-hidden="true">!</span><div><strong>动作提示</strong><p>两侧手肘尽量保持同高，平稳完成动作。</p></div></div><a class="home-section-link" href="/realtime" data-nav>实时分析 <span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="home-analysis" aria-labelledby="analysis-title" data-home-section="analysis">
+<div class="home-section-heading home-analysis-heading"><h2 id="analysis-title">把需要调整的那一刻，<br>看清楚。</h2><p>上传视频，对照画面查看姿态反馈。</p></div>
+<div class="home-analysis-stage">
+<figure class="home-analysis-image"><img src="{{ url_for('static',filename='home/analysis-demo.jpg') }}" alt="内置演示的真实画面与对应姿态骨架" width="1280" height="720" loading="lazy" decoding="async"></figure>
+<aside class="home-analysis-feedback" aria-label="动作反馈示例"><h3>动作反馈示例</h3>
+<div class="home-observation"><svg class="home-feedback-diagram" viewBox="0 0 320 150" aria-hidden="true"><path class="feedback-outline" d="M141 14v20l-47 14-29 36-36 15m150-85v20l47 14 28 48 39 15M94 48l11 87m121-87-10 87M105 75q55 14 111 0"/><path class="feedback-centerline" d="M160 16v122"/><path class="feedback-reference" d="M36 82h248"/><path class="feedback-bones" d="M96 49 65 84 30 99M224 49l30 47 39 15"/><circle class="diagram-clear" cx="96" cy="49" r="5"/><circle class="diagram-clear" cx="224" cy="49" r="5"/><circle class="diagram-issue" cx="65" cy="84" r="6"/><circle class="diagram-issue" cx="254" cy="96" r="6"/></svg><p><span class="home-example-mark" aria-hidden="true">!</span>两侧手肘高度不同</p></div>
+<div class="home-advice"><h3>调整建议</h3><p>两侧手肘尽量保持同高，<br>平稳完成动作。</p></div></aside>
+</div><div class="home-analysis-action"><a class="button home-cta" href="/video" data-nav>分析我的视频 <span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="home-closing" aria-labelledby="closing-title" data-home-section="closing">
+<img class="home-closing-photo" src="{{ url_for('static',filename='home/closing-gym.png') }}" alt="" width="2048" height="768" loading="lazy" decoding="async">
+<div class="home-closing-copy"><h2 id="closing-title">现在，练好下一组。</h2><div class="button-row home-actions"><a class="button home-cta" href="/realtime" data-nav>开始实时分析 <span aria-hidden="true">→</span></a><a class="button secondary home-cta" href="/video" data-nav>分析我的视频</a></div></div>
+</section>
+</div>{% endblock %}
+{% block footer %}<a class="home-footer-brand" href="/" data-nav>观动知姿</a><nav aria-label="页脚导航"><a href="/" data-nav>首页</a><a href="/realtime" data-nav>实时分析</a><a href="/video" data-nav>视频分析</a><a href="/records" data-nav>训练记录</a></nav>{% endblock %}

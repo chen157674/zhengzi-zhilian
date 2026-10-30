@@ -1,0 +1,12 @@
+# 可选本地视频模型/训练环境；先按既有 requirements.lock.txt 安装基础应用。
+# RTX5060 Laptop 实测；其他显卡须核对CUDA支持，不把此配置冒充CPU通用包。
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.8.0+cu128
+torchvision==0.23.0+cu128
+transformers==5.20.2
+safetensors==0.8.0
+accelerate==1.15.0
+bitsandbytes==0.50.2
+peft==0.21.2
+num2words==0.5.14
+onnx==1.18.0

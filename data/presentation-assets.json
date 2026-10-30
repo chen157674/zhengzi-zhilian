@@ -1,0 +1,210 @@
+{
+  "active_demo_ids": [
+    "barbell-row"
+  ],
+  "cover_presentation": {
+    "evidence": "data/verification/step-18/covers-ui.json",
+    "height_css_px": 155,
+    "object_fit": "contain",
+    "purpose_notice": "AI生成的动作辨认封面，不用于教学、姿态训练或质量验收"
+  },
+  "covers": {
+    "barbell_bent_over_row": {
+      "bytes": 2157227,
+      "generation_id": "exec-04923217-5e54-420f-a5bb-3d96622c120d",
+      "height": 1024,
+      "path": "fitness_app/static/covers/barbell_bent_over_row.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "b6444ca2cebd78e74d86a3688e48b5c6d9cbfd6877e34598f23254fb9ccb6970",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "barbell_overhead_press": {
+      "bytes": 1996608,
+      "generation_id": "exec-f91ddc45-c42a-48c6-8a2c-96f06b29825b",
+      "height": 1024,
+      "path": "fitness_app/static/covers/barbell_overhead_press.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "c95a7c82ad9c0cd1a06b0d0386f73dae66c554c2ff546d42e7a9861c430be267",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "bent_knee_sit_up": {
+      "bytes": 1975297,
+      "generation_id": "exec-6d27621b-8160-4ecd-8b24-35ebad7eee96",
+      "height": 1024,
+      "path": "fitness_app/static/covers/bent_knee_sit_up.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "e6118e3199fed971641866f0027657795b6395c2c8a6ef2c25ef8b2ab97aa1ee",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "bodyweight_glute_bridge": {
+      "bytes": 1960949,
+      "generation_id": "exec-0894d1e1-380f-44eb-9a24-6ce65df19676",
+      "height": 1024,
+      "path": "fitness_app/static/covers/bodyweight_glute_bridge.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "6d0147bc90759908f43acec3d2ade56e82b68d28b3969b048e63d79cd032165b",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "bodyweight_squat": {
+      "bytes": 1912797,
+      "generation_id": "exec-97d3a498-f245-40b0-a0c4-c90893752c97",
+      "height": 1024,
+      "path": "fitness_app/static/covers/bodyweight_squat.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "0eaad43e057beda967bc989fd99ed94e798d2db12da5b5eec9dc68244b49c795",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "conventional_deadlift": {
+      "bytes": 2142867,
+      "generation_id": "exec-d67a09ea-9294-413e-89b9-fb8c1b8f0fd2",
+      "height": 1024,
+      "path": "fitness_app/static/covers/conventional_deadlift.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "504fe1503bd6bc63b09732ade934ac56f5fd9b1358691811c58973d2aeb6d0b1",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "forearm_plank": {
+      "bytes": 1981643,
+      "generation_id": "exec-b8dce0bc-f10b-4f7b-b030-8d9e38fb8acf",
+      "height": 1024,
+      "path": "fitness_app/static/covers/forearm_plank.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "d46cbc2fb6bc35f93b085f12ff020c237f2eef7636f5d5435d78ee32eab8f75d",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "high_knees": {
+      "bytes": 1799563,
+      "generation_id": "exec-f164859a-17c8-4a5b-b681-f74703e33170",
+      "height": 1024,
+      "path": "fitness_app/static/covers/high_knees.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "9995ecb5a7a7b898d86d1b6eeccfcde52d300c742bf64c7928f98ff5b69f8cc0",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "jumping_jack": {
+      "bytes": 1794334,
+      "generation_id": "exec-f8b40574-07cc-4220-be99-c90b93f36ddd",
+      "height": 1024,
+      "path": "fitness_app/static/covers/jumping_jack.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "772a3431647d46f7d6472472ba672243658ffea88df3bbe972a3bc05a74efe3f",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "reverse_lunge": {
+      "bytes": 1991843,
+      "generation_id": "exec-ca1e94e2-28ec-4157-86a5-ac29879ec7b5",
+      "height": 1024,
+      "path": "fitness_app/static/covers/reverse_lunge.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "bf86fc6c4060a7032ca188c0060427bd7cb068d02b7546dfa977ece6b26e11bb",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "standard_push_up": {
+      "bytes": 1870162,
+      "generation_id": "exec-c2a3de78-27d0-456d-a506-d95992450346",
+      "height": 1024,
+      "path": "fitness_app/static/covers/standard_push_up.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "e2145fff3c9bde9188a8cbb40729dfd08edbb7a12a6c98fe8e8f4a780922cdef",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    },
+    "standing_dumbbell_curl": {
+      "bytes": 2044562,
+      "generation_id": "exec-f52b0d1b-09c6-436c-8970-7f364d79e9ee",
+      "height": 1024,
+      "path": "fitness_app/static/covers/standing_dumbbell_curl.png",
+      "purpose": "navigation_identification_only_not_training_or_quality_ground_truth",
+      "review": "Full body and intended equipment visually reviewed; 1440px browser cards reviewed with object-fit contain, no cropping. AI navigation illustration only.",
+      "sha256": "1a04e31f98b402935ced40013f995cc333123da1cd20708c40b908c58d1de6a1",
+      "source": "Codex built-in image_gen",
+      "width": 1536
+    }
+  },
+  "demos": {
+    "barbell-row": {
+      "action_id": "barbell_bent_over_row",
+      "build_identity": {
+        "development_evidence_sha256": "025b039ce702287f0840b934524767874023d34a9e8cd233befa716728642f1b",
+        "pose_cache_sha256": "4dbc10442ad8aabb30145f33b968f4178e98ef01cb6eb0749a53ee6dfa5e9d03",
+        "script_sha256": "9f9e1c8100013cd25504eded0f231f324cb377f8c62ae3c7d25c04d7af9445e2",
+        "source_sha256": "77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50"
+      },
+      "credit": "Capt. Matthew Holfinger / U.S. Marine Corps Training and Education Command",
+      "frames": 855,
+      "height": 290,
+      "id": "barbell-row",
+      "license": "PUBLIC DOMAIN，遵守DVIDS使用限制",
+      "non_endorsement": "The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement.",
+      "source_url": "https://www.dvidshub.net/video/639914/barbell-bent-over-row",
+      "terms_url": "https://www.dvidshub.net/about/copyright",
+      "title": "杠铃俯身划船",
+      "track": {
+        "bytes": 569811,
+        "path": "fitness_app/static/demo/barbell-row-track.json",
+        "sha256": "651f74d8889cace9ebe1f8fb352e717ca6ed28d2983eb85f711219686810b955"
+      },
+      "use_scope": "Private local app effect preview and analysis demo; no tutorial, advertising, implied endorsement or public redistribution",
+      "video": {
+        "bytes": 1055521,
+        "path": "data/datasets/development-movements/barbell-row-dvids-639914-side.mp4",
+        "sha256": "77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50"
+      },
+      "width": 516
+    }
+  },
+  "home_demo_id": "barbell-row",
+  "home_demo_ids": [
+    "barbell-row"
+  ],
+  "schema_version": 1,
+  "voice": {
+    "cooldown_ms": 5000,
+    "max_audio_bytes": 10485760,
+    "max_audio_ms": 15000,
+    "max_event_age_ms": 1000,
+    "prompts": {
+      "tracking.waiting": {
+        "audio_review": null,
+        "kind": "state",
+        "priority": 30,
+        "text": "取景需要重新确认，请调整位置。"
+      },
+      "training.resting": {
+        "audio_review": null,
+        "kind": "state",
+        "priority": 20,
+        "text": "本组结束，请休息。"
+      },
+      "training.started": {
+        "audio_review": null,
+        "kind": "state",
+        "priority": 10,
+        "text": "开始分析。"
+      }
+    },
+    "schema_version": 1,
+    "static_confirm_ms": 1000
+  }
+}

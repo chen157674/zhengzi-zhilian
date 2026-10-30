@@ -1,0 +1,1 @@
+{"dimensions":112,"input":[1,32,39],"joints":[0,11,12,13,14,15,16,23,24,25,26,27,28],"maximum_conversion_error":3.4570693969726562e-06,"path":"data/models/skelgym/world-features.onnx","sha256":"74c1fead03af65c52e260a7e6b8067bf5979d8aadf3bb63d761c7bfa5d1b264f","source":"SkelGym MIT fixed world checkpoint and exact train-only normalization"}

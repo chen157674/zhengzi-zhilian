@@ -1,0 +1,3411 @@
+{
+  "schema_version": 1,
+  "signature": "91535e33e3117b350a150c4299ec0d2d13f286b31a7d3a678b4f807a4c7932c9",
+  "version": "gym-linear-1-91535e33e311",
+  "sha256": "25a4503236c7adffa6ff6336e0e3b44f6b53bf7806219862df31622c464f333b",
+  "config": {
+    "C": 0.3,
+    "class_weight": "balanced",
+    "max_iter": 2000,
+    "seed": 20261022,
+    "minimum_score": 0.7,
+    "minimum_margin": 0.2
+  },
+  "actions": [
+    "barbell_bench_press",
+    "barbell_bent_over_row",
+    "barbell_overhead_press",
+    "bodyweight_squat",
+    "conventional_deadlift",
+    "dumbbell_bench_press",
+    "dumbbell_shoulder_press",
+    "forearm_plank",
+    "incline_dumbbell_press",
+    "jumping_jack",
+    "machine_chest_press",
+    "pec_deck_fly",
+    "reverse_lunge",
+    "reverse_pec_deck_fly",
+    "standard_push_up",
+    "standing_dumbbell_curl"
+  ],
+  "new_actions": [
+    "barbell_bench_press",
+    "dumbbell_bench_press",
+    "incline_dumbbell_press",
+    "dumbbell_shoulder_press",
+    "pec_deck_fly",
+    "reverse_pec_deck_fly",
+    "machine_chest_press"
+  ],
+  "training_frames": 2737,
+  "sources": [
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:0240235c9f4de6b2c9bb14dcc7f43e427404ce780e8ed3fd30dad733baf3ea7f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_002_squat_bad_side.mp4",
+      "sha256": "0240235c9f4de6b2c9bb14dcc7f43e427404ce780e8ed3fd30dad733baf3ea7f",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:0247554bfe5acf3221808c4fd0711a692e5780c50b760fe57cb2802dfaacfd96",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_023_bicep_curl_bad_diagonal.mp4",
+      "sha256": "0247554bfe5acf3221808c4fd0711a692e5780c50b760fe57cb2802dfaacfd96",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:02ece460401485d4cc61044c1195a9f8f5a4be3e905ff5e9ad9d0a5886eb3b4a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_022_push_up_good_side.mp4",
+      "sha256": "02ece460401485d4cc61044c1195a9f8f5a4be3e905ff5e9ad9d0a5886eb3b4a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:03a1755b02f417f82c72dee9619015d5e5a80a00be0697d6751d3a9e4f65652f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_007_bicep_curl_good_side.mp4",
+      "sha256": "03a1755b02f417f82c72dee9619015d5e5a80a00be0697d6751d3a9e4f65652f",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:055ec2601cab5aa85db98dd6fe03d5acb4a0d7ef04744bcdc72b254f6e950f76",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_001_bicep_curl_good_side.mp4",
+      "sha256": "055ec2601cab5aa85db98dd6fe03d5acb4a0d7ef04744bcdc72b254f6e950f76",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:0608d0fe6727c91903ec89439b91697b7e9846b5aa3b5fa230f9883c56f8d9d6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_015_bicep_curl_good_front.mp4",
+      "sha256": "0608d0fe6727c91903ec89439b91697b7e9846b5aa3b5fa230f9883c56f8d9d6",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:06d7eea19599aacef66fd50da985d10074e42fc87b70bf135993f66f682c0ce5",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_001_squat_bad_side.mp4",
+      "sha256": "06d7eea19599aacef66fd50da985d10074e42fc87b70bf135993f66f682c0ce5",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:07e0e7b2fccde0dab5824fb74143c0e8a5ab47543049ad78265ddbddabc7b793",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_009_push_up_good_diagonal.mp4",
+      "sha256": "07e0e7b2fccde0dab5824fb74143c0e8a5ab47543049ad78265ddbddabc7b793",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:086ae1452ffb6c4f3ec806aa49cf96290974621e1b5cdf76f2dfda8f62df861c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_024_squat_good_front.mp4",
+      "sha256": "086ae1452ffb6c4f3ec806aa49cf96290974621e1b5cdf76f2dfda8f62df861c",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:0897c1ac94ac874768dde4cb032d09f2b87c2b1f0f28684e94053d0243cfd3e7",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_026_squat_good_front.mp4",
+      "sha256": "0897c1ac94ac874768dde4cb032d09f2b87c2b1f0f28684e94053d0243cfd3e7",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:0aa73943e51bc1613762f980b4a4e476a1af8d37cdb84da07267185ce3cb59a0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_015_bicep_curl_bad_diagonal.mp4",
+      "sha256": "0aa73943e51bc1613762f980b4a4e476a1af8d37cdb84da07267185ce3cb59a0",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:0b0a7e72fe6371fb32bb4b09903c7aa41f0baa4596548782d10e82f085f81fcb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_023_bicep_curl_good_diagonal.mp4",
+      "sha256": "0b0a7e72fe6371fb32bb4b09903c7aa41f0baa4596548782d10e82f085f81fcb",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:0b47dfdb3278529a385bb70c24fd465d88d59c606f88d9d06d8e128c3f4670b9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_011_push_up_good_side.mp4",
+      "sha256": "0b47dfdb3278529a385bb70c24fd465d88d59c606f88d9d06d8e128c3f4670b9",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:0cefce8251e9b78cf369a9068fa394b2dc5c2da4944cab9566209b467772a57c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_014_squat_bad_front.mp4",
+      "sha256": "0cefce8251e9b78cf369a9068fa394b2dc5c2da4944cab9566209b467772a57c",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:0d35b0cb7446f2193752628ea4ce3a5d9fb8b5c771fda67222441924aa50824e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_015_squat_good_diagonal.mp4",
+      "sha256": "0d35b0cb7446f2193752628ea4ce3a5d9fb8b5c771fda67222441924aa50824e",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:0d931eb16e771e0a104de1dffa82c4a124ee2202911181ce26cd0d691290968f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_006_bicep_curl_bad_side.mp4",
+      "sha256": "0d931eb16e771e0a104de1dffa82c4a124ee2202911181ce26cd0d691290968f",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:0fb657929951f5cba2da4b38e0778da05834036a06893e080062b469c0465226",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_013_push_up_bad_front.mp4",
+      "sha256": "0fb657929951f5cba2da4b38e0778da05834036a06893e080062b469c0465226",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:0fc3513447d320b4542752a038dc45eb0acaca3e1ff017ac1c9ceaacfb9f85a1",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_014_push_up_bad_diagonal.mp4",
+      "sha256": "0fc3513447d320b4542752a038dc45eb0acaca3e1ff017ac1c9ceaacfb9f85a1",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:10002fa30e205383ef9a47abbf6de0904b7add51e9d9fda4dcc4f64cba700f15",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_015_push_up_good_side.mp4",
+      "sha256": "10002fa30e205383ef9a47abbf6de0904b7add51e9d9fda4dcc4f64cba700f15",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:117d2f87d7fb9440bae0ca5af464b8f61b1f2d424c1b6a7181e20521339c22f0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_007_squat_good_diagonal.mp4",
+      "sha256": "117d2f87d7fb9440bae0ca5af464b8f61b1f2d424c1b6a7181e20521339c22f0",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:129ce457add43a26860ed55026fa17572ac554807a2227a42b0bd4f06b017d3a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_007_squat_good_side.mp4",
+      "sha256": "129ce457add43a26860ed55026fa17572ac554807a2227a42b0bd4f06b017d3a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:139274409173923a330ebb3a5104f7bee2fcea1faa46c50b52e28c67cf7d73e6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_009_push_up_good_side.mp4",
+      "sha256": "139274409173923a330ebb3a5104f7bee2fcea1faa46c50b52e28c67cf7d73e6",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:14287e1a02839694d229d8b22c96ccd82bfad5437283abd3429f68dff9221a6b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_013_squat_bad_front.mp4",
+      "sha256": "14287e1a02839694d229d8b22c96ccd82bfad5437283abd3429f68dff9221a6b",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:163ccb20fe04097cc913d0c8ec0754ec169bf21ad712797abe287741f8121fff",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_022_squat_bad_front.mp4",
+      "sha256": "163ccb20fe04097cc913d0c8ec0754ec169bf21ad712797abe287741f8121fff",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:167de884cf73844ad194b235092c74b552f9927938a17d5a2c625ed2697732c4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_014_squat_bad_side.mp4",
+      "sha256": "167de884cf73844ad194b235092c74b552f9927938a17d5a2c625ed2697732c4",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:16c14fe54055682bcb45751bc09aafc1bfaa90377efd0671b628d21e7f594c8a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_015_squat_bad_side.mp4",
+      "sha256": "16c14fe54055682bcb45751bc09aafc1bfaa90377efd0671b628d21e7f594c8a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:1731e584244ddeebabb56b22cc35d8fc17a1b439aa48342ca442cb59e26955d5",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_006_squat_bad_diagonal.mp4",
+      "sha256": "1731e584244ddeebabb56b22cc35d8fc17a1b439aa48342ca442cb59e26955d5",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:17c86c51e92d9c9b237b7cb8438dcb377f843df817af614d17e2f5fc067b2dcb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_009_squat_bad_diagonal.mp4",
+      "sha256": "17c86c51e92d9c9b237b7cb8438dcb377f843df817af614d17e2f5fc067b2dcb",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:17c8a529ff4f308fb5908ccdc69dcde2253f8e2aa6fd96c73c2f7ddde389155c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_005_bicep_curl_good_front.mp4",
+      "sha256": "17c8a529ff4f308fb5908ccdc69dcde2253f8e2aa6fd96c73c2f7ddde389155c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:186ac69a7387dc48b9943d7991cf7491cc6d3989610307637d64287dd9c2dc74",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_005_push_up_bad_front.mp4",
+      "sha256": "186ac69a7387dc48b9943d7991cf7491cc6d3989610307637d64287dd9c2dc74",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:186b972e077b5a4ea741d0be86bccb2829974ee8ad2b7da8000e1a1cf7cad07a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_014_bicep_curl_bad_diagonal.mp4",
+      "sha256": "186b972e077b5a4ea741d0be86bccb2829974ee8ad2b7da8000e1a1cf7cad07a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:1886686b4bea18c1a3f80dfef8c4bdab93c7d2895809458206d771d9f4b9613c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_022_push_up_good_front.mp4",
+      "sha256": "1886686b4bea18c1a3f80dfef8c4bdab93c7d2895809458206d771d9f4b9613c",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:1afd6eb54373673af55d010965642e7cc6bf6ba0e9512c0469724a1ecff0a086",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_026_bicep_curl_bad_diagonal.mp4",
+      "sha256": "1afd6eb54373673af55d010965642e7cc6bf6ba0e9512c0469724a1ecff0a086",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:1b039fcaabb2a8fd2e2dca934b0ac69a54e2a0936b869c1f8e9224f04e9b1733",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_013_squat_good_diagonal.mp4",
+      "sha256": "1b039fcaabb2a8fd2e2dca934b0ac69a54e2a0936b869c1f8e9224f04e9b1733",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:1c56453d5d9797f549ed385aeea780d58d92e4d9b3f1e9d0a2951f87d2df3b56",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_010_push_up_bad_diagonal.mp4",
+      "sha256": "1c56453d5d9797f549ed385aeea780d58d92e4d9b3f1e9d0a2951f87d2df3b56",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:1c911138bda87d2e08e07718a7b5af4564f514317727de00988f344aaacfd39d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_013_push_up_bad_side.mp4",
+      "sha256": "1c911138bda87d2e08e07718a7b5af4564f514317727de00988f344aaacfd39d",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:1cfc24f998cecfb61ab497d0ba0ad46f1b69ca2a245465de6ed6c27f1c592616",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_014_squat_good_diagonal.mp4",
+      "sha256": "1cfc24f998cecfb61ab497d0ba0ad46f1b69ca2a245465de6ed6c27f1c592616",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:1d3d1c8401e95e591bde38e5d3e5b36ab45ff17fb13d18add7221dab7cd79445",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_022_squat_good_front.mp4",
+      "sha256": "1d3d1c8401e95e591bde38e5d3e5b36ab45ff17fb13d18add7221dab7cd79445",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:1e1e68810d6a137945569acb1e2de371187a9c0de759af0525eb5816ea525d3c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_013_bicep_curl_bad_front.mp4",
+      "sha256": "1e1e68810d6a137945569acb1e2de371187a9c0de759af0525eb5816ea525d3c",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:1fec5dc06db94fc462c0e7c2b19ef5052582900c949c564d4f9728e46188a4f4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_020_squat_bad_diagonal.mp4",
+      "sha256": "1fec5dc06db94fc462c0e7c2b19ef5052582900c949c564d4f9728e46188a4f4",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:20cd1040aa737b9c4291e8872b29ae4566da9ce6db7a8ba79f64f737842cd50c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_021_bicep_curl_good_diagonal.mp4",
+      "sha256": "20cd1040aa737b9c4291e8872b29ae4566da9ce6db7a8ba79f64f737842cd50c",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:217037a198d70554ed78a9b6b85e328f334a950b3d34cb28ff06de277341e618",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_001_bicep_curl_bad_diagonal.mp4",
+      "sha256": "217037a198d70554ed78a9b6b85e328f334a950b3d34cb28ff06de277341e618",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:21e8efcf045970627ea63386037942df1e4d116a0c66def0ce4e645c262a0d76",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_021_bicep_curl_good_front.mp4",
+      "sha256": "21e8efcf045970627ea63386037942df1e4d116a0c66def0ce4e645c262a0d76",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:23f1cc1eb4c4918ff0d540f04ad2c072f8ba2ac916a64c11f8677188dd6de52c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_020_squat_good_diagonal.mp4",
+      "sha256": "23f1cc1eb4c4918ff0d540f04ad2c072f8ba2ac916a64c11f8677188dd6de52c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:242aac3246efc41d34346e42bf50f016c7950b7aa901ccfca00e1fffb6cab546",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_001_push_up_good_front.mp4",
+      "sha256": "242aac3246efc41d34346e42bf50f016c7950b7aa901ccfca00e1fffb6cab546",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:26dc876907f5ce7aa3c28e1d1b62eccbcec0c020f7e10d4c132e5f70120f7db0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_022_squat_good_diagonal.mp4",
+      "sha256": "26dc876907f5ce7aa3c28e1d1b62eccbcec0c020f7e10d4c132e5f70120f7db0",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:294d522b716da1747f24978709ef74025f2a096ff40dbc2d6fa17518e9405ad4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_006_squat_good_front.mp4",
+      "sha256": "294d522b716da1747f24978709ef74025f2a096ff40dbc2d6fa17518e9405ad4",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:29f626f7f75564e30a53d67378707b63a74f8dc01b64fa5c08acb3d4e7d43cad",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_022_push_up_good_diagonal.mp4",
+      "sha256": "29f626f7f75564e30a53d67378707b63a74f8dc01b64fa5c08acb3d4e7d43cad",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:2a7f5ce084fe9f37801eab1f6fb6fd9f425cf6316d6686232d8e4d51a0dc9f41",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_001_bicep_curl_good_front.mp4",
+      "sha256": "2a7f5ce084fe9f37801eab1f6fb6fd9f425cf6316d6686232d8e4d51a0dc9f41",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:2c0a8f04e30baaa760f6c1860048e7cbe455c490f798557be8b3cddb574a51be",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_011_push_up_bad_side.mp4",
+      "sha256": "2c0a8f04e30baaa760f6c1860048e7cbe455c490f798557be8b3cddb574a51be",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:2dfd782abb816e03e5c82af3e50867c0135cc42399b23110c0ab4151dda54af2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_006_bicep_curl_good_side.mp4",
+      "sha256": "2dfd782abb816e03e5c82af3e50867c0135cc42399b23110c0ab4151dda54af2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:2f8547859168f88e79c9dda8cc610b1dfcb6ff7ace3b41899e03ade03cd192f0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_023_squat_good_diagonal.mp4",
+      "sha256": "2f8547859168f88e79c9dda8cc610b1dfcb6ff7ace3b41899e03ade03cd192f0",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:302255a02d86645ea7678499571050887ed364bd6ac8625698c75b284814da68",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_022_push_up_bad_front.mp4",
+      "sha256": "302255a02d86645ea7678499571050887ed364bd6ac8625698c75b284814da68",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:30b29f83f8da6a82b7fefa4ff7ed204d41d3c8cff2e7aff6e056693175d0b0e8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_015_bicep_curl_bad_front.mp4",
+      "sha256": "30b29f83f8da6a82b7fefa4ff7ed204d41d3c8cff2e7aff6e056693175d0b0e8",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:30d8d5523669695229e16a99d678e4968267756dbf939899f950ee0036f8d109",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_024_squat_bad_side.mp4",
+      "sha256": "30d8d5523669695229e16a99d678e4968267756dbf939899f950ee0036f8d109",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:311ef3d6c35c38d4fbadb64bb18ded50402a4089b73cc2ad571d9bf68d1765ba",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_005_push_up_good_diagonal.mp4",
+      "sha256": "311ef3d6c35c38d4fbadb64bb18ded50402a4089b73cc2ad571d9bf68d1765ba",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:3123014ee0efb7290719e5617fe0612be0fd8b0a10912ef09acd4877a58a0320",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_022_bicep_curl_bad_front.mp4",
+      "sha256": "3123014ee0efb7290719e5617fe0612be0fd8b0a10912ef09acd4877a58a0320",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:31b315804c0615effea7aa067bc5004d75f3062a5c02ab8dcea2bf7e52cfe0fa",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_022_bicep_curl_good_diagonal.mp4",
+      "sha256": "31b315804c0615effea7aa067bc5004d75f3062a5c02ab8dcea2bf7e52cfe0fa",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:31b9708b833dfbdbf5530eb1537a96058dc515ce3385b1d041e896750be7f5ab",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_006_push_up_bad_side.mp4",
+      "sha256": "31b9708b833dfbdbf5530eb1537a96058dc515ce3385b1d041e896750be7f5ab",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:3204e3ffa5c70e315f9d7afadcef4f403181384da2a53f5c03eb4427822bbbfd",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_014_push_up_bad_side.mp4",
+      "sha256": "3204e3ffa5c70e315f9d7afadcef4f403181384da2a53f5c03eb4427822bbbfd",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:323aa8dbc6d8b3729d0e3d2fb39b747dfb57d836879b69c3b1c422227978eea9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_010_push_up_bad_front.mp4",
+      "sha256": "323aa8dbc6d8b3729d0e3d2fb39b747dfb57d836879b69c3b1c422227978eea9",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:325cb3c2216989e3338d604f8d66572350d9154a502bd8d810ccf88c7c5c27ef",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_010_bicep_curl_good_side.mp4",
+      "sha256": "325cb3c2216989e3338d604f8d66572350d9154a502bd8d810ccf88c7c5c27ef",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:34593fa9d765f07ff759471b6b102a2850ab69a3a87c423f97c451de05a24194",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_007_squat_good_front.mp4",
+      "sha256": "34593fa9d765f07ff759471b6b102a2850ab69a3a87c423f97c451de05a24194",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:352bd66ca939e8f54ca202c9dbe227881357dd6149c7db76a439f6dd65171688",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_011_squat_bad_side.mp4",
+      "sha256": "352bd66ca939e8f54ca202c9dbe227881357dd6149c7db76a439f6dd65171688",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:362d76050326dc3903f096dfad14d97b814c9c33675c4cea943fbb061b54351f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_013_squat_bad_side.mp4",
+      "sha256": "362d76050326dc3903f096dfad14d97b814c9c33675c4cea943fbb061b54351f",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:39c2972e0efefa32573cf3fcc4040dbb27a6a6a0fce3d1a0e68905a038bcc75b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_006_push_up_bad_diagonal.mp4",
+      "sha256": "39c2972e0efefa32573cf3fcc4040dbb27a6a6a0fce3d1a0e68905a038bcc75b",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:3ad4caab2f0ab10480f9e772d9cb8070d47479e773d8bd3a2ae29d27858a235f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_009_push_up_bad_side.mp4",
+      "sha256": "3ad4caab2f0ab10480f9e772d9cb8070d47479e773d8bd3a2ae29d27858a235f",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:3b902d24d044925d32da94613c28cd8d95151baeb0a876d336c3d6bd333be471",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_011_push_up_good_front.mp4",
+      "sha256": "3b902d24d044925d32da94613c28cd8d95151baeb0a876d336c3d6bd333be471",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:3bcf6840998d720771a83e7c3a6a30404e8009afced153519481da04dbcfa65e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_011_squat_good_front.mp4",
+      "sha256": "3bcf6840998d720771a83e7c3a6a30404e8009afced153519481da04dbcfa65e",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:3be535d10a5ce3a10121c15c21757fd448fecdd7d5cdcc99067cfd1d1dbcced2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_021_push_up_bad_side.mp4",
+      "sha256": "3be535d10a5ce3a10121c15c21757fd448fecdd7d5cdcc99067cfd1d1dbcced2",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:3d8c47c8696236428e85b692ae0c175949012c52e246816d6f9469719099facc",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_020_push_up_good_side.mp4",
+      "sha256": "3d8c47c8696236428e85b692ae0c175949012c52e246816d6f9469719099facc",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:3dd5184181200fb9fffe02744f15c146427c4c54531f4946168a12e2f7a97b64",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_020_push_up_good_diagonal.mp4",
+      "sha256": "3dd5184181200fb9fffe02744f15c146427c4c54531f4946168a12e2f7a97b64",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:404637b6539b6478b4fc0c247b57088228a614f86c4c610b8db224a9f743b682",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_024_push_up_bad_front.mp4",
+      "sha256": "404637b6539b6478b4fc0c247b57088228a614f86c4c610b8db224a9f743b682",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:40e48f50af294ff2cdf011dda77b86570632effc2023a22b55edcc4a1f410b07",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_014_bicep_curl_bad_side.mp4",
+      "sha256": "40e48f50af294ff2cdf011dda77b86570632effc2023a22b55edcc4a1f410b07",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:411f807271ae6932204fdc5f778a1f10943b4cd794569fe897f862e33b0ca1fb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_022_bicep_curl_bad_diagonal.mp4",
+      "sha256": "411f807271ae6932204fdc5f778a1f10943b4cd794569fe897f862e33b0ca1fb",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:4266264daa2ca4513f2ddb27c56af92c176916c3a147a12b4367a14a90983b9a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_005_push_up_bad_diagonal.mp4",
+      "sha256": "4266264daa2ca4513f2ddb27c56af92c176916c3a147a12b4367a14a90983b9a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:427937531cced6e4c0ccb00495962c35641a962853ab8f070398fb290722fd04",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_001_push_up_bad_front.mp4",
+      "sha256": "427937531cced6e4c0ccb00495962c35641a962853ab8f070398fb290722fd04",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:43ec3ef96212655fb05d97764d47ce7e15723445a04098af579ed2cc82960f3f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_021_squat_good_diagonal.mp4",
+      "sha256": "43ec3ef96212655fb05d97764d47ce7e15723445a04098af579ed2cc82960f3f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:44ff1ddfce1f197b67a4cf3434fefb7f1ef695269e00725021c70299676978a0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_001_squat_good_side.mp4",
+      "sha256": "44ff1ddfce1f197b67a4cf3434fefb7f1ef695269e00725021c70299676978a0",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:4518292688d96cd8ef08e680b8c71772668001f37941425aeddf3dd98df673fc",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_002_push_up_bad_diagonal.mp4",
+      "sha256": "4518292688d96cd8ef08e680b8c71772668001f37941425aeddf3dd98df673fc",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:46319e34e5c1c0e02e0db9e34fb4a1ef8611a15851dd6c9fc72fb9a2b235399e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_014_push_up_good_front.mp4",
+      "sha256": "46319e34e5c1c0e02e0db9e34fb4a1ef8611a15851dd6c9fc72fb9a2b235399e",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:479252bb8efd7d6b64c8842efd4a115f3161de701124a21c187794e7ab8c604d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_011_squat_good_diagonal.mp4",
+      "sha256": "479252bb8efd7d6b64c8842efd4a115f3161de701124a21c187794e7ab8c604d",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:49ebba2e10ceb7b89e6d6ec1a806a51a9a37e0deb896c8d2ad440c06081c23b9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_021_squat_bad_front.mp4",
+      "sha256": "49ebba2e10ceb7b89e6d6ec1a806a51a9a37e0deb896c8d2ad440c06081c23b9",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:4a44c5824dc42234856602ad5041d934ec2525a5487345b020303e0b0a36a3a6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_015_squat_good_front.mp4",
+      "sha256": "4a44c5824dc42234856602ad5041d934ec2525a5487345b020303e0b0a36a3a6",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:4b9c40e6fc53085efbbf96f12343c93a18cdf1fb0635659a78107840d176c4ea",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_005_squat_bad_front.mp4",
+      "sha256": "4b9c40e6fc53085efbbf96f12343c93a18cdf1fb0635659a78107840d176c4ea",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:4cc809731aa09d89515b565ca635255839ba967151e9dccca506d40348cfa2ab",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_021_push_up_good_side.mp4",
+      "sha256": "4cc809731aa09d89515b565ca635255839ba967151e9dccca506d40348cfa2ab",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:4cf27caccfd0ee38980d11b1c33736541f7c434a125336fc42f3bb4500f5c71b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_013_bicep_curl_good_side.mp4",
+      "sha256": "4cf27caccfd0ee38980d11b1c33736541f7c434a125336fc42f3bb4500f5c71b",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:4d561a4bbcba809c21d1c1521c1766bd6f1e5bec8497cf7fa60e23926c5966b1",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_013_squat_good_front.mp4",
+      "sha256": "4d561a4bbcba809c21d1c1521c1766bd6f1e5bec8497cf7fa60e23926c5966b1",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:4d6a7f16053ee449766fc6bcfa1e43cf3ae514a8b79abc5b227b8139789ef6c8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_005_bicep_curl_bad_side.mp4",
+      "sha256": "4d6a7f16053ee449766fc6bcfa1e43cf3ae514a8b79abc5b227b8139789ef6c8",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:4fc1edba08d7ca60af0116059ce9aefdffc825c0c7c84011703931bd07416dbe",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_010_push_up_good_diagonal.mp4",
+      "sha256": "4fc1edba08d7ca60af0116059ce9aefdffc825c0c7c84011703931bd07416dbe",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:5050271ef1546d3b332e668323fa85dda053bbe257b5a419fee1e0fcc122f94a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_011_bicep_curl_bad_front.mp4",
+      "sha256": "5050271ef1546d3b332e668323fa85dda053bbe257b5a419fee1e0fcc122f94a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:50d6559c935e16f88d94f39eccd8249e8f8461d4450868dceb560a6332f0792d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_013_squat_good_side.mp4",
+      "sha256": "50d6559c935e16f88d94f39eccd8249e8f8461d4450868dceb560a6332f0792d",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:51b8d03a7d566edc629151a497504a09f553f225f7def1b8e93d8f7e3e06c384",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_026_bicep_curl_good_diagonal.mp4",
+      "sha256": "51b8d03a7d566edc629151a497504a09f553f225f7def1b8e93d8f7e3e06c384",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:53c172fdb31bea40b239cdaab743853e70a428ae84659ab8474744ed21be773f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_009_squat_good_side.mp4",
+      "sha256": "53c172fdb31bea40b239cdaab743853e70a428ae84659ab8474744ed21be773f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:53e50d31dacdfd690b64c5f9120619b5482dc4fc3340aa9d0a70d0b2d47aac3f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_020_squat_bad_side.mp4",
+      "sha256": "53e50d31dacdfd690b64c5f9120619b5482dc4fc3340aa9d0a70d0b2d47aac3f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:589f2c5516651f36be4aa6efe3272e870cc94ed76a52085a575f9393a49e7960",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_011_squat_bad_front.mp4",
+      "sha256": "589f2c5516651f36be4aa6efe3272e870cc94ed76a52085a575f9393a49e7960",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:594ac3b1ce9be86e56439f9be5b7c08ca0379abe71b70196696d85ca830dfbfa",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_009_bicep_curl_good_front.mp4",
+      "sha256": "594ac3b1ce9be86e56439f9be5b7c08ca0379abe71b70196696d85ca830dfbfa",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:5ac5cf18087b9f9ccbd604d0e06dfb4e17bbbece11fb34d4f6df05e9511d0c48",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_021_squat_good_front.mp4",
+      "sha256": "5ac5cf18087b9f9ccbd604d0e06dfb4e17bbbece11fb34d4f6df05e9511d0c48",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:5b1d2fdf57228bbeb1ebd4b9897437624dbd8c4a08cdc424d1923f954c169654",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_020_bicep_curl_bad_diagonal.mp4",
+      "sha256": "5b1d2fdf57228bbeb1ebd4b9897437624dbd8c4a08cdc424d1923f954c169654",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:5be9be14e4cbc2e8f7a3d5b2e27d662c040c3faa06ba4a7f0910589b9a567c66",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_010_push_up_good_front.mp4",
+      "sha256": "5be9be14e4cbc2e8f7a3d5b2e27d662c040c3faa06ba4a7f0910589b9a567c66",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:5c3a4225b99c3898fa5ea8a52b3e76c8bc8ed6ea16f303762b9c948fc7e19f67",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_014_squat_good_front.mp4",
+      "sha256": "5c3a4225b99c3898fa5ea8a52b3e76c8bc8ed6ea16f303762b9c948fc7e19f67",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:60d591a8b25617f28c143f379c10d3032ed809ff4f20321d7f7d788ecfb7a693",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_001_push_up_good_diagonal.mp4",
+      "sha256": "60d591a8b25617f28c143f379c10d3032ed809ff4f20321d7f7d788ecfb7a693",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:61cf9fca299574fae90a961f1b919afa799374bbfbba52c23ba6a7fbca7084e2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_022_squat_bad_side.mp4",
+      "sha256": "61cf9fca299574fae90a961f1b919afa799374bbfbba52c23ba6a7fbca7084e2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:62d4c84c1b61e1456a576a8bff3ac7caccf08a5ca9b01a6c467a0cfd8afb1bc8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_002_squat_good_side.mp4",
+      "sha256": "62d4c84c1b61e1456a576a8bff3ac7caccf08a5ca9b01a6c467a0cfd8afb1bc8",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:633a49fa654ed52285f3ecf02a2fa9d6e4bed6d988ac6cb139284773ab41c7c3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_020_bicep_curl_bad_side.mp4",
+      "sha256": "633a49fa654ed52285f3ecf02a2fa9d6e4bed6d988ac6cb139284773ab41c7c3",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:648a7ab53d0d8c7a61d7d46347d030f5385f2e4b3836b925df21c24b3d2fa8a8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_013_squat_bad_diagonal.mp4",
+      "sha256": "648a7ab53d0d8c7a61d7d46347d030f5385f2e4b3836b925df21c24b3d2fa8a8",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:64bf11cf3b496d0dc0f5e9b97787be3fd552e26d028ffd5e14ec8a58512ddfb9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_026_squat_good_diagonal.mp4",
+      "sha256": "64bf11cf3b496d0dc0f5e9b97787be3fd552e26d028ffd5e14ec8a58512ddfb9",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:64db056d0b6c249d875e0934c06327599faaf85ddbf9b146222560fa7e4a0958",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_024_squat_good_diagonal.mp4",
+      "sha256": "64db056d0b6c249d875e0934c06327599faaf85ddbf9b146222560fa7e4a0958",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:64ec9b1c9711a17db1c9441054b16bb09efa8cbd5180723ed7112dff2fb3a968",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_005_squat_good_front.mp4",
+      "sha256": "64ec9b1c9711a17db1c9441054b16bb09efa8cbd5180723ed7112dff2fb3a968",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:6674142b268012c35322c64da894f5f6f6b4f2bfa8d3ed3351a492ad1b6c88a4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_013_push_up_bad_diagonal.mp4",
+      "sha256": "6674142b268012c35322c64da894f5f6f6b4f2bfa8d3ed3351a492ad1b6c88a4",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:682853667e337f8311793128633437edac02d6ddda9d890ea520643b325c1c17",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_006_bicep_curl_good_diagonal.mp4",
+      "sha256": "682853667e337f8311793128633437edac02d6ddda9d890ea520643b325c1c17",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:692e6ee0f30eb76b6ce073e7e2355a6b096c4f9e1c85699ba388976891638a77",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_014_push_up_good_side.mp4",
+      "sha256": "692e6ee0f30eb76b6ce073e7e2355a6b096c4f9e1c85699ba388976891638a77",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:69e3947fe1c406808a9ea6a935714aaedad7ecbfe623ad72bf4f9c58ae2c2b1d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_005_bicep_curl_bad_diagonal.mp4",
+      "sha256": "69e3947fe1c406808a9ea6a935714aaedad7ecbfe623ad72bf4f9c58ae2c2b1d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:6b15b5def051b84e6e21b17cc3c2ad1202a3e0c4cc67caea442db4a42b1238db",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_001_push_up_bad_side.mp4",
+      "sha256": "6b15b5def051b84e6e21b17cc3c2ad1202a3e0c4cc67caea442db4a42b1238db",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:6e27b0990225d5f99bd9222babaa6d208bb212ddf5755fd2896e4c515f97cf2a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_020_push_up_bad_front.mp4",
+      "sha256": "6e27b0990225d5f99bd9222babaa6d208bb212ddf5755fd2896e4c515f97cf2a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:6e45d2ae025d272463fb25f79c6778ade91595425d908ce552eff47363a2950d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_022_bicep_curl_good_side.mp4",
+      "sha256": "6e45d2ae025d272463fb25f79c6778ade91595425d908ce552eff47363a2950d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:6ecdc9f0671142b54609c6f0ca80dbf6906dcaef633505805eccda2b6cf2d29d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_023_push_up_good_side.mp4",
+      "sha256": "6ecdc9f0671142b54609c6f0ca80dbf6906dcaef633505805eccda2b6cf2d29d",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:6ff517cce41c05a2430908d60439bef04b3c0a4b348f1405b49bb64f56ea5af1",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_015_squat_bad_diagonal.mp4",
+      "sha256": "6ff517cce41c05a2430908d60439bef04b3c0a4b348f1405b49bb64f56ea5af1",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:71600d8f1dc7f8066c80d03d0aa6d50cc1dd9ef8d1971d7cd08a2790a1dacbcf",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_026_squat_good_side.mp4",
+      "sha256": "71600d8f1dc7f8066c80d03d0aa6d50cc1dd9ef8d1971d7cd08a2790a1dacbcf",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:72355cad4927393e1b9aa2b308444f9dfb8fc0ed0d1bdf6a8a88629c83c27fa9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_005_push_up_bad_side.mp4",
+      "sha256": "72355cad4927393e1b9aa2b308444f9dfb8fc0ed0d1bdf6a8a88629c83c27fa9",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:724d4dee15692d6f03f2a32dec8c7bd18f9e3eb987bdbb5c834b64a22f7622e9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_005_squat_bad_side.mp4",
+      "sha256": "724d4dee15692d6f03f2a32dec8c7bd18f9e3eb987bdbb5c834b64a22f7622e9",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:730811c45e623fb20b2c81e5d348194eea526701fca34a7a14b1918e3c5124cb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_007_push_up_good_diagonal.mp4",
+      "sha256": "730811c45e623fb20b2c81e5d348194eea526701fca34a7a14b1918e3c5124cb",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:7333c343d2ffd343e51030fb435624795445c0bfe0adfc83ced97196c8cb2990",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_023_squat_bad_diagonal.mp4",
+      "sha256": "7333c343d2ffd343e51030fb435624795445c0bfe0adfc83ced97196c8cb2990",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:736253b9b324ffec082d9f88242ae900181a21e799c1a57bfe58d5fd25a6db10",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_020_push_up_bad_diagonal.mp4",
+      "sha256": "736253b9b324ffec082d9f88242ae900181a21e799c1a57bfe58d5fd25a6db10",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:74c169902957638f53df47c600762a52670403af1589bfc5cf12ee44e403fece",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_011_bicep_curl_bad_diagonal.mp4",
+      "sha256": "74c169902957638f53df47c600762a52670403af1589bfc5cf12ee44e403fece",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:7515bf7611b0b5f4b3f3f547c62aed738369ff2cbcc70f83bbb758d5da46839d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_002_push_up_bad_front.mp4",
+      "sha256": "7515bf7611b0b5f4b3f3f547c62aed738369ff2cbcc70f83bbb758d5da46839d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:7559f7723546451be092cddb2b3b2c7f391183062ec393b0c7fbf4975858d839",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_022_push_up_bad_side.mp4",
+      "sha256": "7559f7723546451be092cddb2b3b2c7f391183062ec393b0c7fbf4975858d839",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:767e6802b833715998952e427b9d7c13d64cc33f7d5d8a68fe65ff5ded453954",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_007_bicep_curl_bad_diagonal.mp4",
+      "sha256": "767e6802b833715998952e427b9d7c13d64cc33f7d5d8a68fe65ff5ded453954",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:76ab7532f0a35e7e1d7ee2291aa362894d782849834e1ae0d87086401127d669",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_007_bicep_curl_good_diagonal.mp4",
+      "sha256": "76ab7532f0a35e7e1d7ee2291aa362894d782849834e1ae0d87086401127d669",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:76bdc471cc716f1942daddbe1c3424d28767faab1880fee254ef97c3fcdfe175",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_026_bicep_curl_bad_front.mp4",
+      "sha256": "76bdc471cc716f1942daddbe1c3424d28767faab1880fee254ef97c3fcdfe175",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:77c691dd7152e07e2e9b6830979dd9657ca1fdbdb197fc3dafbc65a872ed842e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_015_push_up_bad_diagonal.mp4",
+      "sha256": "77c691dd7152e07e2e9b6830979dd9657ca1fdbdb197fc3dafbc65a872ed842e",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:77de227eb3332085c85d1041309ca6d1beff6b113b6728392687379578bb5576",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_009_push_up_bad_diagonal.mp4",
+      "sha256": "77de227eb3332085c85d1041309ca6d1beff6b113b6728392687379578bb5576",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:7834f4a820c2055c1fd2954a948b3de4fd38d8d65fe212ddf9410df03abcca04",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_007_push_up_bad_front.mp4",
+      "sha256": "7834f4a820c2055c1fd2954a948b3de4fd38d8d65fe212ddf9410df03abcca04",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:7905c84f7a9cbbea27d1fa4b282c3b1dc0f23eb9d2c5533e02c63fe12d07f5d2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_010_squat_good_diagonal.mp4",
+      "sha256": "7905c84f7a9cbbea27d1fa4b282c3b1dc0f23eb9d2c5533e02c63fe12d07f5d2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:7a06fbfdcede22ba8e9575546471d3088587aedb6041383e46a9a101c7f8e786",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_005_squat_good_side.mp4",
+      "sha256": "7a06fbfdcede22ba8e9575546471d3088587aedb6041383e46a9a101c7f8e786",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:7bbe772eef3782c50f4e511dfa8ec58e2e13a80d43c4772b5e5d38df6a2af72a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_015_push_up_good_front.mp4",
+      "sha256": "7bbe772eef3782c50f4e511dfa8ec58e2e13a80d43c4772b5e5d38df6a2af72a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:7cb6329b99c4dbd3c5db9634c65b8d91b9492643d5586949be690341bc28f939",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_009_bicep_curl_bad_front.mp4",
+      "sha256": "7cb6329b99c4dbd3c5db9634c65b8d91b9492643d5586949be690341bc28f939",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:7d88eb36215b8db6a272c99d56e163b8f614f5a5ebb3d470a44dd7506fae5ccb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_007_bicep_curl_good_front.mp4",
+      "sha256": "7d88eb36215b8db6a272c99d56e163b8f614f5a5ebb3d470a44dd7506fae5ccb",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:7e3584277d673049b919119ef7ecfc8722432ca762f5af60165bdaef4ceab50a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_010_bicep_curl_good_front.mp4",
+      "sha256": "7e3584277d673049b919119ef7ecfc8722432ca762f5af60165bdaef4ceab50a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:7ea2f668e51e7a7fbca2e72c50cc7d2df44fcbbeae3cfad81b6916e554e708a0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_021_push_up_bad_front.mp4",
+      "sha256": "7ea2f668e51e7a7fbca2e72c50cc7d2df44fcbbeae3cfad81b6916e554e708a0",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:7f076fed2470fe0272f754f2774d050f377fff8d4bd35bd7bec57b5580177ed6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_007_push_up_good_side.mp4",
+      "sha256": "7f076fed2470fe0272f754f2774d050f377fff8d4bd35bd7bec57b5580177ed6",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:8165e63b492c4d3fa7aa25b6a6452c67c88dcdfdc3a83c3dc2ac16b868ccdf77",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_024_push_up_bad_diagonal.mp4",
+      "sha256": "8165e63b492c4d3fa7aa25b6a6452c67c88dcdfdc3a83c3dc2ac16b868ccdf77",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:816e914603f479ef2b28eadb66d268f675f103c17e1f28cb9159f0694d79f17b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_001_push_up_good_side.mp4",
+      "sha256": "816e914603f479ef2b28eadb66d268f675f103c17e1f28cb9159f0694d79f17b",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:818bcccba840dcd50e00041cc546d17ed59159c2a8f3116eb0f0cd1b803ce6fc",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_015_bicep_curl_good_diagonal.mp4",
+      "sha256": "818bcccba840dcd50e00041cc546d17ed59159c2a8f3116eb0f0cd1b803ce6fc",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:835c2e839babd9d20c7f7c83fccaa2dcb01bafc37cd2190fc8b014ddf79d610e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_024_bicep_curl_bad_diagonal.mp4",
+      "sha256": "835c2e839babd9d20c7f7c83fccaa2dcb01bafc37cd2190fc8b014ddf79d610e",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:83b434198b5a0c7119faeaaffffbe493ffedb5eeba03a3f11a60dfe4174a6528",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_024_push_up_good_side.mp4",
+      "sha256": "83b434198b5a0c7119faeaaffffbe493ffedb5eeba03a3f11a60dfe4174a6528",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:85c54094777893e5c10c3d9dd2e9514b040513d06865cee34f7c7c06cc62a825",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_005_push_up_good_front.mp4",
+      "sha256": "85c54094777893e5c10c3d9dd2e9514b040513d06865cee34f7c7c06cc62a825",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:85d99afb42bdbf6283ea8401e207a9a1c53ff79c31bb6246b4fc23458cb528a4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_009_squat_bad_side.mp4",
+      "sha256": "85d99afb42bdbf6283ea8401e207a9a1c53ff79c31bb6246b4fc23458cb528a4",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:85eb14c6e51c8f90fb047dedd3238b060ee690b78e3de3706f58237777cf589c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_020_bicep_curl_good_side.mp4",
+      "sha256": "85eb14c6e51c8f90fb047dedd3238b060ee690b78e3de3706f58237777cf589c",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:873af15c8decf4dfd830290ac5efc268d7f2edb9d4804eb3353d6430c237257e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_002_squat_good_diagonal.mp4",
+      "sha256": "873af15c8decf4dfd830290ac5efc268d7f2edb9d4804eb3353d6430c237257e",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:885e735b7f59ef750bc1ff70caa88b5a8821f65ec3a2d1577829100ae2cfca53",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_006_push_up_good_diagonal.mp4",
+      "sha256": "885e735b7f59ef750bc1ff70caa88b5a8821f65ec3a2d1577829100ae2cfca53",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:894b4d56af742d26d61425eff9ee5d9a1580303aa2e638ebe93c769c18207411",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_021_bicep_curl_bad_diagonal.mp4",
+      "sha256": "894b4d56af742d26d61425eff9ee5d9a1580303aa2e638ebe93c769c18207411",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:8ac35234603d5b34d3d6f45da4f7386f936f34197eea0ead4c4993637a858c6d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_013_bicep_curl_bad_side.mp4",
+      "sha256": "8ac35234603d5b34d3d6f45da4f7386f936f34197eea0ead4c4993637a858c6d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:8cb9191393384bec0ca3878c621f40fa825d409c1e8bdb23ae294dcf0b73307a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_023_push_up_bad_side.mp4",
+      "sha256": "8cb9191393384bec0ca3878c621f40fa825d409c1e8bdb23ae294dcf0b73307a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:8cfd758c353261d164a0a997ef52fff4a0cf0e958f7271f3dd1695d03f5d715a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_021_squat_bad_diagonal.mp4",
+      "sha256": "8cfd758c353261d164a0a997ef52fff4a0cf0e958f7271f3dd1695d03f5d715a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:8d11fac3608c316e01e7d51d4ebc8701d7869667c4fe887f6a26af25ab756e6d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_005_bicep_curl_good_diagonal.mp4",
+      "sha256": "8d11fac3608c316e01e7d51d4ebc8701d7869667c4fe887f6a26af25ab756e6d",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:8d42cb73f9c15505c1daca1e83e867b1ad49e29626a4f18896d8f84ef4d7067c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_010_squat_good_front.mp4",
+      "sha256": "8d42cb73f9c15505c1daca1e83e867b1ad49e29626a4f18896d8f84ef4d7067c",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:8d94b4a415bb6986fa704574f599e082671affeaf2e72e98028fde3aa4f1738f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_002_bicep_curl_bad_side.mp4",
+      "sha256": "8d94b4a415bb6986fa704574f599e082671affeaf2e72e98028fde3aa4f1738f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:8e380f930228004c16f70e771b0fa8a9cafef81c1c840db86b0dbab9ae6dfeb3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_007_squat_bad_front.mp4",
+      "sha256": "8e380f930228004c16f70e771b0fa8a9cafef81c1c840db86b0dbab9ae6dfeb3",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:8f4ff1fc01dfa671fb66514980996d88def98337f20679fb40d08589cde1251e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_020_bicep_curl_good_diagonal.mp4",
+      "sha256": "8f4ff1fc01dfa671fb66514980996d88def98337f20679fb40d08589cde1251e",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:8fa17285a10ccd3c4a688be856b2b6f197a4a00f024af84628168e4c4d65de1c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_005_push_up_good_side.mp4",
+      "sha256": "8fa17285a10ccd3c4a688be856b2b6f197a4a00f024af84628168e4c4d65de1c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:90b0c4dfbe1fa11f89e3a03d9ba688dd392fd2981fc384ce5cb8b7135bd5172f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_002_push_up_good_diagonal.mp4",
+      "sha256": "90b0c4dfbe1fa11f89e3a03d9ba688dd392fd2981fc384ce5cb8b7135bd5172f",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:9155a16fa79f53d701d433c1af94f67006137892b5142ce329b5570c8f9be554",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_005_bicep_curl_bad_front.mp4",
+      "sha256": "9155a16fa79f53d701d433c1af94f67006137892b5142ce329b5570c8f9be554",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:9184f516ac04b7ef5cf16d8dae9a889a690f1389c9404487ebdfc6d80eaecfdb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_014_bicep_curl_good_front.mp4",
+      "sha256": "9184f516ac04b7ef5cf16d8dae9a889a690f1389c9404487ebdfc6d80eaecfdb",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:91ea83b0173d5a15f77006514cdaaf787005379b89d4cddba229b7fd23060f40",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_010_bicep_curl_bad_diagonal.mp4",
+      "sha256": "91ea83b0173d5a15f77006514cdaaf787005379b89d4cddba229b7fd23060f40",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:9252eb5028efdf8ac853892c8c96e925bcd45a14a2c04367b662a885d95ee09a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_007_squat_bad_diagonal.mp4",
+      "sha256": "9252eb5028efdf8ac853892c8c96e925bcd45a14a2c04367b662a885d95ee09a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:939296aeb6b6a2197c06e48424cf4f11c414e6c630c27b679ac364ebaa2a10ad",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_002_bicep_curl_bad_diagonal.mp4",
+      "sha256": "939296aeb6b6a2197c06e48424cf4f11c414e6c630c27b679ac364ebaa2a10ad",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:93ae7ce3649112412f85f37934f605ab9ec7fe763946e72a426a20b4ab4a7da0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_022_squat_good_side.mp4",
+      "sha256": "93ae7ce3649112412f85f37934f605ab9ec7fe763946e72a426a20b4ab4a7da0",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:93c2f3bd97d6bffb48b6f0a0d10b11ab5b98f8f71601abea0abaa2a1732f4ec3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_011_push_up_good_diagonal.mp4",
+      "sha256": "93c2f3bd97d6bffb48b6f0a0d10b11ab5b98f8f71601abea0abaa2a1732f4ec3",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:94bf91cdda9a581e3f24b170be56bb91df5879255c20fce30ea495915b51274a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_024_bicep_curl_good_front.mp4",
+      "sha256": "94bf91cdda9a581e3f24b170be56bb91df5879255c20fce30ea495915b51274a",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:95323d7c93756b547dcecf655f5a98544db2fb176fe102edb6c44098259e94b6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_010_bicep_curl_bad_front.mp4",
+      "sha256": "95323d7c93756b547dcecf655f5a98544db2fb176fe102edb6c44098259e94b6",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:9685a5361c756c332890bf3e14fe86599af7753349f0bab19fe7d546d53a236d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_011_squat_bad_diagonal.mp4",
+      "sha256": "9685a5361c756c332890bf3e14fe86599af7753349f0bab19fe7d546d53a236d",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:9864463cb401c07e68fab40aa1c03154683c6bd66e5f48628db97ec714e93de6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_015_bicep_curl_good_side.mp4",
+      "sha256": "9864463cb401c07e68fab40aa1c03154683c6bd66e5f48628db97ec714e93de6",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:99df6233ddcfd7d22e1b30f3ade21d6ce42ff74a160c53804b5361f09e07a558",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_009_bicep_curl_bad_side.mp4",
+      "sha256": "99df6233ddcfd7d22e1b30f3ade21d6ce42ff74a160c53804b5361f09e07a558",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:9a7581f3b564bfcdcac9bb0d32a2241abf6a2533aa8d68133c018e88d406309f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_009_bicep_curl_bad_diagonal.mp4",
+      "sha256": "9a7581f3b564bfcdcac9bb0d32a2241abf6a2533aa8d68133c018e88d406309f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:9ab077f374396dc07f3cabc70e8104a49d2bc32558e3f9471bf323b36c244f0d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_002_squat_bad_diagonal.mp4",
+      "sha256": "9ab077f374396dc07f3cabc70e8104a49d2bc32558e3f9471bf323b36c244f0d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:9ebc15bbb89efe08eaaa889dc5cfb1d8733ce8787c3044656a5e6a4a0cf6040a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_007_push_up_good_front.mp4",
+      "sha256": "9ebc15bbb89efe08eaaa889dc5cfb1d8733ce8787c3044656a5e6a4a0cf6040a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:9eeccf208f2ee07605079d51416ce6d71fe6a4379ff4022b700df0b286038385",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_007_squat_bad_side.mp4",
+      "sha256": "9eeccf208f2ee07605079d51416ce6d71fe6a4379ff4022b700df0b286038385",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:9f56fd0563dd221aca09983be58232e87b539bd58c549151b9ea316223ed9f77",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_014_squat_good_side.mp4",
+      "sha256": "9f56fd0563dd221aca09983be58232e87b539bd58c549151b9ea316223ed9f77",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:9f5fee57abeb8bba7a82aaa2f594078bf4bc10ab8f6e9b913a43bad5aff994d8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_006_push_up_good_front.mp4",
+      "sha256": "9f5fee57abeb8bba7a82aaa2f594078bf4bc10ab8f6e9b913a43bad5aff994d8",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:9f72a5810b22ecba3a0b8ffe2b6a47f814127648731b373e7198f8d5b6348cb2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_005_bicep_curl_good_side.mp4",
+      "sha256": "9f72a5810b22ecba3a0b8ffe2b6a47f814127648731b373e7198f8d5b6348cb2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:a05dc2e881a5fb7b8610a1800d0c8e1ba772c21a9d65a61977df0a6ddc0b01f4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_020_squat_good_side.mp4",
+      "sha256": "a05dc2e881a5fb7b8610a1800d0c8e1ba772c21a9d65a61977df0a6ddc0b01f4",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:a4e678eb3e915fe548fe0071a445002b7ba83a6a5604a5d49892eedb59a4b36d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_001_squat_bad_front.mp4",
+      "sha256": "a4e678eb3e915fe548fe0071a445002b7ba83a6a5604a5d49892eedb59a4b36d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:a5dcbbaf25d47a581ea4e1bc32a71347afe7ab2dd6029b9174d5dace54ed4b60",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_023_push_up_good_diagonal.mp4",
+      "sha256": "a5dcbbaf25d47a581ea4e1bc32a71347afe7ab2dd6029b9174d5dace54ed4b60",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:a6b4759e70f6b8313974469262ebec612e01173979e4937f355e37ea211fe99f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_006_squat_good_diagonal.mp4",
+      "sha256": "a6b4759e70f6b8313974469262ebec612e01173979e4937f355e37ea211fe99f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:a8daf65de65a6bd589f2884869fe28aa52b2590c95b82e0657819c2090278e53",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_014_squat_bad_diagonal.mp4",
+      "sha256": "a8daf65de65a6bd589f2884869fe28aa52b2590c95b82e0657819c2090278e53",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:a99cb8ecd004aed146566f6c6c30e9dd7e0c1f740f38bda3508723800091c2b0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_001_bicep_curl_good_diagonal.mp4",
+      "sha256": "a99cb8ecd004aed146566f6c6c30e9dd7e0c1f740f38bda3508723800091c2b0",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:aa091ee4b0cd5d4b512a89e554a7de38d394a16cfe63bb4cfbb6fb9a74eff7ff",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_001_push_up_bad_diagonal.mp4",
+      "sha256": "aa091ee4b0cd5d4b512a89e554a7de38d394a16cfe63bb4cfbb6fb9a74eff7ff",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:aa7ee26d164f4fe6acef755428bb6cf67fa2d9f5e172309c79f2c11f3423c174",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_013_bicep_curl_bad_diagonal.mp4",
+      "sha256": "aa7ee26d164f4fe6acef755428bb6cf67fa2d9f5e172309c79f2c11f3423c174",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:abf2b7b9360ea3baa8fded5181b49a244d090f58cd95024202addf66afcbb9bd",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_023_squat_bad_front.mp4",
+      "sha256": "abf2b7b9360ea3baa8fded5181b49a244d090f58cd95024202addf66afcbb9bd",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:abfa5bcdc995139cdaaa746cf5051d7ad6d8cdab659bc95c68d9f21f6fb8fe42",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_014_bicep_curl_good_side.mp4",
+      "sha256": "abfa5bcdc995139cdaaa746cf5051d7ad6d8cdab659bc95c68d9f21f6fb8fe42",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:ad87c6e302bcd013a5526996118833d039484db36bd7934c4e2ab67403e20005",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_002_squat_bad_front.mp4",
+      "sha256": "ad87c6e302bcd013a5526996118833d039484db36bd7934c4e2ab67403e20005",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:ae4a76ada4af2bcf14a524d68b43d86f4ae10675459836fdefd24b5ac3645bfb",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_010_push_up_bad_side.mp4",
+      "sha256": "ae4a76ada4af2bcf14a524d68b43d86f4ae10675459836fdefd24b5ac3645bfb",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:af4a8ea275caec171de8bfc4fe44647082e5adb3e28ece9d3b80ff046629f252",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_010_bicep_curl_good_diagonal.mp4",
+      "sha256": "af4a8ea275caec171de8bfc4fe44647082e5adb3e28ece9d3b80ff046629f252",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:afccdb81f2b57a656c6e62cc762ddb00c08a84da2d34caaa4fb07364d98a346c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_024_bicep_curl_good_diagonal.mp4",
+      "sha256": "afccdb81f2b57a656c6e62cc762ddb00c08a84da2d34caaa4fb07364d98a346c",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:b009d2e4c616dba01617c13f369658b311c8d908c244ec0c6c0a5395b5e9f483",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_015_bicep_curl_bad_side.mp4",
+      "sha256": "b009d2e4c616dba01617c13f369658b311c8d908c244ec0c6c0a5395b5e9f483",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:b423d1c10ef00e19751eba6776bfa1affeb6148d2be4d30a52b1c1d53b545271",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_006_bicep_curl_bad_front.mp4",
+      "sha256": "b423d1c10ef00e19751eba6776bfa1affeb6148d2be4d30a52b1c1d53b545271",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:b47747d6ddf126189bfe73b85ae2edae0be3e29ab31b4c241ccd7b940c6ec2ea",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_014_push_up_good_diagonal.mp4",
+      "sha256": "b47747d6ddf126189bfe73b85ae2edae0be3e29ab31b4c241ccd7b940c6ec2ea",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:b695fa93f3ab7c6ef2a14947aa97ef11551d0feafd84fdc6453d6fa935d8330c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_022_squat_bad_diagonal.mp4",
+      "sha256": "b695fa93f3ab7c6ef2a14947aa97ef11551d0feafd84fdc6453d6fa935d8330c",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:b772f18e7eeb36c6f5975d13d1962efb3e679288631740cab43c6450162ca921",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_020_bicep_curl_bad_front.mp4",
+      "sha256": "b772f18e7eeb36c6f5975d13d1962efb3e679288631740cab43c6450162ca921",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:b779e168391f21426199535649b82d668eb23a7415ea4af16fe70b21d414c755",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_024_push_up_good_front.mp4",
+      "sha256": "b779e168391f21426199535649b82d668eb23a7415ea4af16fe70b21d414c755",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:b7ba33168cd80b421fc7de04258d7abd194ee4ba71d1712c6781f663078c265c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_021_squat_bad_side.mp4",
+      "sha256": "b7ba33168cd80b421fc7de04258d7abd194ee4ba71d1712c6781f663078c265c",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:b861ac55deb7a636e965087da2abab8eb2eaebe36c9f0c8b29dd0a8c6e38ed2f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_009_squat_good_front.mp4",
+      "sha256": "b861ac55deb7a636e965087da2abab8eb2eaebe36c9f0c8b29dd0a8c6e38ed2f",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:b8eb3842da49fd02cf924fcbae71f388c51fb85da96875b5f65f4f23d4b3553c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_014_bicep_curl_good_diagonal.mp4",
+      "sha256": "b8eb3842da49fd02cf924fcbae71f388c51fb85da96875b5f65f4f23d4b3553c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:b9570aa6d6611f4f631882b95517d6fe6769962993313ea08eb0b3476bf1230b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_015_push_up_bad_front.mp4",
+      "sha256": "b9570aa6d6611f4f631882b95517d6fe6769962993313ea08eb0b3476bf1230b",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:b9f0e763f3bb6e50fabba68f477873477ab8f5f1cd4597719d1c5f53b446a6a1",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_010_squat_good_side.mp4",
+      "sha256": "b9f0e763f3bb6e50fabba68f477873477ab8f5f1cd4597719d1c5f53b446a6a1",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:ba1308ccecf23f75abae64c16dcb04ddc8595858f7771bee1cb29ce0ed3b955f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_006_push_up_bad_front.mp4",
+      "sha256": "ba1308ccecf23f75abae64c16dcb04ddc8595858f7771bee1cb29ce0ed3b955f",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:ba75f408b0ff3c7a7bb1d11409895ddbdd32b8659f831b7c1237fbe4c4886191",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_015_squat_bad_front.mp4",
+      "sha256": "ba75f408b0ff3c7a7bb1d11409895ddbdd32b8659f831b7c1237fbe4c4886191",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:ba8205316abae4354519243d9e436a58027adeaa1655858c1108f87afd628678",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_022_bicep_curl_good_front.mp4",
+      "sha256": "ba8205316abae4354519243d9e436a58027adeaa1655858c1108f87afd628678",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:bb35544f603507f6c4d9eedb7686d79070311f86c638984075e3d233071f5904",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_024_squat_good_side.mp4",
+      "sha256": "bb35544f603507f6c4d9eedb7686d79070311f86c638984075e3d233071f5904",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:bb7b23bd211c220f271197a25e6a23192e59cc3c953bd184db0aa946fc5ebc8d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_007_bicep_curl_bad_side.mp4",
+      "sha256": "bb7b23bd211c220f271197a25e6a23192e59cc3c953bd184db0aa946fc5ebc8d",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:bc3fa85be9a11fd4bfedfd62aebb6a9b04337ed6475c00a6610498c8aece40f6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_011_bicep_curl_good_side.mp4",
+      "sha256": "bc3fa85be9a11fd4bfedfd62aebb6a9b04337ed6475c00a6610498c8aece40f6",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:bd5fbf71575e92ff9c0782abe911ef5aa8556513fda38e25013e59d65d7a4c88",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_013_push_up_good_front.mp4",
+      "sha256": "bd5fbf71575e92ff9c0782abe911ef5aa8556513fda38e25013e59d65d7a4c88",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:bea5ee8300438a464453b20edae8b77e1193a68cf02c2e935900e78b03121da7",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_024_squat_bad_diagonal.mp4",
+      "sha256": "bea5ee8300438a464453b20edae8b77e1193a68cf02c2e935900e78b03121da7",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:c144dde460c4cd5eab434a297c354ca14b389c33b4506ebcf397589258d9cad6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_002_bicep_curl_good_diagonal.mp4",
+      "sha256": "c144dde460c4cd5eab434a297c354ca14b389c33b4506ebcf397589258d9cad6",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:c27c0902c088272c38abdfd2fbcfe129f6a725239e95aec2365947adb63e4700",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_010_push_up_good_side.mp4",
+      "sha256": "c27c0902c088272c38abdfd2fbcfe129f6a725239e95aec2365947adb63e4700",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:c4c98963624e42da070436eaec78a3f973a4afb8d3632910e89684f2b065f00c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_002_bicep_curl_bad_front.mp4",
+      "sha256": "c4c98963624e42da070436eaec78a3f973a4afb8d3632910e89684f2b065f00c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:c4f8365b0c6b37fbc341ebaeb3a05fab37cb2c32ee1765d36a2d9c20f1d276dd",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_024_push_up_bad_side.mp4",
+      "sha256": "c4f8365b0c6b37fbc341ebaeb3a05fab37cb2c32ee1765d36a2d9c20f1d276dd",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:c520b1a64145f8bc04e4bae508de311516a9b6c10b49a0e7ad3517444ab53c13",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_002_push_up_bad_side.mp4",
+      "sha256": "c520b1a64145f8bc04e4bae508de311516a9b6c10b49a0e7ad3517444ab53c13",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:c59bd687b6caedb23bdef2e4f95e461325d01701f6d301d94b214b8c817912aa",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_009_bicep_curl_good_diagonal.mp4",
+      "sha256": "c59bd687b6caedb23bdef2e4f95e461325d01701f6d301d94b214b8c817912aa",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:c68998ba539b44a3dbbd8500cfa4165d357e2e0d3c4e4f733aa33084161ec602",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_001_squat_bad_diagonal.mp4",
+      "sha256": "c68998ba539b44a3dbbd8500cfa4165d357e2e0d3c4e4f733aa33084161ec602",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:c8b9f214258c4bc650a6b3d59926405fc09063bc086bdd807f8cf462cded4884",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_014_push_up_bad_front.mp4",
+      "sha256": "c8b9f214258c4bc650a6b3d59926405fc09063bc086bdd807f8cf462cded4884",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:c8cafa2e26cf695a36b8116cd90c69c5692e67cadc80f64cbec05ce59228ded7",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_021_push_up_bad_diagonal.mp4",
+      "sha256": "c8cafa2e26cf695a36b8116cd90c69c5692e67cadc80f64cbec05ce59228ded7",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:cb0c1ac974dbfd4aceff13c49e51a5e8713b4320a52c52e268b699135d322ea5",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_007_push_up_bad_diagonal.mp4",
+      "sha256": "cb0c1ac974dbfd4aceff13c49e51a5e8713b4320a52c52e268b699135d322ea5",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:cba356008a1a37f5efa75d5dec06cf30487bf3b39af10eef0242e46daf7bc732",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_010_squat_bad_side.mp4",
+      "sha256": "cba356008a1a37f5efa75d5dec06cf30487bf3b39af10eef0242e46daf7bc732",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:cc856c51890b4de3f26728441e71263624b64dff391ce2e63df4720bef2d289b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_026_bicep_curl_good_front.mp4",
+      "sha256": "cc856c51890b4de3f26728441e71263624b64dff391ce2e63df4720bef2d289b",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:ccbfc7651c894811089469b86bede650566c7b3eb65d3eeeb72762d2aae78a74",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_007_push_up_bad_side.mp4",
+      "sha256": "ccbfc7651c894811089469b86bede650566c7b3eb65d3eeeb72762d2aae78a74",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:ce5780a42e85e11e085502999409fbbcae1d6db5e4bb3117b72183723f45b2e2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_011_bicep_curl_good_front.mp4",
+      "sha256": "ce5780a42e85e11e085502999409fbbcae1d6db5e4bb3117b72183723f45b2e2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:d200e6ec2bfd66b1ae5088d4d76b69e3d8adfecc25ea4d44310f126f37712ba4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_020_squat_bad_front.mp4",
+      "sha256": "d200e6ec2bfd66b1ae5088d4d76b69e3d8adfecc25ea4d44310f126f37712ba4",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:d21e9e52d3c0ca14225f2ac331a3ec3dbc9300c8491001277ea4768cdc965541",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_010_squat_bad_front.mp4",
+      "sha256": "d21e9e52d3c0ca14225f2ac331a3ec3dbc9300c8491001277ea4768cdc965541",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:d259eac3365b18d72a62a1e6b98878bfd90c6b8b63b8841a65ab353540a8b71e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_001_squat_good_diagonal.mp4",
+      "sha256": "d259eac3365b18d72a62a1e6b98878bfd90c6b8b63b8841a65ab353540a8b71e",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:d38e2e067af9955a061d1960033bae2c9fdc12dc272b091dcac0c4765b2596a3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_002_bicep_curl_good_side.mp4",
+      "sha256": "d38e2e067af9955a061d1960033bae2c9fdc12dc272b091dcac0c4765b2596a3",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:d3c7d24c4a974d4f615df0929429da2c5eaa8300efb396200ee76758f88e14ed",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_011_push_up_bad_front.mp4",
+      "sha256": "d3c7d24c4a974d4f615df0929429da2c5eaa8300efb396200ee76758f88e14ed",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:d4ddac66cbd48c80d511a0b8a80b2c793cab5cd8c74134d1f41c7c0876c3b3dd",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_006_push_up_good_side.mp4",
+      "sha256": "d4ddac66cbd48c80d511a0b8a80b2c793cab5cd8c74134d1f41c7c0876c3b3dd",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:d679dbe86397a6fd92d885ed594143e586a495a06c74e5839ad403782733d5e8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_001_bicep_curl_bad_front.mp4",
+      "sha256": "d679dbe86397a6fd92d885ed594143e586a495a06c74e5839ad403782733d5e8",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:d90604baa78a6e4930b463645e9b69d1ebdd33431d42f908c221e338b7ee44f2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_002_bicep_curl_good_front.mp4",
+      "sha256": "d90604baa78a6e4930b463645e9b69d1ebdd33431d42f908c221e338b7ee44f2",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:daf520921e6026b34764756fbc6a99697d6b1e2c60f6ce86e539a34d2dca7272",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_024_bicep_curl_bad_front.mp4",
+      "sha256": "daf520921e6026b34764756fbc6a99697d6b1e2c60f6ce86e539a34d2dca7272",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:db55ffb12df54fad9ccd8aba260dda3849758d846d4b49ebd44924ce57db7cb8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_006_bicep_curl_bad_diagonal.mp4",
+      "sha256": "db55ffb12df54fad9ccd8aba260dda3849758d846d4b49ebd44924ce57db7cb8",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:dcadc9c5a70d0187e9dd70587a60ab771282cca744b09d0821a2c98845cf81c2",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_009_push_up_bad_front.mp4",
+      "sha256": "dcadc9c5a70d0187e9dd70587a60ab771282cca744b09d0821a2c98845cf81c2",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:de43349f59f1ba61414cca75a05a398ae758f547885b8cf7e19f7d412c2ee153",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_009_squat_good_diagonal.mp4",
+      "sha256": "de43349f59f1ba61414cca75a05a398ae758f547885b8cf7e19f7d412c2ee153",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:e05a0e03b643e7758c862d34fa55ec9460d288251b5bbc8b31fd2f42e2badfe5",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_026_squat_bad_front.mp4",
+      "sha256": "e05a0e03b643e7758c862d34fa55ec9460d288251b5bbc8b31fd2f42e2badfe5",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:e073d50086e2a695c6fdd925f131dc43d3ecf48d8d42b2d05a34173512262edf",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_021_squat_good_side.mp4",
+      "sha256": "e073d50086e2a695c6fdd925f131dc43d3ecf48d8d42b2d05a34173512262edf",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:e0ce5458ebff80b10f65c29fa06853936473ec181df411b574893da48987fc54",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_020_bicep_curl_good_front.mp4",
+      "sha256": "e0ce5458ebff80b10f65c29fa06853936473ec181df411b574893da48987fc54",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:e0df1c3a458fb20a2ba2fa414eb5cb08924c7de64ce4397be492c7944da15cf3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_010_bicep_curl_bad_side.mp4",
+      "sha256": "e0df1c3a458fb20a2ba2fa414eb5cb08924c7de64ce4397be492c7944da15cf3",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:e22e818b71fe7091836173644f3967badfcad3892cb97ae8c578a65d537e897f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_006_bicep_curl_good_front.mp4",
+      "sha256": "e22e818b71fe7091836173644f3967badfcad3892cb97ae8c578a65d537e897f",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:e23645e50f45ed66fa9365b37a4a1753af126ee56c4891bfe1158700c2a097d5",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_001_bicep_curl_bad_side.mp4",
+      "sha256": "e23645e50f45ed66fa9365b37a4a1753af126ee56c4891bfe1158700c2a097d5",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:e3176646fb811065ed15bdfa78e6dc133c0389d00240fdeab31d18fed3cc2885",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_020_squat_good_front.mp4",
+      "sha256": "e3176646fb811065ed15bdfa78e6dc133c0389d00240fdeab31d18fed3cc2885",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:e3c8c9b807a62347e2b713801a0f5e15c66af3f901e161fac21c378af2427e46",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_013_bicep_curl_good_front.mp4",
+      "sha256": "e3c8c9b807a62347e2b713801a0f5e15c66af3f901e161fac21c378af2427e46",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:e4b77af164c9e3fdafd46b2f7bed2dfd85f15fc55b45d1c8b7d27e549d85241d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_021_push_up_good_front.mp4",
+      "sha256": "e4b77af164c9e3fdafd46b2f7bed2dfd85f15fc55b45d1c8b7d27e549d85241d",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:e567277bee1844280afdd841aa2f0c7f13c427f0fd23bead04711f0dc0b0c82c",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_013_push_up_good_diagonal.mp4",
+      "sha256": "e567277bee1844280afdd841aa2f0c7f13c427f0fd23bead04711f0dc0b0c82c",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:e67bbcf73870e32e65a76864310a2acdee469230c761b71059ff59b34a158fc3",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_023_push_up_bad_diagonal.mp4",
+      "sha256": "e67bbcf73870e32e65a76864310a2acdee469230c761b71059ff59b34a158fc3",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:e6b4eb296fb8a098e3347a51f4a7e4c064c494287727c4baea24d2fa68aa7942",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_022_bicep_curl_bad_side.mp4",
+      "sha256": "e6b4eb296fb8a098e3347a51f4a7e4c064c494287727c4baea24d2fa68aa7942",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:e8106d7c3448533e2a97cb3bde50b1dfd544d2dba5c87835bdfb9799d0f6ca5e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_009_bicep_curl_good_side.mp4",
+      "sha256": "e8106d7c3448533e2a97cb3bde50b1dfd544d2dba5c87835bdfb9799d0f6ca5e",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_023",
+      "key": "kgbb3yn47p:ea002d5c927128bd0496f2d10dcca417e2b273f8db9981b23ce40b57c84b5e33",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_023_squat_good_front.mp4",
+      "sha256": "ea002d5c927128bd0496f2d10dcca417e2b273f8db9981b23ce40b57c84b5e33",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:ea813b6dbaedfdce722a2912da793a811df277ac469168c4162de76c8cf1a4c9",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_014_bicep_curl_bad_front.mp4",
+      "sha256": "ea813b6dbaedfdce722a2912da793a811df277ac469168c4162de76c8cf1a4c9",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:ebd2ea52a0f15d576114a88fe2b6dfee31f10d6e8eee9f5824aedd4264a62d18",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_002_squat_good_front.mp4",
+      "sha256": "ebd2ea52a0f15d576114a88fe2b6dfee31f10d6e8eee9f5824aedd4264a62d18",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:ec9339275218184ee8b7356815af856c3aadf27143577c40ff979236629afd9f",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_024_squat_bad_front.mp4",
+      "sha256": "ec9339275218184ee8b7356815af856c3aadf27143577c40ff979236629afd9f",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:edc8762f8a2948f55d509b0fd361a298d8207bd0ef48cabcdbc3bbd5a729686b",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_021_push_up_good_diagonal.mp4",
+      "sha256": "edc8762f8a2948f55d509b0fd361a298d8207bd0ef48cabcdbc3bbd5a729686b",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:eedfae176f9ac60b5e0997601d8acf1fa394de670012e01a3dd322d6e8e0e27a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_011_bicep_curl_bad_side.mp4",
+      "sha256": "eedfae176f9ac60b5e0997601d8acf1fa394de670012e01a3dd322d6e8e0e27a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:ef2585117fb76e74953157144938129f8ce0e145dd70898cb5720391689d4107",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_005_squat_bad_diagonal.mp4",
+      "sha256": "ef2585117fb76e74953157144938129f8ce0e145dd70898cb5720391689d4107",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:eff8693fb65402bf38b0ecd4c3f950a4be0049a3d5ced937f7cd02303ca02aa8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_013_bicep_curl_good_diagonal.mp4",
+      "sha256": "eff8693fb65402bf38b0ecd4c3f950a4be0049a3d5ced937f7cd02303ca02aa8",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_014+subject_020",
+      "key": "kgbb3yn47p:f002df8470c5c0446c5d9e0f3607954840d879a9a1375e10f83b635dacf4d857",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_020_push_up_good_front.mp4",
+      "sha256": "f002df8470c5c0446c5d9e0f3607954840d879a9a1375e10f83b635dacf4d857",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:f20e88aab030ae1ed3f8efa0baaf10947bec2dfac3a914269068c2f079ba12c4",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/good/subject_011_bicep_curl_good_diagonal.mp4",
+      "sha256": "f20e88aab030ae1ed3f8efa0baaf10947bec2dfac3a914269068c2f079ba12c4",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_001",
+      "key": "kgbb3yn47p:f4204bbb23ab5b2f5a75f32bd2f1195b8d064823fd308d98aad4eab697be454d",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_001_squat_good_front.mp4",
+      "sha256": "f4204bbb23ab5b2f5a75f32bd2f1195b8d064823fd308d98aad4eab697be454d",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_021",
+      "key": "kgbb3yn47p:f507f7f7a64536b46f810df44c04c307bbd15baf64680f3d6cd7d09990effd81",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_021_bicep_curl_bad_front.mp4",
+      "sha256": "f507f7f7a64536b46f810df44c04c307bbd15baf64680f3d6cd7d09990effd81",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_022",
+      "key": "kgbb3yn47p:f6588a45a3e901a1f77e3641580051ee15319eceebab9133483b9c12b84e13b8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_022_push_up_bad_diagonal.mp4",
+      "sha256": "f6588a45a3e901a1f77e3641580051ee15319eceebab9133483b9c12b84e13b8",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:f792b78af29ae9b8d0f08235bdc09d369e81351cca4a1ca1ecd98812a4e3e2da",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_026_squat_bad_diagonal.mp4",
+      "sha256": "f792b78af29ae9b8d0f08235bdc09d369e81351cca4a1ca1ecd98812a4e3e2da",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:f7eca0356c8ea06fd6400eead743b61a20f2766528f4bfac5011f9f29609b15a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_005_squat_good_diagonal.mp4",
+      "sha256": "f7eca0356c8ea06fd6400eead743b61a20f2766528f4bfac5011f9f29609b15a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:f872b1987f43f6438af58c5cf7a786707bf9cf1689e5134061983a99b4b99ddd",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_002_push_up_good_front.mp4",
+      "sha256": "f872b1987f43f6438af58c5cf7a786707bf9cf1689e5134061983a99b4b99ddd",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:f8c432a1a6f19d4e60b0e2677051868325fc096a46e37194053e8bd4618d0707",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_011_push_up_bad_diagonal.mp4",
+      "sha256": "f8c432a1a6f19d4e60b0e2677051868325fc096a46e37194053e8bd4618d0707",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_002",
+      "key": "kgbb3yn47p:f8f93dc6e015927824b359e6ef1f86234993cf4cd7b4b0c2f48a3de169ba81f0",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_002_push_up_good_side.mp4",
+      "sha256": "f8f93dc6e015927824b359e6ef1f86234993cf4cd7b4b0c2f48a3de169ba81f0",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_005+subject_006",
+      "key": "kgbb3yn47p:f9bdb619b65136750837123d673c5ed98f8f5f63851b293b80ca90f41d140c4e",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_006_squat_bad_front.mp4",
+      "sha256": "f9bdb619b65136750837123d673c5ed98f8f5f63851b293b80ca90f41d140c4e",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_010+subject_013",
+      "key": "kgbb3yn47p:fa9dbac58432b85fcad312cf155e1f26ab8e62b5fc05831274676ebd87bb5793",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_010_squat_bad_diagonal.mp4",
+      "sha256": "fa9dbac58432b85fcad312cf155e1f26ab8e62b5fc05831274676ebd87bb5793",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:facda0e606726e69917958524cf1eaf25205a511a1483089bbb39dd58d779e2a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_015_push_up_good_diagonal.mp4",
+      "sha256": "facda0e606726e69917958524cf1eaf25205a511a1483089bbb39dd58d779e2a",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_011",
+      "key": "kgbb3yn47p:fb3134d74837aa415e6d897cec79f3b0816219a1556290a32bc1b358cd33a618",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/good/subject_011_squat_good_side.mp4",
+      "sha256": "fb3134d74837aa415e6d897cec79f3b0816219a1556290a32bc1b358cd33a618",
+      "frames": 8
+    },
+    {
+      "action": "standing_dumbbell_curl",
+      "group": "kgbb3yn47p:subject_007",
+      "key": "kgbb3yn47p:fbd352377876d4cb923a5678ed4001bffa8ae465ce1771d02c8e97e85402511a",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/bicep_curl/bad/subject_007_bicep_curl_bad_front.mp4",
+      "sha256": "fbd352377876d4cb923a5678ed4001bffa8ae465ce1771d02c8e97e85402511a",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_015+subject_026",
+      "key": "kgbb3yn47p:fcc18c769c0fbde8352f0a1755919b820501699e394952159627025e97a17cb8",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/bad/subject_015_push_up_bad_side.mp4",
+      "sha256": "fcc18c769c0fbde8352f0a1755919b820501699e394952159627025e97a17cb8",
+      "frames": 8
+    },
+    {
+      "action": "bodyweight_squat",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:fdc7b63860afc58d018c8d5f7e1febd0e65baf8c9510df91e6ff898a270011a6",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/squat/bad/subject_009_squat_bad_front.mp4",
+      "sha256": "fdc7b63860afc58d018c8d5f7e1febd0e65baf8c9510df91e6ff898a270011a6",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_009",
+      "key": "kgbb3yn47p:fee74460c9bb016015b1ab9f8935f9a9fe6c63a2c359bcf39b2f21c08813f704",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_009_push_up_good_front.mp4",
+      "sha256": "fee74460c9bb016015b1ab9f8935f9a9fe6c63a2c359bcf39b2f21c08813f704",
+      "frames": 8
+    },
+    {
+      "action": "standard_push_up",
+      "group": "kgbb3yn47p:subject_024",
+      "key": "kgbb3yn47p:ffc12689c16696d1f4a4b6255cb643dc0c1333b6a5f711dd2f010a3a6c6edd28",
+      "partition": "train",
+      "path": "data/datasets/seven-exercises/push_up/good/subject_024_push_up_good_diagonal.mp4",
+      "sha256": "ffc12689c16696d1f4a4b6255cb643dc0c1333b6a5f711dd2f010a3a6c6edd28",
+      "frames": 8
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:00ac077b0468064837f37d627867d975c4d89923da1879a9c23d61449eb807db",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R01.mp4",
+      "sha256": "00ac077b0468064837f37d627867d975c4d89923da1879a9c23d61449eb807db",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:04196317d47f4fd20986541e7f65ab0169b2b45c0414032132cc5ec2b7cb5daa",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S03_R12.mp4",
+      "sha256": "04196317d47f4fd20986541e7f65ab0169b2b45c0414032132cc5ec2b7cb5daa",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:06e9aef46c600d81d356ed9835a27cc5fe80c0991fb14195349dcaa791bd4a6c",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S03_R11.mp4",
+      "sha256": "06e9aef46c600d81d356ed9835a27cc5fe80c0991fb14195349dcaa791bd4a6c",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:072185dad448e0ba3b066b463ef571f2fc1407ccba4dfa64b8649478a31dce8a",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R03.mp4",
+      "sha256": "072185dad448e0ba3b066b463ef571f2fc1407ccba4dfa64b8649478a31dce8a",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:0d16e17a41f40e21aef40f7fe0a3933153cb057232335bfe1fb11b38d585e0f3",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R50.mp4",
+      "sha256": "0d16e17a41f40e21aef40f7fe0a3933153cb057232335bfe1fb11b38d585e0f3",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:12d4a60cf84ed3bce61187b2f1fabbe867f4301472afaa85301b474144de24fc",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R52.mp4",
+      "sha256": "12d4a60cf84ed3bce61187b2f1fabbe867f4301472afaa85301b474144de24fc",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:1539142db9a4acdd9995a92643490cc68c6354614ff7d7d2f197ad8c11dffd38",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R48.mp4",
+      "sha256": "1539142db9a4acdd9995a92643490cc68c6354614ff7d7d2f197ad8c11dffd38",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:1c0fe80123fe5ab0cc6c4629f70c923c20f1b1a3615c6051a3d2ed4b5dd5521e",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R20.mp4",
+      "sha256": "1c0fe80123fe5ab0cc6c4629f70c923c20f1b1a3615c6051a3d2ed4b5dd5521e",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:1c3741983ab5d9b779a3061442d5f108c6e49ef5e73c7daa76a6a38b90799558",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R22.mp4",
+      "sha256": "1c3741983ab5d9b779a3061442d5f108c6e49ef5e73c7daa76a6a38b90799558",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:21db30ca2877ef106cbe20b9d6a3db757238940c1eecdfdf809228bcb5ad9dd2",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S03_R14.mp4",
+      "sha256": "21db30ca2877ef106cbe20b9d6a3db757238940c1eecdfdf809228bcb5ad9dd2",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:25e0e71f5f76092c6ce486f10c93c367e1c32fc22a52c743ffe1fb5910e0a697",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R47.mp4",
+      "sha256": "25e0e71f5f76092c6ce486f10c93c367e1c32fc22a52c743ffe1fb5910e0a697",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:271d05b8a8ae289ce54053daf6599b55fb5ecf2b6df042e8406526bcb82d7aad",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R08.mp4",
+      "sha256": "271d05b8a8ae289ce54053daf6599b55fb5ecf2b6df042e8406526bcb82d7aad",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:30aee9442944f0a48290fed48e54622ac64dd6669795bd28dc8a1044748cca88",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R03.mp4",
+      "sha256": "30aee9442944f0a48290fed48e54622ac64dd6669795bd28dc8a1044748cca88",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:32aa8a4bb62e8beaa538097a5aad593ae1619d030173437632b5b16fbb5c28cf",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R29.mp4",
+      "sha256": "32aa8a4bb62e8beaa538097a5aad593ae1619d030173437632b5b16fbb5c28cf",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:32c1e00ba9193fc3b2277ec61bc2d7bd831f03ffb2b552c8ae8a8f9d8e6889ef",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R12.mp4",
+      "sha256": "32c1e00ba9193fc3b2277ec61bc2d7bd831f03ffb2b552c8ae8a8f9d8e6889ef",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:340d8b637c52ecb546b84490f4e304a35987cd01f03ab72ddc37f0cfebd17604",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R17.mp4",
+      "sha256": "340d8b637c52ecb546b84490f4e304a35987cd01f03ab72ddc37f0cfebd17604",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:34dfd2cd904f696e431e0105e20d3247143b89484ba5fd79f60bbb02bdd88607",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R02.mp4",
+      "sha256": "34dfd2cd904f696e431e0105e20d3247143b89484ba5fd79f60bbb02bdd88607",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:35166b84ba2e30ab1d19570f301ddf52f1960eaba37a472681e813905a83fa7e",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R33.mp4",
+      "sha256": "35166b84ba2e30ab1d19570f301ddf52f1960eaba37a472681e813905a83fa7e",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:39b5abf2d4cd078653882a80e31f4b3fb01f625497d4e63f07954f3b945f5840",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R17.mp4",
+      "sha256": "39b5abf2d4cd078653882a80e31f4b3fb01f625497d4e63f07954f3b945f5840",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:3f06bfef1ff29520247c2b82bdd659912f1e3740cdd872c7968e4afe7d6ff0aa",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R36.mp4",
+      "sha256": "3f06bfef1ff29520247c2b82bdd659912f1e3740cdd872c7968e4afe7d6ff0aa",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:4187848f6150c3a39577fffd80642095f4c0dc0048019f8c51d224999f22ee50",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R24.mp4",
+      "sha256": "4187848f6150c3a39577fffd80642095f4c0dc0048019f8c51d224999f22ee50",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:44d8d2f2c8e3b1214521cfe5c10ffbb02b2b5289ee3845529e87f3688a9ebdc6",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R51.mp4",
+      "sha256": "44d8d2f2c8e3b1214521cfe5c10ffbb02b2b5289ee3845529e87f3688a9ebdc6",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:4760532304ce60d7ed5e69408866e310ed93db5b6812e893af0b62d3670ab475",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R18.mp4",
+      "sha256": "4760532304ce60d7ed5e69408866e310ed93db5b6812e893af0b62d3670ab475",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:4d30300dc64fb6c12ebefb853109cd10c1177b15406711897a5fdbc64c133840",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R22.mp4",
+      "sha256": "4d30300dc64fb6c12ebefb853109cd10c1177b15406711897a5fdbc64c133840",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:4d7e1baa5bb8f7a63871323a098c556bdb005bcb4f20f514c979835dace71b25",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R32.mp4",
+      "sha256": "4d7e1baa5bb8f7a63871323a098c556bdb005bcb4f20f514c979835dace71b25",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:5dffc2d3290d54e776c817e16b9ed79f162559f972ef3ba76bded8e3013debcd",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R42.mp4",
+      "sha256": "5dffc2d3290d54e776c817e16b9ed79f162559f972ef3ba76bded8e3013debcd",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:5eb96368237467b5e7697eb56bed36db383bcb0c98922a0599d56d5d90f45366",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R06.mp4",
+      "sha256": "5eb96368237467b5e7697eb56bed36db383bcb0c98922a0599d56d5d90f45366",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:6828b5542b936345297ed84db8fe9178d0f3a048a04f0833d040ac4e0ac301c1",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R01.mp4",
+      "sha256": "6828b5542b936345297ed84db8fe9178d0f3a048a04f0833d040ac4e0ac301c1",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:6dde140dca0666771f4e6e6f3b6056c76028d132a2f8c207b3feb2cc73519b0c",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R35.mp4",
+      "sha256": "6dde140dca0666771f4e6e6f3b6056c76028d132a2f8c207b3feb2cc73519b0c",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:70a8fb4381db788ee54bbb84dde040140ad0185d722b2c1521f3c6a48b5d08cd",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R20.mp4",
+      "sha256": "70a8fb4381db788ee54bbb84dde040140ad0185d722b2c1521f3c6a48b5d08cd",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:75ca726e65e663fb8e07cc177da0711b9cb23888e59f2adb94d9eecd44cefc9a",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R53.mp4",
+      "sha256": "75ca726e65e663fb8e07cc177da0711b9cb23888e59f2adb94d9eecd44cefc9a",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:76b025ffe2a511683a5310a0671b08d086c9246a46f04cad8e7795483bd7e23d",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R23.mp4",
+      "sha256": "76b025ffe2a511683a5310a0671b08d086c9246a46f04cad8e7795483bd7e23d",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:7ac3bca2a6e804a45d908a9fef5e40a559ed048942f817401ad7a08ac9997f8b",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R13.mp4",
+      "sha256": "7ac3bca2a6e804a45d908a9fef5e40a559ed048942f817401ad7a08ac9997f8b",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:7da951a09535756dd752a1daa888373db250111215d26a4e765c55ed66afc750",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R44.mp4",
+      "sha256": "7da951a09535756dd752a1daa888373db250111215d26a4e765c55ed66afc750",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:8623f548646a12cc3b1448ff3ecd192f3bfa294babb78748225dd21d10c7203a",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R10.mp4",
+      "sha256": "8623f548646a12cc3b1448ff3ecd192f3bfa294babb78748225dd21d10c7203a",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:8c51b59007814aaadd74dcb77d191a0174eb16b6da05de88c699089f39b3aec5",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R19.mp4",
+      "sha256": "8c51b59007814aaadd74dcb77d191a0174eb16b6da05de88c699089f39b3aec5",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:8dfec5debe05cf65baf34b11b5cc23e5f572b2b17925623dea37c76aeb32ce17",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R40.mp4",
+      "sha256": "8dfec5debe05cf65baf34b11b5cc23e5f572b2b17925623dea37c76aeb32ce17",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:92d2cb9eee5ae9b4b6b1f3992df57646b04a46fdfd0f9b8947f9201ba8206519",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R19.mp4",
+      "sha256": "92d2cb9eee5ae9b4b6b1f3992df57646b04a46fdfd0f9b8947f9201ba8206519",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:94582cc8bf8b49fa47e013fc382ca81186acf030528dfd810236919c20403ba2",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R28.mp4",
+      "sha256": "94582cc8bf8b49fa47e013fc382ca81186acf030528dfd810236919c20403ba2",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:976d1ad8ed2da812e4a1c92199cf56936ddae421ea955f913ccd96b65cf0db17",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R39.mp4",
+      "sha256": "976d1ad8ed2da812e4a1c92199cf56936ddae421ea955f913ccd96b65cf0db17",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:a04df2ea15ddfe848810c70620a9ff063425b83532bdc2fb3f25c4564373d367",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R49.mp4",
+      "sha256": "a04df2ea15ddfe848810c70620a9ff063425b83532bdc2fb3f25c4564373d367",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:a3c10f3592d09731280b9f00f1932ff1e6d65170e9c4fee92320170ff60ace9d",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R27.mp4",
+      "sha256": "a3c10f3592d09731280b9f00f1932ff1e6d65170e9c4fee92320170ff60ace9d",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:a91aef2f08973b8274e9843382dd8d090850dc105b6a5151859eab1c8fbf6784",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R09.mp4",
+      "sha256": "a91aef2f08973b8274e9843382dd8d090850dc105b6a5151859eab1c8fbf6784",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:ac1b09b272452edb1f8cc6b66c33d6cb9354781f68d15b8b8ace910024a34950",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R18.mp4",
+      "sha256": "ac1b09b272452edb1f8cc6b66c33d6cb9354781f68d15b8b8ace910024a34950",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:aed345cc36e5468fc27816a1d9944721f465f2bb5d9cc24ccbfbaa80dd991fc5",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R23.mp4",
+      "sha256": "aed345cc36e5468fc27816a1d9944721f465f2bb5d9cc24ccbfbaa80dd991fc5",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:af2d759ec7b77cab9fa416bf2d8c38e28eb7cc677e166a1205acca64778f331f",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R21.mp4",
+      "sha256": "af2d759ec7b77cab9fa416bf2d8c38e28eb7cc677e166a1205acca64778f331f",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:b2ea98a9ca15401e709d632d2fba16137499c90b88e99c7363efba4addb513b1",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R31.mp4",
+      "sha256": "b2ea98a9ca15401e709d632d2fba16137499c90b88e99c7363efba4addb513b1",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:b2f20a3cb166552c77abb4b487dec2435221de2071d294396525f42abbcf10b0",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S03_R13.mp4",
+      "sha256": "b2f20a3cb166552c77abb4b487dec2435221de2071d294396525f42abbcf10b0",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:b73aa1d9b4103ca09c549e64be9686f98d82dc8285a39a59c97a920a8e493243",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R16.mp4",
+      "sha256": "b73aa1d9b4103ca09c549e64be9686f98d82dc8285a39a59c97a920a8e493243",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:baebf494ff56eeef0d20b3e766016bc146a2ebad91c3c08bb6b77613eaf362a5",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R15.mp4",
+      "sha256": "baebf494ff56eeef0d20b3e766016bc146a2ebad91c3c08bb6b77613eaf362a5",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:bc8241d923e6e082b202bfb38b40d2b447b87e0fc70433d33b1786165ed9b0f1",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R04.mp4",
+      "sha256": "bc8241d923e6e082b202bfb38b40d2b447b87e0fc70433d33b1786165ed9b0f1",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:bcecb6cf72e80003cb6e02f811a6ac95d382983abaec5f9849de94dd5c17a465",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R02.mp4",
+      "sha256": "bcecb6cf72e80003cb6e02f811a6ac95d382983abaec5f9849de94dd5c17a465",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:bdb6d6c9209642d731f99498f4c33a04e78e8f9533881df3d7cc8c0039e563aa",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R09.mp4",
+      "sha256": "bdb6d6c9209642d731f99498f4c33a04e78e8f9533881df3d7cc8c0039e563aa",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:c26fa9a361072fee056f3bb9c38f6765278470d467f77e724b03522d4d9d1bf6",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R10.mp4",
+      "sha256": "c26fa9a361072fee056f3bb9c38f6765278470d467f77e724b03522d4d9d1bf6",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:c5836b0b1c1b7674ba87971521ebf06e554efc5175b0ac3d8864f9a67e19e662",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R24.mp4",
+      "sha256": "c5836b0b1c1b7674ba87971521ebf06e554efc5175b0ac3d8864f9a67e19e662",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:c5bd39ff851d5636dce8a114d329abda033b0345ed6467c62a4fd6a1f9735767",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R14.mp4",
+      "sha256": "c5bd39ff851d5636dce8a114d329abda033b0345ed6467c62a4fd6a1f9735767",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:c7ff1d2103fdedcddb044a96997f9456b4c02d7e31da4136f232b3b271dc6281",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R05.mp4",
+      "sha256": "c7ff1d2103fdedcddb044a96997f9456b4c02d7e31da4136f232b3b271dc6281",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:cb548369f291b2567b81462f344000aa4c6b6443c8a32073597b95fb67723a3a",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R26.mp4",
+      "sha256": "cb548369f291b2567b81462f344000aa4c6b6443c8a32073597b95fb67723a3a",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:cc0a98ec3759abeed8e35f1577dfabf75fa6df730cfa04ba2b6db818003cf67f",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R45.mp4",
+      "sha256": "cc0a98ec3759abeed8e35f1577dfabf75fa6df730cfa04ba2b6db818003cf67f",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:d08e803888a6555c01a3afa94864ba995bcabb4141cbabf9b34c8d9f0f95a974",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R07.mp4",
+      "sha256": "d08e803888a6555c01a3afa94864ba995bcabb4141cbabf9b34c8d9f0f95a974",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:d143d43a1404d1228f08024bc62c3cb8c6795716e4309d7aef9c47285fd78732",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S05_R16.mp4",
+      "sha256": "d143d43a1404d1228f08024bc62c3cb8c6795716e4309d7aef9c47285fd78732",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:e2180a562ab86dde91e5afe219cbc529339ca65dc0a7fa7d176ae925611c6f35",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R06.mp4",
+      "sha256": "e2180a562ab86dde91e5afe219cbc529339ca65dc0a7fa7d176ae925611c6f35",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:e261715bc33d72e4cadb31ff87e5bf14fb31c5dc1e724b0f72e2030da2e5af4f",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R34.mp4",
+      "sha256": "e261715bc33d72e4cadb31ff87e5bf14fb31c5dc1e724b0f72e2030da2e5af4f",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:e5a17a427bd6bfb179c8154b18dbf985650fc73179cb3b42b1c2f8cf08ab81a1",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R38.mp4",
+      "sha256": "e5a17a427bd6bfb179c8154b18dbf985650fc73179cb3b42b1c2f8cf08ab81a1",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:e640150fae5269faf4641dc1e9263f6d1ef4d14a350e48846c597dea34ea3710",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R43.mp4",
+      "sha256": "e640150fae5269faf4641dc1e9263f6d1ef4d14a350e48846c597dea34ea3710",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:e93e1aeec85c4d5942ce57d18681389aa3fcba16959907ac99c7f6ff52f33801",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R41.mp4",
+      "sha256": "e93e1aeec85c4d5942ce57d18681389aa3fcba16959907ac99c7f6ff52f33801",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:e9e9ae7d342a3b75e5f75dbfbd9ed5b415978dd046c5273ced24afd87c6cd9e4",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R04.mp4",
+      "sha256": "e9e9ae7d342a3b75e5f75dbfbd9ed5b415978dd046c5273ced24afd87c6cd9e4",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:eabde52da6e5bd473bd679f604befbf7fb6c0a1d5c3fb291cc90f6fc54da3fe4",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R30.mp4",
+      "sha256": "eabde52da6e5bd473bd679f604befbf7fb6c0a1d5c3fb291cc90f6fc54da3fe4",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:ec553c87213451d79f66ae04ebdfd4378ec847fafe8d9023238d902f8eee40e9",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R08.mp4",
+      "sha256": "ec553c87213451d79f66ae04ebdfd4378ec847fafe8d9023238d902f8eee40e9",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S03",
+      "key": "w5prmmxyt9:ee280eb86030bb1a80074665986f77b3102a70bc21f4ff72557435e236fdb22e",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S03_R37.mp4",
+      "sha256": "ee280eb86030bb1a80074665986f77b3102a70bc21f4ff72557435e236fdb22e",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:f06be9f8597d9247dc2629a2b123c8868e32bccffc1fd7a242563dd2e387690d",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R15.mp4",
+      "sha256": "f06be9f8597d9247dc2629a2b123c8868e32bccffc1fd7a242563dd2e387690d",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:f33631e17430d0e80fb231668f9f298164d07fb8f456de594b550f65e56514cc",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R07.mp4",
+      "sha256": "f33631e17430d0e80fb231668f9f298164d07fb8f456de594b550f65e56514cc",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:fc3adc0a6d7dcde2c12dba4ab15e5b8c79ac27df79066ff3739d50cd5a29e3a2",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R11.mp4",
+      "sha256": "fc3adc0a6d7dcde2c12dba4ab15e5b8c79ac27df79066ff3739d50cd5a29e3a2",
+      "frames": 4
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:fc6d0949dda597ab80f9b64f5e00e4038898744a1526fe5b23b1969e83da5ade",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Punggung Bungkuk/PB_S01_R05.mp4",
+      "sha256": "fc6d0949dda597ab80f9b64f5e00e4038898744a1526fe5b23b1969e83da5ade",
+      "frames": 5
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S02",
+      "key": "w5prmmxyt9:fe52dc59ddf08bbc047747f33275d84d6866f6d77a9651cbc4f8ffbcb79878a9",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S02_R25.mp4",
+      "sha256": "fe52dc59ddf08bbc047747f33275d84d6866f6d77a9651cbc4f8ffbcb79878a9",
+      "frames": 2
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S05",
+      "key": "w5prmmxyt9:ff83e25f0e138658bbfd527edf1a8401194bed559af72fa2bc1cff222761ab13",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S05_R46.mp4",
+      "sha256": "ff83e25f0e138658bbfd527edf1a8401194bed559af72fa2bc1cff222761ab13",
+      "frames": 3
+    },
+    {
+      "action": "conventional_deadlift",
+      "group": "w5prmmxyt9:S01",
+      "key": "w5prmmxyt9:ffb26e58d25020d6a88090e9c73b784f882c5275c240070c2fe8d8fa02fe5300",
+      "partition": "train",
+      "path": "data/datasets/mydeadlift/Gerakan Benar/GB_S01_R21.mp4",
+      "sha256": "ffb26e58d25020d6a88090e9c73b784f882c5275c240070c2fe8d8fa02fe5300",
+      "frames": 5
+    },
+    {
+      "action": "reverse_lunge",
+      "group": "public_dvids_collection",
+      "key": "public:fb564598f5184e4539b893ca0ffd516c0b731148296603dca79a70fa86f7f830",
+      "partition": "train",
+      "path": "data/datasets/development-movements/reverse-lunge-dvids-551833.mp4",
+      "sha256": "fb564598f5184e4539b893ca0ffd516c0b731148296603dca79a70fa86f7f830",
+      "frames": 8
+    },
+    {
+      "action": "forearm_plank",
+      "group": "public_dvids_collection",
+      "key": "public:700e13b1a52fc2aa54c8dfc6047a2069515791fc9729561dd0d975561c5f426c",
+      "partition": "train",
+      "path": "data/datasets/development-movements/plank-dvids-640237-side.mp4",
+      "sha256": "700e13b1a52fc2aa54c8dfc6047a2069515791fc9729561dd0d975561c5f426c",
+      "frames": 8
+    },
+    {
+      "action": "jumping_jack",
+      "group": "commons_jacks_original",
+      "key": "public:dbbb8475000ac988846dd9fefb77e5458313ad380f5ec2c0a70741fae59f45ee",
+      "partition": "train",
+      "path": "data/datasets/development-movements/jumping-jacks-commons-segment.mp4",
+      "sha256": "dbbb8475000ac988846dd9fefb77e5458313ad380f5ec2c0a70741fae59f45ee",
+      "frames": 2
+    },
+    {
+      "action": "barbell_bent_over_row",
+      "group": "public_dvids_collection",
+      "key": "public:77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50",
+      "partition": "train",
+      "path": "data/datasets/development-movements/barbell-row-dvids-639914-side.mp4",
+      "sha256": "77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50",
+      "frames": 8
+    },
+    {
+      "action": "barbell_overhead_press",
+      "group": "public_dvids_collection",
+      "key": "public:02d5e0e9d598904a5f9ba78f663b260e9287ae9984870ebb1b1e395fbe2b87e8",
+      "partition": "train",
+      "path": "data/datasets/development-movements/overhead-press-dvids-692514-front.mp4",
+      "sha256": "02d5e0e9d598904a5f9ba78f663b260e9287ae9984870ebb1b1e395fbe2b87e8",
+      "frames": 8
+    },
+    {
+      "action": "barbell_bench_press",
+      "key": "dvids-639911",
+      "start_ms": 5000,
+      "end_ms": 16000,
+      "crop": [
+        0.26,
+        0.5,
+        0.77,
+        1.0
+      ],
+      "frames": 22,
+      "partition": "development_fit",
+      "source_sha256": "15d3da7fd1dfdd8629cb9c4f79a79b74f90967fccfbe39f610d0ec300b1ef983",
+      "cache_sha256": "76438ec1d5f30223dccdbcaa99df25725d8ee4fd19a31fb2b130e0c4dee59405",
+      "cache": "data\\verification\\step-22\\dvids-639911-5000-16000.npz"
+    },
+    {
+      "action": "dumbbell_bench_press",
+      "key": "dvids-636920",
+      "start_ms": 6000,
+      "end_ms": 20000,
+      "crop": [
+        0.26,
+        0.5,
+        0.77,
+        1.0
+      ],
+      "frames": 28,
+      "partition": "development_fit",
+      "source_sha256": "c4ca7b08e652ac7b9a6e17649a57f0715f701701d0661a20d7827904b53e8da7",
+      "cache_sha256": "6a36d3c226ebaf56a2df07881d269145ae929fe9932919211914e4222551e1ab",
+      "cache": "data\\verification\\step-22\\dvids-636920-6000-20000.npz"
+    },
+    {
+      "action": "incline_dumbbell_press",
+      "key": "dvids-636927",
+      "start_ms": 3000,
+      "end_ms": 15000,
+      "crop": [
+        0.26,
+        0.5,
+        0.77,
+        1.0
+      ],
+      "frames": 24,
+      "partition": "development_fit",
+      "source_sha256": "cd1077e567ea632203aaa4def373810bc6d1ed1df4ceeb0ab4953783a34b16be",
+      "cache_sha256": "20a53364d06382a470555d87d5d3dcda5e30d7b329befbdfbcdf204b3db50b01",
+      "cache": "data\\verification\\step-22\\dvids-636927-3000-15000.npz"
+    },
+    {
+      "action": "dumbbell_shoulder_press",
+      "key": "dvids-636933",
+      "start_ms": 2000,
+      "end_ms": 15000,
+      "crop": [
+        0.26,
+        0.5,
+        0.77,
+        1.0
+      ],
+      "frames": 26,
+      "partition": "development_fit",
+      "source_sha256": "4afd14841a49ea709a1b60f763cc7c9904b9e4a91531ebbd21fb3fb76d782231",
+      "cache_sha256": "3832bded44092a5dd2a4bdbd459c734db97f14b611368a639cd5d1863207c648",
+      "cache": "data\\verification\\step-22\\dvids-636933-2000-15000.npz"
+    },
+    {
+      "action": "pec_deck_fly",
+      "key": "commons-pec-deck-rear-deltoid",
+      "start_ms": 205000,
+      "end_ms": 230000,
+      "crop": null,
+      "frames": 50,
+      "partition": "development_fit",
+      "source_sha256": "508c0a70fa957a42acde41761d17a7ceda740868ff501e5a1194b8a134b3f3c6",
+      "cache_sha256": "39cae8793f4d56308de4830ddcf781c91cfb2baf9bfc970c6091dd3c43fb30d1",
+      "cache": "data\\verification\\step-22\\commons-pec-deck-rear-deltoid-205000-230000.npz"
+    },
+    {
+      "action": "reverse_pec_deck_fly",
+      "key": "commons-pec-deck-rear-deltoid",
+      "start_ms": 580000,
+      "end_ms": 605000,
+      "crop": null,
+      "frames": 50,
+      "partition": "development_fit",
+      "source_sha256": "508c0a70fa957a42acde41761d17a7ceda740868ff501e5a1194b8a134b3f3c6",
+      "cache_sha256": "a090a884725e0e195350752c7271c057993dc71b02e11466b0a3a56da62b6817",
+      "cache": "data\\verification\\step-22\\commons-pec-deck-rear-deltoid-580000-605000.npz"
+    },
+    {
+      "action": "machine_chest_press",
+      "key": "commons-cdc-chest-press",
+      "start_ms": 18000,
+      "end_ms": 30000,
+      "crop": null,
+      "frames": 24,
+      "partition": "development_fit",
+      "source_sha256": "f0d278486b4ed366f924ea1efd366e9121ad86ca3fcc28315db66f18f3c43e94",
+      "cache_sha256": "c069d66c2243765b9d9433384ca7d071107159afa6ee9fe3c8f1a0ac360b915f",
+      "cache": "data\\verification\\step-22\\commons-cdc-chest-press-18000-30000.npz"
+    }
+  ],
+  "scope": "development_reference",
+  "independent_validation_passed": false,
+  "test_used": false,
+  "legacy_validation_used": false,
+  "limitations": "New labels have only one original source each and share performers; no independent accuracy claim. Development clips are weak action labels, not error ground truth. FitnessScape and Gantner clips are excluded from fitting."
+}
