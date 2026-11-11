@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light"><title>知练同行 · 开发预览</title>
+  <link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./"><span class="mark" aria-hidden="true">↗</span><span>知练同行<small>把注意力放回每一次动作</small></span></a><span class="preview-badge">开发预览 · 自由训练</span></header>
+  <main>
+    <div class="heading"><div><p class="eyebrow">你的训练空间</p><h1>看见动作，练得更明白。</h1><p class="intro">选择一个动作，连接摄像头或打开视频，观察每一次完成情况。</p></div><a class="text-link" href="#history">查看最近记录 <span aria-hidden="true">↘</span></a></div>
+    <div class="workspace">
+      <aside class="setup card" aria-label="训练准备">
+        <h2>准备这次训练</h2>
+        <fieldset><legend>选择动作</legend><div class="action-options">
+          <label class="action-choice"><input name="action" type="radio" value="squat" checked><span><strong>徒手深蹲</strong><small>完整动作计数</small></span><span class="choice-symbol" aria-hidden="true">↕</span></label>
+          <label class="action-choice"><input name="action" type="radio" value="plank"><span><strong>前臂平板支撑</strong><small>累计保持计时</small></span><span class="choice-symbol" aria-hidden="true">↔</span></label>
+        </div></fieldset>
+        <fieldset><legend>画面来源</legend><div class="source-buttons"><button id="camera" class="secondary">启用摄像头</button><button id="fileButton" class="secondary">选择本地视频</button></div><input id="file" type="file" accept="video/*" hidden><button id="demo" class="demo-button">试试深蹲演示 <span aria-hidden="true">→</span></button></fieldset>
+        <div class="setup-note"><span class="note-icon" aria-hidden="true">◎</span><div><h3>先摆好机位</h3><p id="setupHint"></p></div></div>
+        <p class="privacy">视频在当前浏览器中处理，保存的只有训练摘要。</p>
+        <p id="modelState" class="model-state" role="status">准备后加载姿态模型</p>
+        <button id="retryModel" class="text-button" hidden>重新加载模型</button>
+      </aside>
+      <section class="training card" aria-labelledby="trainingTitle">
+        <div class="panel-heading"><h2 id="trainingTitle">徒手深蹲</h2><span id="sourceLabel" class="source-tag">尚未选择画面</span></div>
+        <div class="stage" id="stage"><video id="video" playsinline muted></video><canvas id="overlay"></canvas><div class="empty-stage" id="emptyStage"><div class="frame-icon" aria-hidden="true">＋</div><h3>让动作进入画面</h3><p>打开摄像头，或选择电脑上的训练视频</p><span>请保持单人、全身入镜</span></div><div class="countdown" id="countdown" hidden></div><span class="stage-status" id="phase">准备中</span></div>
+        <div class="feedback" id="feedback" role="status"><span class="feedback-dot"></span><span id="feedbackText">选择画面后，点击开始训练。</span></div>
+        <div class="controls"><button id="start" class="primary" disabled>开始训练</button><button id="pause" class="secondary" disabled>暂停</button><button id="stop" class="quiet" disabled>结束并保存</button><button id="release" class="text-button" disabled>关闭画面</button><span id="saveState" class="save-state" role="status"></span><button id="retrySave" class="text-button" hidden>重试保存</button></div>
+      </section>
+      <section class="results card" aria-label="本次观察结果"><div class="panel-heading"><h2>本次观察</h2><span class="pill">自由训练</span></div><div class="main-stat"><span id="metric">0</span><span id="unit">次</span></div><p class="stat-label" id="metricLabel">已完成动作</p><dl class="small-stats"><div><dt>训练时长</dt><dd id="duration">00:00</dd></div><div><dt>可观察时长</dt><dd id="observed">00:00</dd></div><div><dt>提示记录</dt><dd id="issueCount">0</dd></div></dl><div class="result-log"><h3>动作明细</h3><ol id="details"><li class="muted">开始训练后，明细会出现在这里。</li></ol></div><p class="scope" id="scope"></p><p class="rule-note">基础规则尚待数据验证。未出现提示不代表所有姿态都正确。</p></section>
+    </div>
+    <section class="history card" id="history"><div class="panel-heading"><div><h2>最近记录</h2><p class="muted">本机单人预览，最近 30 条。演示记录单独标记。</p></div><button id="refresh" class="text-button">刷新记录</button></div><div id="historyList" class="history-list"><p class="muted">正在读取记录…</p></div></section>
+    <footer><span>先把一次动作看清楚。<a href="https://github.com/NgoQuocBao1010/Exercise-Correction" target="_blank" rel="noreferrer">演示素材来源 ↗</a></span><span>当前开放 2 项验证 · 其余 10 项、账号和目标训练按阶段加入</span></footer>
+  </main>
+</body>
+</html>

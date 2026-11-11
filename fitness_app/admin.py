@@ -61,8 +61,8 @@ def register_admin(app,db):
         if set(request.args)-{"search","enabled","page","page_size"}:
             raise APIError("INVALID_REQUEST","不支持的账号查询字段")
         search=request.args.get("search","")
-        if len(search)>32:
-            raise APIError("VALIDATION_FAILED","搜索内容过长",422,{"search":"最多 32 字符"})
+        if len(search)>254:
+            raise APIError("VALIDATION_FAILED","搜索内容过长",422,{"search":"最多 254 字符"})
         state=request.args.get("enabled","")
         if state not in {"","0","1"}:
             raise APIError("VALIDATION_FAILED","状态筛选无效",422)

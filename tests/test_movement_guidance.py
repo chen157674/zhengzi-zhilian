@@ -5,7 +5,7 @@ import os
 import unittest
 from unittest.mock import patch
 import numpy as np
-from fitness_app.movement_guidance import MovementGuidance,ReturnPhase,lag_observation,wrist_observation
+from fitness_app.movement_guidance import MovementGuidance,ReturnPhase,lag_observation,wrist_observation,frame_measurements
 from fitness_app.movement_guidance_policy import RULES,SYNC_SPECS
 from fitness_app.posture_rules import policy_version,rules_for
 
@@ -83,6 +83,61 @@ class MovementTests(unittest.TestCase):
                 self.assertTrue(events);self.assertTrue(all(e['fast']==fast for e in events),events)
                 self.assertTrue(all(e['end_ms']>e['start_ms'] for e in events))
 
+    def test_final_return_settles_once_without_starting_another_repetition(self):
+        for direction in (1,-1):
+            for duration,fast in ((300,True),(1000,False)):
+                tracker=ReturnPhase(direction);events=[]
+                for stamp in range(0,4200,100):
+                    value=60+100*stamp/1600 if stamp<=1600 else max(60,160-100*(stamp-1600)/duration)
+                    event=tracker.update(stamp,value if direction==1 else 220-value)
+                    if event:events.append((stamp,event))
+                self.assertEqual(len(events),1,events)
+                emitted,event=events[0]
+                self.assertEqual(event['confirmation_basis'],'settled_return')
+                self.assertEqual(event['fast'],fast)
+                self.assertEqual(event['start_ms'],1600)
+                self.assertEqual(event['end_ms'],1600+duration)
+                self.assertLessEqual(emitted-event['end_ms'],400)
+                self.assertGreaterEqual(event['return_observed_samples'],3)
+                self.assertAlmostEqual(event['return_to_effort_speed_ratio'],
+                    (event['return_excursion_degrees']/event['return_ms'])/
+                    (event['effort_excursion_degrees']/event['effort_ms']))
+
+    def test_partial_return_and_isolated_spike_do_not_form_a_complete_return(self):
+        for mode in ('partial','spike','gap','nan'):
+            tracker=ReturnPhase(1);events=[]
+            for stamp in range(0,4000,100):
+                value=60+100*stamp/1600 if stamp<=1600 else max(60,160-100*(stamp-1600)/300)
+                if mode=='partial' and stamp>1600:value=max(120,160-40*(stamp-1600)/300)
+                if mode=='spike':value=160 if stamp==1600 else 60
+                if mode=='gap' and 1700<=stamp<=2200:continue
+                if mode=='nan' and stamp==1700:value=float('nan')
+                event=tracker.update(stamp,value)
+                if event:events.append(event)
+            self.assertEqual(events,[],mode)
+
+    def test_comparable_shorter_return_uses_speed_instead_of_duration_ratio(self):
+        tracker=ReturnPhase(1);events=[]
+        for stamp in range(0,2000,50):
+            value=60+100*stamp/800 if stamp<=800 else max(80,160-80*(stamp-800)/400)
+            event=tracker.update(stamp,value)
+            if event:events.append(event)
+        self.assertEqual(len(events),1)
+        event=events[0]
+        self.assertLess(event['return_to_effort_ratio'],.55)
+        self.assertAlmostEqual(event['return_to_effort_speed_ratio'],1.6)
+        self.assertFalse(event['fast'])
+
+    def test_partial_rebound_cannot_be_labeled_fast_from_duration_alone(self):
+        tracker=ReturnPhase(1);events=[]
+        for stamp in range(0,2400,100):
+            if stamp<=1600:value=60+100*stamp/1600
+            elif stamp<=1900:value=160-40*(stamp-1600)/300
+            else:value=120+40*(stamp-1900)/400
+            event=tracker.update(stamp,value)
+            if event:events.append(event)
+        self.assertEqual(events,[])
+
     def test_elbow_relative_drift_ignores_global_translation_and_scale(self):
         for drifting in (False,True):
             observer=MovementGuidance('standing_dumbbell_curl','fixture')
@@ -111,6 +166,19 @@ class MovementTests(unittest.TestCase):
         self.assertEqual(wrist_observation(f,'left')['status'],'unassessable')
         self.assertEqual(wrist_observation(frame(100),'left')['status'],'unassessable')
 
+    def test_shifted_session_clock_keeps_same_frame_body_and_palm_evidence(self):
+        observer=MovementGuidance('machine_chest_press','fixture')
+        for t in range(0,1300,100):
+            f=frame(t,bend=60);f.update(captured_ms=7000+t,source_captured_ms=t)
+            self.assertEqual(frame_measurements(f)[1],'rtmpose_reference')
+            items,_=observer.update(f,{})
+        item=selected(items,'wrist_bend','left')[0]
+        self.assertEqual(item['status'],'issue')
+        self.assertGreaterEqual(item['start_ms'],7000);self.assertEqual(item['end_ms'],8200)
+        f['pretrained']['timestamp_ms']=f['captured_ms']
+        self.assertEqual(wrist_observation(f,'left')['status'],'unassessable')
+        self.assertEqual(frame_measurements(f)[1],'mediapipe_original')
+
     def test_unsupported_view_restores_continuous_window_and_never_persists_old_cue(self):
         observer=MovementGuidance('standing_dumbbell_curl','fixture')
         for t in range(0,6000,100):
@@ -120,6 +188,45 @@ class MovementTests(unittest.TestCase):
         item=selected(items,'elbow_drift')[0];self.assertEqual(item['status'],'unassessable');self.assertNotIn('side',item)
         items,_=observer.update(frame(6100),{})
         self.assertFalse(any(i['status']=='issue' for i in selected(items,'elbow_drift')))
+
+    def test_two_to_ten_fps_persistent_posture_needs_real_samples_and_withdraws_after_gap(self):
+        for interval in (100,200,250,280,333,400,500):
+            for drifting in (False,True):
+                observer=MovementGuidance('standing_dumbbell_curl','fixture');issues=[]
+                for stamp in range(0,8000,interval):
+                    wave=math.sin(stamp/2400*2*math.pi)
+                    items,_=observer.update(frame(stamp,100+45*wave,100+45*wave,drift=.12*wave if drifting else 0),{})
+                    issues.extend(selected(items,'elbow_drift','left'))
+                self.assertEqual(any(i['status']=='issue' for i in issues),drifting,(interval,drifting))
+                for item in issues:
+                    if item['status']=='issue':
+                        self.assertGreaterEqual(item['evidence']['observed_frames'],4)
+                        self.assertGreaterEqual(item['evidence']['observed_duration_ms'],1200)
+                        self.assertLessEqual(item['evidence']['maximum_observation_gap_ms'],500)
+            for bend in (0,60):
+                observer=MovementGuidance('machine_chest_press','fixture')
+                for stamp in range(0,3000,interval):
+                    items,_=observer.update(frame(stamp,bend=bend),{})
+                    if stamp<700:self.assertNotEqual(selected(items,'wrist_bend','left')[0]['status'],'issue')
+                item=selected(items,'wrist_bend','left')[0]
+                self.assertEqual(item['status'],'issue' if bend else 'not_observed',interval)
+                self.assertGreaterEqual(item['evidence']['observed_frames'],4)
+                items,_=observer.update(frame(stamp+600,bend=bend),{})
+                self.assertEqual(selected(items,'wrist_bend','left')[0]['status'],'unassessable')
+                self.assertEqual(selected(items,'wrist_bend','left')[0]['evidence']['observed_frames'],1)
+
+    def test_sparse_posture_does_not_publish_phase_lag_or_fast_return(self):
+        observer=MovementGuidance('machine_chest_press','fixture')
+        for stamp in range(0,10000,400):
+            items,_=observer.update(frame(stamp,100+45*math.sin(stamp/2400*2*math.pi),
+                100+45*math.sin((stamp-400)/2400*2*math.pi),bend=60),{})
+            self.assertFalse(any(i['status']=='issue' for i in selected(items,'phase_lag')+selected(items,'fast_return')))
+        self.assertEqual(selected(items,'wrist_bend','left')[0]['status'],'issue')
+        missing=frame(stamp+400,bend=60);missing['identity_accepted']=False
+        items,_=observer.update(missing,{})
+        self.assertFalse(any(i['status']=='issue' for i in items))
+        items,_=observer.update(frame(stamp+800,bend=60),{})
+        self.assertEqual(selected(items,'wrist_bend','left')[0]['status'],'unassessable')
 
     def test_default_and_enabled_capabilities_are_separate(self):
         try:
@@ -140,6 +247,89 @@ class MovementBackendTests(unittest.TestCase):
             for hook in self.fx.app.extensions.get('stop_hooks',[]):hook()
             self.fx.tearDown()
         finally:self.env.stop();policy_version.cache_clear()
+
+    def test_real_recovered_palm_cache_saves_right_wrist_issue_and_highlight(self):
+        import json
+        from fitness_app.paths import ROOT
+        from fitness_app.posture_engine import create_analysis_engine
+        from fitness_app.coaching import committed_issues,coaching_snapshot,coaching_observation
+        from fitness_app.skeleton import skeleton_snapshot
+        cache=json.loads((ROOT/'data/verification/round3/movement-guidance-review.json').read_text(encoding='utf-8'))
+        original=next(v for v in cache['videos'] if v['number']=='1694')
+        recovered=json.loads((ROOT/'data/verification/round3/hand-recovery-review.json').read_text(encoding='utf-8'))
+        review=next(v for v in recovered['videos'] if v['number']=='1694')
+        self.assertEqual(review['video_sha256'],original['source_sha256'])
+        by={row['t']:row for row in original['frames']};engine=create_analysis_engine('machine_chest_press')
+        sid=self.fx.running('machine_chest_press');highlights=[]
+        for row in review['rows']:
+            stamp=row['t'];base=by[stamp]
+            current={'captured_ms':stamp,'frame_seq':stamp,'width':1280,'height':720,
+                'identity_accepted':base['identity_accepted'],'framing':{'person_count':base['base_people'],
+                'code':base['base_framing'],'usable':base['identity_accepted'],'landmarks':base['original_landmarks']},
+                'pretrained':{'status':'observed' if base.get('body') else 'unassessable','timestamp_ms':stamp,
+                'body':base.get('body'),'hands':row['hands']}}
+            output=engine.process(current,{'coaching_view':'auto','stream_epoch':'real-recovered-cache'})
+            if output.get('posture_findings'):
+                saved=self.fx.writer.submit(self.fx.user,sid,self.fx.auth,'posture',
+                    {'set_index':1,'findings':output['posture_findings'],'active_ms':stamp})
+                self.assertEqual(saved['save_state'],'clean')
+            issues=[i for i in committed_issues(output) if i['code'].endswith('wrist_bend')]
+            if issues:
+                current['analysis']=coaching_observation(output)
+                cue=coaching_snapshot({'status':'running','action_id':'machine_chest_press','supported_items':engine.rules},current,issues)
+                highlights.append(skeleton_snapshot(current,cue)['highlight'])
+        record=self.fx.store.snapshot(self.fx.user,sid,True)
+        issues=[i for i in record['posture_observations'] if i['code'].endswith('wrist_bend') and i['status']=='issue']
+        self.assertTrue(issues);self.assertEqual({i['side'] for i in issues},{'right'})
+        self.assertTrue(any(highlights));self.assertEqual(record['total_count'],0);self.fx.finish(sid)
+
+    def test_final_repetition_issue_is_saved_before_next_effort_without_adding_count(self):
+        from fitness_app.posture_engine import create_analysis_engine
+        from fitness_app.coaching import committed_issues
+        engine=create_analysis_engine('machine_chest_press');sid=self.fx.running('machine_chest_press');seen=[]
+        for stamp in range(0,3300,100):
+            value=60+100*stamp/1600 if stamp<=1600 else max(60,160-100*(stamp-1600)/300)
+            output=engine.process(frame(stamp,value,value),{'coaching_view':'auto','stream_epoch':'last-return-fixture'})
+            seen.extend(i for i in committed_issues(output) if i['code'].endswith('fast_return'))
+            if output.get('posture_findings'):
+                result=self.fx.writer.submit(self.fx.user,sid,self.fx.auth,'posture',
+                    {'set_index':1,'findings':output['posture_findings'],'active_ms':stamp})
+                self.assertEqual(result['save_state'],'clean')
+        self.assertTrue(seen)
+        record=self.fx.store.snapshot(self.fx.user,sid,True)
+        issues=[i for i in record['posture_observations'] if i['status']=='issue' and i['code'].endswith('fast_return')]
+        self.assertEqual({i['side'] for i in issues},{'left','right'})
+        self.assertTrue(all(i['evidence']['confirmation_basis']=='settled_return' for i in issues))
+        self.assertTrue(all((i['start_ms'],i['end_ms'])==(1600,1900) for i in issues))
+        self.assertEqual(record['total_count'],0);self.fx.finish(sid)
+
+    def test_sparse_real_engine_persists_wrist_error_and_withdraws_after_missing_palm(self):
+        from fitness_app.posture_engine import create_analysis_engine
+        from fitness_app.coaching import coaching_snapshot,committed_issues
+        from fitness_app.skeleton import skeleton_snapshot
+        for interval in (280,333,400,500):
+            engine=create_analysis_engine('machine_chest_press');sid=self.fx.running('machine_chest_press')
+            for stamp in range(0,3500,interval):
+                current=frame(stamp,bend=60);current['frame_seq']=stamp
+                output=engine.process(current,{'coaching_view':'auto','stream_epoch':'sparse-fixture'})
+                if output.get('posture_findings'):
+                    saved=self.fx.writer.submit(self.fx.user,sid,self.fx.auth,'posture',
+                        {'set_index':1,'findings':output['posture_findings'],'active_ms':stamp})
+                    self.assertEqual(saved['save_state'],'clean')
+            record=self.fx.store.snapshot(self.fx.user,sid,True)
+            errors=[i for i in record['posture_observations'] if i['code'].endswith('wrist_bend') and i['status']=='issue']
+            self.assertEqual({i['side'] for i in errors},{'left','right'})
+            self.assertTrue(all(i['evidence']['observed_frames']>=4 for i in errors))
+            feedback=committed_issues(output);current['analysis']=output['observation']
+            session={'status':'running','action_id':'machine_chest_press','supported_items':engine.rules}
+            cue=coaching_snapshot(session,current,feedback)
+            self.assertIsNotNone(cue['primary_cue']);self.assertTrue(skeleton_snapshot(current,cue)['highlight'])
+            missing=frame(stamp+interval,bend=60);missing['frame_seq']=stamp+interval
+            for hand in missing['pretrained']['hands']:hand['keypoints'][9]['score']=.1
+            missing['analysis']=engine.process(missing,{'coaching_view':'auto','stream_epoch':'sparse-fixture'})['observation']
+            cue=coaching_snapshot(session,missing,feedback,interval)
+            self.assertIsNone(cue['primary_cue']);self.assertFalse(skeleton_snapshot(missing,cue)['highlight'])
+            self.fx.finish(sid)
 
     def test_real_engine_save_guidance_cue_highlight_and_occlusion_retraction(self):
         from fitness_app.posture_engine import create_analysis_engine

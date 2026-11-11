@@ -1,6 +1,6 @@
 // 按采用稿组织四个动效节拍；静止态始终完整，演示骨架继续由 home_demo.js 同帧绘制。
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const desktop=matchMedia('(min-width: 761px)');
+const desktop=matchMedia('(min-width: 768px)');
 const shell=document.querySelector('.landing-home');
 const demo=document.querySelector('.showcase-player');
 const detail=document.querySelector('.home-detail');

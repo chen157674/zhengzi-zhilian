@@ -1,4 +1,6 @@
 """新增器械动作的投影姿态参考；没有周期真值时不产出次数或整体正确率。"""
+import math
+from statistics import median
 from .gym_motion import measurements,quantile,span
 from .pretrained_policy import RULES as PRETRAINED_RULES
 from .movement_guidance_policy import RULES as GUIDANCE_RULES
@@ -6,7 +8,10 @@ from .movement_guidance_policy import RULES as GUIDANCE_RULES
 
 def evaluate(code,frames,view,threshold,*,require_continuous=False,allowed_views=None):
     missing={'status':'unassessable','reason':'required_parts_or_identity_missing'}
-    values=measurements(frames)
+    intervals=[b['captured_ms']-a['captured_ms'] for a,b in zip(frames,frames[1:])]
+    cadence=median(intervals[-6:]) if intervals else 0
+    minimum_frames=max(4,min(8,math.ceil(1200/cadence)+1)) if cadence>0 else 8
+    values=measurements(frames,minimum_frames=minimum_frames)
     if not values:return missing
     # 自动估计在规则允许的侧面/斜侧面之间变化，不是用户声明的机位冲突。
     permitted=set(allowed_views or (view,))
@@ -17,14 +22,14 @@ def evaluate(code,frames,view,threshold,*,require_continuous=False,allowed_views
             ratio=view_ratio(frames[-1])
             # 近正面且双侧可见时可比较相对肩部的手臂高度；明显侧面仍不比较。
             if ratio is None or ratio<.6:return {'status':'unassessable','reason':'unsupported_view'}
-        # 分类测量允许短暂缺点；当前纠错必须两侧可见，并重新积累遮挡后的连续证据。
+        # 分类测量允许短暂缺失点；当前纠错必须两侧可见，并重新积累遮挡后的连续证据。
         visible={row['stamp'] for row in values['bilateral']}
         continuous=0
         for frame in reversed(frames):
             if frame['captured_ms'] not in visible:break
             continuous+=1
         if not continuous:return missing
-        values=measurements(frames[-continuous:])
+        values=measurements(frames[-continuous:],minimum_frames=minimum_frames)
         if not values or not values['bilateral']:return missing
     elif require_continuous:
         # 只使用这一侧遮挡后重新积累的连续窗口，不将遮挡前后的摆幅拼接。
@@ -34,7 +39,7 @@ def evaluate(code,frames,view,threshold,*,require_continuous=False,allowed_views
             for frame in reversed(frames):
                 if frame['captured_ms'] not in visible:break
                 continuous+=1
-            if continuous<8:continue
+            if continuous<minimum_frames:continue
             start=frames[-continuous]['captured_ms']
             current=[row for row in rows if row['stamp']>=start]
             if current[-1]['stamp']-current[0]['stamp']>=1200:sides[side]=current
@@ -54,7 +59,7 @@ def evaluate(code,frames,view,threshold,*,require_continuous=False,allowed_views
         longest=0;start=None;last=None
         for row in rows:
             if row['height_difference']>threshold:
-                if start is None or last is not None and row['stamp']-last>250:start=row['stamp']
+                if start is None or last is not None and row['stamp']-last>500:start=row['stamp']
                 longest=max(longest,row['stamp']-start)
             else:start=None
             last=row['stamp']
@@ -66,16 +71,20 @@ def evaluate(code,frames,view,threshold,*,require_continuous=False,allowed_views
             return {'status':'unassessable','reason':'bilateral_projection_disagreement'}
         value=max(ranges.values());issue=value>threshold;feature=key+'_image_angle_range'
     return {'status':'issue' if issue else 'not_observed','reason':None,'value':value,'threshold':threshold,
+            'observed_frames':len(frames),'observed_duration_ms':frames[-1]['captured_ms']-frames[0]['captured_ms'],
+            'maximum_observation_gap_ms':max(intervals) if intervals else None,
             'feature_name':feature,'measurement_basis':'连续窗口可见关节的图像投影；不能用于肌肉受力判断'}
 
 
-def observe(engine,frame,view,basis,codes=None):
+def observe(engine,frame,view,basis,codes=None,*,movement_pattern=None):
     stamp=frame['captured_ms'];frames=[f for f in engine.frames if stamp-f['captured_ms']<=2400]
     items=[];findings=[]
     for rule in engine.rules:
         if rule['code'] in PRETRAINED_RULES or rule['code'] in GUIDANCE_RULES:continue
         if codes is not None and rule['code'] not in codes:continue
-        if rule['code'].endswith('trunk_lateral_lean'):
+        if rule['code'].endswith('arm_asymmetry') and movement_pattern in ('alternating','single_side'):
+            result={'status':'unassessable','reason':'simultaneous_variant_required'}
+        elif rule['code'].endswith('trunk_lateral_lean'):
             from .scene_reference import evaluate_lateral
             result=evaluate_lateral(frames,rule['threshold'],rule['views'],engine.static.get(rule['code']))
         else:

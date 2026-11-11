@@ -151,13 +151,41 @@ class Database:
                 if columns!=expected or not indices or indices[0][2]:raise StorageError('报告查询索引不兼容，拒绝写入')
             refs=list(execute("PRAGMA foreign_key_list('report_exports')"));groups={r[0] for r in refs if r[2]=='auth_sessions' and r[3]=='auth_id' and r[4]=='id' and r[6]=='RESTRICT'}
             if not any(r[0] in groups and r[3]=='user_id' and r[4]=='user_id' and r[6]=='RESTRICT' for r in refs):raise StorageError('报告所有人约束不兼容，拒绝写入')
+        if row[1]>=12:
+            columns=[r[2] for r in execute("PRAGMA index_info('ix_coach_retest_owner_expiry')")]
+            if columns!=['user_id','expires_at_ms']:raise StorageError('复测任务所有人索引不兼容')
+            profile_columns={r[1]:r for r in execute("PRAGMA table_info('nutrition_profiles')")}
+            if profile_columns['user_id'][5]!=1:raise StorageError('身体档案所有人主键不兼容')
+            for table in ('nutrition_profiles','coach_saved_retests'):
+                refs=list(execute(f"PRAGMA foreign_key_list('{table}')"))
+                if not any(r[2]=='users' and r[3]=='user_id' and r[4]=='id' for r in refs):raise StorageError('新增资料所有人约束不兼容')
+        if row[1]>=13:
+            identity_columns=[r[2] for r in execute("PRAGMA index_info('ix_coach_retest_owner_identity')")]
+            identity_indices=[r for r in execute("PRAGMA index_list('coach_saved_retests')") if r[1]=='ix_coach_retest_owner_identity']
+            refs=list(execute("PRAGMA foreign_key_list('coach_practice_details')"))
+            owner_ids={r[0] for r in refs if r[2]=='coach_saved_retests' and r[3]=='retest_task_id' and r[4]=='id' and r[6]=='CASCADE'}
+            if identity_columns!=['id','user_id'] or not identity_indices or not identity_indices[0][2] or not any(r[0] in owner_ids and r[3]=='user_id' and r[4]=='user_id' and r[6]=='CASCADE' for r in refs):raise StorageError('练习任务所有人复合约束不兼容，拒绝写入')
+            for name,table,column,predicate in [('ix_training_one_current','training_plans','user_id',"wherestatusin('active','paused')"),('ix_training_one_running','training_workouts','user_id',"wherestatus='running'")]:
+                cols=[r[2] for r in execute(f"PRAGMA index_info('{name}')")]
+                entries=[r for r in execute(f"PRAGMA index_list('{table}')") if r[1]==name]
+                sql=execute("SELECT sql FROM sqlite_master WHERE type='index' AND name=?",(name,)).fetchone()
+                normalized=''.join(sql[0].lower().split()) if sql and sql[0] else ''
+                if cols!=[column] or not entries or not entries[0][2] or not entries[0][4] or not normalized.endswith(predicate):raise StorageError('训练唯一活动索引不兼容，拒绝写入')
+            columns=[r[2] for r in execute("PRAGMA index_info('ix_training_session_date')")]
+            indexes=[r for r in execute("PRAGMA index_list('training_plan_sessions')") if r[1]=='ix_training_session_date']
+            sql=execute("SELECT sql FROM sqlite_master WHERE type='index' AND name='ix_training_session_date'").fetchone()
+            normalized=''.join(sql[0].lower().split()) if sql and sql[0] else ''
+            if columns!=['plan_id','scheduled_date'] or not indexes or not indexes[0][2] or not indexes[0][4] or not normalized.endswith("wherestatus!='cancelled'"):
+                raise StorageError('训练日期唯一索引不兼容，拒绝写入')
         return {"project_id": row[0], "schema_version": row[1]}
 
-    def initialize(self):
+    def initialize(self, *, allow_round5_migration=False):
         with maintenance_lock(self.path):
             if self.path.exists():
                 identity = self.inspect_identity(allow_legacy=True)
                 if identity['schema_version'] < SCHEMA_VERSION:
+                    if identity['schema_version']<13<=SCHEMA_VERSION and not allow_round5_migration:
+                        raise StorageError('第五轮数据升级尚未明确允许；请先在隔离库验证，再显式启用迁移，原库未改')
                     from .db_schema import posture_observations,user_profiles,users,receipt_saved_index
                     from .profile_assets import random_profile,AVATAR_IDS
                     try:
@@ -178,6 +206,10 @@ class Database:
                             if indices and (columns!=['actor_user_id','resource_id','ended_at_ms','resource_type'] or indices[0][2]):
                                 raise StorageError('旧库存在不兼容同名回执索引，拒绝覆盖')
                             receipt_saved_index.create(connection,checkfirst=True)
+                            if identity['schema_version']<13:
+                                from .db_schema import coach_retest_identity_index
+                                # 原表已存在时需显式补同任务/所有人唯一索引，随后才建复合外键附表。
+                                if identity['schema_version']>=12:coach_retest_identity_index.create(connection,checkfirst=True)
                             for table in metadata.sorted_tables:
                                 if TABLE_VERSIONS.get(table.name,1)>max(identity['schema_version'],3):
                                     table.create(connection)

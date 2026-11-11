@@ -1,4 +1,5 @@
 import {api,showMessage,confirmDialog,keepDialogFocus,RequestError} from './app.js';
+import {el,dateFormat} from './record_common.js';
 const form=document.querySelector('#profile-form'),nickname=form.elements.nickname,save=document.querySelector('#profile-save'),cancel=document.querySelector('#profile-cancel'),error=document.querySelector('#account-error'),retry=document.querySelector('#account-retry');
 const dialog=document.querySelector('#avatar-dialog'),file=document.querySelector('#avatar-file'),upload=document.querySelector('#avatar-confirm'),close=document.querySelector('#avatar-cancel');
 let profile=null,busy=false,objectURL=null,picked=null,releaseFocus=null;
@@ -17,5 +18,24 @@ upload.onclick=async()=>{if(busy||!picked)return;busy=true;upload.disabled=close
 window.fitnessLeaveGuard=async()=>!busy&&(!dirty()||await confirmDialog({title:'放弃未保存的昵称？',message:'头像已确认的修改不受影响。',confirmLabel:'放弃修改'}));
 window.addEventListener('beforeunload',event=>{if(dirty()||busy){event.preventDefault();event.returnValue='';}});
 window.addEventListener('pagehide',()=>{if(objectURL)URL.revokeObjectURL(objectURL);});
-async function recent(){const box=document.querySelector('#profile-recent');try{const data=await api('/api/v1/account/overview');box.replaceChildren();if(!data.recent_records.length){const h=document.createElement('h3');h.textContent='还没有训练记录';const p=document.createElement('p');p.className='muted';p.textContent='完成训练后，可以在这里回看动作反馈。';const a=document.createElement('a');a.href='/realtime';a.textContent='开始实时分析 →';a.dataset.nav='';box.append(h,p,a);}else{for(const r of data.recent_records.slice(0,3)){const a=document.createElement('a');a.className='security-row';a.href='/records/'+encodeURIComponent(r.session_id);a.textContent=(r.action_name||r.action_id)+' · 查看反馈 →';box.append(a);}}}catch(e){box.textContent=e.message;}}
+async function recent(){
+ const box=document.querySelector('#profile-recent');
+ try{
+  const data=await api('/api/v1/account/overview');box.replaceChildren();
+  if(!data.recent_records.length){
+   box.dataset.state='empty';
+   const copy=el('div'),title=el('h3','还没有训练记录'),description=el('p','完成训练后，在这里回看动作与反馈。');copy.append(title,description);
+   const link=el('a','开始实时分析','button secondary small');link.href='/realtime';link.dataset.nav='';box.append(copy,link);
+  }else{
+   box.dataset.state='ready';
+   for(const record of data.recent_records.slice(0,3)){
+    const link=el('a',undefined,'account-recent-row');link.href='/records/'+encodeURIComponent(record.session_id);link.dataset.nav='';
+    const copy=el('div'),name=el('strong',record.action_name||record.action_id),metadata=[];
+    if(record.started_at_ms)metadata.push(dateFormat.format(record.started_at_ms));
+    metadata.push(record.source==='camera'?'实时分析':record.source==='video'?'视频分析':'训练记录');
+    copy.append(name,el('p',metadata.join(' · ')));link.append(copy,el('span','查看反馈 →','account-recent-action'));box.append(link);
+   }
+  }
+ }catch(error){box.dataset.state='error';box.textContent=error.message;}
+}
 load();recent();

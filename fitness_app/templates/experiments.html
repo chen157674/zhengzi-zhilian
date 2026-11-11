@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block title %}算法实验 · 健身动作助手{% endblock %}{% block page %}experiments{% endblock %}
+{% extends 'base.html' %}{% block title %}算法实验 · 知练同行{% endblock %}{% block page %}experiments{% endblock %}
 {% block head %}<link rel="stylesheet" href="{{ url_for('static',filename='experiments.css') }}"><script type="module" src="{{ url_for('static',filename='experiments.js') }}"></script>{% endblock %}
 {% block content %}<div class="container experiment-page" id="experiment-page" data-experiment-id="{{ experiment_id }}">
 <div class="page-heading"><div class="experiment-heading"><h1 id="experiment-title" tabindex="-1">{{ '实验结果' if experiment_id else '算法实验' }}</h1><span id="experiment-badge" class="status-badge disabled" hidden></span></div><p id="experiment-subtitle">在同一数据与划分下比较已有方法</p></div>

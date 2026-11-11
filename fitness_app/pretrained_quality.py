@@ -1,16 +1,17 @@
 """预训练观察的连续确认与拒判；与原计数器独立，不把类别分数当完整正确率。"""
 from collections import deque
+import math
 from statistics import median
 from .pretrained_policy import RULES
 
 
 class PretrainedObserver:
     def __init__(self,action,version,codes=None):
-        self.action=action;self.version=version;self.rows=deque();self.states={};self.model=None
+        self.action=action;self.version=version;self.rows=deque();self.balance_rows=deque();self.states={};self.model=None
         self.definitions={key:value for key,value in RULES.items() if value[0]==action and (codes is None or key in codes)}
         self.last_stamp=None
 
-    def reset(self):self.rows.clear();self.states.clear();self.last_stamp=None
+    def reset(self):self.rows.clear();self.balance_rows.clear();self.states.clear();self.last_stamp=None
 
     def _pack(self,code,status,reason,stamp,evidence,message=None):
         definition=self.definitions[code];identity=(status,reason,message,evidence.get('side') if status=='issue' else None)
@@ -24,16 +25,38 @@ class PretrainedObserver:
 
     def update(self,frame,context=None):
         stamp=frame['captured_ms'];data=frame.get('pretrained')
-        if self.last_stamp is not None and (stamp<=self.last_stamp or stamp-self.last_stamp>250):self.reset()
+        if self.last_stamp is not None:
+            gap=stamp-self.last_stamp
+            if gap<=0 or gap>500:self.reset()
+            elif gap>250:self.rows.clear()
         self.last_stamp=stamp
-        if not data or data.get('status')!='observed' or data.get('timestamp_ms')!=stamp:
-            self.rows.clear()
+        if frame.get('identity_accepted') is False or frame.get('framing',{}).get('person_count',1)!=1:
+            self.rows.clear();self.balance_rows.clear()
+            return [self._pack(code,'unassessable','required_parts_or_identity_missing',stamp,{}) for code in self.definitions]
+        source_stamp=frame.get('source_captured_ms',stamp)
+        if not data or data.get('status')!='observed' or data.get('timestamp_ms')!=source_stamp:
+            self.rows.clear();self.balance_rows.clear()
             return [self._pack(code,'unassessable','pretrained_input_unavailable',stamp,{}) for code in self.definitions]
+        if self.action=='lat_pulldown':
+            points=data.get('body',{}).get('keypoints',[])
+            required=(5,6,9,10,11,12)
+            visible=len(points)==17 and all(points[i].get('coordinate_valid') and points[i].get('score',0)>=.5 for i in required)
+            engaged=visible and all(points[wrist]['y']<=points[shoulder]['y']+.25*(points[hip]['y']-points[shoulder]['y'])
+                                   and points[hip]['y']-points[shoulder]['y']>=.08
+                                   for shoulder,wrist,hip in ((5,9,11),(6,10,12)))
+            if not engaged:
+                self.rows.clear();self.balance_rows.clear()
+                reason='exercise_not_engaged' if visible else 'pretrained_parts_not_visible'
+                return [self._pack(code,'unassessable',reason,stamp,{}) for code in self.definitions]
         current={'stamp':stamp,'data':data};self.rows.append(current)
         while self.rows and stamp-self.rows[0]['stamp']>1400:self.rows.popleft()
+        self.balance_rows.append(current)
+        while self.balance_rows and stamp-self.balance_rows[0]['stamp']>2000:self.balance_rows.popleft()
         items=[]
         for code in self.definitions:
-            evidence={'body_model_sha256':data.get('body_model_sha256'),'hand_model_sha256':data.get('hand_model_sha256')}
+            evidence={'body_model_sha256':data.get('body_model_sha256'),'hand_model_sha256':data.get('hand_model_sha256'),
+                'body_execution_backend':data.get('body',{}).get('execution_backend'),
+                'hand_execution_backend':data.get('hands',[{}])[0].get('execution_backend') if data.get('hands') else None}
             requested=(context or {}).get('coaching_view','auto')
             if requested!='auto' and requested not in self.definitions[code][3]:
                 items.append(self._pack(code,'unassessable','unsupported_view',stamp,evidence));continue
@@ -41,12 +64,16 @@ class PretrainedObserver:
                 feature=data.get('body_features',{}).get('scene_lean',{});value=feature.get('value')
                 if feature.get('status')!='observed':
                     items.append(self._pack(code,'unassessable',feature.get('reason','scene_reference_unavailable'),stamp,evidence));continue
-                window=[r for r in self.rows if stamp-r['stamp']<=1100]
+                intervals=[b['stamp']-a['stamp'] for a,b in zip(self.balance_rows,list(self.balance_rows)[1:])]
+                cadence=median(intervals[-6:]) if intervals else 0
+                window_ms=max(1100,max(3,math.ceil(900/cadence))*cadence+max(50,.2*cadence)) if cadence else 1100
+                window=[r for r in self.balance_rows if stamp-r['stamp']<=min(1800,window_ms)]
                 known=[r['data'].get('body_features',{}).get('scene_lean',{}) for r in window]
                 known=[f for f in known if f.get('status')=='observed']
                 matching=[f for f in known if f.get('side')==feature.get('side')]
                 duration=stamp-window[0]['stamp']
-                ready=len(window)>=8 and duration>=900
+                # 低帧率时仍须至少四次真实观测及足够持续时间，不补造中间帧。
+                ready=len(window)>=4 and duration>=900
                 prior=self.states.get(code);held=bool(prior and prior[0][0]=='issue' and prior[0][3]==feature.get('side'))
                 boundary=4. if held else 6.;paths=[]
                 for name,key in (('shoulder_and_trunk','shoulder_degrees'),('cross_model_trunk','source_trunk_degrees')):

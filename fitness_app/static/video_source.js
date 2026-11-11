@@ -22,3 +22,16 @@ export function demoAttribution(container,resource){
   credit.append(document.createTextNode(' · '+resource.credit+' · '+resource.license));notice.textContent=resource.non_endorsement;
   details.append(summary,credit,notice);container.append(details);
 }
+
+
+// 媒体状态与分析进度分开，保留上一幅可解码画面，避免把等待误画成空结果。
+export function mediaFeedback(video){
+  const state=document.querySelector('#video-media-state');if(!state)return;
+  let waiting=null;
+  const clear=()=>{clearTimeout(waiting);state.hidden=true;};
+  video.addEventListener('loadstart',()=>{clear();state.querySelector('span').textContent='正在载入原视频…';waiting=setTimeout(()=>{if(video.getAttribute('src')&&video.readyState<2)state.hidden=false;},200);});
+  video.addEventListener('loadeddata',clear);video.addEventListener('canplay',clear);
+  video.addEventListener('seeking',()=>{clearTimeout(waiting);waiting=setTimeout(()=>{if(video.seeking){state.querySelector('span').textContent='正在定位画面…';state.hidden=false;}},350);});
+  video.addEventListener('seeked',clear);video.addEventListener('emptied',clear);video.addEventListener('error',clear);
+  window.addEventListener('pagehide',()=>clearTimeout(waiting),{once:true});
+}

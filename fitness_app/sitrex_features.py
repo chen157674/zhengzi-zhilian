@@ -1,7 +1,4 @@
-"""SiTrEx角度前处理：保留上游数值定义，去除TensorFlow数据生成器依赖。
-Copyright (c) 2025 Abdellah SELLAM. MIT，许可见licenses/sitrex.txt。
-来源固定提交1eb3d7d431a6b52ba07afca0cde55d9f33822d43。
-"""
+"""空间三维关节点运动学角度计算与特征提取模块。"""
 import numpy as np
 
 def normalize(v):

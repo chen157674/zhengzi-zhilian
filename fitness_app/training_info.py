@@ -11,12 +11,12 @@ from .database import ConflictError,idempotent,json_text
 from .records import integer,uuid_id
 
 EXPERIENCE={'beginner','intermediate','experienced'}
-GOALS={'movement_quality','training_habit','strength','general_fitness'}
+GOALS={'movement_quality','training_habit','strength','general_fitness','muscle_gain','fat_loss'}
 EQUIPMENT={'bodyweight','barbell','dumbbell','machine','cable','bands','other'}
 LOAD_UNITS={'kg','lb','plate_index'}
 LOAD_BASES={'per_hand','per_side','total','device_setting','unspecified'}
 DIFFICULTIES={'easy','moderate','hard'}
-PROFILE_FIELDS={'experience','goals','equipment','available_minutes'}
+PROFILE_FIELDS={'experience','goals','equipment','available_minutes','height_cm','weight_kg','age_years'}
 NOTE_FIELDS={'load_value','load_unit','load_basis','difficulty','note'}
 
 
@@ -43,6 +43,13 @@ def profile_values(data,previous):
         value=data[key]
         if key=='experience':values[key]=choice(value,EXPERIENCE,key)
         elif key in {'goals','equipment'}:values[key]=choices(value,GOALS if key=='goals' else EQUIPMENT,key)
+        elif key in {'height_cm','weight_kg'}:
+            if value is None:values[key]=None;continue
+            if type(value) not in (int,float):invalid(key,'请填写有效数字')
+            number=Decimal(str(value));maximum=300 if key=='height_cm' else 500
+            if not number.is_finite() or not 0<number<=maximum:invalid(key,'请检查身高或体重数值')
+            values[key]=float(number)
+        elif key=='age_years':values[key]=None if value is None else integer(value,key,1,120)
         else:values[key]=None if value is None else integer(value,key,1,600)
     return values
 
@@ -85,7 +92,7 @@ class TrainingInfoStore:
         values=json.loads(row['data_json']) if row else {}
         return {'version':row['version'] if row else 0,'updated_at_ms':row['updated_at_ms'] if row else None,
                 'experience':values.get('experience'),'goals':values.get('goals',[]),'equipment':values.get('equipment',[]),
-                'available_minutes':values.get('available_minutes'),'source':'user_provided','optional':True}
+                'available_minutes':values.get('available_minutes'),**{k:values.get(k) for k in ('height_cm','weight_kg','age_years')},'source':'user_provided','optional':True}
 
     def note(self,c,uid,sid):
         self.sessions._session(c,uid,sid)

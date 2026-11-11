@@ -298,6 +298,8 @@ class VideoAnalysisStore:
             if (current['id'] if current else None)!=revision['previous_revision_id']:raise ConflictError('原有效修订已改变，未替换记录')
             if current:
                 old=self.sessions._session(c,uid,current['session_id']);old_config=json.loads(old['config_json'])
+                from .training_allocations import invalidate_records
+                invalidate_records(c,uid,[old['id']])
                 if old_config.get('included_in_statistics') is not True:raise StorageError('当前修订与统计标记不一致')
                 c.execute(update(s.video_revisions).where(s.video_revisions.c.id==current['id']).values(is_current=0,state_version=current['state_version']+1))
                 c.execute(update(s.analysis_sessions).where(s.analysis_sessions.c.id==old['id']).values(

@@ -1,10 +1,11 @@
 """OpenMMLab官方ONNX权重输入适配，仅提供2D定位与可见状态候选。
 
 坐标变换与SimCC解码依据MMPose官方ONNX示例（Apache-2.0），
-许可及来源见THIRD_PARTY_NOTICES.md和licenses/mmpose.txt。
+RTMPose 关节点坐标转换与解码适配模块。
 """
 import json
 import math
+import os
 from pathlib import Path
 import numpy as np
 from .pretrained_resources import onnx_asset
@@ -15,20 +16,32 @@ def _image(rgb):
         raise ValueError('预训练视觉输入须为RGB uint8图像')
 
 
-def _session(name):
+def cpu_thread_count():
+    """小型姿态图的有界CPU并行度；不更改系统或Torch全局线程。"""
+    requested=os.environ.get('FITNESS_POSE_CPU_THREADS')
+    if requested is not None:
+        if requested not in {'1','2','3','4','5','6','7','8'}:raise ValueError('姿态CPU线程数须为1～8的整数')
+        return int(requested)
+    return max(1,min(4,(os.cpu_count() or 4)//4))
+
+
+def _session(name,device=None):
     import onnxruntime as ort
     path,record=onnx_asset(name);options=ort.SessionOptions()
-    options.intra_op_num_threads=2;options.inter_op_num_threads=1
-    session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider'])
+    options.intra_op_num_threads=cpu_thread_count();options.inter_op_num_threads=1
+    def cpu():return ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider'])
+    from .pose_torch_backend import optional_cuda_session
+    if device not in (None,'cpu'):raise ValueError('会话级姿态后端只支持默认或CPU隔离')
+    session=(None if device=='cpu' else optional_cuda_session(path,name,cpu)) or cpu()
     shapes=session.get_inputs()
     if len(shapes)!=1 or len(shapes[0].shape)!=4 or shapes[0].shape[1]!=3:raise ValueError('ONNX视觉输入结构不符')
     return session,record
 
 
 class RTMPose:
-    def __init__(self,kind='body'):
+    def __init__(self,kind='body',device=None):
         if kind not in ('body','hand'):raise ValueError('不支持的RTMPose类别')
-        self.kind=kind;self.session,self.resource=_session('rtmpose-'+kind)
+        self.kind=kind;self.session,self.resource=_session('rtmpose-'+kind,device)
         shape=self.session.get_inputs()[0].shape;self.height,self.width=map(int,shape[-2:])
         self.points_count=17 if kind=='body' else 21
         if len(self.session.get_outputs())!=2:raise ValueError('RTMPose应输出两个SimCC分布')
@@ -59,8 +72,15 @@ class RTMPose:
             valid=all(math.isfinite(v) for v in (x,y,score)) and 0<=x<=width and 0<=y<=height and score>0
             points.append({'x':x/width,'y':y/height,'score':score,'coordinate_valid':valid})
         return {'keypoints':points,'bbox':list(bbox),'model_sha256':self.resource['sha256'],
+            'execution_backend':getattr(self.session,'execution_backend','onnxruntime_cpu'),
             'coordinate_space':'original_image_normalized','depth_available':False,
             'input_size':[self.width,self.height],'score_is_calibrated_probability':False}
+
+    def close(self):
+        if self.session is not None:
+            close=getattr(self.session,'close',None)
+            if close:close()
+            self.session=None
 
 
 class RTMHandDetector:
@@ -111,7 +131,7 @@ def finger_observation(points,width,height,threshold=.3,wrist_anchor=None):
 
 
 class PretrainedHands:
-    def __init__(self):self.detector=RTMHandDetector();self.pose=RTMPose('hand')
+    def __init__(self,device=None):self.detector=RTMHandDetector();self.pose=RTMPose('hand',device=device)
 
     def detect(self,rgb):
         _image(rgb);height,width=rgb.shape[:2];boxes=self.detector.detect(rgb)
@@ -124,6 +144,9 @@ class PretrainedHands:
                 'hands':hands,'width':width,'height':height,'model':'rtmdet-hand+rtmpose-hand',
                 'detector_sha256':self.detector.resource['sha256'],'hand_pose_sha256':self.pose.resource['sha256'],
                 'no_hand_does_not_mean_correct_grip':True}
+
+    def close(self):
+        self.pose.close();self.detector.session=None
 
 
 COCO_TO_MEDIAPIPE={0:0,1:2,2:5,3:7,4:8,5:11,6:12,7:13,8:14,9:15,10:16,
@@ -147,6 +170,56 @@ def associate_hands(body,hands,width,height):
             hand['observation_with_body_wrist']=finger_observation(hand['keypoints'],width,height,wrist_anchor=(x,y))
             selected.append(hand)
     return selected,[hand for index,hand in enumerate(hands) if index not in used]
+
+
+
+def recover_wrist_hands(body,hands,pose,rgb):
+    """身体腕点引导两种裁剪复核；不降低响应门槛，不补造被遮挡的掌骨。"""
+    _image(rgb);height,width=rgb.shape[:2];points=body.get('keypoints',[])
+    if len(points)!=17:return hands,{'attempted':0,'recovered':0}
+    xy=lambda p:np.array([p['x']*width,p['y']*height],np.float64)
+    def visible(p,threshold=.5):
+        return p.get('coordinate_valid') and all(type(p.get(k)) in (int,float) and math.isfinite(p[k]) for k in ('x','y','score')) and p['score']>=threshold and 0<=p['x']<=1 and 0<=p['y']<=1
+    core=(0,5,9,13);kept=list(hands);attempted=recovered=0
+    if not all(visible(points[i]) for i in (5,6,11,12)):return kept,{'attempted':0,'recovered':0}
+    torso=float(np.linalg.norm(np.mean([xy(points[i]) for i in (5,6)],axis=0)-np.mean([xy(points[i]) for i in (11,12)],axis=0)))
+    if torso<.08*height:return kept,{'attempted':0,'recovered':0}
+    def geometry(k,wrist):
+        if len(k)!=21 or not all(visible(k[i],.3) for i in core):return None
+        palm_width=float(np.linalg.norm(xy(k[5])-xy(k[13])))
+        if palm_width<3 or np.linalg.norm(xy(k[0])-xy(wrist))>max(6.,palm_width*.8):return None
+        return palm_width
+    for wrist_id,elbow_id,other_id in ((9,7,10),(10,8,9)):
+        if not all(visible(points[i]) for i in (wrist_id,elbow_id)):continue
+        if any(h.get('body_wrist_index')==wrist_id and geometry(h.get('keypoints',[]),points[wrist_id]) is not None for h in kept):continue
+        wrist=xy(points[wrist_id]);forearm=wrist-xy(points[elbow_id]);length=float(np.linalg.norm(forearm))
+        if length<12:continue
+        center=wrist+.18*forearm;radius=max(12.,min(.38*torso,.65*length));candidates=[];attempted+=1
+        for factor in (1.,1.25,1.5):
+            size=radius*factor
+            box=[max(0.,float(center[0]-size)),max(0.,float(center[1]-size)),min(float(width),float(center[0]+size)),min(float(height),float(center[1]+size))]
+            if min(box[2]-box[0],box[3]-box[1])<16:break
+            candidate=pose.detect(rgb,box);palm_width=geometry(candidate.get('keypoints',[]),points[wrist_id])
+            if palm_width is None:continue
+            k=candidate['keypoints']
+            if visible(points[other_id]) and np.linalg.norm(xy(k[0])-xy(points[other_id]))<=np.linalg.norm(xy(k[0])-wrist)+palm_width*.5:continue
+            candidates.append((candidate,palm_width))
+            if len(candidates)>=2:
+                a,aw=candidates[-2];b,bw=candidates[-1]
+                disagreement=max(float(np.linalg.norm(xy(a['keypoints'][i])-xy(b['keypoints'][i]))) for i in core)
+                if disagreement<=max(4.,min(aw,bw)*.5):break
+        if len(candidates)<2:continue
+        first,palm_width=candidates[-2];second=candidates[-1][0]
+        disagreement=max(float(np.linalg.norm(xy(first['keypoints'][i])-xy(second['keypoints'][i]))) for i in core)
+        if disagreement>max(4.,min(palm_width,candidates[-1][1])*.5):continue
+        hand={**first,'score':min(first['keypoints'][i]['score'] for i in core),
+            'score_basis':'minimum_palm_response_not_detector_probability',
+            'body_wrist_index':wrist_id,'localization_basis':'body_wrist_two_crop_agreement',
+            'crop_agreement_pixels':disagreement,'crop_agreement_count':2,
+            'observation':finger_observation(first['keypoints'],width,height),
+            'observation_with_body_wrist':finger_observation(first['keypoints'],width,height,wrist_anchor=wrist)}
+        kept=[h for h in kept if h.get('body_wrist_index')!=wrist_id]+[hand];recovered+=1
+    return kept,{'attempted':attempted,'recovered':recovered,'basis':'same_frame_body_wrist_two_crop_agreement'}
 
 
 def quality_landmarks(result,threshold=.5):

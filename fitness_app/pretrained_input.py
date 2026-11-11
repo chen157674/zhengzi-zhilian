@@ -1,7 +1,7 @@
 """在原姿态输入旁增加预训练观察，原识别/计数poses与world_poses保持不变。"""
 import math
 import numpy as np
-from .rtmpose_input import RTMPose,PretrainedHands,quality_landmarks,associate_hands
+from .rtmpose_input import RTMPose,PretrainedHands,quality_landmarks,associate_hands,recover_wrist_hands
 
 
 def body_features(body,width,height):
@@ -34,9 +34,9 @@ def body_features(body,width,height):
 
 
 class PretrainedFrameModel:
-    def __init__(self,include_hands=True):
+    def __init__(self,include_hands=True,device=None):
         from .body_lean import SceneAxisTracker
-        self.body=RTMPose('body');self.hands=PretrainedHands() if include_hands else None;self.axis=SceneAxisTracker()
+        self.body=RTMPose('body',device=device);self.hands=PretrainedHands(device=device) if include_hands else None;self.axis=SceneAxisTracker()
 
     def observe(self,rgb,result,stamp):
         height,width=rgb.shape[:2]
@@ -53,11 +53,21 @@ class PretrainedFrameModel:
             cropped=[max(bounds[0],x0-mx),max(bounds[1],y0-my),min(bounds[2],x1+mx),min(bounds[3],y1+my)]
             if cropped[2]-cropped[0]>=.1*width and cropped[3]-cropped[1]>=.2*height:bounds=cropped
         body=self.body.detect(rgb,bounds);features=body_features(body,width,height)
+        # 仅展示下肢缺失时复核；规则与计数继续使用原模型观察。
+        lower_display = None
+        from .skeleton import reliable_lower_limb_points
+        primary_points = [[p['x'], p['y']] if min(p.get('visibility',0),p.get('presence',0)) >= .5 else None
+                          for p in result['poses'][0]]
+        visible_legs = reliable_lower_limb_points(primary_points,body,width,height)
+        if any(visible_legs[i] is None for i in (25,26,27,28)):
+            from .locked_lower_pose import observe as observe_lower
+            lower_display = observe_lower(rgb, result['poses'][0], stamp)
+
         from .body_lean import scene_axis,measure
         reference=self.axis.update(rgb,body,stamp) if hasattr(self,'axis') else scene_axis(rgb,body)
         features['scene_lean']=measure(body,width,height,reference,result['poses'][0])
         points=body['keypoints'];visible=[p for p in points[5:13] if p['coordinate_valid'] and p['score']>=.5]
-        hands=[];other=[];raw_count=0;hand_reason='pretrained_parts_not_visible'
+        hands=[];other=[];raw_count=0;hand_reason='pretrained_parts_not_visible';hand_recovery={'attempted':0,'recovered':0}
         if self.hands is not None and len(visible)>=6:
             shoulder=np.mean([[points[i]['x']*width,points[i]['y']*height] for i in (5,6)],axis=0)
             hip=np.mean([[points[i]['x']*width,points[i]['y']*height] for i in (11,12)],axis=0)
@@ -70,13 +80,17 @@ class PretrainedFrameModel:
                 keypoints=[{**p,'x':(x0+p['x']*(x1-x0))/width,'y':(y0+p['y']*(y1-y0))/height} for p in hand['keypoints']]
                 a,b,c,d=hand['bbox'];restored.append({**hand,'bbox':[a+x0,b+y0,c+x0,d+y0],'keypoints':keypoints})
             hands,other=associate_hands(body,restored,width,height)
+            hands,hand_recovery=recover_wrist_hands(body,hands,self.hands.pose,rgb)
+            if hand_recovery['recovered']:hand_reason=None
         return {'status':'observed','timestamp_ms':stamp,'body':body,'body_features':features,
-            'hands':hands,'hand_reason':hand_reason,'raw_hand_candidates':raw_count,'unassociated_hands':len(other),
-            'source_landmarks':result['poses'][0],'coordinate_space':'original_image_normalized',
+            'hands':hands,'hand_reason':hand_reason,'hand_recovery':hand_recovery,'raw_hand_candidates':raw_count,'unassociated_hands':len(other),
+            'lower_display':lower_display,'source_landmarks':result['poses'][0],'coordinate_space':'original_image_normalized',
             'body_model_sha256':self.body.resource['sha256'],'hand_model_sha256':self.hands.pose.resource['sha256'] if self.hands else None,
             'hand_detector_sha256':self.hands.detector.resource['sha256'] if self.hands else None,'target_basis':'existing_single_pose_automatic_person_box',
             'depth_available':False,'counting_input_modified':False}
 
     def close(self):
+        if self.body is not None:self.body.close()
+        if self.hands is not None:self.hands.close()
         self.body=None;self.hands=None
         if hasattr(self,'axis'):self.axis.reset()

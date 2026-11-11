@@ -9,7 +9,7 @@ function animate(node,frames,options={}){
 const menu=document.querySelector('#account-menu');
 menu?.addEventListener('keydown',event=>{if(event.key==='Escape'){menu.open=false;menu.querySelector('summary').focus();}});
 menu?.addEventListener('toggle',()=>{if(menu.open)animate(menu.querySelector('.account-dropdown'),[{opacity:.4,transform:'translateY(-6px) scale(.98)'},{opacity:1,transform:'none'}]);});
-if(document.body.dataset.page!=='home')animate(document.querySelector('main>div'),[{opacity:.82,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:320});
+if(document.body.dataset.page!=='home'&&document.body.dataset.publicAuth!=='true')animate(document.querySelector('main>div'),[{opacity:.82,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:320});
 document.addEventListener('pointerdown',event=>{
   const button=event.target.closest('button:not(:disabled),a.button');
   if(button)button.classList.add('is-pressed');

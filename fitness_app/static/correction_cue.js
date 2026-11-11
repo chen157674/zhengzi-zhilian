@@ -1,19 +1,23 @@
 // 展示层只缩短文案，不把无结果当作正常。
 export function coachingCue(coaching){
-  const issue=coaching?.primary_cue;
-  if(issue)return {state:'issue',title:issue.message||'需要调整',instruction:issue.suggestion||''};
   const state=coaching?.state;
+  const withdrawn=new Set(['preparing','paused','resting','ended','save_failed','interrupted','waiting_for_input','no_person','multiple_people','positioning','evidence_insufficient']);
+  const issue=withdrawn.has(state)?null:coaching?.primary_cue;
+  if(issue)return {state:'issue',title:issue.message||'需要调整',instruction:issue.suggestion||''};
   if(state==='observing')return {state:'unassessable',title:'正在观察',instruction:''};
-  const labels={no_person:'请站入画面',multiple_people:'请保持单人入镜',positioning:'请完整入镜',evidence_insufficient:'分析中',waiting_for_input:'等待画面',paused:'已暂停',resting:'组间休息',ended:'分析结束',save_failed:'结果尚未保存',interrupted:'分析中断'};
-  return {state:'unassessable',title:labels[state]||'分析中',instruction:''};
+  const labels={preparing:'准备就绪',no_person:'请站入画面',multiple_people:'请保持单人入镜',positioning:'请完整入镜',evidence_insufficient:'分析中',waiting_for_input:'等待画面',paused:'已暂停',resting:'组间休息',ended:'分析结束',save_failed:'结果尚未保存',interrupted:'分析中断'};
+  return {state:'unassessable',title:labels[state]||'分析中',instruction:coaching?.instruction||''};
 }
 
 export function recordCue(record,stamp){
   if(!record||!Number.isFinite(stamp))return {state:'unassessable',title:'等待分析',instruction:''};
+  const confirmed=(record.confirmed_demo_findings||[]).find(x=>x.status==='issue'&&x.start_ms<=stamp&&stamp<x.end_ms);
+  if(confirmed)return {state:'issue',title:confirmed.message,instruction:confirmed.suggestion||''};
   const findings=record.posture?.findings||record.posture_observations||[];
   const active=findings.filter(x=>Number.isFinite(x.start_ms)&&Number.isFinite(x.end_ms)&&x.start_ms<=stamp&&stamp<x.end_ms);
   const issue=active.find(x=>x.status==='issue');
   if(issue)return {state:'issue',title:issue.message||'需要调整',instruction:issue.suggestion||''};
+  if(findings.some(x=>x.status==='issue'))return {state:'unassessable',title:'此处暂无新的姿态结论',instruction:''};
   if(active.some(x=>x.status==='not_observed'))return {state:'clear',title:'已检查项目未见偏差',instruction:''};
   return {state:'unassessable',title:'该片段暂无结论',instruction:''};
 }
@@ -36,4 +40,14 @@ export function paintCue(panel,cue){
   if(title.textContent!==cue.title)title.textContent=cue.title;
   if(text.textContent!==cue.instruction)text.textContent=cue.instruction;
   text.hidden=!cue.instruction;
+}
+
+// 只格式化正式来源已有字段，未知部位、侧别和时间不猜测。
+export function cueDetails(issue){
+  if(!issue)return {body:'',time:'',version:''};
+  const parts=Array.isArray(issue.body_parts)?issue.body_parts.filter(x=>typeof x==='string'):[];
+  const side={left:'左侧',right:'右侧',both:'双侧'}[issue.side]||'';
+  const stamp=value=>{const seconds=Math.floor(value/1000);return String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');};
+  const valid=Number.isFinite(issue.start_ms)&&Number.isFinite(issue.end_ms)&&issue.start_ms>=0&&issue.end_ms>issue.start_ms;
+  return {body:[side,...parts].filter(Boolean).join(' · '),time:valid?stamp(issue.start_ms)+'—'+stamp(issue.end_ms):'',version:typeof issue.rule_version==='string'?issue.rule_version:''};
 }

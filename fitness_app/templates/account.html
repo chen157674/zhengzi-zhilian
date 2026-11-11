@@ -1,8 +1,28 @@
-{% extends 'base.html' %}{% block title %}个人中心 · 观动知姿{% endblock %}{% block page %}account{% endblock %}
+{% extends 'base.html' %}
+{% block title %}个人中心 · 知练同行{% endblock %}
+{% block page %}account{% endblock %}
 {% block head %}<script type="module" src="/static/account.js"></script>{% endblock %}
-{% block content %}<div class="design-container" id="profile-page"><div class="page-heading"><h1>个人中心</h1></div><p id="account-error" class="notice error" role="alert" hidden></p><button class="button secondary" id="account-retry" hidden>重新加载</button>
-<div class="profile-grid"><section class="profile-editor"><h2>个人资料</h2><div class="profile-avatar-row"><img id="profile-avatar" class="profile-photo" src="{{ header_avatar }}" alt="当前头像"><div><h3 id="profile-name">{{ identity.nickname }}</h3><button type="button" class="button secondary small" id="avatar-select">上传头像</button><p>JPG、PNG、WebP，最大 4 MiB。</p><input type="file" id="avatar-file" accept="image/jpeg,image/png,image/webp" hidden></div></div>
-<form id="profile-form"><div class="field"><label for="nickname">昵称</label><input id="nickname" name="nickname" minlength="2" maxlength="24" required disabled><span class="field-help">2～24个可见字符。</span></div><div class="field"><label for="profile-username">登录账号</label><input id="profile-username" readonly></div><div class="button-row"><button class="button" id="profile-save" disabled>保存修改</button><button class="button ghost" type="button" id="profile-cancel" disabled>取消修改</button></div></form></section>
-<section><h2>我的训练</h2><a class="security-row" href="/account/training-profile" data-nav><div><strong>训练档案</strong><p>经验、目标与常用器械</p></div><span aria-hidden="true">›</span></a><a class="security-row" href="/records?view=list&amp;reports=1" data-nav><div><strong>训练报告</strong><p>查看与导出训练报告</p></div><span aria-hidden="true">›</span></a><section class="profile-recent"><div class="section-row"><h2>最近训练</h2><a href="/records" data-nav>查看全部 →</a></div><div id="profile-recent" class="empty-state" role="status">正在读取训练记录…</div></section></section></div>
+{% block content %}
+<div class="design-container" id="profile-page">
+  <div class="page-heading"><h1>个人中心</h1><p>维护个人资料，回顾最近的训练。</p></div>
+  <p id="account-error" class="notice error" role="alert" hidden></p><button class="button secondary" id="account-retry" hidden>重新加载</button>
+  <div class="profile-grid">
+    <section class="profile-editor" aria-labelledby="profile-editor-title">
+      <h2 id="profile-editor-title">个人资料</h2>
+      <div class="profile-edit-grid">
+        <div class="profile-avatar-row"><img id="profile-avatar" class="profile-photo" src="{{ header_avatar }}" alt="当前头像"><h3 id="profile-name" class="sr-only">{{ identity.nickname }}</h3><button type="button" class="button secondary small" id="avatar-select">更换头像</button><p>JPG、PNG、WebP<br>最大 4 MiB</p><input type="file" id="avatar-file" accept="image/jpeg,image/png,image/webp" hidden></div>
+        <form id="profile-form"><div class="field"><label for="nickname">昵称</label><input id="nickname" name="nickname" minlength="2" maxlength="24" required disabled><span class="field-help">2～24个可见字符</span></div><div class="field"><label for="profile-username">登录账号</label><input id="profile-username" readonly></div><div class="button-row"><button class="button" id="profile-save" disabled>保存修改</button><button class="button ghost" type="button" id="profile-cancel" disabled>取消</button></div></form>
+      </div>
+    </section>
+    <section class="profile-training" aria-labelledby="profile-training-title">
+      <h2 id="profile-training-title">我的训练</h2>
+      <nav class="account-link-list" aria-label="训练管理">
+        <a class="account-link" href="/account/training-profile" data-nav><span class="account-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v4H8Z M8 5H5v16h14V5h-3M8 12h8M8 16h5"/></svg></span><span class="account-link-copy"><strong>健身档案</strong><span>身高、体重与训练目标</span></span><svg class="account-link-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+        <a class="account-link" href="/records?view=list&amp;reports=1" data-nav><span class="account-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5ZM14 3v6h5M9 13h6M9 17h6"/></svg></span><span class="account-link-copy"><strong>训练报告</strong><span>查看与导出训练报告</span></span><svg class="account-link-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+      </nav>
+    </section>
+  </div>
+  <section class="profile-recent" aria-labelledby="profile-recent-title"><div class="section-row"><h2 id="profile-recent-title">最近训练</h2><a href="/records?view=list" class="text-link" data-nav>查看全部 <span aria-hidden="true">→</span></a></div><div id="profile-recent" class="account-recent-list" role="status" data-state="loading">正在读取训练记录…</div></section>
 </div>
-<dialog id="avatar-dialog" aria-labelledby="avatar-title"><h2 id="avatar-title">上传头像预览</h2><img id="avatar-preview" class="profile-photo" alt="所选图片预览"><p id="avatar-error" class="field-error" role="alert"></p><div class="button-row"><button class="button secondary" id="avatar-cancel">取消</button><button class="button" id="avatar-confirm">确认上传</button></div></dialog>{% endblock %}
+<dialog id="avatar-dialog" aria-labelledby="avatar-title"><h2 id="avatar-title">上传头像预览</h2><img id="avatar-preview" class="profile-photo" alt="所选图片预览"><p id="avatar-error" class="field-error" role="alert"></p><div class="button-row"><button class="button secondary" id="avatar-cancel">取消</button><button class="button" id="avatar-confirm">确认上传</button></div></dialog>
+{% endblock %}

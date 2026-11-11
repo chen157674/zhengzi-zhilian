@@ -1,4 +1,4 @@
-import {api} from './app.js';
+import {api,confirmDialog} from './app.js';
 import {el} from './record_common.js';
 const names={front:'正面',side:'侧面',oblique:'斜侧面'},sides={left:'左侧',right:'右侧',none:'所选判项'};
 function destination(option){return '/realtime?'+new URLSearchParams({retest_record:option.origin.session_id,retest_evidence:option.origin.evidence_id});}
@@ -10,7 +10,7 @@ export async function renderRecordRetest(data){
  try{const value=await api('/api/v1/records/'+data.session_id+'/retest-options');if(host.dataset.key!==key)return;
   if(!value.options.length){if(!data.retest)host.hidden=true;return;}
   host.append(el('p','只复测你选中的一项提示；自动识别动作后，主动结束并查看结果。','field-help'));
-  for(const option of value.options){const row=el('div',undefined,'retest-option');const text=el('div');text.append(el('strong',option.title),el('p',`${sides[option.side]||'所选侧别'} · 原机位：${names[option.view]} · 姿态参考`,'field-help'));const link=el('a','验证这项调整','button secondary');link.href=destination(option);link.dataset.nav='';row.append(text,link);host.append(row);}
+  for(const option of value.options){const row=el('div',undefined,'retest-option');const text=el('div');text.append(el('strong',option.title),el('p',`${sides[option.side]||'所选侧别'} · 原机位：${names[option.view]} · 姿态参考`,'field-help'));const link=el('a','验证这项调整','button secondary');link.href=destination(option);link.dataset.nav='';const actions=el('div',undefined,'button-row');actions.append(link);if(['machine_chest_press','standing_dumbbell_curl','bodyweight_squat'].includes(option.action_id)){const save=el('button','保存纠正任务','button secondary small');save.type='button';let pending=null;save.onclick=async()=>{if(!pending&&!await confirmDialog({title:'保存这一项纠正任务',message:option.title+'。保留原提示来源，练习后需新记录复测。',confirmLabel:'确认保存'}))return;save.disabled=true;try{pending??={id:crypto.randomUUID(),body:{origin:option.origin,confirmed:true,practice:{steps:option.suggestion?[{text:option.suggestion,citation_ids:[]}]:[],knowledge_refs:[]}}};await api('/api/v1/retest-tasks',{method:'POST',commandId:pending.id,body:pending.body});pending=null;save.hidden=true;const tasks=el('a','查看纠正任务 →','text-link');tasks.href='/coach/tasks';tasks.dataset.nav='';actions.append(tasks);window.dispatchEvent(new Event('fitness-retest-saved'));}catch(error){save.textContent=error.unknown?'核对原保存':'重试保存任务';if(!error.unknown)pending=null;text.append(el('p',error.message,'notice error'));}finally{save.disabled=false;}};actions.append(save);}row.append(text,actions);host.append(row);}
  }catch(error){if(host.dataset.key===key)host.append(el('p',error.message,'notice error'));}
 }
 export class LiveRetest{

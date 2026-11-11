@@ -131,7 +131,7 @@ class PostureEngine:
         evidence = {key: result[key] for key in ('feature_name','value','threshold','hip_image_degrees','knee_image_degrees','trunk_change_degrees',
                     'measurement_side','range_by_side','raw_range_by_side','extreme_windows','minimum_window_ms','measurement_basis',
                     'minimum_hip_degrees','minimum_knee_degrees','longest_joint_extension_ms','minimum_stage_ms',
-                    'reference_degrees','signed_angle_degrees') if key in result}
+                    'reference_degrees','signed_angle_degrees','observed_frames','observed_duration_ms','maximum_observation_gap_ms') if key in result}
         evidence.update(view=view, view_basis=basis, exercise_basis='user_selected', parameter_source=PARAMETER_SOURCE)
         if code=='deadlift.extension' and status=='issue':
             limited=[label for key,label in (('hip_image_degrees','髋'),('knee_image_degrees','膝')) if result.get(key,180)<RULES[code][4]]
@@ -192,12 +192,13 @@ class PostureEngine:
             outputs.append(self._pack(result, code, event, view, basis))
         return outputs
 
-    def _static(self, frame, view, basis, produced):
+    def _static(self, frame, view, basis, produced,context=None):
         from .gym_catalogue import BY_ID
         if self.action in BY_ID or self.action=='standing_dumbbell_curl':
             from .gym_quality import observe
             return observe(self,frame,view,basis,
-                           codes={'curl.trunk_sway','curl.upper_arm_swing'} if self.action=='standing_dumbbell_curl' else None)
+                           codes={'curl.trunk_sway','curl.upper_arm_swing'} if self.action=='standing_dumbbell_curl' else None,
+                           movement_pattern=(context or {}).get('movement_pattern'))
         stamp = frame['captured_ms']
         items, intervals = [], []
         if self.action not in {'forearm_plank','barbell_overhead_press'}:
@@ -297,7 +298,7 @@ class PostureEngine:
         while self.frames and stamp-self.frames[0]['captured_ms']>31000:
             self.frames.popleft()
         produced = self.counter.process(frame, context) if self.counter else {'events':[], 'observation':{}}
-        items, extra_intervals = self._static(frame,view,basis,produced)
+        items, extra_intervals = self._static(frame,view,basis,produced,context)
         for event in produced.get('events', []):
             assessed = self._cycle(event,view,basis)
             items.extend(assessed)

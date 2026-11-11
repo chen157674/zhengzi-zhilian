@@ -43,9 +43,9 @@ class SemanticRecognizer:
     def __init__(self,predictor_provider=shared_predictor,info=None,disabled_reason=None):
         self.info,self.reason=(None,disabled_reason) if disabled_reason else (info,None) if info is not None else resources()
         self.available=self.info is not None;self.provider=predictor_provider
-        self.lock=threading.RLock();self.wake=threading.Event();self.thread=None;self.closed=False
+        self.lock=threading.RLock();self.wake=threading.Event();self.thread=None;self.closed=False;self.model_ready=False
         self.identity=IdentityContinuity();self.images=deque(maxlen=24);self.rows=deque(maxlen=100)
-        self.generation=0;self.job=None;self.completed=None
+        self.generation=0;self.job=None;self.completed=None;self.inference_active=False
         self.last_image=-10000;self.last_queued=-10000;self.last_stamp=None;self.last_seq=None
         self.last_size=None
         self.pending=None;self.pending_since=None;self.confirmed=None;self.latest={}
@@ -72,6 +72,15 @@ class SemanticRecognizer:
         with self.lock:
             self.closed=True;self.reset();self.wake.set()
 
+    def prepare(self):
+        with self.lock:
+            if self.available and not self.closed:self._start()
+
+    def preparation(self):
+        with self.lock:
+            return {'state':'unavailable' if not self.available or self.closed else 'ready' if self.model_ready else 'loading',
+                'reason':self.reason}
+
     def _start(self):
         if self.thread is not None:return
         def run():
@@ -81,8 +90,11 @@ class SemanticRecognizer:
                     torch.set_num_threads(int(self.info['runtime_cpu_threads']))
                 predictor=self.provider()
                 if hasattr(predictor,'warm'):predictor.warm()
+                with self.lock:
+                    if self.closed:return
+                    self.model_ready=True
             except Exception as error:
-                logger.warning('连续视频模型准备失败 type=%s',type(error).__name__)
+                logger.exception('连续视频模型准备失败 type=%s',type(error).__name__)
                 with self.lock:
                     self.reset();self.available=False;self.reason='semantic_model_unavailable'
                 return
@@ -93,6 +105,11 @@ class SemanticRecognizer:
                     job=self.job;self.job=None
                 if job is None:continue
                 generation,stamp,images,times,arrays=job
+                with self.lock:
+                    if self.closed or generation!=self.generation:
+                        job=images=times=arrays=None
+                        continue
+                    self.inference_active=True
                 try:
                     result=predictor.predict(images,times,arrays)
                     with self.lock:
@@ -104,6 +121,7 @@ class SemanticRecognizer:
                             self.reset();self.available=False;self.reason='semantic_inference_unavailable'
                 finally:
                     # 显式释放已消费的真实画面，空闲线程不保留最后一个窗口。
+                    with self.lock:self.inference_active=False
                     job=images=times=arrays=None
         self.thread=threading.Thread(target=run,name='fitness-video-recognition',daemon=True);self.thread.start()
 
@@ -129,7 +147,9 @@ class SemanticRecognizer:
                 if feature[0]!=stamp or feature[1].shape!=(frame['height'],frame['width'],3):
                     self.reset();return self.snapshot('invalid_visual_feature')
                 self.images.append(feature)
-            if len(self.images)>=8 and self.images[-1][0]-self.images[0][0]>=2800 and stamp-self.last_queued>=1500:
+            # 推理期间只替换一个待处理窗口，用最新真实图像减掉队列等待；空闲时保留原调用频率。
+            queue_step=200 if self.inference_active or self.job is not None else 1500
+            if len(self.images)>=8 and self.images[-1][0]-self.images[0][0]>=2800 and stamp-self.last_queued>=queue_step:
                 latest=self.images[-1][0];window=[r for r in self.images if latest-r[0]<=CONFIG['maximum_span_ms']]
                 times=np.array([r[0] for r in window])
                 if len(window)<8:return self.snapshot('warming_up_video')
@@ -140,7 +160,8 @@ class SemanticRecognizer:
                 if CONFIG['minimum_span_ms']<=span<=CONFIG['maximum_span_ms'] and stamp-times[-1]<=500:
                     rows=[r for r in self.rows if times[0]<=r[0]<=times[-1]]
                     arrays={'timestamps':np.array([r[0] for r in rows]),'points':np.array([r[1] for r in rows]),
-                            'world':np.array([r[2] for r in rows]),'sizes':np.array([r[3] for r in rows]),'people':np.ones(len(rows),int)}
+                            'world':np.array([r[2] for r in rows]),'sizes':np.array([r[3] for r in rows]),'people':np.ones(len(rows),int),
+                            'inference_mode':'realtime','recognition_hint':self.confirmed or self.pending}
                     self.job=(self.generation,int(times[-1]),[r[1] for r in selected],times,arrays)
                     self.last_queued=stamp;self._start();self.wake.set()
             if self.completed is None:return self.snapshot('warming_up_video')

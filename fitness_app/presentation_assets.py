@@ -7,7 +7,7 @@ import re
 from .paths import ROOT,project_path
 
 MANIFEST=ROOT/'data/presentation-assets.json'
-DISPLAY_ANNOTATION_VERSION=1
+DISPLAY_ANNOTATION_VERSION=2
 
 
 @lru_cache(maxsize=4)
@@ -92,21 +92,38 @@ def demo_display_track(demo):
     """构造演示标注副本，磁盘轨迹和真实分析结果保持原始含义。"""
     annotation=demo.get('display_annotation')
     if not annotation:return None
-    if annotation.get('source')!='user_confirmed_demo_annotation' or annotation.get('scope')!='whole_video':
+    if annotation.get('source')!='user_confirmed_demo_annotation' or annotation.get('scope')!='time_range':
         raise ValueError('演示标注来源或范围无效')
+    start,end=annotation.get('start_ms'),annotation.get('end_ms')
+    if type(start) is not int or type(end) is not int or not 0<start<end<=demo['duration_ms']:
+        raise ValueError('演示标注时间范围无效')
     issues=annotation['issues'];instruction=annotation['instruction']
     if not isinstance(issues,list) or not issues or not all(isinstance(x,str) and x.strip() for x in issues) or not isinstance(instruction,str) or not instruction.strip():
         raise ValueError('演示标注内容无效')
     track=json.loads(project_path(demo['track']['path']).read_text(encoding='utf-8'))
     track['display_annotation']=annotation
     track['model_results_unchanged']=True
+    visible_since=None;previous=None
     for frame in track['frames']:
         frame['model_feedback']=frame['feedback']
         points=frame['p']
         joints=[i for i in (11,12,23,24) if points[i] is not None] if frame.get('people')==1 else []
+        stamp=frame['t']
+        if len(joints)!=4 or previous is None or stamp-previous>150:visible_since=None
+        if len(joints)==4 and visible_since is None:visible_since=stamp
+        previous=stamp
+        ready=visible_since is not None and stamp-visible_since>=800
+        if not (start<=stamp<end and ready):
+            frame['feedback']={
+                'schema_version':1,'state':'observing' if len(joints)==4 else 'unassessable',
+                'title':'正在分析','description':'等待连续可见的动作。','instruction':'',
+                'scope_note':'演示标注；模型检测结果单独保留。',
+                'display_basis':annotation['source'],'overall_correctness':None,
+                'checks':[],'highlight':None}
+            continue
         frame['feedback']={
             'schema_version':1,'state':'issue','title':'、'.join(issues),
-            'description':'用户已确认的全片演示问题。','instruction':instruction,
+            'description':'用户已确认的当前时段演示问题。','instruction':instruction,
             'scope_note':'演示标注；模型检测结果单独保留。',
             'display_basis':annotation['source'],'overall_correctness':None,
             'checks':[{'code':'demo.annotation.'+str(i),'label':label,'status':'issue',
@@ -114,3 +131,22 @@ def demo_display_track(demo):
             'highlight':{'joint_indices':joints,'meaning':'user_confirmed_demo_region'} if joints else None}
     return track
 
+
+
+def confirmed_demo_findings(record):
+    """同源演示的用户确认范围；独立展示，不改历史自动检测或个人统计。"""
+    if record.get('source')!='demo':return []
+    demo=demo_resource(record.get('config',{}).get('demo_id'),require_track=False)
+    if not demo or demo['action_id']!=record.get('action_id') or demo['video']['sha256']!=record.get('source_sha256'):return []
+    annotation=demo.get('display_annotation') or {}
+    # 只有明确登记判项的确认可进入记录／AI，旧首页文案不推断成算法判项。
+    code=annotation.get('code')
+    if annotation.get('source')!='user_confirmed_demo_annotation' or not code:return []
+    start,end=annotation.get('start_ms'),annotation.get('end_ms')
+    if type(start) is not int or type(end) is not int or not 0<=start<end<=demo['duration_ms']:return []
+    return [{'code':code,'status':'issue','start_ms':start,'end_ms':end,'side':'none',
+        'message':'、'.join(annotation['issues']),'suggestion':annotation['instruction'],
+        'body_parts':['躯干','肩','髋'],'rule_version':'user-confirmed-demo-1',
+        'source':'user_confirmed_demo_annotation','evidence_level':'user_confirmed',
+        'evidence':{'source':'user_confirmed_demo_annotation','source_sha256':demo['video']['sha256'],
+            'time_base':'source_ms','model_detected':False},'model_detected':False}]

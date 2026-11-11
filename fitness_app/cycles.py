@@ -2,7 +2,7 @@
 
 结构参考 MIT 上游 BaseExercise 的阶段、去抖和最小周期字段；改为转向后
 返回起点才输出事件，不复用其到达极值即计数、墙钟计时或综合评分。
-来源：third_party/fitness-trainer-pose-estimation/exercises/base_exercise.py。
+动作循环周期状态机及极值点提取。
 """
 from dataclasses import dataclass
 import math

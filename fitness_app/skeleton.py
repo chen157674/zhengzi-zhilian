@@ -1,4 +1,5 @@
 """供界面连线的短期骨架契约；不推测隐藏关节，不另存逐帧身体数据。"""
+import math
 from .frame_pipeline import usable_point
 
 CONNECTIONS=((11,12),(11,13),(13,15),(12,14),(14,16),(11,23),(12,24),
@@ -19,6 +20,11 @@ REGIONS={
     'high_knees.height':(23,24,25,26), 'overhead_press.elbow':(13,14,15,16),
     'barbell_row.trunk':(11,12,23,24), 'deadlift.extension':(23,24,25,26),
     'machine_chest_press.pretrained_upper_body_balance':(11,12,23,24),
+    'lat_pulldown.pretrained_upper_body_balance':(11,12,23,24),
+    'machine_chest_press.pretrained_finger_extension':(15,16),
+    'barbell_bench_press.pretrained_posture':(11,12,13,14,15,16,23,24),
+    'conventional_deadlift.pretrained_posture':(11,12,15,16,23,24,25,26),
+    'bodyweight_squat.pretrained_posture':(11,12,23,24,25,26,27,28),
 }
 
 
@@ -27,6 +33,59 @@ REGIONS.update({code: (11,12,23,24) if code.endswith('trunk_sway') else
                 (11,12,13,14) if code.endswith('upper_arm_swing') else (13,14,15,16) for code in GYM_RULES})
 from .movement_guidance_policy import RULES as GUIDANCE_RULES
 REGIONS.update({code:(11,12,13,14,23,24) if code.endswith('elbow_drift') else (13,14,15,16) for code in GUIDANCE_RULES})
+
+def reliable_lower_limb_points(points,body,width,height,threshold=.5):
+    """同帧第二模型复核腿点；不可靠的整条腿省略，不补造脚跟或脚尖。"""
+    output=list(points[:25])+[None]*8
+    raw=body.get('keypoints',[])
+    if len(points)!=33 or len(raw)!=17:return output
+    for hip,knee,ankle,source in ((23,25,27,(11,13,15)),(24,26,28,(12,14,16))):
+        candidates=[raw[i] for i in source]
+        if points[hip] is None or any(not p.get('coordinate_valid') or p.get('score',0)<threshold or
+            any(not isinstance(p.get(k),(int,float)) or not math.isfinite(p[k]) for k in ('x','y','score')) or
+            not 0<=p['x']<=1 or not 0<=p['y']<=1 for p in candidates):continue
+        if math.hypot((candidates[0]['x']-points[hip][0])*width,
+                      (candidates[0]['y']-points[hip][1])*height)>.08*height:continue
+        for target,p in zip((knee,ankle),candidates[1:]):output[target]=[round(p['x'],6),round(p['y'],6)]
+    return output
+
+
+def display_landmarks(frame,points):
+    data=frame.get('pretrained')
+    if data is None:return points,None
+    body=data.get('body') or {}
+    stamp=frame.get('source_captured_ms',frame.get('captured_ms'))
+    width,height=frame.get('width'),frame.get('height')
+    current=(data.get('status')=='observed' and data.get('timestamp_ms')==stamp and len(body.get('keypoints',[]))==17 and
+        all(type(v) in (int,float) and math.isfinite(v) and v>0 for v in (width,height)))
+    # 已开启二次复核时，缺失／过期结果不能使座椅支架上的旧腿点重新出现。
+    if not current:return list(points[:25])+[{'valid':False} for _ in range(8)],'lower-reference-unavailable-v1'
+    original=[[p['x'],p['y']] if p.get('valid') and usable_point(p) else None for p in points]
+    refined=reliable_lower_limb_points(original,body,width,height)
+    lower = data.get('lower_display') or {}
+    supplement = None
+    if (lower.get('status') == 'observed' and lower.get('timestamp_ms') == stamp and
+            lower.get('target_basis') == 'unique_same_frame_anatomical_shoulders_and_hips'):
+        from .locked_lower_pose import matching_target
+        selected, _ = matching_target([lower.get('body') or {}], data.get('source_landmarks', []), width, height)
+        if selected is not None:
+            supplement = reliable_lower_limb_points(original,selected,width,height,threshold=.6)
+    supplemental_indices = set()
+    if supplement is not None:
+        for knee, ankle in ((25,27),(26,28)):
+            if (refined[knee] is None or refined[ankle] is None) and supplement[knee] is not None and supplement[ankle] is not None:
+                refined[knee], refined[ankle] = supplement[knee], supplement[ankle]
+                supplemental_indices.update((knee,ankle))
+    output=list(points);sources={25:13,26:14,27:15,28:16}
+    for i in range(25,33):
+        output[i]={'valid':False}
+        if refined[i] is not None:
+            source_body = lower['body'] if i in supplemental_indices else body
+            score=min(1.,max(0.,source_body['keypoints'][sources[i]]['score']))
+            output[i]={'x':refined[i][0],'y':refined[i][1],'z':0.,'visibility':score,'presence':score,
+                       'valid':True,'depth_available':False}
+    sha=body.get('model_sha256') or data.get('body_model_sha256') or 'unversioned'
+    return output,'rtmpose2d-lower-v1-'+sha[:12]+('-locked-yolo-lower-v1' if supplemental_indices else '')
 
 
 def skeleton_snapshot(frame=None,coaching=None,*,fresh=True,time_base='captured_ms',unavailable_reason=None):
@@ -45,6 +104,8 @@ def skeleton_snapshot(frame=None,coaching=None,*,fresh=True,time_base='captured_
         result['reason']='target_ambiguous';return result
     points=quality.get('landmarks',[])
     if len(points)!=33:result['reason']='no_landmarks';return result
+    points,display_model=display_landmarks(frame,points)
+    if display_model:result['model_version']=(frame.get('model_version') or 'pose')+'+'+display_model
     joints=[{'index':i,'name':name,**{k:points[i][k] for k in ('x','y','z','visibility','presence')}}
             for i,name in JOINT_NAMES.items() if points[i].get('valid') and usable_point(points[i])]
     valid={j['index'] for j in joints}

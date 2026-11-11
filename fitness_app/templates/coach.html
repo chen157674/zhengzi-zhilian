@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}AI教练 · 知练同行{% endblock %}
+{% block page %}coach{% endblock %}
+{% block content %}
+<div class="coach-shell">
+  <aside class="coach-history" aria-label="当前对话">
+    <button type="button" class="button secondary" data-ai-new>＋ 新对话</button>
+    <p class="section-kicker">当前对话</p>
+    <div class="coach-current"><strong>动作与训练问答</strong><p>围绕一个问题，找到下一步调整。</p></div>
+    <a href="/records?view=list" class="text-link" data-nav>从训练记录开始 →</a>
+  </aside>
+  <section class="coach-main" aria-labelledby="coach-title" data-record-id="{{ selected_context.session_id if selected_context else '' }}">
+    <div class="coach-heading"><h1 id="coach-title">AI教练</h1><p>结合你的健身档案和训练记录，找到下一步调整方向。</p></div>
+    <div class="coach-context"><svg aria-hidden="true"><use href="#dumbbell"/></svg>
+      {% if record_options %}
+      <form id="coach-context-form" action="/coach" method="get"><label for="coach-context-record">正在讨论</label><select id="coach-context-record" name="record"><option value="">一般动作与训练问题</option>{% for item in record_options %}<option value="{{ item.session_id }}"{% if selected_context and item.session_id==selected_context.session_id %} selected{% endif %}>{{ item.context_label }}</option>{% endfor %}</select><button class="button secondary small" type="submit">切换</button></form>
+      {% else %}<span>当前为一般问答，可从训练记录中询问具体动作。</span>{% endif %}
+      <a href="/records?view=list" data-nav>查看记录</a>
+    </div>
+    {% with ai_page_mode=true %}{% include 'ai_assistant.html' %}{% endwith %}
+  </section>
+</div>
+{% endblock %}

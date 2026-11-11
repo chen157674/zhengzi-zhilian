@@ -1,0 +1,30 @@
+{
+  "id": "step-16",
+  "name": "step-16",
+  "title": "平板开合跳高抬腿质量判项",
+  "description": "",
+  "status": "in_progress",
+  "dev_type": null,
+  "scope": null,
+  "package": null,
+  "priority": "P2",
+  "creator": "codex",
+  "assignee": "codex",
+  "createdAt": "2026-10-19",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": null,
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [
+    "PRD.md",
+    "开发文档.md",
+    "开发步骤/16_平板开合跳高抬腿质量判项.md"
+  ],
+  "notes": "以原步骤文档为执行与验收依据，不复制 PRD；不自动提交或启动子代理。 2026-10-21完成条件核查：修正原步骤首页/逐动作表的旧“反馈未开放”状态，明确参考已接入、独立验证0项；已取消实验产品不再当交付门槛。源5项目242文件、模型与12/8/16当前能力已查；14-19原缺口保留。见步骤19 remaining-acceptance-audit；没有新训练/推理/重测。",
+  "meta": {}
+}

@@ -1,0 +1,1 @@
+{"adapter_sha256":"466448d6d5a8ffe7db928063c11790e13bb29bfcb196abaa2180af921f5e0697","base_revision":"89644892e4d85e24eaac8bacfd4f463576704203","runtime_enabled":false,"steps":1200,"validation":{"accuracy_including_rejections":0.25806451612903225,"clips":31,"macro_recall":0.28,"negative_clips":2,"negative_false_accepts":0,"top1":0.3870967741935484}}

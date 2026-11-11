@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const source=await readFile(new URL('../fitness_app/static/camera_support.js',import.meta.url),'utf8');
+const {cameraConstraints,cameraAvailability,captureDimensions}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+assert.equal(cameraConstraints('','environment').video.facingMode.ideal,'environment');
+assert.equal(cameraConstraints('specific','user').video.deviceId.exact,'specific');
+assert.equal('facingMode' in cameraConstraints('specific').video,false);
+assert.match(cameraAvailability({isSecureContext:false}),/HTTPS/);
+assert.match(cameraAvailability({isSecureContext:true,navigator:{}}),/不支持/);
+assert.equal(cameraAvailability({isSecureContext:true,navigator:{mediaDevices:{getUserMedia(){}}}}),'');
+assert.deepEqual(captureDimensions(1080,1920),{width:720,height:1280});
+assert.deepEqual(captureDimensions(1920,1080),{width:1280,height:720});
+assert.deepEqual(captureDimensions(640,480),{width:640,height:480});
+assert.throws(()=>captureDimensions(0,1080));
+console.log('Phone camera constraints/security/portrait dimensions: passed (no camera opened).');

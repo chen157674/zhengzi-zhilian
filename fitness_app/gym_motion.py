@@ -6,8 +6,8 @@ from .frame_pipeline import usable_point
 from .gym_catalogue import BY_ID
 
 
-def measurements(frames,require_wrist=True):
-    if len(frames)<8 or frames[-1]['captured_ms']-frames[0]['captured_ms']<1200:return None
+def measurements(frames,require_wrist=True,*,minimum_frames=8):
+    if len(frames)<minimum_frames or frames[-1]['captured_ms']-frames[0]['captured_ms']<1200:return None
     times=np.array([f['captured_ms'] for f in frames])
     if np.any(np.diff(times)<=0) or np.max(np.diff(times))>500:return None
     series={side:[] for side in ('left','right')};bilateral=[]
@@ -39,7 +39,7 @@ def measurements(frames,require_wrist=True):
             # 以各自肩为基准消除轻微肩线斜度；镜像不改变高度差。
             bilateral.append({'stamp':frame['captured_ms'],'height_difference':float(abs((l[2][1]-l[0][1])-(r[2][1]-r[0][1]))/scale)})
     def sufficient(rows):
-        if len(rows)<8 or len(rows)/len(frames)<.8:return False
+        if len(rows)<minimum_frames or len(rows)/len(frames)<.8:return False
         stamps=np.array([r['stamp'] for r in rows])
         return max(stamps[0]-times[0],times[-1]-stamps[-1],np.max(np.diff(stamps)))<=500
     series={side:rows for side,rows in series.items() if sufficient(rows)}

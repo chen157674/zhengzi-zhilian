@@ -7,6 +7,7 @@ import hmac
 import secrets
 import re
 import unicodedata
+import ipaddress
 from urllib.parse import unquote, urlsplit
 
 from flask import current_app, jsonify, request, session
@@ -22,7 +23,26 @@ from .profile_assets import random_profile,avatar_url
 from .paths import runtime_path
 
 USERNAME = re.compile(r"[A-Za-z0-9_\u3400-\u4dbf\u4e00-\u9fff]{2,32}\Z")
+EMAIL_LOCAL = re.compile(r"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*\Z")
+COMMON_EMAIL_DOMAINS = frozenset({
+    'qq.com', 'foxmail.com', '163.com', '126.com', 'yeah.net',
+    'gmail.com', 'googlemail.com', 'outlook.com', 'hotmail.com', 'live.com', 'msn.com',
+    'icloud.com', 'me.com', 'mac.com', 'yahoo.com', 'sina.com', 'sina.cn',
+    'sohu.com', 'aliyun.com', '139.com', '189.cn', 'wo.cn', '21cn.com',
+})
 AUTH_TTL_MS = 12 * 60 * 60 * 1000
+
+
+def local_setup_allowed():
+    """首次账号仅允许从本机回环入口创建，不信任代理转发头。"""
+    if current_app.config.get('MOBILE_PUBLIC_ORIGIN'):
+        return False
+    try:
+        peer = ipaddress.ip_address(request.remote_addr or '')
+        host = urlsplit(request.host_url).hostname
+        return peer.is_loopback and host in {'127.0.0.1', 'localhost', '::1'}
+    except ValueError:
+        return False
 
 
 class APIError(Exception):
@@ -40,6 +60,32 @@ def validate_username(value):
         raise APIError("VALIDATION_FAILED", "请检查用户名", 422,
                        {"username": "用户名为 2–32 位中英文、数字或下划线"})
     return normalized_username(value)
+
+
+def validate_email(value, *, registration=False, field='email'):
+    if not isinstance(value, str):
+        raise APIError('VALIDATION_FAILED', '请检查登录账号', 422, {field: '请输入有效邮箱或2–32位用户名'})
+    value = value.strip()
+    local, separator, domain = value.rpartition('@')
+    if (not separator or len(value) > 254 or not 1 <= len(local) <= 64
+            or not EMAIL_LOCAL.fullmatch(local) or not re.fullmatch(r'[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*\.[A-Za-z]{2,63}', domain)):
+        raise APIError('VALIDATION_FAILED', '请检查邮箱', 422, {field: '请输入有效邮箱地址'})
+    if registration and domain.lower() not in COMMON_EMAIL_DOMAINS:
+        raise APIError('VALIDATION_FAILED', '暂不支持此邮箱', 422, {field: '请使用常见个人邮箱注册'})
+    return value.lower()
+
+
+def login_identifier(data):
+    if ('email' in data) == ('username' in data):
+        raise APIError('INVALID_REQUEST', '请提供一个登录账号')
+    field = 'email' if 'email' in data else 'username'
+    value = data[field]
+    if isinstance(value, str) and '@' in value:
+        return validate_email(value, field=field)
+    # 仅登录兼容既有用户名；公共注册必须通过邮箱规则。
+    if isinstance(value, str) and USERNAME.fullmatch(value):
+        return normalized_username(value)
+    raise APIError('VALIDATION_FAILED', '请检查邮箱', 422, {field: '请输入有效邮箱地址'})
 
 
 def validate_password(value, field="password"):
@@ -98,7 +144,7 @@ class Identity(UserMixin):
         self.temporary_login = bool(auth["temporary_login"])
 
     def public(self):
-        return {"id": self.user_id, "username": self.username, "role": self.role,
+        return {"id": self.user_id, "username": self.username, "email": self.username if "@" in self.username else None, "role": self.role,
                 "must_change_password": self.must_change_password, "expires_at_ms": self.expires_at_ms,
                 "version": self.version,"nickname":self.nickname,'avatar_id':self.avatar_id,
                 'avatar_url':self.avatar_url,'avatar_source':self.avatar_source,'profile_version':self.profile_version}
@@ -142,7 +188,7 @@ def register_auth(app, db: Database):
             return None
         return Identity(user, auth)
 
-    public = {"/api/v1/health", "/api/v1/auth/csrf", "/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/auth/logout"}
+    public = {"/api/v1/auth/setup", "/api/v1/health", "/api/v1/auth/csrf", "/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/auth/logout"}
     forced_allowed = {"/api/v1/auth/me", "/api/v1/auth/password", "/api/v1/auth/csrf", "/api/v1/auth/logout", "/api/v1/health"}
 
     @app.before_request
@@ -178,8 +224,11 @@ def register_auth(app, db: Database):
 
     @app.post("/api/v1/auth/register")
     def register():
-        data = body({"username", "password", "password_confirmation"})
-        key = validate_username(data.get("username"))
+        data = body({"email", "username", "password", "password_confirmation"})
+        if ('email' in data) == ('username' in data):
+            raise APIError('INVALID_REQUEST', '请提供一个注册邮箱')
+        field = 'email' if 'email' in data else 'username'
+        key = validate_email(data.get(field), registration=True, field=field)
         validate_password(data.get("password"))
         if data["password"] != data.get("password_confirmation"):
             raise APIError("VALIDATION_FAILED", "两次密码不一致", 422, {"password_confirmation": "请再次输入相同密码"})
@@ -189,27 +238,52 @@ def register_auth(app, db: Database):
             with db.transaction() as c:
                 if c.scalar(select(app_meta.c.initialized_at_ms)) is None:
                     raise APIError("INITIALIZATION_REQUIRED", "请先通过本机入口初始化管理员", 409)
-                c.execute(users.insert().values(id=uid,username_display=data["username"], username_key=key, password_hash=hashed))
+                c.execute(users.insert().values(id=uid,username_display=key, username_key=key, password_hash=hashed))
                 c.execute(user_profiles.insert().values(user_id=uid,**profile))
         except IntegrityError as error:
             if "users.username_key" not in str(error.orig):
                 raise
-            raise APIError("USERNAME_TAKEN", "用户名已存在", 409, {"username": "请更换用户名"}) from error
-        return jsonify(data={"username": data["username"], "registered": True,**profile,'avatar_url':avatar_url(profile['avatar_id'])}), 201
+            raise APIError("EMAIL_TAKEN", "该邮箱已注册", 409, {field: "该邮箱已注册，请直接登录"}) from error
+        return jsonify(data={"username": key, "email": key, "registered": True,**profile,'avatar_url':avatar_url(profile['avatar_id'])}), 201
+
+    @app.post('/api/v1/auth/setup')
+    def setup():
+        if not local_setup_allowed():
+            raise APIError('LOCAL_SETUP_ONLY', '首次设置请在运行此应用的电脑上完成', 403)
+        data = body({'email', 'password', 'password_confirmation'})
+        name = data.get('email')
+        key = validate_email(name) if isinstance(name, str) and '@' in name else validate_username(name)
+        validate_password(data.get('password'))
+        if data['password'] != data.get('password_confirmation'):
+            raise APIError('VALIDATION_FAILED', '两次密码不一致', 422,
+                           {'password_confirmation': '请再次输入相同密码'})
+        hashed = password_hash(data['password'])
+        uid = new_id()
+        # BEGIN IMMEDIATE串行化首次设置；已有账号绝不覆盖或提权。
+        with db.transaction() as c:
+            if c.scalar(select(app_meta.c.initialized_at_ms)) is not None or c.scalar(select(func.count()).select_from(users)):
+                raise APIError('ALREADY_INITIALIZED', '账号已经设置，请直接登录', 409)
+            c.execute(users.insert().values(id=uid, username_display=name,
+                       username_key=key, password_hash=hashed, role='admin'))
+            c.execute(user_profiles.insert().values(user_id=uid, **random_profile()))
+            c.execute(update(app_meta).where(app_meta.c.id == 1).values(initialized_at_ms=clock()))
+            c.execute(admin_operations.insert().values(actor_user_id=uid, target_user_id=uid,
+                       operation='initialize', result='succeeded', command_id=new_id(), source='local_web_setup'))
+        return jsonify(data={'initialized': True, 'username': name}), 201
 
     @app.post("/api/v1/auth/login")
     def login():
-        data = body({"username", "password"})
-        name, password = data.get("username"), data.get("password")
-        if not isinstance(name, str) or not isinstance(password, str) or len(name)>32 or len(password)>128:
-            raise APIError("VALIDATION_FAILED", "请填写合法用户名和密码", 422)
+        data = body({"email", "username", "password"})
+        name, password = login_identifier(data), data.get("password")
+        if not isinstance(password, str) or len(password)>128:
+            raise APIError("VALIDATION_FAILED", "请填写有效账号和密码", 422)
         with db.transaction(False) as c:
             user = c.execute(select(users).where(users.c.username_key == normalized_username(name))).mappings().first()
         temporary = bool(user and user["must_change_password"])
         candidate_hash = (user["temporary_password_hash"] if temporary else user["password_hash"]) if user else dummy_hash
         valid = check_password_hash(candidate_hash or dummy_hash, password)
         if not user or not user["enabled"] or not valid or (temporary and (not user["temporary_expires_at_ms"] or user["temporary_expires_at_ms"] <= clock())):
-            raise APIError("AUTH_FAILED", "用户名或密码错误，或账号暂不可用", 401)
+            raise APIError("AUTH_FAILED", "邮箱、用户名或密码错误，或账号暂不可用", 401)
         raw = secrets.token_urlsafe(32)
         auth_id = new_id()
         now = clock()
@@ -278,7 +352,7 @@ def admin_transaction(db):
 
 
 def initialize_admin(db, username, password):
-    key = validate_username(username)
+    key = validate_email(username) if isinstance(username, str) and '@' in username else validate_username(username)
     hashed = password_hash(validate_password(password))
     uid = new_id()
     timestamp = now_ms()
@@ -293,7 +367,7 @@ def initialize_admin(db, username, password):
 
 
 def recover_admin(db, username, password):
-    key = validate_username(username)
+    key = validate_email(username) if isinstance(username, str) and '@' in username else validate_username(username)
     hashed = password_hash(validate_password(password))
     now = now_ms()
     with admin_transaction(db) as c:

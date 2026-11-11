@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "label": "cold-home-plan",
+      "cold": true,
+      "ready_ms": 626,
+      "frames": 24,
+      "route": "/training/plan"
+    },
+    {
+      "label": "warm-home-guide",
+      "cold": false,
+      "ready_ms": 496,
+      "frames": 24,
+      "route": "/coach/knowledge"
+    },
+    {
+      "label": "guide-diet",
+      "cold": false,
+      "ready_ms": 852,
+      "frames": 40,
+      "route": "/coach/nutrition"
+    }
+  ],
+  "native_back_and_new_tab": true,
+  "rotation_and_reduced_height_emulation": true,
+  "physical_keyboard": false,
+  "business_writes": [],
+  "script_errors": []
+}

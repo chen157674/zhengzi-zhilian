@@ -43,22 +43,54 @@ class AuthTests(unittest.TestCase):
     def login(self,username='Admin_Test',password=PASSWORD,client=None):
         return self.post('login',{'username':username,'password':password},client)
 
-    def register(self,name='User_Test',password=PASSWORD):
-        return self.post('register',{'username':name,'password':password,'password_confirmation':password})
+    def register(self,name='User_Test@qq.com',password=PASSWORD):
+        return self.post('register',{'email':name,'password':password,'password_confirmation':password})
 
     def test_registration_validation_normalization_and_hash(self):
         self.assertEqual(self.register().status_code,201)
-        self.assertEqual(self.register('user_test').status_code,409)
-        for name in ('a','x'*33,'bad name','../bad'):
+        self.assertEqual(self.register('user_test@qq.com').status_code,409)
+        for name in ('a','x'*255,'bad name','../bad','user@example.com','a@qq.com.evil.com','a@sub.qq.com','a..b@qq.com','a@ｑｑ.com'):
             with self.subTest(name=name): self.assertEqual(self.register(name).status_code,422)
-        for password in ('x'*11,'x'*129): self.assertEqual(self.register('newuser',password).status_code,422)
+        for password in ('x'*11,'x'*129): self.assertEqual(self.register('newuser@qq.com',password).status_code,422)
         response=self.post('register',{'username':'badrole','password':PASSWORD,'password_confirmation':PASSWORD,'role':'admin'})
         self.assertEqual(response.status_code,400)
         with self.db.transaction(False) as c:
-            row=c.execute(select(s.users).where(s.users.c.username_key=='user_test')).mappings().one()
+            row=c.execute(select(s.users).where(s.users.c.username_key=='user_test@qq.com')).mappings().one()
             self.assertEqual(row['role'],'user'); self.assertNotEqual(row['password_hash'],PASSWORD)
             self.assertTrue(check_password_hash(row['password_hash'],PASSWORD))
             self.assertEqual(c.scalar(select(func.count()).select_from(s.users)),2)
+
+    def test_common_email_policy_and_long_login(self):
+        for domain in ('qq.com', '163.com', 'gmail.com', '126.com', 'outlook.com', 'icloud.com'):
+            address='mailbox@'+domain
+            with self.subTest(domain=domain):
+                self.assertEqual(self.register(address).status_code,201)
+                response=self.post('login',{'email':address.upper(),'password':PASSWORD})
+                self.assertEqual(response.status_code,200)
+                self.assertEqual(response.json['data']['email'],address)
+        long_address='a'*64+'@gmail.com'
+        self.assertEqual(self.register('  '+long_address.upper()+'  ').status_code,201)
+        self.assertEqual(self.post('login',{'email':long_address,'password':PASSWORD}).status_code,200)
+        self.assertEqual(self.register(long_address.upper()).status_code,409)
+        self.assertEqual(self.register('a'*65+'@qq.com').status_code,422)
+        self.login()
+        found=self.client.get('/api/v1/admin/users',query_string={'search':long_address}).json['data']['users']
+        self.assertEqual([row['username'] for row in found],[long_address])
+
+    def test_registration_cannot_bypass_email_policy_or_identity(self):
+        before=None
+        with self.db.transaction(False) as c:
+            before=c.scalar(select(func.count()).select_from(s.users))
+        for data in ({'username':'legacy_name'}, {'username':'a@unknown.example'},
+                     {'email':'a@qq.com.evil.com'}, {'email':'a@qq.com','username':'b@qq.com'}):
+            response=self.post('register',{**data,'password':PASSWORD,'password_confirmation':PASSWORD})
+            self.assertIn(response.status_code,(400,422))
+        with self.db.transaction(False) as c:
+            self.assertEqual(c.scalar(select(func.count()).select_from(s.users)),before)
+        response=self.post('register',{'username':'compat@qq.com','password':PASSWORD,'password_confirmation':PASSWORD})
+        self.assertEqual(response.status_code,201)
+        self.assertEqual(self.post('login',{'email':'Admin_Test','password':PASSWORD}).status_code,200)
+        self.assertEqual(self.post('login',{'email':'missing@qq.com','username':'Admin_Test','password':PASSWORD}).status_code,400)
 
     def test_login_csrf_host_role_and_public_fields(self):
         self.assertEqual(self.client.post('/api/v1/auth/login',json={'username':'Admin_Test','password':PASSWORD}).status_code,403)
@@ -71,14 +103,14 @@ class AuthTests(unittest.TestCase):
         self.assertNotIn('token',response.json['data'])
         self.assertIn('HttpOnly',response.headers['Set-Cookie']); self.assertIn('SameSite=Strict',response.headers['Set-Cookie'])
         self.assertEqual(self.client.get('/api/v1/auth/me').json['data']['role'],'admin')
-        self.register(); self.login('User_Test')
+        self.register(); self.login('User_Test@qq.com')
         self.assertEqual(self.client.get('/api/v1/admin/users').status_code,403)
         self.assertEqual(self.client.get('/api/v1/auth/me',base_url='http://untrusted.example').status_code,400)
 
     def test_disabled_and_unknown_fail_uniformly(self):
         self.register()
-        with self.db.transaction() as c: c.execute(update(s.users).where(s.users.c.username_key=='user_test').values(enabled=0))
-        disabled=self.login('User_Test'); unknown=self.login('missing_user')
+        with self.db.transaction() as c: c.execute(update(s.users).where(s.users.c.username_key=='user_test@qq.com').values(enabled=0))
+        disabled=self.login('User_Test@qq.com'); unknown=self.login('missing_user')
         self.assertEqual(disabled.status_code,401); self.assertEqual(unknown.status_code,401)
         self.assertEqual(disabled.json['error'],unknown.json['error'])
 
@@ -124,7 +156,7 @@ class AuthTests(unittest.TestCase):
     def test_initialization_recovery_and_maintenance_boundary(self):
         with self.assertRaises(ConflictError): initialize_admin(self.db,'Another_Admin',PASSWORD)
         self.register(); self.login()
-        with self.assertRaises(ConflictError): recover_admin(self.db,'User_Test',NEW_PASSWORD)
+        with self.assertRaises(ConflictError): recover_admin(self.db,'User_Test@qq.com',NEW_PASSWORD)
         with maintenance_lock(runtime_path()/'service.lock',exact=True):
             with self.assertRaises(StorageError): recover_admin(self.db,'Admin_Test',NEW_PASSWORD)
         recovered=recover_admin(self.db,'Admin_Test',NEW_PASSWORD)
@@ -144,9 +176,9 @@ class AuthTests(unittest.TestCase):
             self.assertEqual(safe_return_to(target),'/')
         self.assertEqual(safe_return_to('/records?source=video'),'/records?source=video')
         spaced='  test password  '
-        self.assertEqual(self.register('Space_User',spaced).status_code,201)
-        self.assertEqual(self.login('Space_User',spaced).status_code,200)
-        self.assertEqual(self.login('Space_User',spaced.strip()).status_code,401)
+        self.assertEqual(self.register('space_user@163.com',spaced).status_code,201)
+        self.assertEqual(self.login('space_user@163.com',spaced).status_code,200)
+        self.assertEqual(self.login('space_user@163.com',spaced.strip()).status_code,401)
 
     def test_registration_requires_local_initialization(self):
         app=create_app({'TESTING':True,'DATABASE_PATH':str(Path(self.temp.name)/'fresh.sqlite3'),'SECRET_KEY':'test-only'})
@@ -154,7 +186,7 @@ class AuthTests(unittest.TestCase):
         try:
             self.assertFalse(client.get('/api/v1/health').json['data']['initialized'])
             token=client.get('/api/v1/auth/csrf').json['data']['csrf_token']
-            response=client.post('/api/v1/auth/register',json={'username':'Early_User','password':PASSWORD,'password_confirmation':PASSWORD},headers={'X-CSRFToken':token})
+            response=client.post('/api/v1/auth/register',json={'username':'early_user@gmail.com','password':PASSWORD,'password_confirmation':PASSWORD},headers={'X-CSRFToken':token})
             self.assertEqual(response.status_code,409)
             self.assertEqual(response.json['error']['code'],'INITIALIZATION_REQUIRED')
             with app.extensions['database'].transaction(False) as c:

@@ -60,9 +60,9 @@ class AIUsageStore:
                 return self._snapshot(dict(row))
         return None
 
-    def reserve(self,uid,auth,rid,digest,kind,context,messages,expected_settings_version):
+    def reserve(self,uid,auth,rid,digest,kind,context,messages,expected_settings_version,coach=False):
         rid=uuid_id(rid)
-        if kind not in {'chat','interpretation','review','comparison'}:raise APIError('VALIDATION_FAILED','AI任务类型无效',422)
+        if kind not in {'chat','interpretation','review','comparison','coach'} or (kind=='coach')!=coach:raise APIError('VALIDATION_FAILED','AI任务类型无效',422)
         with self.db.transaction() as c:
             self.sessions._actor(c,uid,auth)
             previous=c.execute(select(s.ai_requests).where(s.ai_requests.c.id==rid)).mappings().first()
@@ -73,11 +73,12 @@ class AIUsageStore:
             if active:raise APIError('AI_BUSY','已有AI请求正在处理，请先等待或停止',409)
             settings,policy,_,source=self.settings.active(c,uid)
             if settings['version']!=expected_settings_version:raise ConflictError('AI设置已改变，请重新读取后提问')
-            limit=policy['max_output_tokens'];quote=estimate_reservation(settings['model'],messages,limit)
+            limit=min(1200,policy['max_output_tokens']) if coach else policy['max_output_tokens']
+            quote=200000 if coach else estimate_reservation(settings['model'],messages,limit)
             if source=='system':
-                if self.settings.used_today(c,uid)>=policy['per_user_daily_requests']:raise APIError('AI_DAILY_QUOTA_EXHAUSTED','今日系统AI体验次数已用完，可主动选择个人密钥',429)
+                if policy['per_user_daily_requests'] and self.settings.used_today(c,uid)>=policy['per_user_daily_requests']:raise APIError('AI_DAILY_QUOTA_EXHAUSTED','今日系统AI体验次数已用完，可主动选择个人密钥',429)
                 updated=c.execute(update(s.ai_system_policy).where(s.ai_system_policy.c.id==1,s.ai_system_policy.c.enabled==1,
-                    s.ai_system_policy.c.budget_micro_cny>=s.ai_system_policy.c.spent_micro_cny+s.ai_system_policy.c.reserved_micro_cny+quote)
+                    (s.ai_system_policy.c.budget_micro_cny==0)|(s.ai_system_policy.c.budget_micro_cny>=s.ai_system_policy.c.spent_micro_cny+s.ai_system_policy.c.reserved_micro_cny+quote))
                     .values(reserved_micro_cny=s.ai_system_policy.c.reserved_micro_cny+quote,updated_at_ms=self.clock()))
                 if updated.rowcount!=1:raise APIError('AI_SYSTEM_BUDGET_EXHAUSTED','系统AI额度不足，可稍后再试或主动选择个人密钥',429)
             c.execute(s.ai_requests.insert().values(id=rid,user_id=uid,auth_id=auth,kind=kind,source=source,status='queued',
@@ -85,6 +86,24 @@ class AIUsageStore:
                 settings_version=settings['version'],policy_version=policy['version'],max_output_tokens=limit,pricing_version=PRICING_VERSION,
                 created_at_ms=self.clock()))
             return self._snapshot(self._row(c,uid,rid)),True
+
+    def resume_coach(self,uid,auth,rid):
+        """恢复同一父任务，保留次数/累计支出，不另建账本行。"""
+        with self.db.transaction() as c:
+            self.sessions._actor(c,uid,auth);row=self._row(c,uid,rid)
+            if row['kind']!='coach' or row['status']!='succeeded':raise ConflictError('该任务无法继续')
+            settings,policy,_,source=self.settings.active(c,uid)
+            if source!=row['source'] or settings['version']!=row['settings_version'] or source=='system' and policy['version']!=row['policy_version']:raise ConflictError('AI设置已改变，请重新开始')
+            if c.scalar(select(func.count()).select_from(s.ai_requests).where(s.ai_requests.c.user_id==uid,s.ai_requests.c.status.in_(('queued','running')))):raise APIError('AI_BUSY','已有AI请求正在处理',409)
+            quote=max(0,200000-(row['estimated_micro_cny'] or 0))
+            if source=='system':
+                changed=c.execute(update(s.ai_system_policy).where(s.ai_system_policy.c.id==1,s.ai_system_policy.c.enabled==1,
+                    (s.ai_system_policy.c.budget_micro_cny==0)|(s.ai_system_policy.c.budget_micro_cny>=s.ai_system_policy.c.spent_micro_cny+s.ai_system_policy.c.reserved_micro_cny+quote))
+                    .values(reserved_micro_cny=s.ai_system_policy.c.reserved_micro_cny+quote))
+                if changed.rowcount!=1:raise APIError('AI_SYSTEM_BUDGET_EXHAUSTED','系统额度不足',429)
+            c.execute(update(s.ai_requests).where(s.ai_requests.c.id==rid).values(status='queued',ended_at_ms=None,
+                estimated_micro_cny=None,reserved_micro_cny=quote if source=='system' else 0,state_version=row['state_version']+1))
+            return self._snapshot(self._row(c,uid,rid))
 
     def begin(self,uid,rid):
         with self.db.transaction() as c:
@@ -105,7 +124,7 @@ class AIUsageStore:
                         spent_micro_cny=s.ai_system_policy.c.spent_micro_cny+(cost or 0),updated_at_ms=self.clock()))
             if changed.rowcount!=1:raise StorageError('AI额度预留状态不一致，原请求保留待核对')
 
-    def finish(self,uid,rid,result=None,usage=None,cost=None,error=None,uncertain=False):
+    def finish(self,uid,rid,result=None,usage=None,cost=None,error=None,uncertain=False,prior_cost=0):
         if cost is not None:integer(cost,'cost_micro_cny')
         with self.db.transaction() as c:
             row=self._row(c,uid,rid)
@@ -116,7 +135,7 @@ class AIUsageStore:
             if state=='succeeded' and not isinstance(result,dict):raise ValueError('成功AI任务需要已验证结果')
             c.execute(update(s.ai_requests).where(s.ai_requests.c.id==rid).values(status=state,
                 result_json=json_text(result) if state=='succeeded' and row['kind'] in {'review','comparison'} else None,usage_json=json_text(usage) if usage else None,
-                estimated_micro_cny=None if uncertain else (cost or 0),error_code='AI_SOURCE_DELETED' if source_deleted else error,
+                estimated_micro_cny=None if uncertain else prior_cost+(cost or 0),error_code='AI_SOURCE_DELETED' if source_deleted else error,
                 reserved_micro_cny=row['reserved_micro_cny'] if uncertain else 0,ended_at_ms=self.clock(),state_version=row['state_version']+1))
             return self._snapshot(self._row(c,uid,rid))
 

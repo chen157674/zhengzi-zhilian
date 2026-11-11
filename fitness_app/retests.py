@@ -13,7 +13,7 @@ MINIMUM_OBSERVED_MS=2000
 MINIMUM_COVERAGE=.8
 
 
-def evaluate(origin,target,evidence):
+def evaluate(origin,target,evidence,allow_video=False):
     result={'policy_version':VERSION,'state':'not_comparable','message':'两段观察条件不一致，暂不能比较。',
         'source_record_id':origin['session_id'],'target_record_id':target['session_id'],
         'code':evidence['code'],'side':evidence.get('side','none'),'rule_version':evidence['rule_version'],
@@ -22,7 +22,7 @@ def evaluate(origin,target,evidence):
         'no_issue_is_not_overall_correct':True,'improvement_percentage':None,
         'minimum_cycles':MINIMUM_CYCLES,'minimum_observed_ms':MINIMUM_OBSERVED_MS,'minimum_coverage':MINIMUM_COVERAGE,
         'observation':None}
-    if target['action_id']!=origin['action_id'] or target.get('source')!='camera' or target.get('included_in_statistics') is False:return result
+    if target['action_id']!=origin['action_id'] or target.get('source') not in ({'camera','video'} if allow_video else {'camera'}) or target.get('included_in_statistics') is False:return result
     if target['status'] not in TERMINAL:return {**result,'state':'collecting','message':'复测采集中；主动结束后再查看这一项的结果。'}
     view=evidence.get('evidence',{}).get('view')
     items=[v for v in record_statistics(target) if v['code']==evidence['code'] and v['side']==result['side']]

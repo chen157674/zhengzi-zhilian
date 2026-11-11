@@ -19,7 +19,7 @@ from .records import integer,uuid_id
 from .skeleton import skeleton_snapshot
 from .automatic_recognition import body_frame
 from .basic_recognition import BasicRecognizer
-from .semantic_recognition import create_recognizer
+from .semantic_recognition import create_recognizer,SemanticRecognizer
 from .automatic_analysis import AutomaticAnalysis
 
 logger=logging.getLogger(__name__)
@@ -87,11 +87,23 @@ class PreviewManager:
                     'recognition_mode':mode,'coaching_view':view,'recognizer':recognizer,'recorder':recorder,'automatic_analysis':AutomaticAnalysis(recorder=recorder,coaching_view=view,focus_code=retest_focus) if mode=='auto' or save_training else None,
                     'expires_at_ms':expires_at_ms,'token':token,'stream_epoch':new_id(),'lease_until':self.monotonic()+15,
                     'frame_seq':-1,'captured_ms':-1,'digest':None,'pending':None,'result':None,'status':'active','submissions':deque(),
+                    'engine_ready':threading.Event(),
                     'visible_since':None,'last_processed_ms':None,'accepted':0,'replaced':0,'processed':0,'uploading':False}
+                if isinstance(recognizer,SemanticRecognizer):
+                    # 只在用户创建自动预览时加载；未送帧的初始化租约有180秒硬上限，GET不续期。
+                    self.active['lease_until']=self.monotonic()+180
                 self._wake.set()
                 return {'preview_id':pid,'preview_token':token,'stream_epoch':self.active['stream_epoch'],'lease_seconds':15,'status':'active','recognition_mode':mode,'training_id':recorder.run_id if recorder else None}
             result=self._receipt(user_id,command_id,'create',payload,run)
-            self.start();return result
+            ready=self.active['engine_ready'] if self.active and self.active['preview_id']==result['preview_id'] else None
+            self.start()
+        # 不持预览锁等待；CPU姿态初始化先于浏览器第一帧，避免源开头被初始化跳过。
+        if ready is not None and self._thread is not None:
+            ready.wait(5)
+            with self.lock:
+                if not self.active or self.active['preview_id']!=result['preview_id']:
+                    raise APIError('POSE_UNAVAILABLE','姿态预览未准备好，请重新开启。',503)
+        return result
 
     @staticmethod
     def _slot_ref(item):return (item['session_id'],'session') if item.get('session_id') else (item['preview_id'],'preview')
@@ -218,6 +230,7 @@ class PreviewManager:
                 'recognition_mode':item.get('recognition_mode','manual'),'coaching_view':item.get('coaching_view','auto'),'training':item['recorder'].snapshot() if item.get('recorder') else None,
                 'reason':item.get('reason'),'lease_remaining_ms':max(0,int((item['lease_until']-self.monotonic())*1000)) if item is self.active else 0,
                 'frame_seq':item['frame_seq'],'result':result,
+                'model_preparation':item['recognizer'].preparation() if isinstance(item.get('recognizer'),SemanticRecognizer) else {'state':'ready'},
                 'queue':{'pending':int(item['pending'] is not None),'processing':int(self.processing_id==pid),'accepted':item['accepted'],'replaced':item['replaced'],'processed':item['processed']}}
 
     def _next(self):
@@ -271,14 +284,28 @@ class PreviewManager:
                 while not self._stop.is_set():
                     packet=self._next()
                     if packet is None:
-                        with self.lock:active_id=self.active['preview_id'] if self.active else None
+                        with self.lock:active=self.active;active_id=active['preview_id'] if active else None
                         if engine is not None and engine_id!=active_id:engine.close();engine=None;engine_id=None
+                        if active is not None and engine is None:
+                            try:
+                                engine=self.pose_factory(video=True,realtime=True) if self.pose_factory is ContentPoseService else self.pose_factory(video=True)
+                                engine_id=active_id
+                                if isinstance(active.get('recognizer'),SemanticRecognizer):active['recognizer'].prepare()
+                                active['engine_ready'].set()
+                            except Exception as error:
+                                logger.warning('预览模型准备失败 type=%s',type(error).__name__)
+                                with self.lock:
+                                    if self.active is active:self._close('failed','POSE_UNAVAILABLE')
+                                    active['engine_ready'].set()
+                                continue
                         self._wake.wait(0.1);self._wake.clear();continue
                     item,frame=packet
                     try:
                         if engine_id!=item['preview_id']:
                             if engine:engine.close()
-                            engine=None;engine=self.pose_factory(video=True);engine_id=item['preview_id']
+                            engine=None
+                            engine=self.pose_factory(video=True,realtime=True) if self.pose_factory is ContentPoseService else self.pose_factory(video=True)
+                            engine_id=item['preview_id']
                         began=time.perf_counter();rgb=decode_jpeg(frame['jpeg'],frame['dimensions'])
                         result=engine.detect(rgb,frame['captured_ms'])
                         result['content_bounds']=detect_content_bounds(rgb)

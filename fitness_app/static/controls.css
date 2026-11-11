@@ -1,14 +1,14 @@
 /* 统一控件层：尺寸遵循采用图，状态组织参考 Semi / Arco 的公开规范；非组件库源码复制。 */
 :root {
   --control-height:48px;
-  --control-radius:8px;
-  --control-ink:#242c38;
-  --control-primary:#3d444e;
-  --control-hover:#303741;
-  --control-pressed:#242b34;
-  --control-border:#a5afbd;
-  --control-muted:#8b95a3;
-  --control-focus:#56779f;
+  --control-radius:10px;
+  --control-ink:#402517;
+  --control-primary:#B9431C;
+  --control-hover:#9C3414;
+  --control-pressed:#873016;
+  --control-border:#9F8170;
+  --control-muted:#78675B;
+  --control-focus:#B9431C;
 }
 .button {
   min-height:var(--control-height); min-width:112px;
@@ -23,15 +23,15 @@
 }
 .button:hover:not(:disabled):not([aria-disabled=true]) { background:var(--control-hover); border-color:transparent; box-shadow:0 4px 10px #20293620; transform:translateY(-1px); }
 .button:active:not(:disabled):not([aria-disabled=true]) { background:var(--control-pressed); transform:translateY(0) scale(.985); box-shadow:none; }
-.button.secondary { background:#fff; color:var(--control-ink); border-color:var(--control-border); box-shadow:0 1px 2px #20293608; }
-.button.secondary:hover:not(:disabled) { background:#f3f5f7; color:var(--control-ink); border-color:#7e8a9a; box-shadow:none; }
-.button.secondary:active:not(:disabled) { background:#e9edf1; }
-.button.ghost { background:transparent; color:#5b6676; border-color:transparent; box-shadow:none; }
-.button.ghost:hover:not(:disabled) { transform:none; background:#f2f4f6; color:var(--control-ink); border-color:transparent; box-shadow:none; }
+.button.secondary { background:var(--panel); color:var(--control-ink); border-color:var(--control-border); box-shadow:0 1px 2px #20293608; }
+.button.secondary:hover:not(:disabled) { background:var(--soft); color:var(--control-ink); border-color:#7e8a9a; box-shadow:none; }
+.button.secondary:active:not(:disabled) { background:var(--soft); }
+.button.ghost { background:transparent; color:var(--muted); border-color:transparent; box-shadow:none; }
+.button.ghost:hover:not(:disabled) { transform:none; background:var(--soft); color:var(--control-ink); border-color:transparent; box-shadow:none; }
 .button.danger { background:#ab3e36; border-color:transparent; }
 .button.danger:hover:not(:disabled) { background:#96332c; }
 .button:disabled,.button[aria-disabled=true] { background:#edf0f3; border-color:#e2e6eb; color:var(--control-muted); box-shadow:none; cursor:not-allowed; transform:none; }
-.button.secondary:disabled { background:#fafbfc; border-color:#e0e5eb; color:#9aa3af; }
+.button.secondary:disabled { background:var(--panel); border-color:#e0e5eb; color:#9aa3af; }
 .button.small { min-height:40px; min-width:96px; padding:7px 18px; font-size:15px; line-height:24px; }
 .pagination .button { min-width:44px; min-height:44px; padding:8px 12px; }
 .button:focus-visible,.back-link:focus-visible { outline:2px solid var(--control-focus); outline-offset:3px; box-shadow:0 0 0 4px #56779f15; }
@@ -44,16 +44,16 @@
 #profile-save { min-width:164px; }
 #avatar-select { min-width:112px; }
 .profile-grid .security-row.button { padding-inline:0; min-width:0; justify-content:flex-start; font-weight:400; border-radius:0; background:none; box-shadow:none; }
-.back-link { gap:10px; font-size:16px; color:#586476; }
+.back-link { gap:10px; font-size:16px; color:var(--muted); }
 .back-link svg { width:19px; height:19px; stroke-width:1.8; }
 .button svg { width:20px; height:20px; stroke-width:1.8; flex:none; }
-.live-view-tools label { position:relative; min-height:40px; padding:8px 16px; border-radius:8px; gap:0; color:#586270; font-weight:500; transition:background-color 140ms var(--ease),color 140ms var(--ease); cursor:pointer; }
+.live-view-tools label { position:relative; min-height:40px; padding:8px 16px; border-radius:8px; gap:0; color:var(--muted); font-weight:500; transition:background-color 140ms var(--ease),color 140ms var(--ease); cursor:pointer; }
 .live-view-tools label input { position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; opacity:0; cursor:pointer; }
-.live-view-tools label:hover { background:#f4f6f8; color:#25303e; }
-.live-view-tools label:has(input:checked) { color:#283341; background:#f0f3f6; }
+.live-view-tools label:hover { background:var(--soft); color:var(--ink); }
+.live-view-tools label:has(input:checked) { color:var(--ink); background:var(--soft); }
 .live-view-tools label:has(input:focus-visible) { outline:2px solid var(--control-focus); outline-offset:2px; }
 .live-view-tools label:has(input:disabled) { opacity:.5; cursor:not-allowed; }
-.live-action-select select { font-size:16px; color:#303b4a; cursor:pointer; }
+.live-action-select select { font-size:16px; color:var(--ink); cursor:pointer; }
 #live-toggle::before,.live-fullscreen::before,#showcase-fullscreen::before,#showcase-toggle::before { content:""; width:20px; height:20px; flex:none; background:currentColor; mask:center/contain no-repeat var(--control-icon); }
 #live-toggle { --control-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 7h4l2-3h4l2 3h4v13H4Z' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round'/%3E%3Ccircle cx='12' cy='13' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3C/svg%3E"); }
 #live-toggle[data-state=pause],#showcase-toggle { --control-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='4' width='4' height='16' rx='1'/%3E%3Crect x='15' y='4' width='4' height='16' rx='1'/%3E%3C/svg%3E"); }
@@ -67,5 +67,5 @@
 .text-link:not(:disabled):hover { text-decoration:none; color:#17212f; }
 @keyframes control-spin { to { transform:rotate(360deg); } }
 @media(max-width:1280px) { .live-view-tools label { padding:8px 10px; } .live-buttons .button { min-width:104px; } }
-@media(max-width:760px) { .button { min-width:104px; } .home-hero .button { min-width:0; flex:1; font-size:15px; padding:10px 14px; } .live-view-tools label { padding:8px 12px; } .live-buttons .button { min-width:100px; } .live-fullscreen { font-size:14px; min-height:40px; } }
+@media(max-width:767px) { .button { min-width:104px; } .home-hero .button { min-width:0; flex:1; font-size:15px; padding:10px 14px; } .live-view-tools label { padding:8px 12px; } .live-buttons .button { min-width:100px; } .live-fullscreen { font-size:14px; min-height:40px; } }
 @media(prefers-reduced-motion:reduce) { .button,.live-view-tools label { transition:none; } .button:active:not(:disabled),.button:hover:not(:disabled) { transform:none; } .button::before,#live-toggle::before { animation:none!important; } }

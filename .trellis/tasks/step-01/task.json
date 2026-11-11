@@ -1,0 +1,30 @@
+{
+  "id": "step-01",
+  "name": "step-01",
+  "title": "开源复现与项目环境",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": null,
+  "priority": "P2",
+  "creator": "codex",
+  "assignee": "codex",
+  "createdAt": "2026-10-19",
+  "completedAt": "2026-10-19",
+  "branch": null,
+  "base_branch": null,
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [
+    "PRD.md",
+    "开发文档.md",
+    "开发步骤/01_开源复现与项目环境.md"
+  ],
+  "notes": "以原步骤文档为执行与验收依据，不复制 PRD；不自动提交或启动子代理。",
+  "meta": {}
+}

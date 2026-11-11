@@ -1,0 +1,945 @@
+[
+  {
+    "id": "machine_chest_press-01",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "座椅怎么调",
+    "expected_titles": [
+      "座椅与把手高度"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-02",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸双脚怎么放",
+    "expected_titles": [
+      "脚部支撑"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-03",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸背部怎么靠",
+    "expected_titles": [
+      "背部支撑"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-04",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸把手怎么握",
+    "expected_titles": [
+      "闭合握持原则"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-05",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸手腕折了怎么办",
+    "expected_titles": [
+      "推胸手腕方向"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-06",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "返回把手要慢吗",
+    "expected_titles": [
+      "推胸回程"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-07",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "单手推胸可以吗",
+    "expected_titles": [
+      "双侧与单侧变式"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-08",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸什么机位看",
+    "expected_titles": [
+      "推胸观察机位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-09",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸怎么复测",
+    "expected_titles": [
+      "推胸单项复测"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-10",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "能看出拇指握稳吗",
+    "expected_titles": [
+      "握持知识与检测"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-11",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸凳子高度不合适",
+    "expected_titles": [
+      "座椅与把手高度"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-12",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "脚没踩地怎么做",
+    "expected_titles": [
+      "脚部支撑"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-13",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "把手回弹太快",
+    "expected_titles": [
+      "推胸回程"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-14",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "手脖子弯着推",
+    "expected_titles": [
+      "推胸手腕方向"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "machine_chest_press-15",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "弯举肘往前移怎么办",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "machine_chest_press-16",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "锤式弯举怎么握",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "machine_chest_press-17",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "深蹲能膝过脚尖吗",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "machine_chest_press-18",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "根据推胸算出握力数值",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "machine_chest_press-19",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "诊断胸肌撕裂",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "machine_chest_press-20",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "machine_chest_press",
+    "query": "推胸识别当前器械配重多少",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-01",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "普通弯举握法和锤式区别",
+    "expected_titles": [
+      "弯举握持共同原则"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-02",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "哑铃弯举手腕需要弯吗",
+    "expected_titles": [
+      "弯举手腕"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-03",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "哑铃抬起来怎么控制",
+    "expected_titles": [
+      "弯举抬起控制"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-04",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "哑铃回落要怎么做",
+    "expected_titles": [
+      "弯举下放控制"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-05",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "弯举肘前移一定错吗",
+    "expected_titles": [
+      "弯举肘前移的变式"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-06",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "站姿弯举要背靠吗",
+    "expected_titles": [
+      "坐姿资料适用边界"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-07",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "弯举身体前后借力",
+    "expected_titles": [
+      "站姿躯干借力观察"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-08",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "弯举上臂晃动怎么办",
+    "expected_titles": [
+      "上臂摆动观察"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-09",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "交替弯举是不同步吗",
+    "expected_titles": [
+      "交替弯举同步边界"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-10",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "弯举前后怎么比较",
+    "expected_titles": [
+      "弯举复测条件"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-11",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "手脖子要和小臂齐吗",
+    "expected_titles": [
+      "弯举手腕"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-12",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "哑铃直接掉下来行吗",
+    "expected_titles": [
+      "弯举下放控制"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-13",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "身体晃来晃去弯举",
+    "expected_titles": [
+      "站姿躯干借力观察"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-14",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "坐着的背靠要求能用站着吗",
+    "expected_titles": [
+      "坐姿资料适用边界"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "standing_dumbbell_curl-15",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "推胸座椅怎么调",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-16",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "深蹲多少深度",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-17",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "绳索面拉的握法",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-18",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "检测肱二头肌实际发力",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-19",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "计算肌肉损伤程度",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "standing_dumbbell_curl-20",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "standing_dumbbell_curl",
+    "query": "照片里哑铃多少公斤",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-01",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "徒手深蹲站姿怎么开始",
+    "expected_titles": [
+      "徒手深蹲起始"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-02",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "下蹲怎么控制",
+    "expected_titles": [
+      "深蹲下行控制"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-03",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "深蹲起身怎么做",
+    "expected_titles": [
+      "深蹲上行控制"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-04",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "深蹲越深越好吗",
+    "expected_titles": [
+      "深蹲可控幅度"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-05",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "计划浅蹲也会错误吗",
+    "expected_titles": [
+      "浅蹲计划"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-06",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "膝盖超过脚尖一定错吗",
+    "expected_titles": [
+      "膝过脚尖边界"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-07",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "拍深蹲什么机位",
+    "expected_titles": [
+      "深蹲观察机位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-08",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "没有提示就是深蹲正确吗",
+    "expected_titles": [
+      "未检出不等于正确"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-09",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "次数和秒数能比吗",
+    "expected_titles": [
+      "深蹲比较单位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-10",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "几次才能复测",
+    "expected_titles": [
+      "深蹲复测覆盖"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-11",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "蹲浅一点按计划可以吗",
+    "expected_titles": [
+      "浅蹲计划"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-12",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "未知时间算正常吗",
+    "expected_titles": [
+      "未检出不等于正确"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-13",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "从正面能评深度吗",
+    "expected_titles": [
+      "深蹲观察机位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-14",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "前后有效覆盖要多少",
+    "expected_titles": [
+      "深蹲复测覆盖"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "bodyweight_squat-15",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "推胸座椅怎么调",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-16",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "哑铃弯举回程",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-17",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "杠铃硬拉握距",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-18",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "推算膝关节损伤",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-19",
+    "split": "dev",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "深蹲测出脊柱局部曲度",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "bodyweight_squat-20",
+    "split": "holdout",
+    "domain": "movement",
+    "action_id": "bodyweight_squat",
+    "query": "视频诊断膝病",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-01",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "饮食怎么均衡",
+    "expected_titles": [
+      "均衡饮食"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-02",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "要吃多样食物吗",
+    "expected_titles": [
+      "食物多样性"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-03",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "蔬菜水果纤维作用",
+    "expected_titles": [
+      "蔬果与膳食纤维"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-04",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "平常选择什么食物",
+    "expected_titles": [
+      "食物选择"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-05",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "儿童能直接用成人饮食吗",
+    "expected_titles": [
+      "不同阶段不同需求"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-06",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "运动蛋白质每公斤多少",
+    "expected_titles": [
+      "蛋白质与运动范围"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-07",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "斤能直接乘蛋白系数吗",
+    "expected_titles": [
+      "蛋白质计算单位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-08",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "计算出来就是我吃过了吗",
+    "expected_titles": [
+      "蛋白质并非实际摄入"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-09",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "竞技减重高蛋白都适用吗",
+    "expected_titles": [
+      "蛋白质特殊范围"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-10",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "蛋白只能喝蛋白粉吗",
+    "expected_titles": [
+      "蛋白质来源"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-11",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "基础代谢和总消耗区别",
+    "expected_titles": [
+      "基础能量与总能量"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-12",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "每周练三次对应什么PAL",
+    "expected_titles": [
+      "整体活动水平"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-13",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "热量范围是置信区间吗",
+    "expected_titles": [
+      "维持热量范围"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-14",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "算过活动还能加训练消耗吗",
+    "expected_titles": [
+      "避免重复增加训练热量"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-15",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "Mifflin算每日总摄入吗",
+    "expected_titles": [
+      "静息能量公式区别"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-16",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "增肌和能量平衡关系",
+    "expected_titles": [
+      "增肌与能量平衡"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-17",
+    "split": "dev",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "所有人增肌要加百分之二十吗",
+    "expected_titles": [
+      "增肌盈余适用人群"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-18",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "进阶训练者盈余该保守吗",
+    "expected_titles": [
+      "进阶者保守调整"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-19",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "我70公斤问蛋白怎么算",
+    "expected_titles": [
+      "蛋白质与运动范围",
+      "蛋白质计算单位"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-20",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "手腕弯了又想知道蛋白质",
+    "expected_titles": [
+      "蛋白质与运动范围"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-21",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "总热量重复加运动量",
+    "expected_titles": [
+      "避免重复增加训练热量"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-22",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "固定多吃五百千卡行吗",
+    "expected_titles": [
+      "进阶者保守调整"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-23",
+    "split": "dev",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "不同文献的蛋白范围能平均吗",
+    "expected_titles": [
+      "蛋白质范围来源区别"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-24",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "单段视频能测肌肉增长吗",
+    "expected_titles": [
+      "恢复与饮食配合"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "nutrition-25",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "高血压的个性化处方",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-26",
+    "split": "holdout",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "肾病患者蛋白质处方",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-27",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "孕妇每天精确营养处方",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-28",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "类固醇用量怎么定",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-29",
+    "split": "dev",
+    "domain": "nutrition",
+    "action_id": null,
+    "query": "火星发动机设计",
+    "expected_titles": [],
+    "answerable": false
+  },
+  {
+    "id": "nutrition-30",
+    "split": "holdout",
+    "domain": "hypertrophy",
+    "action_id": null,
+    "query": "诊断肌肉撕裂",
+    "expected_titles": [],
+    "answerable": false
+  }
+]

@@ -4,12 +4,12 @@ from decimal import Decimal,ROUND_CEILING
 from .ai_vision import input_budget
 
 BASE_URL='https://api.deepseek.com'
-# 2026-10-23官方最高价/缓存命中价；金额仅作本应用估算，非供应商账单。
+# 2026-10-30核对官方中文人民币峰值/缓存命中价；金额仅作本应用估算，非供应商账单。
 MODELS={
     'deepseek-flash':{'label':'快速解读（支持看图）','input_micro_per_token':Decimal('2'),'cached_micro_per_token':Decimal('.04'),'output_micro_per_token':Decimal('8')},
-    'deepseek-v4-pro':{'label':'深入复盘','input_micro_per_token':Decimal('9'),'cached_micro_per_token':Decimal('.225'),'output_micro_per_token':Decimal('27')},
+    'deepseek-v4-pro':{'label':'深入复盘','input_micro_per_token':Decimal('9'),'cached_micro_per_token':Decimal('.30'),'output_micro_per_token':Decimal('27')},
 }
-PRICING_VERSION='deepseek-official-peak-20261023'
+PRICING_VERSION='deepseek-official-peak-20261030'
 
 
 def streaming_summary(content):
@@ -29,7 +29,7 @@ def streaming_summary(content):
                 text=json.loads(candidate+'"');break
             except (ValueError,json.JSONDecodeError):continue
     if not isinstance(text,str):return ''
-    return text.encode('utf-8',errors='ignore').decode('utf-8')[:600]
+    return text.encode('utf-8',errors='ignore').decode('utf-8')[:16000]
 
 
 class ProviderError(RuntimeError):
@@ -121,6 +121,44 @@ class DeepSeekClient:
         data=self._request(key,'/chat/completions',{'model':model,'messages':messages,'max_tokens':max_output_tokens,
                           'thinking':{'type':'disabled'},'response_format':{'type':'json_object'},'stream':False})
         return self._generation_result(data,key,model)
+
+    def tool_completion(self,key,model,messages,tools,max_output_tokens=1200,allow_tools=True):
+        """一次真实工具请求；不执行工具、不重试，调用者负责权限、预算和轮数。"""
+        if model not in MODELS:raise ValueError('不支持的AI模型')
+        if type(max_output_tokens) is not int or not 1<=max_output_tokens<=1200:raise ValueError('输出上限无效')
+        if not isinstance(tools,list) or not 1<=len(tools)<=7:raise ValueError('工具清单无效')
+        payload={'model':model,'messages':messages,'tools':tools,'tool_choice':'auto' if allow_tools else 'none',
+                 'max_tokens':max_output_tokens,'thinking':{'type':'disabled'},'stream':False}
+        data=self._request(key,'/chat/completions',payload)
+        usage=None;cost=None
+        try:
+            usage,cost=response_usage(data['usage'],model)
+            choice=data['choices'][0];message=choice['message'];finish=choice['finish_reason']
+            if finish not in {'stop','tool_calls'}:raise ProviderError('AI_OUTPUT_INCOMPLETE','AI回复未完整生成',usage=usage,cost=cost)
+            if message.get('role','assistant')!='assistant':raise ValueError('role')
+            calls=message.get('tool_calls') or []
+            if not isinstance(calls,list) or len(calls)>8:raise ValueError('tool_calls')
+            ids=set();allowed={x['function']['name'] for x in tools};parsed=[]
+            for call in calls:
+                cid=call['id'];function=call['function'];name=function['name'];arguments=function['arguments']
+                if not allow_tools or call.get('type')!='function' or not isinstance(cid,str) or not 1<=len(cid)<=200 or cid in ids or name not in allowed:raise ValueError('tool identity')
+                if not isinstance(arguments,str) or len(arguments.encode())>8192:raise ValueError('tool arguments')
+                args=json.loads(arguments,parse_constant=lambda _:(_ for _ in ()).throw(ValueError('nonfinite')))
+                if not isinstance(args,dict):raise ValueError('tool object')
+                ids.add(cid);parsed.append({'id':cid,'name':name,'arguments':args})
+            content=message.get('content')
+            if content is not None and (not isinstance(content,str) or len(content)>16000):raise ValueError('content')
+            if not calls and (finish!='stop' or not content or not content.strip()):raise ValueError('empty')
+            if calls and finish!='tool_calls':raise ValueError('finish mismatch')
+            safe={'role':'assistant','content':content}
+            if calls:safe['tool_calls']=calls
+            upstream=str(data.get('id',''))[:200]
+            if key in upstream or 'sk-' in upstream:upstream=''
+            return {'message':safe,'calls':parsed,'usage':usage,'estimated_micro_cny':cost,
+                    'upstream_request_id':upstream,'pricing_version':PRICING_VERSION,'model':str(data.get('model',model))[:200]}
+        except (KeyError,IndexError,TypeError,ValueError,json.JSONDecodeError):
+            raise ProviderError('AI_RESPONSE_INVALID','工具响应或用量格式无效',uncertain_charge=cost is None,
+                                usage=usage,cost=cost) from None
 
     def _generation_result(self,data,key,model):
         usage=None;cost=None

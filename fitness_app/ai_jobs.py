@@ -7,10 +7,10 @@ from . import db_schema as s
 from .auth import APIError,body
 from .database import ConflictError,StorageError,json_text
 from .records import uuid_id,integer
-from .ai_context import AIContextBuilder,messages_for,validate_answer,validate_fitness_question,VISUAL_QUESTION
+from .ai_context import AIContextBuilder,messages_for,validate_answer,validate_chat_answer,report_display,validate_fitness_question,VISUAL_QUESTION,VISUAL_FORM_QUESTION
 from .ai_usage import AIUsageStore,TERMINAL
 from .deepseek_client import ProviderError
-from .ai_vision import validate_frames,attach_frames
+from .ai_vision import validate_frames,attach_frames,MAX_FRAMES
 
 CONTEXT_FIELDS={'context_kind','context_id','record_ids','expected_versions','history_scope','filters'}
 REPORT_EXPECTED_FIELDS={'settings_version','profile_version','history_fingerprint','rules_version'}
@@ -69,6 +69,8 @@ class AIJobs:
             return {'conversation_id':cid,'context_revision':value['revision'],'context_current':current,
                     'live_context':self.builder.live_context(uid,value['bundle']['reference']) if current else None,
                     'read_scope':value['bundle']['read_scope'],'messages':list(value['messages']) if current else [],
+                    'image_input_supported':self.app.extensions['ai_settings'].get(uid,auth)['model']=='deepseek-flash',
+                    'image_max_frames':MAX_FRAMES,
                     'retention':'current_login_memory','expires_after_inactive_seconds':TTL_SECONDS,
                     'opening_does_not_call_provider':True}
 
@@ -165,9 +167,13 @@ class AIJobs:
             else:
                 kind,bundle=self.report_bundle(uid,auth,data)
                 history=[]
-            validate_fitness_question(bundle['text'])
-            if VISUAL_QUESTION.search(bundle['text']) and not visual:
-                raise APIError('AI_FRAME_REQUIRED','请勾选“当前画面”后发送，我才能看到画面里的人在做什么',422)
+            if cid:
+                bundle={**bundle,'open_chat':True}
+            else:
+                import re
+                if re.search(r'\d+(?:\.\d+)?\s*(?:公斤|千克|kg|市斤|磅|lb|厘米|cm|岁)|体重|身高|年龄|热量|营养|饮食|蛋白',bundle['text'],re.I):
+                    raise APIError('AI_EPHEMERAL_COACH_REQUIRED','请使用AI教练处理本次身体资料，描述和结果默认仅本次使用',422)
+                validate_fitness_question(bundle['text'])
             frames=[]
             if visual:
                 if self.app.extensions['ai_settings'].get(uid,auth)['model']!='deepseek-flash':
@@ -177,8 +183,12 @@ class AIJobs:
                 info={'frame_count':len(frames),'source':'user_attached_at_question','frames':[{'source_ms':f['source_ms'],'sha256':f['sha256']} for f in frames]}
                 bundle={**bundle,'facts':{**bundle['facts'],'visual_input':info,'no_original_video_or_camera_images_sent':False},
                         'reference':{**bundle['reference'],'visual_input':info},
-                        'visual_scene_only':bool(VISUAL_QUESTION.search(bundle['text']))}
+                        'visual_scene_only':bool(VISUAL_QUESTION.search(bundle['text'])) and not bool(VISUAL_FORM_QUESTION.search(bundle['text'])),
+                        'visual_form_review':bool(VISUAL_FORM_QUESTION.search(bundle['text']))}
                 bundle['reference']['visual_scene_only']=bundle['visual_scene_only']
+                bundle['reference']['visual_form_review']=bundle['visual_form_review']
+                bundle['reference']['visual_chat']=bool(cid)
+            if cid:bundle={**bundle,'visual_scene_only':False,'visual_form_review':False}
             if frames:bundle['reference']['facts_sha256']=hashlib.sha256(json_text(bundle['facts']).encode()).hexdigest()
             messages=messages_for(bundle)
             if frames:attach_frames(messages,frames)
@@ -232,7 +242,7 @@ class AIJobs:
             provider=self.app.extensions['ai_provider_factory']()
             def stream_summary(text):
                 # 流式正文同样经过事实文字校验；不传原始JSON或尚未核对的建议卡。
-                try:checked=validate_answer({'summary':text,'explanations':[],'next_focus':[],'limitations':[]},bundle)['summary']
+                try:checked=(validate_chat_answer if bundle.get('open_chat') else validate_answer)({'summary':text,'explanations':[],'next_focus':[],'limitations':[]},bundle)['summary']
                 except ValueError:return
                 with self.lock:
                     cached=self.answers.get(rid)
@@ -246,9 +256,25 @@ class AIJobs:
             self.usage.finish(uid,rid,error='AI_NETWORK_UNCERTAIN',uncertain=True);return
         finally:work.pop('key',None)
         usage=response['usage'];cost=response['estimated_micro_cny']
-        try:result=validate_answer(response['result'],bundle)
-        except ValueError:
-            self.usage.finish(uid,rid,error='AI_EVIDENCE_INVALID',usage=usage,cost=cost);return
+        try:result=(validate_chat_answer if bundle.get('open_chat') else validate_answer)(response['result'],bundle)
+        except ValueError as error:
+            # 校验器仅返回固定规则说明，保留排障原因，不记录回复正文、图片或密钥。
+            self.app.logger.warning('AI结果校验未通过 request_id=%s reason=%s',rid,str(error))
+            selected_ids=set(bundle['reference']['record_ids'])
+            observed=[v for v in bundle['facts']['evidence'] if v.get('status')=='issue' and
+                (v.get('record_id') in selected_ids or v.get('kind')=='live_snapshot' and bundle['facts'].get('live'))]
+            if VISUAL_FORM_QUESTION.search(bundle['text']) and observed:
+                # 保留校验失败事实，使用已有证据提供明确答复，不展示未通过的模型内容。
+                observed.sort(key=lambda v:v.get('source')!='user_confirmed_demo_annotation')
+                fallback={'summary':'根据当前记录，这个动作有需要调整的地方。下面列出已有依据和对应建议。',
+                    'explanations':[{'evidence_id':v['id'],'explanation':'这是你确认的演示问题，可按对应建议调整。' if v.get('source')=='user_confirmed_demo_annotation' else '当前记录已标出这项姿态问题，可按对应建议调整。',
+                        'adjustment':'先稳定姿态，再按记录中的建议调整。'} for v in observed[:3]],
+                    'next_focus':[],'limitations':['本次回答依据已有记录，画面模型回复未通过核验。']}
+                result=validate_answer(fallback,bundle)
+                result['response_basis']='registered_evidence_fallback_after_invalid_provider_answer'
+                result['provider_answer_rejected']=True
+            else:
+                self.usage.finish(uid,rid,error='AI_EVIDENCE_INVALID',usage=usage,cost=cost);return
         # 生成期间的注销、删除/修订、档案变更，不能使旧答案冒充当前结论。
         if self.closed or not self.builder.current(uid,auth,bundle['reference']):
             self.usage.finish(uid,rid,error='AI_CONTEXT_CHANGED',usage=usage,cost=cost);return
@@ -267,6 +293,7 @@ class AIJobs:
     def snapshot(self,uid,auth,rid):
         with self.lock:
             self._prune();row=self.usage.get(uid,auth,rid)
+            if row['status'] in TERMINAL and row['status']!='succeeded':self.answers.pop(rid,None)
             current=self.builder.current(uid,auth,row['context']) if row['status'] in TERMINAL else None
             row['report_body_deleted']=row['kind'] in {'review','comparison'} and row['status']=='succeeded' and row['result'] is None
             cached=self.answers.get(rid)
@@ -279,6 +306,7 @@ class AIJobs:
             row['context_current']=current
             row['live_context']=self.builder.live_context(uid,row['context']) if current else None
             if not current:row['result']=None
+            elif row['result'] and row['kind'] in {'review','comparison','interpretation'}:row['result']=report_display(row['result'])
             row['conversation_content_expired']=row['status']=='succeeded' and row['kind'] in {'chat','interpretation'} and row['result'] is None
             return row
 
@@ -333,7 +361,7 @@ def register_ai_jobs(app):
 
     @app.post('/api/v1/ai/conversations/<cid>/messages')
     def ai_message(cid):
-        data=body({'text','expected_context_revision','consent','include_current_frame','frames'},max_bytes=1024*1024)
+        data=body({'text','expected_context_revision','consent','include_current_frame','frames'},max_bytes=2*1024*1024)
         return jsonify(data=manager.submit(current_user.user_id,current_user.id,request.headers.get('Idempotency-Key'),data,uuid_id(cid))),202
 
     @app.post('/api/v1/ai/report-options')

@@ -1,6 +1,7 @@
 """编码留边输入处理；保留全部人体候选并还原原图坐标，按运行工厂接入。"""
 import hashlib
 import json
+import os
 from importlib.metadata import version
 from pathlib import Path
 import numpy as np
@@ -67,12 +68,16 @@ def input_policy_snapshot(factory=PoseService):
     if factory is GymPoseService:
         from .pretrained_policy import enabled,body_enabled
         from .movement_guidance_policy import enabled as guidance_enabled
+        from .rtmpose_input import cpu_thread_count
         return {**input_policy_snapshot(ContentPoseService),'version':INPUT_POLICY_VERSION+'-'+VERSION,
                 'upper_body_fallback_sha256':hashlib.sha256(Path(__file__).with_name('gym_pose.py').read_bytes()).hexdigest(),
                 'fallback':'zero_people_only; bottom padding 0.5H; original content points only; all candidates retained',
                 'pretrained_observations_enabled':enabled(),
                 'body_lean_observations_enabled':body_enabled(),
                 'movement_guidance_observations_enabled':guidance_enabled(),
+                'pretrained_backend_preference':os.environ.get('FITNESS_POSE_DEVICE','auto'),
+                'pretrained_cpu_threads':cpu_thread_count() if body_enabled() or guidance_enabled() else None,
+                'realtime_pretrained_backend_policy':'auto_uses_cpu_to_isolate_video_vlm; explicit_cpu_or_cuda_preserved',
                 'pretrained_input_sha256':hashlib.sha256(Path(__file__).with_name('pretrained_input.py').read_bytes()).hexdigest() if body_enabled() or guidance_enabled() else None}
     if factory not in (ContentPoseService,PoseService):
         return {'version':'test-override','factory':getattr(factory,'__module__','unknown')+'.'+getattr(factory,'__qualname__',type(factory).__name__)}

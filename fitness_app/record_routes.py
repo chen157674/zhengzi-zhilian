@@ -25,6 +25,8 @@ def register_records(app,db):
         if manager:manager.forget_records(uid,ids)
         ai=app.extensions.get('ai_jobs')
         if ai:ai.invalidate_source_cache(uid,ids)
+        coach=app.extensions.get('coach_tasks')
+        if coach:coach.invalidate_owner(uid,mode='movement_coach')
     app.extensions['record_deletion_complete']=deletion_complete
     app.extensions.setdefault('start_hooks',[]).extend([store.recover_interrupted,writer.start])
     app.extensions.setdefault('stop_hooks',[]).append(writer.stop)

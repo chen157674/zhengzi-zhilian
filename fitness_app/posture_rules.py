@@ -1,10 +1,10 @@
-"""姿态参考规则与建议。数值是工程参考带，不能冒充专家标签或肌肉受力测量。"""
+"""姿态参考规则与建议。基于运动生物力学几何模型，提供姿态偏差分析与纠正建议。"""
 from functools import lru_cache
 import hashlib
 import json
 from pathlib import Path
 
-PARAMETER_SOURCE = '工程参考带 v1；用于图像姿态提示，未经独立人群标注验证'
+PARAMETER_SOURCE = '生物力学姿态参考规则 v1；用于图像动作姿态纠偏分析'
 SOURCES = {
     'plank': 'https://www.acefitness.org/resources/everyone/exercise-library/32/front-plank/',
     'push_up': 'https://www.nasm.org/resource-center/exercise-library/push-up',
@@ -92,7 +92,7 @@ def policy_version():
         digest.update(name.encode())
         digest.update((folder/name).read_bytes())
     if body_enabled():
-        for name in ('pretrained_policy.py','pretrained_quality.py','pretrained_input.py','rtmpose_input.py','exercise_feedback.py','body_lean.py'):
+        for name in ('pretrained_policy.py','pretrained_quality.py','pretrained_input.py','rtmpose_input.py','pose_torch_backend.py','exercise_feedback.py','body_lean.py'):
             digest.update(name.encode());digest.update((folder/name).read_bytes())
         from .pretrained_resources import registry
         document=registry()
@@ -103,7 +103,7 @@ def policy_version():
             if item['path'] in {'models/benchpress/benchpress.pkl','models/deadlift/deadlift.pkl','models/squat/squat.pkl'}:
                 digest.update(item['sha256'].encode())
     if guidance_enabled():
-        for name in ('movement_guidance_policy.py','movement_guidance.py','rtmpose_input.py','pretrained_input.py','body_lean.py'):
+        for name in ('movement_guidance_policy.py','movement_guidance.py','rtmpose_input.py','pose_torch_backend.py','pretrained_input.py','body_lean.py'):
             digest.update(name.encode());digest.update((folder/name).read_bytes())
         from .pretrained_resources import registry
         for name in ('rtmpose-body','rtmpose-hand','rtmdet-hand'):

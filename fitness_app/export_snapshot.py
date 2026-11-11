@@ -10,7 +10,8 @@ from .training_insights import compact_record,record_statistics,filters,history_
 from .ai_context import redact,PROMPT_VERSION
 from .posture_rules import policy_version
 
-VERSION='training-pdf-1'
+# 外观改版参与新导出去重，不重写或撤销旧报告。
+VERSION='training-pdf-5'
 MAX_RECORDS=20
 MAX_RAW_ROWS=20000
 MAX_EPISODES=1000
@@ -146,7 +147,8 @@ class ExportSnapshots:
                 if not row:raise APIError('NOT_FOUND','AI报告不存在',404)
                 entry={'id':rid,'version':row['state_version'],'sha256':hashlib.sha256((row['result_json'] or '').encode()).hexdigest()}
                 if not self.ai_valid(c,uid,entry,set(ids)):raise APIError('EXPORT_AI_SCOPE','AI报告已过期或含未选定的历史记录，请选择范围匹配的当前报告',409)
-                answer=json.loads(row['result_json']);content['ai_reports'].append({k:row[k] for k in ('id','model','kind','created_at_ms')}|{'content':{k:answer[k] for k in ('summary','explanations','next_focus','limitations','read_scope','prompt_version')}});deps['ai'].append(entry)
+                from .ai_context import report_display
+                answer=report_display(json.loads(row['result_json']));content['ai_reports'].append({k:row[k] for k in ('id','model','kind','created_at_ms')}|{'content':{k:answer[k] for k in ('summary','explanations','next_focus','limitations','read_scope','prompt_version')}});deps['ai'].append(entry)
                 for dep in json.loads(row['context_json'])['dependencies']:
                     if dep.get('kind')=='retest_source' and not any(v['id']==dep['id'] for v in deps['auxiliary']):deps['auxiliary'].append({'id':dep['id'],'version':dep['version']})
         content=redact(content)

@@ -6,7 +6,7 @@ from html import escape
 import hashlib,json,threading,time,unicodedata
 from .paths import ROOT
 
-POLICY='training-pdf-1'
+POLICY='training-pdf-3'
 MAX_PDF_BYTES=10*1024*1024
 MAX_PAGES=80
 _lock=threading.RLock();_ready=False;_cmap=set()
@@ -23,12 +23,18 @@ def prepare_fonts():
         from fontTools.ttLib import TTFont as SourceFont
         from reportlab.pdfbase import pdfmetrics
         from reportlab.pdfbase.ttfonts import TTFont
-        sources=json.loads((ROOT/'third_party/sources.json').read_text(encoding='utf-8'))
-        entry=next(v for v in sources if v.get('repo')=='google/fonts')
-        for name,weight in [('GuanDongBody',400),('GuanDongHeading',600)]:
-            asset=next(v for v in entry['generated_fonts'] if v['weight']==weight);font_path=(ROOT/asset['local_path']).resolve();font_path.relative_to(ROOT/'data/fonts/noto-sans-sc')
-            if hashlib.sha256(font_path.read_bytes()).hexdigest()!=asset['sha256']:raise ReportRenderError('font_integrity')
-            font=SourceFont(font_path);_cmap.update(font.getBestCmap());font.close();pdfmetrics.registerFont(TTFont(name,str(font_path)))
+        font_configs = [
+            ('GuanDongBody', 'data/fonts/noto-sans-sc/GuanDongSansSC-Regular.ttf'),
+            ('GuanDongHeading', 'data/fonts/noto-sans-sc/GuanDongSansSC-SemiBold.ttf')
+        ]
+        for name, rel_path in font_configs:
+            font_path = (ROOT / rel_path).resolve()
+            if not font_path.exists():
+                raise ReportRenderError('font_resources')
+            font = SourceFont(font_path)
+            _cmap.update(font.getBestCmap())
+            font.close()
+            pdfmetrics.registerFont(TTFont(name, str(font_path)))
         _ready=True
 
 
@@ -50,7 +56,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
     from reportlab.lib import colors
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,KeepTogether
-    navy=colors.HexColor('#182333');teal=colors.HexColor('#277e75');muted=colors.HexColor('#667386');line=colors.HexColor('#dde4e9');soft=colors.HexColor('#f2f6f6');amber=colors.HexColor('#96651c')
+    navy=colors.HexColor('#402517');teal=colors.HexColor('#B9431C');muted=colors.HexColor('#78675B');line=colors.HexColor('#EEDCCB');soft=colors.HexColor('#FFF0DF');amber=colors.HexColor('#8A6118')
     styles={
         'body':ParagraphStyle('body',fontName='GuanDongBody',fontSize=9.2,leading=14,textColor=navy,wordWrap='CJK',spaceAfter=4),
         'muted':ParagraphStyle('muted',fontName='GuanDongBody',fontSize=8,leading=11.2,textColor=muted,wordWrap='CJK',spaceAfter=3),
@@ -77,10 +83,10 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
     def page(canvas,doc):
         if cancelled():raise ReportRenderCancelled('cancelled')
         if doc.page>MAX_PAGES or time.monotonic()-began>40:raise ReportRenderError('report_limit')
-        canvas.saveState();canvas.setFont('GuanDongHeading',13);canvas.setFillColor(navy);canvas.drawString(42,A4[1]-35,'观动知姿');canvas.setFont('GuanDongBody',8);canvas.setFillColor(muted);canvas.drawRightString(A4[0]-42,A4[1]-35,'训练观察报告 | 生成时快照');canvas.setStrokeColor(teal);canvas.setLineWidth(1.2);canvas.line(42,A4[1]-49,A4[0]-42,A4[1]-49)
-        canvas.setFont('GuanDongBody',7.2);canvas.setFillColor(muted);canvas.drawString(42,29,('工程测试样例，非真人检测' if snapshot.get('fixture_label') else '参考观察，不代表整体动作正确')+' | '+report_id[:8]);canvas.drawRightString(A4[0]-42,29,'第 '+str(doc.page)+' 页');canvas.restoreState()
+        canvas.saveState();canvas.setFont('GuanDongHeading',13);canvas.setFillColor(navy);canvas.drawString(42,A4[1]-35,'知练同行');canvas.setFont('GuanDongBody',8);canvas.setFillColor(muted);canvas.drawRightString(A4[0]-42,A4[1]-35,'训练复盘报告');canvas.setStrokeColor(teal);canvas.setLineWidth(1.2);canvas.line(42,A4[1]-49,A4[0]-42,A4[1]-49)
+        canvas.setFont('GuanDongBody',7.2);canvas.setFillColor(muted);canvas.drawString(42,29,('工程测试样例，非真人检测' if snapshot.get('fixture_label') else '训练动作与反馈')+' | '+report_id[:8]);canvas.drawRightString(A4[0]-42,29,'第 '+str(doc.page)+' 页');canvas.restoreState()
     records=snapshot['records'];ai=snapshot['ai_reports']
-    add('把训练观察，留成一次复盘。','h1')
+    add('训练复盘报告','h1')
     if snapshot.get('fixture_label'):add(snapshot['fixture_label'],'amber')
     add('生成时间：'+date_text(created_at_ms)+'（北京时间）','muted')
     add('本文件固定保留生成时的记录版本。后续修改不会自动更新这份PDF；下载前请在应用中核对是否为旧快照。','muted')
@@ -90,7 +96,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
     if snapshot.get('auxiliary_source_count'):add('为解释所选复测结果，另引用 '+str(snapshot['auxiliary_source_count'])+' 条原提示来源；未将其完整训练记录纳入本报告。','muted')
     table(['动作','训练开始','来源与状态'],[(r['action_name'],date_text(r['started_at_ms']),('实时' if r['source']=='camera' else '上传')+' / '+{'completed':'已完成','ended_early':'已结束' if r.get('mode')=='free' else '目标完成前结束','interrupted':'已中断','failed':'未完成'}.get(r['status'],r['status'])) for r in records],[body_width*.32,body_width*.34,body_width*.34])
     add('阅读说明','h2')
-    for text in ['检测结果是可见姿态的工程参考，未观察到某项偏差不等于整个动作正确。','次数、可评估周期与连续观察时段分别记录，不作为独立识别准确率或错误概率。','用户自填负重和难度仅在主动选择时附入；AI解释另页标记，不替代原检测。','不含原视频、逐帧骨架、头像、完整聊天、账号凭据或密钥；生成和下载不触发AI调用。']:
+    for text in ['按动作、时间和提示部位查看反馈，并结合原片回看。','次数、可评估周期与连续观察时段分别列出。','用户自填负重和难度仅在主动选择时附入；AI解释另页标记，不替代原检测。','不含原视频、逐帧骨架、头像、完整聊天、账号凭据或密钥；生成和下载不触发AI调用。']:
         add(text,'muted')
     for index,r in enumerate(records,1):
         story.append(PageBreak());add(f'{index:02d}  '+r['action_name'],'recordh1')
@@ -111,7 +117,9 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
         if r.get('target'):
             target=r['target'];unit='秒/组' if target['unit']=='seconds' else '次/侧/组' if target['unit']=='per_side_reps' else '次/组'
             add('用户预设目标：'+str(target['sets'])+' 组，每组 '+str(target['value'])+' '+unit+'；已保存完成组数 '+str(completion['completed_sets'])+'。')
-        if r.get('limitations'):add('检测边界：'+'；'.join(r['limitations']),'muted')
+        from .ai_context import report_display
+        conditions=report_display({'summary':'','limitations':r.get('limitations',[])})['limitations']
+        if conditions:add('拍摄与动作说明：'+'；'.join(conditions),'muted')
         add('可评估范围','h2');rules={v['code']:v for v in r['supported_items']}
         stats=[]
         for item in r['statistics']:
@@ -141,7 +149,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
             if n.get('note'):add('备注：'+n['note'])
             add('以上为用户自述，不是视频测得的真实载荷或疲劳，版本 '+str(n['version'])+'。','muted')
         if r.get('retest'):
-            retest=r['retest'];add('单项复测','h2');add(retest['message']);add('仅针对绑定的一项参考提示，不代表整体动作改善。','muted')
+            retest=r['retest'];add('单项复测','h2');add(retest['message']);add('本次复测对照绑定的动作要点。','muted')
         movement=r.get('movement_stability') or {}
         if not movement.get('comparisons'):add('组内运动观察：'+movement.get('message','没有保存足够的同组观测。'),'muted')
         else:add('组内运动观察','h2')
@@ -162,7 +170,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
                 for label,name in [('before','前一条'),('after','后一条')]:
                     item=pair[label];text=f"提示周期 {item['issue']} / 可评估周期 {item['evaluated']}；未知 {item['unknown']}" if pair['unit']=='cycles' else f"提示 {item['issue']/1000:.1f} 秒 / 可评估 {item['evaluated']/1000:.1f} 秒；未知 {item['unknown']/1000:.1f} 秒"
                     add(name+'：'+text)
-            add('只比较同动作、规则/能力版本、处理策略、侧别、机位与单位下的已保存结果，不能证明调整的因果效果或整体动作正确。','muted')
+            add('对照采用同动作、同侧别和相近机位下的记录，逐项查看前后变化。','muted')
     for report in ai:
         story.append(PageBreak());add('AI复盘与建议','h1');add('以下为AI解释区的工程排版示例，并非真实AI输出。' if snapshot.get('fixture_label') else '以下是AI生成的解释，不是新增检测结果。','amber')
         add('报告生成时间：'+date_text(report['created_at_ms'])+'；模型：'+report['model']+'；提示策略：'+report['content']['prompt_version'],'muted')
@@ -172,7 +180,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
         for text in content['limitations']:add(text,'muted')
         scope=content['read_scope'];add('读取范围：'+str(scope.get('selected_records',0))+' 条直接记录，'+str(scope.get('history_records',0))+' 条历史记录（可能重叠）；可能引用当时本人档案/备注，本报告未另附其原文。','muted')
     if substituted[0]:add('部分特殊字符在本文件中用Unicode编号显示；应用内原文不变。','muted')
-    output=BytesIO();document=SimpleDocTemplate(output,pagesize=A4,leftMargin=42,rightMargin=42,topMargin=70,bottomMargin=48,title='观动知姿训练观察报告',author='观动知姿',pageCompression=1)
+    output=BytesIO();document=SimpleDocTemplate(output,pagesize=A4,leftMargin=42,rightMargin=42,topMargin=70,bottomMargin=48,title='知练同行训练复盘报告',author='知练同行',pageCompression=1)
     document.build(story,onFirstPage=page,onLaterPages=page)
     result=output.getvalue()
     if len(result)>MAX_PDF_BYTES:raise ReportRenderError('report_limit')

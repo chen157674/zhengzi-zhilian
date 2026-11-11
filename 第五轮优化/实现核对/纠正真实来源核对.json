@@ -1,0 +1,48 @@
+{
+  "scope": "historical_evidence_read_only_audit",
+  "source_report": "data\\verification\\round3\\lat-pulldown-native-auto-review.json",
+  "source_report_sha256": "b8d115e48f6dba5be2bc36c0fcc5a9ccc69f6a883cfce27c70041132990e3710",
+  "execution_hash_unchanged": false,
+  "cases": [
+    {
+      "demo_id": "user-1688",
+      "source_identity_matches": true,
+      "historical_status": "completed",
+      "historical_issues": [
+        {
+          "code": "lat_pulldown.pretrained_upper_body_balance",
+          "end_ms": 6200,
+          "message": "身体向左侧持续倾斜",
+          "side": "left",
+          "start_ms": 5733
+        }
+      ]
+    },
+    {
+      "demo_id": "user-1689",
+      "source_identity_matches": true,
+      "historical_status": "completed",
+      "historical_issues": []
+    }
+  ],
+  "new_model_calls": 0,
+  "paid_api_calls": 0,
+  "independent_accuracy_verified": false,
+  "physical_camera_verified": false,
+  "conclusion": "历史报告仍只作原身份核对；当前另已完成正式默认规则下两段开发原片真实模型完整上传保存回归。1688侧倾5733—6200ms，1689无保存issue；不计独立精度、真人改善或物理相机验收。",
+  "current_run": {
+    "path": "第五轮优化/实现核对/当前原片自动纠正核对.json",
+    "report_sha256": "9518c88f8c1da5fc70049c338fe5aeeacd2efc600488d8c1eea410371a0703a3",
+    "runtime_flags": {
+      "FITNESS_BODY_LEAN": "1",
+      "FITNESS_MOVEMENT_GUIDANCE": "1",
+      "FITNESS_PRETRAINED_CORRECTION": null
+    },
+    "state": "completed",
+    "development_pair_acceptance_passed": true,
+    "new_pose_inferences": 1112,
+    "new_action_classification_inferences": 25,
+    "independent_accuracy_verified": false,
+    "physical_camera_verified": false
+  }
+}

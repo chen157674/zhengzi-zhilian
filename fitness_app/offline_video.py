@@ -132,7 +132,8 @@ def scan_video(path,info,*,automatic=True,start_ms=0,end_ms=None,pose_factory=Gy
                                 'model_version':model_version,'reason':decision.get('reason'),'score':decision.get('score'),
                                 'decision_basis':decision.get('decision_basis'),'raw_action_id':decision.get('top_action_id'),
                                 'base_model_version':decision.get('base_model_version'),'motion_evidence_applied':decision.get('motion_evidence_applied',False),
-                                'motion_evidence':decision.get('motion_evidence')})
+                                'motion_evidence':decision.get('motion_evidence'),
+                                **({'cross_review':decision['cross_review']} if decision.get('cross_review') else {})})
             previous=stamp;last_size=size
             if stamp-last_progress>=1000:progress(stamp,model_version);last_progress=stamp
         if last is None:raise APIError('UNDECODABLE_MEDIA','所选范围没有可处理画面',422)

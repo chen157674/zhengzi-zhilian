@@ -156,7 +156,7 @@ async function continueFlow(first=false){
   apply(result);
   if(!['countdown','running','waiting'].includes(result.status)||result.save_state!=='clean')throw new Error('开始状态尚未确认，请核对原会话。');
   stopped=false;cameraControl.attach({session_id:sid,...credentials()});
-  history.replaceState(null,'','/realtime/'+sid);document.title='实时分析 · 健身动作助手';
+  history.replaceState(null,'','/realtime/'+sid);document.title='实时分析 · 知练同行';
 }
 async function command(name,extra={}){
   const send=async()=>{const result=await api(`/api/v1/sessions/${sid}/commands`,{method:'POST',commandId:crypto.randomUUID(),body:payload(name,extra)});apply(result);return result};

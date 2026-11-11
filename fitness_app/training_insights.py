@@ -111,6 +111,11 @@ def record_evidence(data):
         value.update(record_id=data['session_id'],action_id=data['action_id'],title=rule.get('title',item['code']),
                      parameter_source=rule.get('parameter_source'),validation_status=rule.get('validation_status','not_independently_validated'))
         value['id']='e:'+hashlib.sha256(json_text(value).encode()).hexdigest()[:24];values.append(value)
+    for item in data.get('confirmed_demo_findings',[]):
+        value={**item,'record_id':data['session_id'],'action_id':data['action_id'],
+            'title':item['message'],'kind':'user_confirmed_demo_annotation',
+            'validation_status':'user_confirmed_not_model_detection'}
+        value['id']='e:'+hashlib.sha256(json_text(value).encode()).hexdigest()[:24];values.append(value)
     represented={v['code'] for v in values}
     for code,rule in rules.items():
         if code not in represented:

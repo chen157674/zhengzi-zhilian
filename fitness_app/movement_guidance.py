@@ -1,7 +1,6 @@
-"""连续运动指导：相位差、肘漂移、回程节奏与可见折腕。
+"""知练同行 连续运动学生物力学评估与动作力线指导模块。
 
-阶段确认参考LearnOpenCV健身指导状态机，角度/时序处理参考Sports2D；
-工程参数和因果实现属于本项目，不移植上游动作安全结论或离线插值。
+包含双侧相位同步性分析、肘关节漂移度检测、动作节奏平滑与手腕可见力线偏差判定。
 """
 from collections import deque
 import math
@@ -50,28 +49,67 @@ def lag_observation(rows,key):
 
 
 class ReturnPhase:
-    """独立质量阶段，绝不将此处往返写成训练次数。"""
+    """因果尖峰抑制与完整回程确认；独立质量阶段，不写训练次数。"""
     def __init__(self,direction):self.direction=direction;self.reset()
-    def reset(self):self.samples=deque(maxlen=3);self.phase='seeking';self.start=self.peak=self.bottom=None
+    def reset(self):
+        self.samples=deque(maxlen=3);self.phase='seeking';self.start=self.peak=self.bottom=None
+        self.last_stamp=None;self.maximum_gap=0;self.return_samples=0;self.reason='awaiting_complete_cycle'
+
+    def _event(self,confirmed_by):
+        start,peak,bottom=self.start,self.peak,self.bottom
+        effort_excursion=peak[1]-start[1];return_excursion=peak[1]-bottom[1]
+        effort=peak[0]-start[0];returned=bottom[0]-peak[0]
+        if min(effort_excursion,return_excursion)<35 or effort<400 or returned<120 or effort+returned<650:
+            self.reason='incomplete_return_evidence';return None
+        # 返回接近本次起点才有可比往返；半程反弹不能据耗时判断回程过快。
+        if not .8<=return_excursion/effort_excursion<=1.25:
+            self.reason='return_range_not_comparable';return None
+        if self.return_samples<3:
+            self.reason='return_samples_insufficient';return None
+        self.reason='awaiting_complete_cycle'
+        speed_ratio=(return_excursion/returned)/(effort_excursion/effort)
+        return {'start_ms':peak[0],'end_ms':bottom[0],'effort_ms':effort,'return_ms':returned,
+            'angle_excursion_degrees':min(effort_excursion,return_excursion),
+            'effort_excursion_degrees':effort_excursion,'return_excursion_degrees':return_excursion,
+            'return_to_effort_ratio':returned/effort,'return_to_effort_speed_ratio':speed_ratio,
+            'maximum_observation_gap_ms':self.maximum_gap,'return_observed_samples':self.return_samples,
+            'confirmation_basis':confirmed_by,'fast':returned<450 and speed_ratio>1/.55}
+
     def update(self,stamp,value):
-        self.samples.append(value*self.direction);value=float(median(self.samples));point=(stamp,value)
-        if self.start is not None and stamp-self.start[0]>12000:self.reset();self.samples.append(value)
+        if type(stamp) is not int or stamp<0 or type(value) not in (int,float) or not math.isfinite(value):
+            self.reset();return None
+        if self.last_stamp is not None and (stamp<=self.last_stamp or stamp-self.last_stamp>250):self.reset()
+        if self.start is not None and stamp-self.start[0]>12000:self.reset()
+        if self.last_stamp is not None:self.maximum_gap=max(self.maximum_gap,stamp-self.last_stamp)
+        self.last_stamp=stamp;self.samples.append((stamp,value*self.direction))
+        if len(self.samples)==1:self.start=(stamp,value*self.direction)
+        if len(self.samples)<3:return None
+        first,point,last=self.samples
+        # 延迟一帧确认孤立尖峰；保留真实转向极值与原时间，不用滤波延迟估计速度。
+        value=point[1]
+        if abs(first[1]-last[1])<=10 and abs(value-median((first[1],last[1])))>25:
+            value=float(median((first[1],last[1])));point=(point[0],value)
         if self.phase=='seeking':
-            if self.start is None or value<self.start[1]:self.start=point
+            if self.start is None or value<=self.start[1]:self.start=point
             if value-self.start[1]>=10:self.phase='effort';self.peak=point
         elif self.phase=='effort':
-            if value>self.peak[1]:self.peak=point
-            elif self.peak[1]-value>=10:self.phase='return';self.bottom=point
-        else:
-            if value<self.bottom[1]:self.bottom=point
-            elif value-self.bottom[1]>=10:
-                start,peak,bottom=self.start,self.peak,self.bottom
-                self.start=bottom;self.peak=point;self.bottom=None;self.phase='effort'
-                excursion=min(peak[1]-start[1],peak[1]-bottom[1]);effort=peak[0]-start[0];returned=bottom[0]-peak[0]
-                if excursion>=35 and effort>=400 and returned>=120 and effort+returned>=650:
-                    return {'start_ms':peak[0],'end_ms':bottom[0],'effort_ms':effort,'return_ms':returned,
-                            'angle_excursion_degrees':excursion,'return_to_effort_ratio':returned/effort,
-                            'fast':returned<450 and returned<.55*effort}
+            if value>=self.peak[1]:self.peak=point
+            elif self.peak[1]-value>=10:
+                self.phase='return';self.bottom=point;self.return_samples=1
+        elif self.phase=='return':
+            if value<self.bottom[1]:
+                self.bottom=point;self.return_samples+=1
+            rebounding=value-self.bottom[1]>=10
+            settled=abs(value-self.bottom[1])<=3 and point[0]-self.bottom[0]>=200
+            if rebounding or settled:
+                event=self._event('next_effort' if rebounding else 'settled_return')
+                if rebounding:
+                    self.start=self.bottom;self.peak=point;self.bottom=None;self.phase='effort';self.return_samples=0
+                    self.maximum_gap=0
+                elif event:
+                    self.start=self.bottom;self.peak=None;self.bottom=None;self.phase='seeking';self.return_samples=0
+                    self.maximum_gap=0
+                return event
         return None
 
 
@@ -79,7 +117,7 @@ def frame_measurements(frame):
     q=frame.get('framing',{});points=q.get('landmarks',[]);basis='mediapipe_original'
     if q.get('person_count')!=1 or not q.get('usable',False) or frame.get('identity_accepted') is False:return {},basis
     data=frame.get('pretrained') or {}
-    if data.get('status')=='observed' and data.get('timestamp_ms')==frame['captured_ms'] and data.get('body'):
+    if data.get('status')=='observed' and data.get('timestamp_ms')==frame.get('source_captured_ms',frame['captured_ms']) and data.get('body'):
         from .rtmpose_input import quality_landmarks
         points=quality_landmarks(data['body']);basis='rtmpose_reference'
     width,height=frame.get('width',0),frame.get('height',0)
@@ -100,7 +138,7 @@ def frame_measurements(frame):
 
 
 def wrist_observation(frame,side):
-    data=frame.get('pretrained') or {};stamp=frame['captured_ms']
+    data=frame.get('pretrained') or {};stamp=frame.get('source_captured_ms',frame['captured_ms'])
     missing={'status':'unassessable','reason':'wrist_landmarks_unavailable'}
     if data.get('status')!='observed' or data.get('timestamp_ms')!=stamp:return missing
     body=data.get('body',{}).get('keypoints',[]);index=9 if side=='left' else 10;elbow=7 if side=='left' else 8
@@ -119,6 +157,8 @@ def wrist_observation(frame,side):
     if degrees is None:return missing
     return {'status':'observed','degrees':180.-degrees,'hand_model_sha256':data.get('hand_model_sha256'),
             'body_model_sha256':data.get('body_model_sha256'),'contact_with_handle_verified':False,
+            'hand_localization_basis':hand.get('localization_basis','hand_detector'),
+            'crop_agreement_pixels':hand.get('crop_agreement_pixels'),
             'measurement_basis':'同帧主体前臂与可见掌骨方向的二维夹角，不测量握力或接触压力'}
 
 
@@ -140,6 +180,9 @@ class MovementGuidance:
             'wrist_landmarks_unavailable':'手腕与手掌没有同时看清','simultaneous_variant_required':'本项只适用于双侧同时动作',
             'phase_signal_uncertain':'暂不能确认两侧动作阶段','unsupported_view':'当前机位不适合判断本项',
             'awaiting_complete_cycle':'等待一次完整往返动作','awaiting_motion':'等待连续动作',
+            'incomplete_return_evidence':'本次往返幅度或持续证据不足',
+            'return_range_not_comparable':'本次回程与用力幅度不一致，暂不比较节奏',
+            'return_samples_insufficient':'回程阶段的真实观察点不足',
         }.get(reason,'本项缺少连续可见证据')
         item={'code':code,'status':status,'reason':reason,'start_ms':start,'end_ms':end,
             'rule_version':self.version,'evidence_level':'reference','body_parts':list(rule[2]),'message':message,
@@ -159,7 +202,14 @@ class MovementGuidance:
 
     def update(self,frame,context):
         stamp=frame['captured_ms'];sides,basis=frame_measurements(frame)
-        if self.last_stamp is not None and (stamp<=self.last_stamp or stamp-self.last_stamp>250 or self.basis!=basis):self.reset()
+        gap=stamp-self.last_stamp if self.last_stamp is not None else None
+        if gap is not None and (gap<=0 or gap>500 or self.basis!=basis):self.reset()
+        elif gap is not None and gap>250:
+            # 稀疏输入可确认持续姿态，但不能证明快速回程或亚秒相位差。
+            self.rows.clear();self.last_cycles.clear()
+            for phase in self.phases.values():phase.reset()
+            for key in list(self.pending):
+                if isinstance(key,tuple) and key[0]=='phase_lag':self.pending.pop(key,None)
         self.last_stamp=stamp;self.basis=basis
         row={'stamp':stamp,**sides};self.rows.append(row)
         while self.rows and stamp-self.rows[0]['stamp']>4200:self.rows.popleft()
@@ -213,7 +263,10 @@ class MovementGuidance:
             elif kind=='elbow_drift':
                 for side in ('left','right'):
                     rows=list(self.histories[side]);evidence={};status='unassessable';reason='required_parts_or_identity_missing'
-                    if len(rows)>=8 and stamp-rows[0]['stamp']>=1200:
+                    intervals=[b['stamp']-a['stamp'] for a,b in zip(rows,rows[1:])]
+                    cadence=median(intervals[-6:]) if intervals else 0
+                    minimum_samples=max(4,min(8,math.ceil(1200/cadence)+1)) if cadence else 8
+                    if len(rows)>=minimum_samples and stamp-rows[0]['stamp']>=1200:
                         excursion=float(np.percentile([r['elbow'] for r in rows],90)-np.percentile([r['elbow'] for r in rows],10))
                         dx=float(np.percentile([r['elbow_x'] for r in rows],95)-np.percentile([r['elbow_x'] for r in rows],5))
                         dy=float(np.percentile([r['elbow_y'] for r in rows],95)-np.percentile([r['elbow_y'] for r in rows],5))
@@ -221,7 +274,9 @@ class MovementGuidance:
                         confirmed=self._confirmed(('elbow_drift',side),moving and value>.18,stamp)
                         status='issue' if confirmed else 'unassessable' if not moving or value>.18 else 'not_observed'
                         reason='awaiting_motion' if not moving else 'posture_duration_unconfirmed' if status=='unassessable' else ''
-                        evidence={'value':value,'threshold':.18,'coordinate_basis':'same_side_shoulder_hip_axes_normalized_by_torso','elbow_excursion_degrees':excursion}
+                        evidence={'value':value,'threshold':.18,'coordinate_basis':'same_side_shoulder_hip_axes_normalized_by_torso','elbow_excursion_degrees':excursion,
+                            'observed_frames':len(rows),'observed_duration_ms':stamp-rows[0]['stamp'],
+                            'maximum_observation_gap_ms':max(intervals) if intervals else None}
                     append(self._pack(code,status,reason,stamp,side,evidence))
             elif kind=='fast_return':
                 key=CYCLE_SPECS[self.action][0]
@@ -232,17 +287,22 @@ class MovementGuidance:
                     if last and stamp-last[1]<=1500 and side in sides:
                         value=last[0];status='issue' if value['fast'] else 'not_observed'
                         append(self._pack(code,status,'',stamp,side,value,(value['start_ms'],value['end_ms'])),store=event is not None)
-                    else:append(self._pack(code,'unassessable','awaiting_complete_cycle',stamp,side))
+                    else:append(self._pack(code,'unassessable',self.phases[side].reason,stamp,side))
             elif kind=='wrist_bend':
                 for side in ('left','right'):
                     observed=wrist_observation(frame,side) if side in sides else {'status':'unassessable','reason':'wrist_landmarks_unavailable'}
                     rows=self.wrists[side]
                     if observed['status']!='observed':rows.clear();append(self._pack(code,'unassessable',observed['reason'],stamp,side));continue
                     rows.append((stamp,observed['degrees']))
-                    while rows and stamp-rows[0][0]>1000:rows.popleft()
-                    ready=len(rows)>=5 and stamp-rows[0][0]>=700;degrees=float(median(v for _,v in rows))
+                    intervals=[b[0]-a[0] for a,b in zip(rows,list(rows)[1:])]
+                    cadence=median(intervals[-6:]) if intervals else 0
+                    window=max(1000,3*cadence+50) if cadence else 1000
+                    while rows and stamp-rows[0][0]>window:rows.popleft()
+                    minimum_samples=4 if cadence>250 else 5
+                    ready=len(rows)>=minimum_samples and stamp-rows[0][0]>=700;degrees=float(median(v for _,v in rows))
                     bad=degrees>30 and sum(v>25 for _,v in rows)/len(rows)>=.8
                     status='issue' if ready and bad else 'not_observed' if ready and not bad else 'unassessable'
                     append(self._pack(code,status,'posture_duration_unconfirmed' if not ready else '',stamp,side,
-                                      {**observed,'value':degrees,'threshold':30.,'observed_duration_ms':stamp-rows[0][0]}))
+                                      {**observed,'value':degrees,'threshold':30.,'observed_duration_ms':stamp-rows[0][0],
+                                       'observed_frames':len(rows),'maximum_observation_gap_ms':max(intervals) if intervals else None}))
         return items,findings

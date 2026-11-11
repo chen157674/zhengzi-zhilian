@@ -1,8 +1,21 @@
-{% extends 'base.html' %}{% block title %}记录详情 · 观动知姿{% endblock %}{% block page %}record-detail{% endblock %}{% block head %}<script type="module" src="/static/record_detail.js"></script><script type="module" src="/static/training_info.js"></script>{% endblock %}
+{% extends 'base.html' %}{% block title %}记录详情 · 知练同行{% endblock %}{% block page %}record-detail{% endblock %}{% block head %}<script type="module" src="/static/record_detail.js"></script><script type="module" src="/static/training_info.js"></script>{% endblock %}
 {% block content %}<div class="design-container record-detail" data-session-id="{{ session_id }}"><a id="record-back" class="back-link" href="/records?view=list" data-action="result.back" data-nav><svg aria-hidden="true"><use href="#arrow-left"/></svg>返回训练记录</a><div class="heading-with-action"><div class="page-heading"><h1 id="detail-title">记录详情</h1><p id="detail-meta">正在读取已保存摘要…</p></div><div class="button-row"><button class="button secondary" type="button" data-ai-open>AI解读</button><button class="button secondary" type="button" id="record-ai-review" disabled>AI复盘</button><button class="button secondary" type="button" id="record-export">导出PDF</button><a id="record-new" class="button secondary" href="/realtime" data-action="result.new" data-nav>再次分析</a><button class="button ghost" id="record-delete" disabled>删除记录</button></div></div>
 <p id="revision-notice" class="notice" hidden></p><div id="detail-error" class="notice error" role="alert" hidden></div><button id="detail-reload" class="button secondary" hidden>重新加载</button>
 <section id="save-banner" class="save-banner" hidden><h2 id="save-title">保存失败，分析已暂停</h2><p id="save-description"></p><div class="button-row"><button id="save-retry" class="button">重试保存</button><button id="save-discard" class="button secondary">仅保留已保存内容并离开</button></div></section>
-<p id="detail-save-status" class="field-help" role="status" hidden></p><details id="detail-summary" class="record-info" hidden><summary>训练信息</summary><div class="record-info-grid"><div><span>动作</span><p id="detail-action"></p></div><div><span>来源</span><p id="detail-source"></p></div><div><span>参考完成量</span><p id="detail-count">—</p></div></div><p id="detail-side" class="field-help"></p><details><summary>训练时间与可评估范围</summary><p>有效训练时间 <span id="detail-active"></span></p><p>可评估覆盖 <span id="detail-coverage"></span></p><p id="detail-coverage-note"></p></details></details>
-<section class="detail-panel" id="quality-panel" hidden><h2>动作反馈</h2><div id="detail-quality"></div></section>
-<section class="detail-panel" id="record-retest" hidden></section>{% include 'training_note.html' %}<section class="detail-panel" id="record-media" hidden></section><section class="detail-panel" id="record-groups" hidden><h2>分组完成情况</h2><div class="table-scroll"><table class="data-table"><thead><tr><th>组次</th><th>目标</th><th>完成量</th><th>状态</th></tr></thead><tbody id="group-rows"></tbody></table></div></section>
-<details class="detail-panel" id="record-events" hidden><summary>查看全部明细 <span id="detail-event-count"></span></summary><p class="muted">时间从本段训练开始计算。</p><div id="detail-event-list"></div></details></div>{% endblock %}
+<p id="detail-save-status" class="field-help" role="status" hidden></p><section id="record-focus" class="record-focus" aria-label="动作纠正提示" hidden></section>
+<div class="record-workspace"><div class="record-media-column"><section class="detail-panel" id="record-media" hidden></section><section class="detail-panel" id="record-retest" hidden></section></div><section class="detail-panel" id="quality-panel" hidden><h2>动作反馈</h2><div id="detail-quality"></div></section></div>
+<section class="record-resources" aria-label="训练资料">
+  <div class="record-resource-tabs" role="tablist" aria-label="训练资料分类">
+    <button type="button" role="tab" id="record-tab-info" aria-controls="detail-summary" aria-selected="true" tabindex="0">训练信息</button>
+    <button type="button" role="tab" id="record-tab-note" aria-controls="training-note-panel" aria-selected="false" tabindex="-1">训练备注</button>
+    <button type="button" role="tab" id="record-tab-events" aria-controls="record-events" aria-selected="false" tabindex="-1">动作明细 <span id="detail-event-count"></span></button>
+  </div>
+  <section id="detail-summary" class="record-info" role="tabpanel" aria-labelledby="record-tab-info" tabindex="0">
+    <dl class="record-info-grid"><div><dt>动作</dt><dd id="detail-action">—</dd></div><div><dt>来源</dt><dd id="detail-source">—</dd></div><div><dt>参考完成量</dt><dd id="detail-count">—</dd></div><div><dt>有效训练时间</dt><dd id="detail-active">—</dd></div><div><dt>可评估覆盖</dt><dd id="detail-coverage">—</dd></div></dl>
+    <p id="detail-side" class="field-help"></p><p id="detail-coverage-note" class="field-help"></p>
+  </section>
+  {% include 'training_note.html' %}
+  <section id="record-events" role="tabpanel" aria-labelledby="record-tab-events" tabindex="0" hidden><p class="record-resource-help">时间从本段训练开始计算。</p><div id="detail-event-list"></div></section>
+</section>
+<section class="detail-panel" id="record-groups" hidden><h2>分组完成情况</h2><div class="table-scroll"><table class="data-table"><thead><tr><th>组次</th><th>目标</th><th>完成量</th><th>状态</th></tr></thead><tbody id="group-rows"></tbody></table></div></section>
+</div>{% endblock %}

@@ -34,7 +34,7 @@ def pack_frame(frame,offset=0,coaching=None):
             if all(type(v) in (int,float) and math.isfinite(v) for v in values) and all(0<=v<=1 for v in values):
                 joints.append([item['index'],round(values[0],6),round(values[1],6),round(values[2],3),round(values[3],3)])
     return {'t':stamp-offset,'source_ms':frame.get('source_captured_ms',stamp),'seq':seq,
-        'w':frame.get('width'),'h':frame.get('height'),'j':joints,'model':frame.get('model_version'),
+        'w':frame.get('width'),'h':frame.get('height'),'j':joints,'model':snap.get('model_version'),
         'epoch':frame.get('stream_epoch'),'group':frame.get('set_index',1),
         'reason':None if joints else 'identity_or_parts_unavailable','highlight':snap['highlight'] if joints else None}
 

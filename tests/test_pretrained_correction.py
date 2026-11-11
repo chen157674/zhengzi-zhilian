@@ -95,7 +95,9 @@ class PretrainedTests(unittest.TestCase):
             resource={'sha256':'body'}
             def detect(self,rgb,bbox):return body()
         class Hands:
-            class Part:resource={'sha256':'hand'}
+            class Part:
+                resource={'sha256':'hand'}
+                def detect(self,rgb,bbox):return {'keypoints':[]}
             pose=Part();detector=Part()
             def detect(self,rgb):return {'hands':[],'reason':'hands_not_detected'}
         model.body=Body();model.hands=Hands()

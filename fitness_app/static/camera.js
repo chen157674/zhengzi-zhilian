@@ -53,7 +53,7 @@ async function draw(result,packet,epoch){
     for(const id of skeleton.highlight?.joint_indices||[]){const p=points.get(id);if(!p)continue;context.fillStyle='#ecab3380';context.beginPath();context.arc(p.x*canvas.width,p.y*canvas.height,12,0,Math.PI*2);context.fill();}
   }
   document.querySelector('#camera-empty').hidden=true;canvas.hidden=false;
-  status(result.framing.ready_for_tracking?'取景已稳定。请核对所需部位确实完整入镜；关键点结果不代表动作正确。':result.framing.message);
+  status(result.framing.ready_for_tracking?'取景已稳定，请保持所需部位完整入镜。':result.framing.message);
   document.querySelector('#preview-model-status').textContent=root.dataset.countingAvailable==='1'?'姿态模型已加载。准备画面不计次数。':'姿态预览模型已加载。动作分析能力尚未开放。';
   processedStamps.push({stamp:result.captured_ms,usable:result.framing.usable});if(processedStamps.length>60)processedStamps.shift();
   const span=processedStamps.at(-1).stamp-processedStamps[0].stamp,fps=processedStamps.length>1&&span>0?(processedStamps.length-1)*1000/span:null;

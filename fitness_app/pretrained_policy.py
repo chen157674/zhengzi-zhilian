@@ -16,6 +16,8 @@ def active_rules():
 RULES={
     'machine_chest_press.pretrained_upper_body_balance':('machine_chest_press','上身持续向一侧歪斜',['躯干','肩','髋'],['front','oblique'],6.,
         '检查坐姿和座椅位置，让肩髋保持稳定对齐；先减轻负重，以可控制的动作继续。'),
+    'lat_pulldown.pretrained_upper_body_balance':('lat_pulldown','下拉时躯干持续向一侧倾斜',['躯干','肩','髋'],['front','oblique'],6.,
+        '先坐正并稳定骨盆，让躯干保持在座椅中间，再以可控制的负重下拉；避免持续向一侧借力。'),
     'machine_chest_press.pretrained_finger_extension':('machine_chest_press','动作中手指持续张开',['手','腕'],['front','oblique'],2.,
         '检查是否握稳把手，保持可控制的闭合握持；看不清接触位置时先暂停确认。'),
     'barbell_bench_press.pretrained_posture':('barbell_bench_press','预训练模型观察到卧推姿态偏差',['躯干','肩','肘','腕'],['front','side','oblique'],.8,

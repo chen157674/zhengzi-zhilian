@@ -2,3 +2,5 @@
 ultralytics==8.4.191
 opencv-python==5.0.0.93
 h5py==3.15.1
+# 复用既有Torch/CUDA的可选姿态加速；缺少兼容GPU时使用原ONNX CPU后端。
+onnx2torch==1.5.15

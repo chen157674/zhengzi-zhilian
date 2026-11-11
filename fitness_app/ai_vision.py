@@ -5,7 +5,7 @@ from io import BytesIO
 
 from PIL import Image, UnidentifiedImageError
 
-MAX_FRAMES = 3
+MAX_FRAMES = 6
 MAX_FRAME_BYTES = 200 * 1024
 JPEG_PREFIX = 'data:image/jpeg;base64,'
 
@@ -60,7 +60,7 @@ def input_budget(messages):
                 text_bytes += len(part['text'].encode('utf-8'))
             elif isinstance(part, dict) and set(part) == {'type', 'image_url'} and part['type'] == 'image_url':
                 image = part['image_url']
-                if not isinstance(image, dict) or set(image) != {'url', 'detail'} or image['detail'] != 'low' or not isinstance(image['url'], str) or not image['url'].startswith(JPEG_PREFIX):
+                if not isinstance(image, dict) or set(image) != {'url', 'detail'} or image['detail'] not in {'low','original'} or not isinstance(image['url'], str) or not image['url'].startswith(JPEG_PREFIX):
                     raise ValueError('图片输入无效')
                 encoded_bytes += len(image['url'])
                 images += 1
@@ -74,7 +74,7 @@ def input_budget(messages):
 def attach_frames(messages, frames):
     content = [{'type': 'text', 'text': messages[-1]['content']}]
     for index, frame in enumerate(frames):
-        content.append({'type': 'text', 'text': '提问时画面 ' + str(index + 1) + '，按采集顺序排列。'})
-        content.append({'type': 'image_url', 'image_url': {'url': frame['data_url'], 'detail': 'low'}})
+        content.append({'type': 'text', 'text': '所选媒体抽样画面 ' + str(index + 1) + '，源时间 ' + str(frame['source_ms']) + ' ms，按源时间排列。直接回答动作问题，不复述采样张数或间隔。'})
+        content.append({'type': 'image_url', 'image_url': {'url': frame['data_url'], 'detail': 'original'}})
     messages[-1] = {'role': 'user', 'content': content}
     input_budget(messages)

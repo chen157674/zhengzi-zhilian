@@ -1,4 +1,4 @@
-"""正式 schema 11；追加有期限的本人PDF快照，保留既有训练历史。"""
+"""正式schema13：计划、逐组执行与练习扩展；旧库升级必须显式授权。"""
 from __future__ import annotations
 
 import time
@@ -7,12 +7,12 @@ from sqlalchemy import (MetaData, Table, Column, String, Text, Integer, LargeBin
                         ForeignKeyConstraint, CheckConstraint as Check, UniqueConstraint as Unique, Index)
 
 metadata = MetaData()
-SCHEMA_VERSION = 11
+SCHEMA_VERSION = 13
 TABLE_VERSIONS = {'posture_observations': 2, 'user_profiles': 3,
                   'training_profiles': 6, 'training_notes': 6,
                   'ai_settings': 7, 'ai_system_policy': 7, 'ai_requests': 7,
                   'video_analyses': 8, 'video_segments': 8, 'video_revisions': 8,
-                  'skeleton_tracks':9,'skeleton_chunks':9,'stability_runs':10,'stability_windows':10,'report_exports':11}
+                  'skeleton_tracks':9,'skeleton_chunks':9,'stability_runs':10,'stability_windows':10,'report_exports':11,'nutrition_profiles':12,'coach_saved_retests':12}
 SESSION_STATES = ("ready", "countdown", "running", "paused", "waiting", "resting", "ending",
                   "completed", "ended_early", "interrupted", "failed")
 JOB_STATES = ("queued", "validating", "running", "cancelling", "completed", "cancelled", "interrupted", "failed")
@@ -312,6 +312,87 @@ report_exports=Table('report_exports',metadata,
     Check('expires_at_ms>created_at_ms'))
 Index('ix_exports_owner_created',report_exports.c.user_id,report_exports.c.created_at_ms)
 Index('ix_exports_owner_fingerprint',report_exports.c.user_id,report_exports.c.fingerprint)
+
+
+nutrition_profiles=Table('nutrition_profiles',metadata,
+    Column('user_id',String(36),ForeignKey('users.id',ondelete='CASCADE'),primary_key=True),*json_field('data_json'),number('version'),stamp('updated_at_ms'),
+    Check('version>=0 AND length(data_json)<=4096'))
+
+coach_saved_retests=Table('coach_saved_retests',metadata,
+    ident(),ident('user_id','users.id'),Column('origin_json',Text,nullable=False),
+    Column('target_record_id',String(36)),number('target_version',None,True),number('state_version'),stamp(),stamp('expires_at_ms'),
+    Check('length(origin_json)<=4096 AND state_version>=0 AND expires_at_ms>created_at_ms'))
+Index('ix_coach_retest_owner_expiry',coach_saved_retests.c.user_id,coach_saved_retests.c.expires_at_ms)
+coach_retest_identity_index=Index('ix_coach_retest_owner_identity',coach_saved_retests.c.id,coach_saved_retests.c.user_id,unique=True)
+
+
+training_plans=Table('training_plans',metadata,
+    ident(),ident('user_id','users.id'),Column('title',Text,nullable=False),Column('goal',Text,nullable=False),
+    *enum('status',('draft','active','paused','archived'),'draft'),Column('timezone',Text,nullable=False,server_default='Asia/Shanghai'),
+    Column('start_date',String(10),nullable=False),number('weeks',None),Column('current_revision_id',String(36)),
+    number('state_version'),stamp(),stamp('updated_at_ms'),stamp('activated_at_ms',True),
+    Unique('id','user_id'),Check('length(title) BETWEEN 1 AND 60 AND weeks BETWEEN 1 AND 8 AND state_version>=0'))
+Index('ix_training_one_current',training_plans.c.user_id,unique=True,sqlite_where=training_plans.c.status.in_(['active','paused']))
+training_plan_revisions=Table('training_plan_revisions',metadata,
+    ident(),ident('user_id','users.id'),ident('plan_id'),number('revision_number',None),*json_field('constraints_json'),
+    *json_field('sessions_json','array'),*json_field('knowledge_refs_json','array'),Column('source',Text,nullable=False),
+    number('source_profile_version',None,True),Column('template_version',Text,nullable=False),stamp(),
+    ForeignKeyConstraint(['plan_id','user_id'],['training_plans.id','training_plans.user_id'],ondelete='CASCADE'),
+    Unique('id','user_id'),Unique('plan_id','revision_number'),Check('revision_number>=1'))
+training_plan_sessions=Table('training_plan_sessions',metadata,
+    ident(),ident('user_id','users.id'),ident('plan_id'),ident('revision_id'),Column('scheduled_date',String(10),nullable=False),
+    Column('title',Text,nullable=False),number('estimated_minutes'),*enum('status',('planned','skipped','cancelled'),'planned'),
+    number('schedule_version'),Column('rescheduled_from',String(10)),Column('superseded_by',String(36)),stamp(),
+    ForeignKeyConstraint(['plan_id','user_id'],['training_plans.id','training_plans.user_id'],ondelete='CASCADE'),
+    ForeignKeyConstraint(['revision_id','user_id'],['training_plan_revisions.id','training_plan_revisions.user_id'],ondelete='CASCADE'),
+    Unique('id','user_id'),Check('schedule_version>=0 AND estimated_minutes>=0'))
+Index('ix_training_session_date',training_plan_sessions.c.plan_id,training_plan_sessions.c.scheduled_date,unique=True,sqlite_where=training_plan_sessions.c.status!='cancelled')
+training_plan_items=Table('training_plan_items',metadata,
+    ident(),ident('user_id','users.id'),ident('session_id'),number('position',None),Column('action_id',Text,nullable=False),
+    Column('variant',Text),number('target_sets',None),number('target_reps',None,True),number('target_duration_ms',None,True),
+    number('rest_seconds'),*json_field('optional_load_json',nullable=True),Column('focus_task_id',String(36)),
+    ForeignKeyConstraint(['session_id','user_id'],['training_plan_sessions.id','training_plan_sessions.user_id'],ondelete='CASCADE'),
+    Unique('id','user_id'),Unique('session_id','position'),
+    Check('target_sets BETWEEN 1 AND 10 AND rest_seconds BETWEEN 0 AND 600'),
+    Check('(target_reps BETWEEN 1 AND 100 AND target_duration_ms IS NULL) OR (target_reps IS NULL AND target_duration_ms BETWEEN 1000 AND 600000)'))
+training_workouts=Table('training_workouts',metadata,
+    ident(),ident('user_id','users.id'),ident('plan_session_id'),ident('plan_revision_id'),
+    *enum('status',('ready','running','paused','completed','ended_early','voided'),'ready'),number('state_version'),
+    *json_field('target_snapshot_json'),*json_field('completion_json'),stamp(),stamp('actual_started_at_ms',True),stamp('actual_ended_at_ms',True),
+    number('elapsed_active_ms'),stamp('active_since_ms',True),Column('confirmation_source',Text),
+    ForeignKeyConstraint(['plan_session_id','user_id'],['training_plan_sessions.id','training_plan_sessions.user_id'],ondelete='CASCADE'),
+    ForeignKeyConstraint(['plan_revision_id','user_id'],['training_plan_revisions.id','training_plan_revisions.user_id'],ondelete='CASCADE'),
+    Unique('plan_session_id'),Unique('id','user_id'),Check('state_version>=0 AND elapsed_active_ms>=0'))
+Index('ix_training_one_running',training_workouts.c.user_id,unique=True,sqlite_where=training_workouts.c.status=='running')
+training_workout_sets=Table('training_workout_sets',metadata,
+    ident(),ident('user_id','users.id'),ident('workout_id'),ident('item_id'),number('set_index',None),
+    number('actual_reps',None,True),number('actual_duration_ms',None,True),*json_field('load_json',nullable=True),
+    *enum('status',('done','skipped'),'done'),*enum('source',('manual','record'),'manual'),stamp('saved_at_ms'),
+    ForeignKeyConstraint(['workout_id','user_id'],['training_workouts.id','training_workouts.user_id'],ondelete='CASCADE'),
+    ForeignKeyConstraint(['item_id','user_id'],['training_plan_items.id','training_plan_items.user_id'],ondelete='CASCADE'),
+    Unique('workout_id','item_id','set_index'),Check('set_index BETWEEN 1 AND 10'),
+    Check("(status='skipped' AND actual_reps IS NULL AND actual_duration_ms IS NULL) OR (status='done' AND ((actual_reps>0 AND actual_duration_ms IS NULL) OR (actual_reps IS NULL AND actual_duration_ms>0)))"))
+training_record_allocations=Table('training_record_allocations',metadata,
+    ident(),ident('user_id','users.id'),ident('workout_id'),ident('item_id'),Column('record_id',String(36),nullable=False),
+    number('record_version',None),*json_field('allocations_json','array'),Column('source_sha256',String(64)),
+    Column('unit',Text,nullable=False),number('allocated_quantity',None),number('valid',1),stamp(),
+    ForeignKeyConstraint(['workout_id','user_id'],['training_workouts.id','training_workouts.user_id'],ondelete='CASCADE'),
+    ForeignKeyConstraint(['item_id','user_id'],['training_plan_items.id','training_plan_items.user_id'],ondelete='CASCADE'),
+    Check('valid IN (0,1) AND record_version>=0 AND allocated_quantity>=0'))
+Index('ix_training_allocation_source',training_record_allocations.c.user_id,training_record_allocations.c.record_id)
+training_schedule_events=Table('training_schedule_events',metadata,
+    ident(),ident('user_id','users.id'),ident('plan_id'),Column('session_id',String(36)),Column('command_id',String(36),nullable=False),
+    Column('event_type',Text,nullable=False),Column('from_date',String(10)),Column('to_date',String(10)),Column('reason',Text),number('plan_version'),stamp(),
+    ForeignKeyConstraint(['plan_id','user_id'],['training_plans.id','training_plans.user_id'],ondelete='CASCADE'),
+    Unique('command_id','session_id','event_type'))
+coach_practice_details=Table('coach_practice_details',metadata,
+    Column('retest_task_id',String(36),primary_key=True),
+    ident('user_id','users.id'),number('state_version'),*enum('status',('saved','practicing','awaiting_retest','completed','dismissed'),'saved'),
+    *json_field('steps_json','array'),*json_field('knowledge_refs_json','array'),Column('linked_workout_id',String(36)),stamp(),stamp('updated_at_ms'),
+    ForeignKeyConstraint(['retest_task_id','user_id'],['coach_saved_retests.id','coach_saved_retests.user_id'],ondelete='CASCADE'),
+    ForeignKeyConstraint(['linked_workout_id','user_id'],['training_workouts.id','training_workouts.user_id'],ondelete='RESTRICT'),Check('state_version>=0'))
+for name in ('training_plans','training_plan_revisions','training_plan_sessions','training_plan_items','training_workouts','training_workout_sets','training_record_allocations','training_schedule_events','coach_practice_details'):
+    TABLE_VERSIONS[name]=13
 
 
 for table in metadata.tables.values():

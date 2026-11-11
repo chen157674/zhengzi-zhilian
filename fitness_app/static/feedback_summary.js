@@ -1,9 +1,12 @@
 // 将已保存的判项整理为结论与实际问题，原始记录不改写。
 export function feedbackSummary(record){
-  const findings=record?.posture?.findings||record?.posture_observations||[];
+  const detected=record?.posture?.findings||record?.posture_observations||[];
+  const confirmed=record?.confirmed_demo_findings||[];
+  const replaced=new Set(confirmed.map(x=>x.code));
+  const findings=[...detected.filter(x=>x.status!=='issue'||!replaced.has(x.code)),...confirmed];
   const issues=[];
   for(const item of findings.filter(x=>x.status==='issue').sort((a,b)=>a.start_ms-b.start_ms)){
-    const previous=issues.findLast(x=>x.code===item.code&&(x.side||'none')===(item.side||'none'));
+    const previous=issues.findLast(x=>x.code===item.code&&(x.side||'none')===(item.side||'none')&&x.rule_version===item.rule_version&&x.evidence?.view===item.evidence?.view);
     if(previous&&item.start_ms<=previous.end_ms+250){previous.end_ms=Math.max(previous.end_ms,item.end_ms);continue;}
     issues.push({...item});
   }

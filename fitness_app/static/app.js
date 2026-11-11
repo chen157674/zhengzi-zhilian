@@ -7,7 +7,7 @@ export function keepDialogFocus(dialog) {
   dialog.setAttribute('tabindex', '-1');
   const handler = event => {
     if (event.key !== 'Tab') return;
-    const items = [...dialog.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),a[href],[tabindex]:not([tabindex="-1"])')].filter(item => item.getClientRects().length);
+    const items = [...dialog.querySelectorAll('button:not(:disabled),input:not(:disabled),textarea:not(:disabled),select:not(:disabled),summary,a[href],[tabindex]:not([tabindex="-1"])')].filter(item => item.getClientRects().length);
     if (!items.length) { event.preventDefault(); dialog.focus(); return; }
     const first = items[0], last = items.at(-1), active = document.activeElement;
     if (event.shiftKey && (active === first || !dialog.contains(active))) { event.preventDefault(); last.focus(); }
@@ -21,6 +21,7 @@ export function confirmDialog({title,message,confirmLabel,danger=false,onConfirm
   const dialog = document.querySelector('#confirm-dialog');
   if (dialog.open) throw new Error('已有确认操作');
   const opener = document.activeElement;
+  const previousInert=dialog.inert;dialog.inert=false;
   dialog.querySelector('#confirm-title').textContent = title;
   dialog.querySelector('#confirm-message').textContent = message;
   const yes = dialog.querySelector('[data-dialog-confirm]'), no = dialog.querySelector('[data-dialog-cancel]');
@@ -31,7 +32,7 @@ export function confirmDialog({title,message,confirmLabel,danger=false,onConfirm
   document.documentElement.classList.add('modal-open');
   return new Promise(resolve => {
     const finish = result => {
-      dialog.close(); releaseFocus();
+      dialog.close(); releaseFocus();dialog.inert=previousInert;
       document.documentElement.classList.remove('modal-open');
       yes.disabled = no.disabled = false;
       yes.onclick = no.onclick = null; dialog.oncancel = null;
@@ -48,6 +49,14 @@ export function confirmDialog({title,message,confirmLabel,danger=false,onConfirm
     };
     dialog.showModal(); no.focus();
   });
+}
+// 带明确字段的本地确认弹层；不发送业务请求，提交由所属动作处理。
+export async function inputDialog({title,message,label,value='',type='text',confirmLabel='确认',danger=false,validate}){
+ const dialog=document.createElement('dialog');dialog.className='input-dialog';dialog.setAttribute('aria-label',title);
+ const form=document.createElement('form'),heading=document.createElement('h2'),copy=document.createElement('p'),field=document.createElement('label'),caption=document.createElement('span'),input=document.createElement('input'),error=document.createElement('p'),actions=document.createElement('div'),no=document.createElement('button'),yes=document.createElement('button');
+ heading.textContent=title;copy.textContent=message;field.className='field';caption.textContent=label;input.type=type;input.value=value;input.required=true;error.className='field-error';error.setAttribute('role','alert');actions.className='button-row';no.type='button';no.className='button secondary';no.textContent='取消';yes.type='submit';yes.className=danger?'button danger':'button';yes.textContent=confirmLabel;field.append(caption,input);actions.append(no,yes);form.append(heading,copy,field,error,actions);dialog.append(form);document.body.append(dialog);
+ const opener=document.activeElement;const release=keepDialogFocus(dialog);document.documentElement.classList.add('modal-open');
+ return new Promise(resolve=>{const finish=value=>{dialog.close();release();dialog.remove();document.documentElement.classList.remove('modal-open');opener?.focus();resolve(value);};no.onclick=()=>finish(null);dialog.oncancel=e=>{e.preventDefault();finish(null);};form.onsubmit=e=>{e.preventDefault();const message=validate?.(input.value);if(message){error.textContent=message;input.setAttribute('aria-invalid','true');input.focus();return;}finish(input.value);};dialog.showModal();input.focus();});
 }
 let navigating=false;
 document.addEventListener('click',async e=>{

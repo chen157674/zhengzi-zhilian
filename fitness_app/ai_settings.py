@@ -77,9 +77,9 @@ class AISettingsStore:
 
     def snapshot(self,c,uid):
         row=self.personal(c,uid);p=self.policy(c);used=self.used_today(c,uid)
-        remaining=max(0,p['per_user_daily_requests']-used)
-        system_available=bool(p['enabled'] and self._system_configured(p) and remaining and
-                              p['budget_micro_cny']>p['spent_micro_cny']+p['reserved_micro_cny'])
+        remaining=max(0,p['per_user_daily_requests']-used) if p['per_user_daily_requests'] else None
+        system_available=bool(p['enabled'] and self._system_configured(p) and (remaining is None or remaining>0) and
+                              (not p['budget_micro_cny'] or p['budget_micro_cny']>p['spent_micro_cny']+p['reserved_micro_cny']))
         personal_available=bool(row['key_ciphertext'] and self.vault.path.is_file())
         configured=system_available if row['source']=='system' else personal_available
         reason=None if configured else 'AI_PERSONAL_KEY_MISSING' if row['source']=='personal' and not row['key_ciphertext'] else 'AI_KEY_STORAGE_UNAVAILABLE' if row['source']=='personal' else 'AI_SYSTEM_UNAVAILABLE'
@@ -158,9 +158,9 @@ class AISettingsStore:
                 changed={**values,'version':version+1,'updated_at_ms':self.clock()}
                 if raw:changed.update(key_ciphertext=self._seal(c,'system',raw),key_suffix=raw[-4:])
                 final={**old,**changed}
-                if final['budget_micro_cny']<final['spent_micro_cny']+final['reserved_micro_cny']:invalid('budget_yuan','预算不能低于已用和已预留金额')
-                if final['enabled'] and (not self._system_configured(final) or not final['budget_micro_cny'] or not final['per_user_daily_requests']):
-                    invalid('enabled','启用前需要系统密钥、明确预算和每人每日次数')
+                if final['budget_micro_cny'] and final['budget_micro_cny']<final['spent_micro_cny']+final['reserved_micro_cny']:invalid('budget_yuan','预算不能低于已用和已预留金额')
+                if final['enabled'] and not self._system_configured(final):
+                    invalid('enabled','启用前需要系统密钥')
                 if old['_exists']:c.execute(update(s.ai_system_policy).where(s.ai_system_policy.c.id==1).values(**changed))
                 else:c.execute(s.ai_system_policy.insert().values(id=1,**changed))
                 return {'id':'00000000-0000-0000-0000-000000000001','version':version+1}

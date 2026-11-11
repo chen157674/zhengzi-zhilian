@@ -2,7 +2,7 @@
 import math
 import numpy as np
 
-VERSION='local-scene-body-lean-1'
+VERSION='local-scene-body-lean-2'
 
 
 def _unknown(reason):return {'status':'unassessable','reason':reason,'basis':VERSION}
@@ -27,7 +27,31 @@ def body_mask(body,h,w):
     return mask
 
 
-def scene_axis(rgb,body):
+def _score_axis_models(models,angles,weights,xs,ys,h,w):
+    # 同一支持线集合的分数只由线权重和模型类型决定。
+    # parallel先于perspective构造；同集合的首项总是不劣于后项，严格保留原首胜规则。
+    predicted=np.broadcast_to(np.asarray([model[1] for model in models],np.float64)[:,None],
+        (len(models),len(angles))).copy()
+    perspective=[i for i,model in enumerate(models) if model[2] is not None]
+    if perspective:
+        points=np.asarray([models[i][2] for i in perspective],np.float64)
+        predicted[perspective]=np.degrees(np.arctan((points[:,0,None]-xs[None,:])/(ys[None,:]-points[:,1,None])))
+    support_matrix=np.abs(predicted-angles[None,:])<=2.
+    _,first=np.unique(np.packbits(support_matrix,axis=1),axis=0,return_index=True)
+    best=None
+    for index in sorted(first):
+        kind,local,vp=models[index];support=support_matrix[index]
+        if support.sum()<4:continue
+        fraction=float(weights[support].sum()/weights.sum())
+        spread=float(np.ptp(xs[support]))
+        if fraction<.65 or spread<.25*w or weights[support].sum()<.8*h:continue
+        score=float(weights[support].sum())-(.025*h if vp is not None else 0.)
+        if best is None or score>best[0]:
+            best=(score,kind,local,vp,support,np.abs(predicted[index]-angles),fraction,spread)
+    return best
+
+
+def _scene_axis(rgb,body,allow_perspective=True):
     import cv2
     height,width=rgb.shape[:2];scale=min(1.,640/width)
     image=cv2.resize(rgb,(round(width*scale),round(height*scale))) if scale<1 else rgb
@@ -59,6 +83,7 @@ def scene_axis(rgb,body):
     weights=np.minimum(lengths,.5*h);models=[]
     for angle in angles:models.append(('parallel',float(angle),None))
     for i in range(len(rows)):
+        if not allow_perspective:break
         for j in range(i):
             den=slopes[i]-slopes[j]
             if abs(den)<1e-3:continue
@@ -66,16 +91,7 @@ def scene_axis(rgb,body):
             if abs(vy-center[1])<.8*h or abs(vy-center[1])>30*h:continue
             local=math.degrees(math.atan((vx-center[0])/(center[1]-vy)))
             if abs(local)<=20:models.append(('perspective',local,(vx,vy)))
-    best=None
-    for kind,local,vp in models:
-        predicted=np.full(len(rows),local) if vp is None else np.degrees(np.arctan((vp[0]-xs)/(ys-vp[1])))
-        residual=np.abs(predicted-angles);support=residual<=2.
-        if support.sum()<4:continue
-        fraction=float(weights[support].sum()/weights.sum())
-        spread=float(np.ptp(xs[support]))
-        if fraction<.65 or spread<.25*w or weights[support].sum()<.8*h:continue
-        score=float(weights[support].sum())-(.025*h if vp is not None else 0.)
-        if best is None or score>best[0]:best=(score,kind,local,vp,support,residual,fraction,spread)
+    best=_score_axis_models(models,angles,weights,xs,ys,h,w)
     if best is None:return _unknown('scene_reference_unavailable')
     _,kind,local,vp,support,residual,fraction,spread=best
     # 平行模型用中位数消除霍夫量化抖动，透视模型保留主体位置的局部方向。
@@ -86,6 +102,31 @@ def scene_axis(rgb,body):
             'vanishing_point_normalized':[vp[0]/w,vp[1]/h] if vp is not None else None,
             'width':width,'height':height,'reference_point':[float(center[0]/w),float(center[1]/h)],
             'limitation':'人体之外长线的局部图像方向参考，不是重力传感器'}
+
+
+def scene_axis(rgb,body):
+    """全景不足时核查人体附近的真实背景线，不把模糊补景宽度当作有效证据范围。"""
+    result=_scene_axis(rgb,body)
+    if result.get('status')=='observed':return result
+    height,width=rgb.shape[:2];points=body['keypoints'];core=(5,6,11,12)
+    if any(not points[i]['coordinate_valid'] or points[i]['score']<.5 for i in core):return result
+    shoulder=np.array([[points[i]['x']*width,points[i]['y']*height] for i in (5,6)])
+    hip=np.mean([[points[i]['x']*width,points[i]['y']*height] for i in (11,12)],axis=0)
+    trunk=float(np.linalg.norm(shoulder.mean(0)-hip));shoulder_width=float(np.linalg.norm(shoulder[0]-shoulder[1]))
+    span=max(4*shoulder_width,2.5*trunk)
+    if span>=.85*width or span<.2*width:return result
+    center=float((shoulder.mean(0)[0]+hip[0])/2)
+    left=max(0,round(center-span/2));right=min(width,round(center+span/2))
+    if right-left<120:return result
+    local={**body,'keypoints':[{**p,'x':(p['x']*width-left)/(right-left)} for p in points]}
+    # 狭窄邻域不足以稳健估计远处消失点，只接受背景平行线共识。
+    axis=_scene_axis(np.ascontiguousarray(rgb[:,left:right]),local,allow_perspective=False)
+    if axis.get('status')!='observed':return result
+    vp=axis.get('vanishing_point_normalized');reference=axis.get('reference_point')
+    return {**axis,'width':width,'height':height,'analysis_region_pixels':[left,0,right,height],
+        'region_basis':'target_body_scale_background_only','horizontal_span_fraction':axis['horizontal_span_fraction']*(right-left)/width,
+        'vanishing_point_normalized':[(left+vp[0]*(right-left))/width,vp[1]] if vp else None,
+        'reference_point':[(left+reference[0]*(right-left))/width,reference[1]] if reference else None}
 
 
 def measure(body,width,height,reference,source_landmarks=None):
@@ -137,7 +178,7 @@ class SceneAxisTracker:
         height,width=rgb.shape[:2];scale=min(1.,640/width)
         small=cv2.resize(rgb,(round(width*scale),round(height*scale))) if scale<1 else rgb
         gray=cv2.cvtColor(small,cv2.COLOR_RGB2GRAY);h,w=gray.shape
-        if self.stamp is not None and (stamp<=self.stamp or stamp-self.stamp>250 or gray.shape!=self.gray.shape):self.reset()
+        if self.stamp is not None and (stamp<=self.stamp or stamp-self.stamp>500 or gray.shape!=self.gray.shape):self.reset()
         # 排除真实躯干/骨段而非整个人体外接框，避免双臂展开时把可用背景全部遮掉。
         mask=255-body_mask(body,h,w)
         tracked=None

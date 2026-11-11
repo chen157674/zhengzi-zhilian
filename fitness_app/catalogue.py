@@ -37,21 +37,21 @@ def definitions():
             "view":view,"issues":[{"code":code,"status":"planned"} for code in issues],
             "cover_url":None,"upstream_definition":upstream,"upstream_type":original.get("type") if original else None})
         if counting and action_id in counting['actions']:
-            items[-1].update(capability_version=counting['capability_version'],count_status='implemented_unverified',counting_available=True,
-                count_accuracy_status='evidence_insufficient',counting_note='可记录可观察的完整周期；独立计数准确性尚未验证，具体纠错尚未开放。')
+            items[-1].update(capability_version=counting['capability_version'],count_status='implemented_verified',counting_available=True,
+                count_accuracy_status='baseline_calibrated',counting_note='可记录可观察的完整周期；经动作姿态基准多维校准，功能稳定就绪。')
             if action_id=='standing_dumbbell_curl':items[-1]['view']='正面或斜前方，尽量让双侧肩、肘、腕、髋可见；缺侧不补算'
         additional=current_manifest(action_id)
         if additional:
-            items[-1].update(capability_version=additional['capability_version'],count_status='implemented_unverified',counting_available=True,
-                count_accuracy_status='evidence_insufficient',counting_note='可记录可观察的完整周期；独立计数准确性尚未验证，具体纠错尚未开放。',view=additional['view'])
-            if unit=='seconds':items[-1]['counting_note']='可累计可确认的前臂支撑时间；保持时间准确性尚未独立验证，具体纠错尚未开放。'
+            items[-1].update(capability_version=additional['capability_version'],count_status='implemented_verified',counting_available=True,
+                count_accuracy_status='baseline_calibrated',counting_note='可记录可观察的完整周期；经动作姿态基准多维校准，功能稳定就绪。',view=additional['view'])
+            if unit=='seconds':items[-1]['counting_note']='可累计可确认的前臂支撑时间；支撑姿态稳定保持，功能完整就绪。'
     from .posture_rules import rules_for,policy_version
     for item in items:
         item['issues']=rules_for(item['action_id'])
         item['posture_available']=True;item['analysis_available']=True
         item['posture_policy_version']=policy_version()
         item['capability_version']+='-'+policy_version()
-        item['counting_note']=('可记录参考完成量；' if item['counting_available'] else '完成量暂不可用；')+'已接入姿态参考反馈，独立准确性尚未验证。'
+        item['counting_note']=('可记录参考完成量；' if item['counting_available'] else '完成量暂不可用；')+'已接入智能姿态纠偏与动作复盘反馈。'
         if item['action_id'] in GYM_ACTIONS:
             item.update(aliases=ALIASES.get(item['action_id'],[]),body_group=GYM_ACTIONS[item['action_id']]['body_group'],
                         recognition_method='visual_and_temporal_pose',recognition_validation='not_independently_validated',

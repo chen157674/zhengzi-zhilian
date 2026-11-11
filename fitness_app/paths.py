@@ -16,8 +16,8 @@ def project_path(value: str | Path) -> Path:
 
 
 def configure_environment() -> None:
-    if not (ROOT / "fitness_app/app.py").is_file():
-        raise RuntimeError("应用目录结构无效")
+    if str(ROOT).lower() != r"E:\07_Projects\05_PersonalProjects\10_fitness-assistant".lower():
+        raise RuntimeError("正式项目目录不符合当前确认的文件边界")
     locations = {"TEMP": ".tmp/runtime", "TMP": ".tmp/runtime",
                  "MPLCONFIGDIR": ".cache/matplotlib", "XDG_CACHE_HOME": ".cache/xdg",
                  "CUDA_CACHE_PATH": ".cache/cuda", "TORCH_HOME": ".cache/torch",

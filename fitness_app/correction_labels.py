@@ -1,7 +1,7 @@
 """本人纠错试标；白名单视频、乐观版本、原片只读、人工来源与未知分开。"""
 import copy
 import json
-from flask import jsonify, render_template
+from flask import jsonify
 from flask_login import current_user
 from .auth import APIError, body
 from .database import maintenance_lock, json_text, ConflictError
@@ -96,11 +96,6 @@ class CorrectionLabels:
 def register_correction_labels(app):
     store=CorrectionLabels(app.extensions['session_store'])
     app.extensions['correction_labels']=store
-
-    @app.get('/admin/correction-labels')
-    @app.get('/account/correction-labels')
-    def correction_label_page():
-        return render_template('correction_labels.html',active='')
 
     @app.get('/api/v1/admin/correction-labels')
     @app.get('/api/v1/me/correction-labels')

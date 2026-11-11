@@ -25,6 +25,7 @@ def create_app(config: dict | None = None) -> Flask:
     app.request_class=ProjectRequest
     app.config.from_mapping(SECRET_KEY=secrets.token_hex(32), TRUSTED_HOSTS=["127.0.0.1", "localhost", "[::1]"],
         DATABASE_PATH=os.environ.get("FITNESS_DATABASE_PATH", str(ROOT/"data/app.sqlite3")),
+        ALLOW_ROUND5_MIGRATION=os.environ.get('FITNESS_ALLOW_ROUND5_MIGRATION')=='1',
         CORRECTION_LABELS_ENABLED=os.environ.get('FITNESS_ENABLE_CORRECTION_LABELS')=='1',
         PRETRAINED_CORRECTION_ENABLED=os.environ.get('FITNESS_PRETRAINED_CORRECTION')=='1',
         SESSION_COOKIE_HTTPONLY=True,SESSION_COOKIE_SAMESITE="Strict",SESSION_COOKIE_SECURE=False,
@@ -39,7 +40,7 @@ def create_app(config: dict | None = None) -> Flask:
     db = None
     if data_enabled:
         db = Database(app.config["DATABASE_PATH"])
-        db.initialize()
+        db.initialize(allow_round5_migration=bool(app.config.get('ALLOW_ROUND5_MIGRATION')))
         app.extensions["database"] = db
     if not app.config["TESTING"]:
         secret_path = project_path(app.config["DATABASE_PATH"]).parent / "auth-secret.key"
@@ -78,7 +79,7 @@ def create_app(config: dict | None = None) -> Flask:
         if request.method=='POST' and request.path.startswith('/api/v1/jobs/') and request.path.endswith('/cancel'):
             request.max_content_length=64*1024
         if request.method=='POST' and request.path.startswith('/api/v1/ai/conversations/') and request.path.endswith('/messages'):
-            request.max_content_length=1024*1024
+            request.max_content_length=2*1024*1024
         origin = request.headers.get("Origin")
         if request.method not in {"GET", "HEAD", "OPTIONS"} and origin and origin != request.host_url.rstrip("/"):
             return jsonify(error={"code": "FORBIDDEN", "message": "请求来源不匹配", "fields": {}, "retryable": False},
@@ -157,10 +158,26 @@ def create_app(config: dict | None = None) -> Flask:
         register_account(app,db)
         from .training_info import register_training_info
         register_training_info(app)
+        from .training_plans import register_training_plans
+        register_training_plans(app)
+        from .training_progress import register_progress
+        register_progress(app)
+        from .training_workouts import register_workouts
+        register_workouts(app)
+        from .training_allocations import register_allocations
+        register_allocations(app)
+        from .nutrition_routes import register_nutrition
+        register_nutrition(app)
+        from .nutrition_profiles import register_nutrition_profiles
+        register_nutrition_profiles(app)
         from .training_insights import register_training_insights
         register_training_insights(app)
         from .retests import register_retests
         register_retests(app)
+        from .coach_retests import register_coach_retests
+        register_coach_retests(app)
+        from .coach_practice import register_practice
+        register_practice(app)
         from .skeleton_store import register_skeletons
         register_skeletons(app)
         from .stability_store import register_stability
@@ -177,6 +194,12 @@ def create_app(config: dict | None = None) -> Flask:
             register_pretrained(app)
         from .ai_jobs import register_ai_jobs
         register_ai_jobs(app)
+        from .coach_tasks import register_coach_tasks
+        register_coach_tasks(app)
+        from .training_jobs import register_training_jobs
+        register_training_jobs(app)
+        from .training_reviews import register_reviews
+        register_reviews(app)
         from .training_overview import register_training_overview
         register_training_overview(app,db)
 

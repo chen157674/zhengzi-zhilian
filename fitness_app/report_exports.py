@@ -189,4 +189,4 @@ def register_report_exports(app):
     @app.get('/api/v1/reports/exports/<report_id>/download')
     def download(report_id):
         pdf,stale=service.download(current_user.user_id,current_user.id,report_id)
-        response=send_file(BytesIO(pdf),mimetype='application/pdf',as_attachment=True,download_name='观动知姿-训练观察报告.pdf',max_age=0);response.headers['Cache-Control']='no-store, private';response.headers['X-Content-Type-Options']='nosniff';response.headers['X-Report-Snapshot-State']='stale' if stale else 'current';return response
+        response=send_file(BytesIO(pdf),mimetype='application/pdf',as_attachment=True,download_name='知练同行-训练复盘报告.pdf',max_age=0);response.headers['Cache-Control']='no-store, private';response.headers['X-Content-Type-Options']='nosniff';response.headers['X-Report-Snapshot-State']='stale' if stale else 'current';return response

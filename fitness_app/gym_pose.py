@@ -1,5 +1,6 @@
 """上肢近景回退：只在原图零人体时补空白画布检测，丢弃画面外推断点。"""
 import numpy as np
+import os
 from .pose_input import ContentPoseService
 from .pose import PoseService
 
@@ -7,7 +8,7 @@ VERSION='upper-body-padding-2-video'
 
 
 class GymPoseService(ContentPoseService):
-    def __init__(self,model_path=None,video=False,pose_factory=PoseService,scene_reference=False):
+    def __init__(self,model_path=None,video=False,pose_factory=PoseService,scene_reference=False,realtime=False):
         super().__init__(model_path,video,pose_factory)
         self.fallback=None
         self.fallback_geometry=None;self.fallback_stamp=None
@@ -17,7 +18,10 @@ class GymPoseService(ContentPoseService):
         self.pretrained=None
         if body_enabled() or guidance_enabled():
             from .pretrained_input import PretrainedFrameModel
-            self.pretrained=PretrainedFrameModel(include_hands=enabled() or guidance_enabled())
+            # 实时4B与姿态图争用GPU会产生数百毫秒尖峰；默认隔离到CPU。
+            # 离线沿用auto后端，显式cuda选择继续有效。
+            device='cpu' if realtime and os.environ.get('FITNESS_POSE_DEVICE','auto')=='auto' else None
+            self.pretrained=PretrainedFrameModel(include_hands=enabled() or guidance_enabled(),device=device)
 
     def detect(self,rgb,timestamp_ms=0):
         result=super().detect(rgb,timestamp_ms)

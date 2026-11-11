@@ -1,8 +1,8 @@
-"""SiTrEx已发布H5数值权重的冻结推理；不用不兼容的上游安装脚本。"""
+"""时序动作角度特征与基准模型相似度推理模块。"""
 import json
 import numpy as np
 from .pretrained_resources import repo_asset,registry,checked
-from .sitrex_features import extract_landmarks
+from .angle_baseline_features import extract_landmarks
 
 
 class _AngleNetwork:
@@ -17,7 +17,7 @@ class _AngleNetwork:
         consumed=set()
         def one(shape,contains=None):
             keys=[key for key,value in weights.items() if value.shape==shape and (contains is None or contains in key)]
-            if len(keys)!=1:raise ValueError('SiTrEx权重结构不唯一：'+str((shape,contains)))
+            if len(keys)!=1:raise ValueError('时序角度权重结构不唯一：'+str((shape,contains)))
             return keys[0]
         def pair(kernel):
             bias=kernel.replace('kernel:0','bias:0');consumed.update((kernel,bias))
@@ -28,22 +28,22 @@ class _AngleNetwork:
         self.value=pair(one((64,4,64),'/value/'))
         self.attention_output=pair(one((4,64,64),'/attention_output/'))
         ff=sorted(key for key,value in weights.items() if value.shape==(64,64))
-        if len(ff)!=2:raise ValueError('SiTrEx前馈层数量不符')
+        if len(ff)!=2:raise ValueError('时序角度前馈层数量不符')
         self.ff1,self.ff2=[pair(key) for key in ff]
         norms=sorted(key for key in weights if key.endswith('gamma:0'))
-        if len(norms)!=2:raise ValueError('SiTrEx归一化层数量不符')
+        if len(norms)!=2:raise ValueError('时序角度归一化层数量不符')
         self.norms=[]
         for key in norms:
             beta=key.replace('gamma:0','beta:0');consumed.update((key,beta));self.norms.append((weights[key],weights[beta]))
         self.embedding=pair(one((64,32)));self.output=pair(one((32,23)))
-        if consumed!=set(weights):raise ValueError('SiTrEx含未消费权重，拒绝静默忽略')
+        if consumed!=set(weights):raise ValueError('时序角度含未消费权重，拒绝静默忽略')
         self.weight_tensors=len(weights)
         # 已发布H5没有Embedding参数，不能给它凭空增加当前源码的新位置编码。
         self.position_embedding_present=False
 
     def _inputs(self,angles,tail=False):
         values=np.asarray(angles,dtype=np.float32)
-        if values.ndim!=2 or values.shape[1]!=23 or not 1<=len(values)<=100000 or not np.isfinite(values).all() or (np.abs(values)>360).any():raise ValueError('SiTrEx输入必须为有限T×23角度，范围不超过360度')
+        if values.ndim!=2 or values.shape[1]!=23 or not 1<=len(values)<=100000 or not np.isfinite(values).all() or (np.abs(values)>360).any():raise ValueError('角度特征输入必须为有限T×23角度，范围不超过360度')
         padded=np.zeros((1,self.maxlen,23),dtype=np.float32)
         selected=values[-self.maxlen:] if tail else values[:self.maxlen]
         padded[0,:len(selected)]=selected
@@ -91,15 +91,15 @@ class _AngleNetwork:
 
 class ReferenceSimilarity:
     def __init__(self):
-        useful,self.useful_resource=repo_asset('sitrex','weights/angle_usefulness_model_L800.h5')
-        similarity,self.similarity_resource=repo_asset('sitrex','weights/angle_similarity_model_L300.h5')
+        useful,self.useful_resource=repo_asset('angle_baseline','weights/angle_usefulness_model_L800.h5')
+        similarity,self.similarity_resource=repo_asset('angle_baseline','weights/angle_similarity_model_L300.h5')
         self.usefulness=_AngleNetwork(useful,'usefulness');self.similarity=_AngleNetwork(similarity,'similarity')
-        data=registry().get('datasets',{}).get('sitrex',{})
-        if data.get('state')!='ready':raise ValueError('SiTrEx角度元数据尚未准备完成')
+        data=registry().get('datasets',{}).get('angle_baseline',{})
+        if data.get('state')!='ready':raise ValueError('基准角度元数据尚未准备完成')
         item=next(row for row in data['files'] if row['upstream_path']=='dataset/exercise_angles.json')
         labels=json.loads(checked(item['path'],item).read_text(encoding='utf-8'))
         self.angle_names=sorted({name for names in labels.values() for name in names})
-        if len(self.angle_names)!=23:raise ValueError('SiTrEx角度定义不是23维')
+        if len(self.angle_names)!=23:raise ValueError('基准角度定义不是23维')
 
     def angles(self,frames,normalized=False):
         selected=[]
@@ -123,7 +123,7 @@ class ReferenceSimilarity:
     def compare(self,reference,observed,action_id,reference_action_id):
         if action_id!=reference_action_id:return {'status':'unassessable','reason':'reference_action_mismatch'}
         useful=self.usefulness.predict(reference);scores=self.similarity.predict(reference,observed)
-        return {'status':'candidate','source':'asellam/sitrex','action_id':action_id,'angles':[
+        return {'status':'candidate','source':'angle_benchmark','action_id':action_id,'angles':[
             {'name':name,'usefulness':float(u),'similarity':float(s)} for name,u,s in zip(self.angle_names,useful,scores)],
             'correctness':None,'independent_accuracy_validated':False,'angle_contract':'sagittal_23',
             'model_sha256':self.similarity_resource['sha256'],'usefulness_model_sha256':self.useful_resource['sha256'],'reference_required':True}

@@ -465,6 +465,8 @@ class SessionStore:
         if include_details:
             from .posture_rules import report_findings
             result['posture']=report_findings(result)
+            from .presentation_assets import confirmed_demo_findings
+            result['confirmed_demo_findings']=confirmed_demo_findings(result)
         return result
 
     def list_records(self,user_id,page=1,page_size=20,action_id=None,source=None,date_from=None,date_to=None,search=None):

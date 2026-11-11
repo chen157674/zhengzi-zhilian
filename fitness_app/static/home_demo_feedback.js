@@ -16,13 +16,14 @@ export function validFeedback(data){
 export function renderFeedback(panel,data){
   if(!panel)return;
   const value=validFeedback(data)?data:{state:'unassessable'};
-  const title={clear:value.clear_label||'动作正常',observing:'分析中',unassessable:'分析中'}[value.state]||value.title;
+  const title={clear:value.clear_label||'动作正常',observing:'正在分析',unassessable:'正在分析'}[value.state]||value.title;
   const instruction=value.state==='issue'?value.instruction:'';
   const shownState=value.state==='clear'&&value.clear_label==='你标记的问题尚未检出'?'unassessable':value.state;
   const signature=JSON.stringify([shownState,title,instruction]);
   if(previous.get(panel)===signature)return;
   previous.set(panel,signature);
   panel.dataset.state=shownState;
+  panel.setAttribute('aria-busy',String(shownState==='observing'));
   panel.querySelector('[data-feedback-title]').textContent=title;
   const text=panel.querySelector('[data-feedback-instruction]');
   text.textContent=instruction;text.hidden=!instruction;
