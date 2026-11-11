@@ -3,22 +3,22 @@
     {
       "label": "cold-home-plan",
       "cold": true,
-      "ready_ms": 626,
-      "frames": 24,
+      "ready_ms": 847,
+      "frames": 19,
       "route": "/training/plan"
     },
     {
       "label": "warm-home-guide",
       "cold": false,
-      "ready_ms": 496,
-      "frames": 24,
+      "ready_ms": 550,
+      "frames": 15,
       "route": "/coach/knowledge"
     },
     {
       "label": "guide-diet",
       "cold": false,
-      "ready_ms": 852,
-      "frames": 40,
+      "ready_ms": 814,
+      "frames": 18,
       "route": "/coach/nutrition"
     }
   ],

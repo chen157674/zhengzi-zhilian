@@ -146,7 +146,8 @@ class KnowledgeStore:
         self.prepare_thread=threading.Thread(target=prepare,daemon=True,name='knowledge-encoder-prepare');self.prepare_thread.start()
 
     def search(self,query,domain,action_id=None,limit=5):
-        if not isinstance(query,str) or not query.strip() or len(query)>1000 or not isinstance(domain,str) or domain not in DOMAINS or type(limit) is not int or not 1<=limit<=5:raise ValueError('知识查询参数无效')
+        if not isinstance(query,str) or not query.strip() or len(query)>1000 or not isinstance(domain,str) or domain not in DOMAINS|{'all'} or type(limit) is not int or not 1<=limit<=5:raise ValueError('知识查询参数无效')
+        if domain=='all' and action_id is not None:raise ValueError('全部主题不接受单动作约束')
         if action_id is not None and (not isinstance(action_id,str) or action_id not in {'machine_chest_press','standing_dumbbell_curl','bodyweight_squat'}):raise ValueError('动作不在知识范围')
         rejected=False
         # 产品范围与明确动作是硬条件，语义相似不能覆盖它们。
@@ -157,7 +158,7 @@ class KnowledgeStore:
             if re.search(r'面拉|硬拉|划船|绳索|杠铃',query):rejected=True
         if rejected:return {'version':VERSION,'retrieval_mode':'scope_filter','matches':[],'status':'no_match','domain':domain,'action_id':action_id}
         query=query.replace('次数','周期').replace('秒数','时间')
-        allowed=[i for i,r in enumerate(self.rows) if self.by_id.get(r['id'],{}).get('status')=='published' and r['domain']==domain and (domain!='movement' or action_id is None or r['action_id']==action_id)]
+        allowed=[i for i,r in enumerate(self.rows) if self.by_id.get(r['id'],{}).get('status')=='published' and (domain=='all' or r['domain']==domain) and (domain!='movement' or action_id is None or r['action_id']==action_id)]
         words=Counter(terms(query));scores={}
         for i in allowed:
             doc=self.docs[i];length=sum(doc.values());score=0

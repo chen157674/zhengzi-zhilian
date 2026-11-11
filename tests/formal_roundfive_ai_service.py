@@ -12,7 +12,7 @@ class Provider:
         elif 'facts' in raw:
             facts=json.loads(raw)['facts'];output={'summary':'本周可先核对已保存的动作与执行记录，再安排下一次。','focus':['按真实观察选择关注项目。'],'evidence_refs':[x['record_id'] for x in facts['records'][:1]],'knowledge_refs':[]}
         else:
-            content=next(x['content'] for x in messages if '服务器本次实际检索结果' in x.get('content',''));rows=json.loads(content.split('：',1)[1]);output={'summary':rows[0]['text'],'knowledge_ids':[rows[0]['id']],'evidence_ids':[],'focus_evidence_id':None,'question':None}
+            content=next(x['content'] for x in messages if '服务器本次实际检索结果' in x.get('content',''));rows=json.loads(content.split('：',1)[1].split('\n本次主动填写：',1)[0]);output={'summary':rows[0]['text'],'knowledge_ids':[rows[0]['id']],'evidence_ids':[],'focus_evidence_id':None,'question':None}
         return {'message':{'role':'assistant','content':json.dumps(output,ensure_ascii=False)},'calls':[],'usage':{'prompt_tokens':20,'completion_tokens':20,'total_tokens':40},'estimated_micro_cny':100}
 original=app_module.create_app
 def create(config):

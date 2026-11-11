@@ -28,6 +28,16 @@ class KnowledgeTests(unittest.TestCase):
             (root/'model.safetensors').write_bytes(b'changed')
             with self.assertRaises(ValueError):verify_encoder_files(root,hashes)
 
+    def test_all_topics_searches_public_sources_and_honors_withdrawal(self):
+        for query in ['推胸回程控制','蛋白质来源','增肌恢复']:
+            result=self.store.search(query,'all');self.assertTrue(result['matches'],query)
+            self.assertTrue(all(x['domain'] in {'movement','nutrition','hypertrophy'} for x in result['matches']))
+        for row in self.store.by_id.values():
+            if row['domain']=='nutrition':row['status']='withdrawn'
+        self.assertTrue(all(x['domain']!='nutrition' for x in self.store.search('蛋白质来源','all')['matches']))
+        self.assertEqual(self.store.search('肾病蛋白处方','all')['matches'],[])
+        with self.assertRaises(ValueError):self.store.search('深蹲','all','bodyweight_squat')
+
     def test_invalid_fields_rejected(self):
         for query,domain,action in [('x',[],None),('x','movement',[]),('x','movement','unknown'),('', 'nutrition',None)]:
             with self.assertRaises(ValueError):self.store.search(query,domain,action)

@@ -1,0 +1,98 @@
+{
+  "checks": [
+    {
+      "route": "/training/plans/new",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/training/review",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/coach/knowledge",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/coach/nutrition",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/video",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/realtime",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/records?view=list",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/settings",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/coach",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "route": "/training/plans/new",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/training/review",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/coach/knowledge",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/coach/nutrition",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/video",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/realtime",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/records?view=list",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/settings",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "route": "/coach",
+      "width": 390,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "scope": "isolated_real_browser_UI_and_geometry",
+  "physical_device": false,
+  "cloud_calls": 0
+}

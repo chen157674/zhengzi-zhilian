@@ -1,0 +1,58 @@
+{
+  "package": "@hugeicons/core-free-icons",
+  "version": "4.4.0",
+  "license": "MIT",
+  "homepage": "https://hugeicons.com/",
+  "source": "https://registry.npmjs.org/@hugeicons/core-free-icons/-/core-free-icons-4.4.0.tgz",
+  "note": "Selected free icon node data converted to standalone local SVG; no runtime CDN requests.",
+  "icons": [
+    {
+      "file": "Activity01Icon.svg",
+      "sha256": "f8d993671226b9f85279c9a78c705fa61651295ab389df59f45ddcd8a2daa60b"
+    },
+    {
+      "file": "AiMagicIcon.svg",
+      "sha256": "6f4afb7a897a70a0338e2632b1c1f5b4da193239be85fd30481032b79e3bea73"
+    },
+    {
+      "file": "Apple01Icon.svg",
+      "sha256": "97c2f41f68281cb0f337cc1df7455047feee4ac37fd769046e1ca82df46ff2f2"
+    },
+    {
+      "file": "ArrowRight01Icon.svg",
+      "sha256": "c23af29f3a3684f693c18281a54885095d86fe831871e2f27abb6616c31eca4f"
+    },
+    {
+      "file": "BookOpen01Icon.svg",
+      "sha256": "14ccd1540513bf3a0854dcd6a069056860da8b25c73672c1991eb52d2de9cd5a"
+    },
+    {
+      "file": "Calendar03Icon.svg",
+      "sha256": "4e1b9cdbdfab253ca8e9a4ce740c5b480f3feb54d80d5d0a5c86cc2bfe35b086"
+    },
+    {
+      "file": "ChartHistogramIcon.svg",
+      "sha256": "875581c4fedde95afe253cac81cfc7974097abf0779d74a2d39a7a2c68a467de"
+    },
+    {
+      "file": "CheckmarkCircle02Icon.svg",
+      "sha256": "acad2cb0834118da92ada12bdc7912a7b87a09b84321d71788010406999d0931"
+    },
+    {
+      "file": "Dumbbell01Icon.svg",
+      "sha256": "3ce61f0f7d8f337bf06c7963d7d9c9f390e2f779883d72bcc90412e32b498bad"
+    },
+    {
+      "file": "File01Icon.svg",
+      "sha256": "7e228c8defb267454d4a87f6414c31177e182156e2f9520f31d3880bcf47da86"
+    },
+    {
+      "file": "Search01Icon.svg",
+      "sha256": "59065c7996211d851d3fd5bba905b9c23f359d3e021dd950a9dca0f98cba64ef"
+    },
+    {
+      "file": "Target01Icon.svg",
+      "sha256": "8e6df343a249fc2fe728c285c49e47e1bf4b9d1d8be2f7d94b3f987505afcd66"
+    }
+  ]
+}

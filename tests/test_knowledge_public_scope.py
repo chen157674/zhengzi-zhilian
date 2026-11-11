@@ -49,6 +49,20 @@ class KnowledgePublicScopeTests(unittest.TestCase):
         self.assertEqual([t['function']['name'] for t in self.provider.calls[0]['tools']],['search_knowledge'])
         info.write(self.fx.user,self.fx.auth,{'expected_version':1,'weight_kg':74},s.new_id())
         self.assertEqual(self.wait(rid)['status'],'ready')
+    def test_all_public_topics_keep_private_tool_and_nutrition_boundaries(self):
+        payload=self.payload();payload['knowledge_scope']={'domain':'all'}
+        rid=s.new_id();self.jobs.create(self.fx.user,self.fx.auth,rid,payload)
+        result=self.wait(rid);self.assertEqual(result['status'],'ready',result)
+        self.assertTrue(result['result']['sources'])
+        with self.jobs.lock:
+            value=self.jobs.tasks[rid]
+            result=self.jobs._execute_tool(value,'search_knowledge',{'query':'蛋白质来源','domain':'nutrition'})
+            self.assertTrue(result['matches']);self.assertTrue(all(x['domain']=='nutrition' for x in result['matches']))
+            with self.assertRaises(APIError):self.jobs._execute_tool(value,'get_training_evidence',{'record_id':s.new_id(),'expected_version':0})
+        with self.assertRaises(APIError):self.jobs.create(self.fx.user,self.fx.auth,s.new_id(),{**payload,'mode':'nutrition'})
+        self.provider.forbidden=True;rid=s.new_id();self.jobs.create(self.fx.user,self.fx.auth,rid,payload)
+        self.assertEqual(self.wait(rid)['status'],'failed')
+
     def test_no_match_does_not_reserve_ledger_or_call_provider(self):
         payload=self.payload();payload['text']='推胸的火星发动机';payload['knowledge_scope']['domain']='nutrition';payload['knowledge_scope'].pop('action_id')
         rid=s.new_id();result=self.jobs.create(self.fx.user,self.fx.auth,rid,payload)

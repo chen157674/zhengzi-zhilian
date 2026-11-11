@@ -4,7 +4,7 @@ import {el,dateFormat,issueNames,privateError} from './record_common.js';
 const $=id=>document.getElementById(id),dialog=$('ai-report-dialog');
 const storageKey='fitness-ai-report-pending:'+document.body.dataset.userId;
 const active=new Set(['queued','running','cancelling']);
-const names={queued:'等待生成',running:'正在生成',cancelling:'正在停止',succeeded:'已生成',failed:'未完成',cancelled:'已停止',uncertain:'费用待核对'};
+const names={queued:'等待生成',running:'正在生成',cancelling:'正在停止',succeeded:'已生成',failed:'未完成',cancelled:'已停止',uncertain:'结果待核对'};
 let opened=false,disposed=false,sequence=0,reportView=0,busy=null,config=null,options=null,current=null,pending=null,page=1,pollTimer=null,opener=null,releaseFocus=null;
 const valid=own=>opened&&!disposed&&own===sequence;
 const viewing=(own,view)=>valid(own)&&view===reportView;

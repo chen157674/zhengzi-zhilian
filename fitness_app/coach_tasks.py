@@ -85,7 +85,8 @@ class CoachTasks:
         profile_usage=data.get('profile_usage','saved' if mode=='movement_coach' else 'explicit' if mode=='nutrition' else 'none')
         if not isinstance(profile_usage,str) or profile_usage not in {'none','saved','explicit'}:raise APIError('VALIDATION_FAILED','资料采用方式无效',422)
         scope=data.get('knowledge_scope') or {'domain':'nutrition' if mode=='nutrition' else 'movement'}
-        if not isinstance(scope,dict) or set(scope)-{'domain','action_id'} or not isinstance(scope.get('domain'),str) or scope.get('domain') not in {'movement','nutrition','hypertrophy'}:raise APIError('VALIDATION_FAILED','知识范围无效',422)
+        if not isinstance(scope,dict) or set(scope)-{'domain','action_id'} or not isinstance(scope.get('domain'),str) or scope.get('domain') not in {'movement','nutrition','hypertrophy','all'}:raise APIError('VALIDATION_FAILED','知识范围无效',422)
+        if scope['domain']=='all' and mode!='knowledge':raise APIError('COACH_SCOPE_DENIED','全部主题仅用于公共知识查询',422)
         if mode=='knowledge' and (profile_usage!='none' or context or inputs or data.get('history_consent')):raise APIError('COACH_SCOPE_DENIED','公共知识不接受身体资料或私人训练上下文',422)
         if mode=='nutrition' and scope['domain'] not in {'nutrition','hypertrophy'}:raise APIError('COACH_SCOPE_DENIED','饮食模式仅查询适用饮食或增肌资料',422)
         if mode=='nutrition' and (profile_usage=='saved' or context or data.get('history_consent') or profile_usage=='none' and inputs):raise APIError('COACH_SCOPE_DENIED','饮食页仅采用本次明确填写的资料',422)
@@ -186,7 +187,7 @@ class CoachTasks:
         if mode in {'knowledge','nutrition'}:
             allowed={'search_knowledge'}|({'estimate_nutrition'} if mode=='nutrition' else set())
             if name not in allowed:raise APIError('COACH_SCOPE_DENIED','该知识模式不可读取私人训练',403)
-            if name=='search_knowledge' and (args['domain']!=value['scope']['domain'] or value['scope'].get('action_id') and args.get('action_id')!=value['scope']['action_id']):raise APIError('COACH_SCOPE_DENIED','查询超出本次知识范围',403)
+            if name=='search_knowledge' and ((value['scope']['domain']!='all' and args['domain']!=value['scope']['domain']) or (value['scope'].get('action_id') and args.get('action_id')!=value['scope']['action_id'])):raise APIError('COACH_SCOPE_DENIED','查询超出本次知识范围',403)
         if name=='search_knowledge':
             result=self.app.extensions['knowledge_store'].search(args['query'],args['domain'],args.get('action_id'))
             value['knowledge'].update({x['id']:x for x in result['matches']})

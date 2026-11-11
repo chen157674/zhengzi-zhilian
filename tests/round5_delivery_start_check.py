@@ -56,7 +56,8 @@ try:
     resource_hashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in resource_names}
     fingerprint=hashlib.sha256(json.dumps(source_hashes,sort_keys=True).encode()).hexdigest()
     report={'scope':'actual_current_source_delivery_start','entry':'scripts/start.ps1 --no-browser --port 0','schema_version':13,'authenticated_pages':pages,'private_apis_no_store':True,'normal_runtime_plan_execution_to_review':True,'new_isolated_database':True,'original_databases_modified':False,'paid_api_calls':0,'model_inference_calls':0,'source_fingerprint':fingerprint,'source_files':source_hashes,'resource_manifests':resource_hashes,'result':'passed'}
-    (TASK/'实现核对/源码交付启动核对.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    output=(ROOT/os.environ.get('FITNESS_START_EVIDENCE','第五轮优化/实现核对/源码交付启动核对.json')).resolve();assert output.is_relative_to((TASK/'实现核对').resolve()) and output.suffix=='.json'
+    output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({k:v for k,v in report.items() if k not in {'source_files','resource_manifests'}},ensure_ascii=False))
 finally:
     if started:
