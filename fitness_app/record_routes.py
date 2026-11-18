@@ -51,7 +51,7 @@ def register_records(app,db):
     def create_session():
         config=body({'action_id','capability_version','source','mode','target','input_id','demo_id','coaching_view','save_skeleton'})
         if writer.unhealthy:raise APIError('STORAGE_UNAVAILABLE','尚有保存故障，请先处理原会话',503)
-        if not model_status()['available']:raise APIError('MODEL_UNAVAILABLE','姿态资源尚未就绪',503)
+        if not model_status()['available']:raise APIError('MODEL_UNAVAILABLE','请准备姿态分析资源',503)
         key=uuid_id(request.headers.get('Idempotency-Key'));manager=app.extensions.get('session_manager')
         if manager:manager.guard_create(current_user.user_id,key)
         data=store.create(current_user.user_id,current_user.id,config,key,stability=config.get('source')=='camera')
@@ -83,7 +83,7 @@ def register_records(app,db):
         if command not in {'retry_save','discard_unsaved'}:
             manager=app.extensions.get('session_manager')
             if manager:return jsonify(data=manager.command(current_user.user_id,current_user.id,sid,command_id,data))
-            raise APIError('INVALID_STATE','会话控制尚未开放',409)
+            raise APIError('INVALID_STATE','请刷新会话控制状态',409)
         integer(data.get('expected_version'),'expected_version')
         preview=app.extensions.get('preview_manager')
         automatic=preview.record_failure(current_user.user_id,sid) if preview else None
@@ -142,7 +142,7 @@ def register_records(app,db):
 
     @app.get('/records')
     def records_page():
-        template='records.html' if request.args.get('view')=='list' or any(k in request.args for k in ('page','action_id','source','search','discarded','period')) else 'training_overview.html'
+        template='training_overview.html' if request.args.get('view')=='overview' else 'records.html'
         return render_template(template,active='records',actions=definitions())
 
     @app.get('/records/<session_id>')

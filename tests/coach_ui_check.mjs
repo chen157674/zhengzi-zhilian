@@ -16,8 +16,8 @@ app.extensions['database'].dispose()`);
  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.setViewportSize({width:390,height:900});await page.goto(fx.origin+(pageMode?'/coach':'/realtime'));if(pageMode)await page.locator('#coach-nutrition-entry').click();else{await page.locator('[data-ai-open]').click();await page.locator('#nutrition-panel>summary').click();}
  await page.locator('#nutrition-description-text').fill('我25岁，70公斤，男，规律健身，整体轻活动，估算蛋白质和热量。');
- await page.locator('#nutrition-description-send').click();await page.getByText('请先确认本次描述发送给 DeepSeek。',{exact:true}).waitFor();
- await page.locator('#nutrition-cloud-consent').check();await page.locator('#nutrition-description-send').click();
+ assert.equal(await page.locator('#nutrition-cloud-consent').isChecked(),true);
+ await page.locator('#nutrition-description-send').click();
  await page.getByText('95—140 克/天',{exact:true}).waitFor();assert(await page.locator('#nutrition-coach-answer').innerText().then(x=>x.includes('已按本次自述')));
  await page.locator('#nutrition-save-profile').click();await page.locator('#confirm-dialog').waitFor();await page.locator('[data-dialog-confirm]').click();
  await page.getByText('当前资料已保存。描述和结果未保存。',{exact:true}).waitFor();

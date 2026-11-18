@@ -27,7 +27,7 @@ def checked(path,record):
 
 def repo_asset(name,relative):
     record=registry()['repos'][name]
-    if record['state']!='ready':raise ValueError('源码资源尚未准备完成')
+    if record['state']!='ready':raise ValueError('请准备源码资源')
     item=next((item for item in record['assets'] if item['path']==relative),None)
     if item is None:raise ValueError('资源未在固定源码清单中登记')
     return checked(project_path(record['path'])/relative,item),{**item,'source_commit':record['commit'],'license':record['license']}
@@ -35,6 +35,6 @@ def repo_asset(name,relative):
 
 def onnx_asset(name):
     record=registry()['models'][name]
-    if record['state']!='ready':raise ValueError('ONNX资源尚未准备完成')
+    if record['state']!='ready':raise ValueError('请准备ONNX模型资源')
     item=next(item for item in record['files'] if item['path']==record['onnx'])
     return checked(item['path'],item),{**record,**item}

@@ -14,9 +14,9 @@ class Round5SchemaTests(unittest.TestCase):
         sid=self.fx.running();self.fx.finish(sid);legacy_shape(self.fx.db,12);before=rows_snapshot(self.fx.db)
         with self.assertRaises(StorageError):self.fx.db.initialize()
         self.assertEqual(self.fx.db.inspect_identity(allow_legacy=True)['schema_version'],12)
-        self.assertEqual(self.fx.db.initialize(allow_round5_migration=True)['schema_version'],13)
+        self.assertEqual(self.fx.db.initialize(allow_round5_migration=True)['schema_version'],s.SCHEMA_VERSION)
         self.assertEqual(rows_snapshot(self.fx.db,before),before)
-        self.assertEqual(self.fx.db.initialize()['schema_version'],13)
+        self.assertEqual(self.fx.db.initialize()['schema_version'],s.SCHEMA_VERSION)
     def test_creation_failure_rolls_back_all_new_tables(self):
         legacy_shape(self.fx.db,12)
         with patch.object(s.training_workouts,'create',side_effect=RuntimeError('isolated migration failure')):
@@ -38,7 +38,7 @@ class Round5SchemaTests(unittest.TestCase):
         with self.assertRaises(IntegrityError):
             with self.fx.db.transaction() as c:c.execute(s.coach_practice_details.insert().values(retest_task_id=tid,user_id=self.fx.other,steps_json='[]',knowledge_refs_json='[]'))
         with self.fx.db.transaction() as c:c.execute(s.coach_practice_details.insert().values(retest_task_id=tid,user_id=self.fx.user,steps_json='[]',knowledge_refs_json='[]'))
-        self.assertEqual(self.fx.db.inspect_identity()['schema_version'],13)
+        self.assertEqual(self.fx.db.inspect_identity()['schema_version'],s.SCHEMA_VERSION)
 
     def test_owner_and_current_plan_constraints_and_index_audit(self):
         from sqlalchemy.exc import IntegrityError

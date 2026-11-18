@@ -7,11 +7,11 @@ const errorBox=document.querySelector('#experiment-error'),reload=document.query
 const finalStates=new Set(['completed','cancelled','failed','interrupted']),names={queued:'等待汇总',running:'对比中',cancelling:'正在取消',completed:'已完成对比',cancelled:'已取消',failed:'对比失败',interrupted:'已中断'};
 const pendingKey='fitness-experiment-create:'+document.body.dataset.userId,draftKey='fitness-experiment-draft:'+document.body.dataset.userId;
 let options=null,selected=new Set(),current=null,eid=root.dataset.experimentId,busy=false,disposed=false,timer=null,pending=null,page=1,historyData=null,pendingReadFailed=false;
-try{const raw=sessionStorage.getItem(pendingKey);if(raw){const saved=JSON.parse(raw),p=saved?.payload;if(typeof saved?.key!=='string'||!p||['task_id','dataset_version','split_hash'].some(key=>typeof p[key]!=='string')||!Array.isArray(p.method_ids)||p.method_ids.some(value=>typeof value!=='string'))throw new Error('invalid pending request');pending=saved}}catch{pendingReadFailed=true;showMessage('无法读取待核对请求，尚未发送新请求；请先确认浏览器存储可用。')}
-function failed(error){if(privateError(error))return;errorBox.textContent=error.message||'操作尚未确认，请重新读取原任务。';errorBox.hidden=false;reload.hidden=false}
+try{const raw=sessionStorage.getItem(pendingKey);if(raw){const saved=JSON.parse(raw),p=saved?.payload;if(typeof saved?.key!=='string'||!p||['task_id','dataset_version','split_hash'].some(key=>typeof p[key]!=='string')||!Array.isArray(p.method_ids)||p.method_ids.some(value=>typeof value!=='string'))throw new Error('invalid pending request');pending=saved}}catch{pendingReadFailed=true;showMessage('请启用浏览器会话存储后重新读取任务。')}
+function failed(error){if(privateError(error))return;errorBox.textContent=error.message||'请重新读取原任务状态。';errorBox.hidden=false;reload.hidden=false}
 function task(){return options?.tasks.find(item=>item.task_id===taskSelect.value)}
 function finished(){return current&&finalStates.has(current.status)&&current.stopped}
-function percent(value){return typeof value==='number'&&Number.isFinite(value)?(value*100).toFixed(1)+'%':'不可计算'}
+function percent(value){return typeof value==='number'&&Number.isFinite(value)?(value*100).toFixed(1)+'%':'待统计'}
 function saveDraft(value={task_id:taskSelect.value,method_ids:[...selected]}){try{sessionStorage.setItem(draftKey,JSON.stringify(value))}catch{/* 选择可继续使用；只有创建标识必须持久化成功。 */}}
 function readDraft(){try{const value=JSON.parse(sessionStorage.getItem(draftKey)||'null');return value&&typeof value.task_id==='string'&&Array.isArray(value.method_ids)?value:null}catch{return null}}
 function lockControls(){
@@ -55,7 +55,7 @@ function renderResult(){
   document.querySelector('#experiment-title').textContent='实验结果';document.querySelector('#experiment-subtitle').textContent=config.task_name;
   const badge=document.querySelector('#experiment-badge');badge.hidden=false;badge.textContent=names[current.status]||current.status;badge.className='status-badge '+(current.status==='completed'?'enabled':current.status==='failed'?'warning':'disabled');
   const note=document.querySelector('#experiment-run-note');note.classList.toggle('warning',current.status==='failed'||current.save_state!=='clean');
-  note.textContent=current.save_state!=='clean'?'任务已停止，失败状态尚未确认保存；恢复存储后重新读取。':current.status==='completed'?'已复用冻结预测并完成汇总。本轮未选出达标主方法；具体结果见下表。':current.status==='failed'?'部分方法未完成，已保存的方法结果仍保留。':current.status==='cancelled'?'已取消对比，仅保留停止前完成的方法。':current.status==='interrupted'?'原任务已中断，仅保留确认保存的方法。':'正在复用冻结原始预测并汇总，后台切换或刷新不会重新运行。';
+  note.textContent=current.save_state!=='clean'?'任务已停止，请恢复存储后重新读取状态。':current.status==='completed'?'已复用冻结预测并完成汇总。本轮未选出达标主方法；具体结果见下表。':current.status==='failed'?'部分方法未完成，已保存的方法结果仍保留。':current.status==='cancelled'?'已取消对比，仅保留停止前完成的方法。':current.status==='interrupted'?'原任务已中断，仅保留确认保存的方法。':'正在复用冻结原始预测并汇总，后台切换或刷新不会重新运行。';
   const meta=document.querySelector('#experiment-meta');meta.replaceChildren();for(const [label,value] of [['源视频',config.available_samples+' 段'],['开发',config.development_samples+' 段'],['测试',config.samples+' 段'],['来源关联组',config.subject_group_count+' 组'],['已处理',`${result.processed_methods??0} / ${result.total_methods??config.method_ids.length} 方法`]]){const item=el('span',label);item.append(el('strong',value));meta.append(item)}
   const progress=document.querySelector('#experiment-progress');progress.max=result.total_methods||config.method_ids.length;progress.value=result.processed_methods||0;document.querySelector('#experiment-progress-wrap').hidden=done;
   document.querySelector('#experiment-progress-text').textContent=`${result.processed_methods??0} / ${result.total_methods??config.method_ids.length} 个方法已处理`;
@@ -75,7 +75,7 @@ function renderResult(){
     grid.append(table(['来源组','样本','可判断','主宏 F1'],Object.entries(method.metrics.groups.subject_group).map(([group,value])=>[group,value.samples,value.covered,percent(value.macro_f1)]),'按来源组查看'));
     section.append(grid,el('p',`主指标分母 ${metric.samples} 段，拒判 ${metric.rejected} 段。${method.metrics.conditional?'可判断子集的条件宏 F1：'+percent(method.metrics.conditional.macro_f1)+'。':'没有可判断子集。'}`,'field-help'));details.append(section);
   }
-  document.querySelector('#experiment-scope').textContent=`正类为 ${config.positive_label}；指标只针对来源整段标签，不代表全部姿态问题。分类预测耗时不含共同姿态提取；本次仅复用缓存。原评估：${dateFormat.format(config.source_evaluated_at_ms)}。`;
+  document.querySelector('#experiment-scope').textContent=`评测对象：${config.positive_label}；范围：来源整段标签；计时：分类预测；结果来源：评测缓存；评测时间：${dateFormat.format(config.source_evaluated_at_ms)}。`;
   const missing=document.querySelector('#experiment-unavailable');missing.replaceChildren();const labels={keypoint_precision:'关键点精度',cycle_count_accuracy:'连续计数准确率',specific_issue_accuracy:'具体错误准确率',localization_accuracy:'逐帧问题定位'};
   for(const [key,reason] of Object.entries(config.unavailable_metrics||{}))missing.append(el('li',`${labels[key]||key}：${reason}`));
   cancel.hidden=done;again.textContent='重新运行';saveDraft({task_id:config.task_id,method_ids:config.method_ids});lockControls();
@@ -95,7 +95,7 @@ async function refresh(){
 }
 async function run(action){if(busy)return;busy=true;errorBox.hidden=true;lockControls();try{await action()}catch(error){failed(error)}finally{busy=false;lockControls()}}
 async function create(payload){
-  if(!pending){pending={key:crypto.randomUUID(),payload};try{sessionStorage.setItem(pendingKey,JSON.stringify(pending))}catch{pending=null;throw new Error('无法保存本页创建标识，尚未发起实验。')}}
+  if(!pending){pending={key:crypto.randomUUID(),payload};try{sessionStorage.setItem(pendingKey,JSON.stringify(pending))}catch{pending=null;throw new Error('请启用会话存储后开始实验。')}}
   try{current=await api('/api/v1/admin/experiments',{method:'POST',commandId:pending.key,body:pending.payload})}
   catch(error){if(!error.unknown){pending=null;sessionStorage.removeItem(pendingKey)}throw error}
   eid=current.experiment_id;pending=null;sessionStorage.removeItem(pendingKey);window.history.replaceState(null,'','/admin/experiments/'+eid);renderResult();document.querySelector('#experiment-title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});await refresh();await loadHistory();
@@ -104,7 +104,7 @@ async function cancelCurrent(){
   await refresh();if(finished())return;
   current=await api(`/api/v1/jobs/${current.job_id}/cancel`,{method:'POST',commandId:crypto.randomUUID(),body:{expected_version:current.state_version}});renderResult();
   for(let attempt=0;attempt<20&&!current.stopped;attempt++){await new Promise(resolve=>setTimeout(resolve,100));await refresh()}
-  if(!current.stopped||current.save_state!=='clean'||!current.terminal_persisted)throw new Error('仍在停止或保存尚未确认，请继续核对原任务。');
+  if(!current.stopped||current.save_state!=='clean'||!current.terminal_persisted)throw new Error('正在停止并保存，请查看原任务进度。');
 }
 start.onclick=()=>run(async()=>{
   const info=task();if(!pending&&(!info?.ready||selected.size<2)){document.querySelector('#experiment-method-error').textContent='请选择至少两种不同的就绪方法。';document.querySelector('#experiment-method-error').hidden=false;return}
@@ -119,7 +119,7 @@ for(const [id,delta] of [['experiment-history-prev',-1],['experiment-history-nex
 window.fitnessLeaveGuard=async()=>{
   if(pending){showMessage('请先核对原实验创建结果，再离开。');return false}
   if(current&&!finished())return confirmDialog({title:'离开正在进行的对比',message:'取消并保留已完成结果后再离开；取消此窗口则继续原任务。',confirmLabel:'取消并保留结果后离开',onConfirm:async()=>{await cancelCurrent();return true}});
-  if(current&&(current.save_state!=='clean'||!current.terminal_persisted)){showMessage('任务保存尚未确认，请先重新读取。');return false}return true;
+  if(current&&(current.save_state!=='clean'||!current.terminal_persisted)){showMessage('请重新读取任务保存状态。');return false}return true;
 };
 window.addEventListener('pagehide',()=>{disposed=true;clearTimeout(timer)});
 (async()=>{try{await loadOptions(pending?.payload||readDraft());await loadHistory();if(eid)await refresh();else lockControls()}catch(error){failed(error)}})();

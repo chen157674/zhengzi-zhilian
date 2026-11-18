@@ -96,7 +96,7 @@ class Database:
                 reader.execute('BEGIN')
                 return self._inspect_identity(reader.execute,allow_legacy)
         except sqlite3.Error as error:
-            raise StorageError('数据库身份无法核实或文件损坏；未清空／重建') from error
+            raise StorageError('请检查数据库身份与文件完整性，现有数据保留') from error
 
     def _inspect_identity(self,execute,allow_legacy):
         row=execute('SELECT project_id,schema_version FROM app_meta WHERE id=1').fetchone()
@@ -177,6 +177,10 @@ class Database:
             normalized=''.join(sql[0].lower().split()) if sql and sql[0] else ''
             if columns!=['plan_id','scheduled_date'] or not indexes or not indexes[0][2] or not indexes[0][4] or not normalized.endswith("wherestatus!='cancelled'"):
                 raise StorageError('训练日期唯一索引不兼容，拒绝写入')
+        if row[1]>=14:
+            for table,index,columns in [('nutrition_journal','ix_nutrition_journal_owner_date',['user_id','consumed_date']),('personal_memories','ix_personal_memories_owner',['user_id','deleted','updated_at_ms'])]:
+                if [r[2] for r in execute(f"PRAGMA index_info('{index}')")]!=columns:raise StorageError('饮食记忆所有人索引不兼容')
+                if not any(r[2]=='users' and r[3]=='user_id' and r[4]=='id' and r[6]=='CASCADE' for r in execute(f"PRAGMA foreign_key_list('{table}')")):raise StorageError('饮食记忆所有人约束不兼容')
         return {"project_id": row[0], "schema_version": row[1]}
 
     def initialize(self, *, allow_round5_migration=False):
@@ -184,8 +188,8 @@ class Database:
             if self.path.exists():
                 identity = self.inspect_identity(allow_legacy=True)
                 if identity['schema_version'] < SCHEMA_VERSION:
-                    if identity['schema_version']<13<=SCHEMA_VERSION and not allow_round5_migration:
-                        raise StorageError('第五轮数据升级尚未明确允许；请先在隔离库验证，再显式启用迁移，原库未改')
+                    if identity['schema_version']<SCHEMA_VERSION and not allow_round5_migration:
+                        raise StorageError('请先验证数据升级，再启用迁移，现有数据库保留')
                     from .db_schema import posture_observations,user_profiles,users,receipt_saved_index
                     from .profile_assets import random_profile,AVATAR_IDS
                     try:

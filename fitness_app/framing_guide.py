@@ -32,12 +32,12 @@ def guide(frame=None,action_id=None,requested_view='auto',fresh=True):
         result['missing_parts']=list(dict.fromkeys(JOINTS.get(i,'相关部位') for i in missing))
         result['steps']=[definition['view']]
     if not quality.get('usable',False):
-        result.update(state='missing_parts',message=('请让'+ '、'.join(result['missing_parts'])+'清楚入镜。') if result['missing_parts'] else '当前关键部位还不能稳定观察。')
+        result.update(state='missing_parts',message=('请让'+ '、'.join(result['missing_parts'])+'清楚入镜。') if result['missing_parts'] else '请调整取景，让关键部位持续入镜。')
         return result
     if recognition.get('reason')=='motion_unconfirmed':return {**result,'state':'waiting_for_motion','message':'等待自然动作变化，准备状态不作技术评价。'}
     if not definition:return result
     limited=[r for r in rules if current and current not in r['views']]
-    if posture.get('view_basis')=='view_mismatch':return {**result,'state':'view_mismatch','message':'机位设置与画面估计不一致。','steps':['调整拍摄位置或恢复自动判断；机位确认不代表动作规范。']}
+    if posture.get('view_basis')=='view_mismatch':return {**result,'state':'view_mismatch','message':'机位设置与画面估计不一致。','steps':['请调整拍摄位置，或选择自动判断机位。']}
     if limited:
         item=limited[0];needed='或'.join(VIEWS[v] for v in item['views'])
         result.update(state='view_limited',message=item['title']+'需要'+needed+'观察。',

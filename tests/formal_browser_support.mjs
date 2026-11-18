@@ -7,7 +7,7 @@ import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 
 export const root=path.resolve(import.meta.dirname,'..');
-assert.equal(root,'E:\\07_Projects\\05_PersonalProjects\\10_fitness-assistant');
+assert(fs.existsSync(path.join(root,'fitness_app/app.py')));
 const require=createRequire('C:/Users/chen/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/package.json');
 const module=await import(pathToFileURL(require.resolve('playwright')).href);
 const {chromium}=module.default||module;

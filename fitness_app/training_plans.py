@@ -290,7 +290,7 @@ def register_training_plans(app):
                 if row['status']=='succeeded':
                     result=json.loads(row['result_json']) if row['result_json'] else {}
                     return jsonify(data={'resource_type':row['resource_type'],'resource_id':row['resource_id'],'saved_version':result.get('version'),'status':'succeeded'})
-                if row['resource_type']!='training.abandoned':raise APIError('COMMAND_UNRESOLVED','原命令尚未确认，不可放弃',409)
+                if row['resource_type']!='training.abandoned':raise APIError('COMMAND_UNRESOLVED','请先查看原命令状态',409)
             else:
                 import hashlib
                 c.execute(s.command_receipts.insert().values(command_id=key,actor_user_id=uid,resource_type='training.abandoned',request_digest=hashlib.sha256(('abandon:'+key).encode()).hexdigest(),status='failed',ended_at_ms=service.clock()))

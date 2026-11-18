@@ -178,9 +178,9 @@ class MovementGuidance:
         prefix='左侧' if side=='left' else '右侧' if side=='right' else ''
         message=prefix+rule[1] if status=='issue' else '本项未见持续偏差' if status=='not_observed' else {
             'wrist_landmarks_unavailable':'手腕与手掌没有同时看清','simultaneous_variant_required':'本项只适用于双侧同时动作',
-            'phase_signal_uncertain':'暂不能确认两侧动作阶段','unsupported_view':'当前机位不适合判断本项',
+            'phase_signal_uncertain':'请完整完成一次双侧动作','unsupported_view':'当前机位不适合判断本项',
             'awaiting_complete_cycle':'等待一次完整往返动作','awaiting_motion':'等待连续动作',
-            'incomplete_return_evidence':'本次往返幅度或持续证据不足',
+            'incomplete_return_evidence':'请完成充分幅度并保持连续动作',
             'return_range_not_comparable':'本次回程与用力幅度不一致，暂不比较节奏',
             'return_samples_insufficient':'回程阶段的真实观察点不足',
         }.get(reason,'本项缺少连续可见证据')

@@ -29,7 +29,7 @@ class ActionCountConfig:
 
 
 def side_observation(action,points,width,height,side,config):
-    if action not in ACTIONS:raise ValueError('尚未实现该动作适配')
+    if action not in ACTIONS:raise ValueError('请选择已配置的训练动作')
     offset=0 if side=='left' else 1
     required=[11,23] if action=='standing_dumbbell_curl' else [11,23,25,27]
     if action!='bodyweight_squat':required.extend([13,15])

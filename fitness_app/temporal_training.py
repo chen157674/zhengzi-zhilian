@@ -12,7 +12,7 @@ def make_views(rows,resolve_times):
     if len({r['id'] for r in rows})!=len(rows):raise ValueError('训练片段身份重复')
     views=[]
     for index,row in enumerate(rows):
-        if row.get('partition')!='train' or row.get('evaluation_only') or row.get('exclude_from_training') or row.get('model_inference_allowed_before_freeze') is False:raise ValueError('非训练来源不能取训练时间窗')
+        if row.get('partition')!='train' or row.get('evaluation_only') or row.get('exclude_from_training') or row.get('model_inference_allowed_before_freeze') is False:raise ValueError('请选择训练来源的时间窗')
         centres=temporal_centres(row['start_ms'],row['end_ms']);middle=(row['start_ms']+row['end_ms'])/2
         for position,centre in enumerate(centres):
             if centre==middle:times=list(row['actual_ms']);kind='middle'

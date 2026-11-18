@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block page %}home{% endblock %}
-{% block head %}<link rel="stylesheet" href="/static/home_landing.css"><script type="module" src="/static/home_demo.js"></script>{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ asset_url('home_landing.css') }}"><script type="module" src="{{ asset_url('home_demo.js') }}"></script>{% endblock %}
 {% block content %}
 <div class="home-shell landing-home">
-<section class="home-hero" aria-labelledby="home-title">
+<section class="home-hero home-screen" id="home-start" aria-labelledby="home-title">
   <div class="hero-intro"><h1 id="home-title">看清每个动作，<span>练好下一组。</span></h1><p>实时看见姿态，找到下一次进步。</p>
     <div class="button-row home-actions"><a class="button home-cta" href="/realtime" data-nav><svg aria-hidden="true"><use href="#camera"/></svg>开始实时分析 <span aria-hidden="true">›</span></a><a class="button secondary home-cta" href="/video" data-nav>上传训练视频 <span aria-hidden="true">›</span></a><a class="home-ai-link" href="/coach" data-nav>问AI教练 <span aria-hidden="true">→</span></a></div>
   </div>
@@ -13,7 +13,7 @@
     <div class="showcase-player" id="showcase-player">
       <video id="showcase-video" muted playsinline preload="metadata" {% if demo.poster_url %}poster="{{ demo.poster_url }}"{% endif %} aria-label="{{ demo.title }}"></video><canvas id="showcase-canvas" aria-hidden="true"></canvas>
       <div class="showcase-badges"><strong>{{ demo.title }}</strong></div>
-      <aside id="showcase-feedback" class="demo-feedback" data-state="observing" aria-busy="true" aria-live="polite" aria-atomic="true"><span class="feedback-mark" aria-hidden="true">·</span><div><strong data-feedback-title>正在分析</strong><p data-feedback-instruction hidden></p></div></aside>
+      <aside id="showcase-feedback" class="demo-feedback" data-state="observing" aria-busy="true" aria-live="polite" aria-atomic="true"><span class="feedback-mark" aria-hidden="true">·</span><div class="home-cue-copy"><span class="home-cue-label" data-feedback-label>动作观察</span><strong data-feedback-title>正在分析</strong><span class="home-cue-next" data-feedback-next hidden>下一次这样做</span><p data-feedback-instruction hidden></p></div></aside>
       <div class="showcase-tools"><button class="button" type="button" id="showcase-play" hidden>播放</button><button class="button" type="button" id="showcase-toggle">播放</button><button class="button" type="button" id="showcase-fullscreen" disabled>全屏</button></div>
       <button class="button secondary showcase-exit" type="button" id="showcase-exit-fullscreen">退出全屏</button>
     </div>
@@ -21,33 +21,42 @@
     <div class="demo-caption"><a href="/video?demo=1&amp;demo_id={{ demo.id }}" data-nav>分析这段视频 <span aria-hidden="true">↗</span></a></div>
     <p id="showcase-status" class="sr-only" role="status">正在加载视频</p><span id="showcase-count" hidden></span>
   </div>
-  {% else %}<div class="showcase-unavailable"><h2>视频暂不可用</h2><a class="button" href="/video" data-nav>分析我的视频</a></div>{% endif %}
+  {% else %}<div class="showcase-unavailable"><h2>请重新加载视频</h2><a class="button" href="/video" data-nav>分析我的视频</a></div>{% endif %}
 </section>
 <div class="home-discover">
-<section class="home-adjustment home-discover-section" aria-labelledby="adjustment-title">
- <div class="home-adjustment-copy"><span class="home-eyebrow"><img src="/static/icons/hugeicons/Target01Icon.svg" alt="" width="20" height="20">动作指导</span><h2 id="adjustment-title">知道哪里要改，<br><span>下一组更有方向。</span></h2><p>看清动作里的细节，定位对应片段，把反馈变成具体的调整。</p><a class="home-inline-link" href="/video" data-nav>看看动作分析 <span aria-hidden="true">↗</span></a><div class="home-feature-steps"><span>发现问题</span><i aria-hidden="true">→</i><span>定位回看</span><i aria-hidden="true">→</i><span>练习复测</span></div></div>
+<section class="home-adjustment home-discover-section home-screen" id="home-movement" aria-labelledby="adjustment-title">
+ <div class="home-adjustment-copy"><span class="home-eyebrow"><img src="{{ asset_base }}/icons/hugeicons/Target01Icon.svg" alt="" width="20" height="20">动作指导</span><h2 id="adjustment-title">知道哪里要改，<br><span>下一组更有方向。</span></h2><p>看清动作里的细节，定位对应片段，把反馈变成具体的调整。</p><a class="home-inline-link" href="/video" data-nav>看看动作分析 <span aria-hidden="true">↗</span></a></div>
  <div class="home-adjustment-pair" aria-label="动作调整的静态展示示意">
   <figure class="home-change-card"><img src="{{ url_for('round4_asset',asset_name='首页动作调整前.webp') }}" width="1536" height="1024" alt="调整前的展示示意：坐姿前倾，背部离开靠背" loading="lazy" decoding="async"><figcaption><strong>调整前</strong><span>身体前倾</span></figcaption></figure>
   <span class="home-change-arrow" aria-hidden="true">→</span>
   <figure class="home-change-card"><img src="{{ url_for('round4_asset',asset_name='首页动作调整后.webp') }}" width="1536" height="1024" alt="调整后的展示示意：坐姿直立，背部贴靠靠背" loading="lazy" decoding="async"><figcaption><strong>调整后</strong><span>保持躯干稳定</span></figcaption></figure>
-  <p class="home-change-note">动作示意，实际反馈以分析结果为准。</p>
+  <p class="home-change-note" hidden></p>
  </div>
 </section>
-<section class="home-next-section home-training-section home-discover-section" aria-labelledby="home-training-title">
+<section class="home-next-section home-training-section home-discover-section home-screen" id="home-training" aria-labelledby="home-training-title">
  <div class="home-training-visual" aria-label="训练计划功能示意">
-  <div class="home-training-visual-head"><span><img src="/static/icons/hugeicons/Calendar03Icon.svg" width="22" height="22" alt="">我的训练</span><span class="home-demo-label">功能示意</span></div>
-  <div class="home-training-preview-body"><div class="home-training-preview-date"><strong>每一组，都有安排</strong><span>计划 · 执行 · 回顾</span></div><div class="home-training-preview-row"><span class="home-preview-symbol"><img src="/static/icons/hugeicons/Dumbbell01Icon.svg" width="25" height="25" alt=""></span><div><strong>安排适合你的动作</strong><span>次数、组数与休息，一目了然</span></div><span aria-hidden="true">↗</span></div><div class="home-training-preview-row"><span class="home-preview-symbol"><img src="/static/icons/hugeicons/CheckmarkCircle02Icon.svg" width="25" height="25" alt=""></span><div><strong>练完一组，记录一组</strong><span>实际完成量，随练随记</span></div><span aria-hidden="true">✓</span></div><div class="home-training-preview-foot"><img src="/static/icons/hugeicons/ChartHistogramIcon.svg" width="20" height="20" alt=""><span>回顾这一周，再安排下一次</span></div></div>
+  <div class="home-training-visual-head"><span><img src="{{ asset_base }}/icons/hugeicons/Calendar03Icon.svg" width="22" height="22" alt="">我的训练</span><span class="home-demo-label">本周安排</span></div>
+  <div class="home-training-preview-body"><div class="home-training-preview-date"><strong>每一组，都有安排</strong><span>计划 · 执行 · 回顾</span></div><div class="home-training-preview-row"><span class="home-preview-symbol"><img src="{{ asset_base }}/icons/hugeicons/Dumbbell01Icon.svg" width="25" height="25" alt=""></span><div><strong>安排适合你的动作</strong><span>次数、组数与休息，一目了然</span></div><span aria-hidden="true">↗</span></div><div class="home-training-preview-row"><span class="home-preview-symbol"><img src="{{ asset_base }}/icons/hugeicons/CheckmarkCircle02Icon.svg" width="25" height="25" alt=""></span><div><strong>练完一组，记录一组</strong><span>实际完成量，随练随记</span></div><span aria-hidden="true">✓</span></div><div class="home-training-preview-foot"><img src="{{ asset_base }}/icons/hugeicons/ChartHistogramIcon.svg" width="20" height="20" alt=""><span>回顾这一周，再安排下一次</span></div></div>
  </div>
  <div class="home-section-copy"><span class="home-eyebrow">训练计划与记录</span><h2 id="home-training-title">让训练有计划，<br>让坚持有迹可循。</h2><p>从今天的安排开始，记下每组完成量。训练记录和每周回顾，帮你接上下一次练习。</p><a class="button" href="/training/plan" data-nav>查看我的训练</a><a class="home-inline-link" href="/records?view=list" data-nav>查看训练记录 <span aria-hidden="true">↗</span></a></div>
 </section>
-<section class="home-next-section home-guide-section home-discover-section" aria-labelledby="home-guide-title">
+<section class="home-next-section home-guide-section home-discover-section home-screen" id="home-guide" aria-labelledby="home-guide-title">
  <div class="home-guide-heading"><span class="home-eyebrow">健身指南</span><h2 id="home-guide-title">练得明白，吃得有据。</h2><p>从动作方法到日常饮食，把想知道的事查清楚。</p></div>
- <div class="home-guide-cards"><a class="home-guide-feature home-knowledge-feature" href="/coach/knowledge" data-nav><span class="home-guide-feature-icon"><img src="/static/icons/hugeicons/BookOpen01Icon.svg" width="32" height="32" alt=""></span><span class="home-guide-feature-label">动作知识</span><h3>每个建议，都能找到依据。</h3><p>查询动作要点，了解训练方法，随时查看参考来源。</p><span class="home-guide-feature-link">查看健身指南 <span aria-hidden="true">↗</span></span><div class="home-knowledge-topics" aria-hidden="true"><span>动作要点</span><span>训练方法</span><span>增肌与恢复</span></div></a>
- <a class="home-guide-feature home-nutrition-feature" href="/coach/nutrition" data-nav><span class="home-guide-feature-icon"><img src="/static/icons/hugeicons/Apple01Icon.svg" width="32" height="32" alt=""></span><span class="home-guide-feature-label">饮食建议</span><h3>了解身体，也了解怎么吃。</h3><p>填写身体与活动信息，查看摄入参考，也可以直接提问。</p><span class="home-guide-feature-link">获取饮食建议 <span aria-hidden="true">↗</span></span><div class="home-nutrition-topics" aria-hidden="true"><span><i></i>蛋白质参考</span><span><i></i>能量参考</span><span><i></i>饮食问答</span></div></a></div>
+ <div class="home-guide-cards"><a class="home-guide-feature home-knowledge-feature" href="/coach/knowledge" data-nav><span class="home-guide-feature-icon"><img src="{{ asset_base }}/icons/hugeicons/BookOpen01Icon.svg" width="32" height="32" alt=""></span><span class="home-guide-feature-label">动作知识</span><h3>每个建议，都能找到依据。</h3><p>查询动作要点，了解训练方法，随时查看参考来源。</p><span class="home-guide-feature-link">查看健身指南 <span aria-hidden="true">↗</span></span><div class="home-knowledge-topics" aria-hidden="true"><span>动作要点</span><span>训练方法</span><span>增肌与恢复</span></div></a>
+ <a class="home-guide-feature home-nutrition-feature" href="/coach/nutrition" data-nav><span class="home-guide-feature-icon"><img src="{{ asset_base }}/icons/hugeicons/Apple01Icon.svg" width="32" height="32" alt=""></span><span class="home-guide-feature-label">饮食建议</span><h3>了解身体，也了解怎么吃。</h3><p>填写身体与活动信息，查看摄入参考，也可以直接提问。</p><span class="home-guide-feature-link">获取饮食建议 <span aria-hidden="true">↗</span></span><div class="home-nutrition-topics" aria-hidden="true"><span><i></i>蛋白质参考</span><span><i></i>能量参考</span><span><i></i>饮食问答</span></div></a></div>
 </section>
-<section class="home-final-action"><img src="/static/icons/hugeicons/Activity01Icon.svg" alt="" width="32" height="32"><h2>从今天这一组开始。</h2><p>一次观察，一点调整，接近更好的自己。</p><div><a class="button" href="/realtime" data-nav>开始实时分析</a><a class="home-inline-link" href="/video" data-nav>上传训练视频 <span aria-hidden="true">↗</span></a></div></section>
+<section class="home-final-action home-screen" id="home-ready" aria-labelledby="home-ready-title">
+ <div class="home-ready-copy"><h2 id="home-ready-title">从今天<br>这一组开始。</h2><p>选一个熟悉的动作，摆好机位，<br>把这一组练清楚。</p>
+  <div class="home-ready-actions"><a class="button" href="/realtime" data-nav><svg aria-hidden="true"><use href="#camera"/></svg>开始实时分析</a><a class="home-inline-link" href="/video" data-nav>上传训练视频 <span aria-hidden="true">↗</span></a></div>
+  <ol class="home-ready-steps" aria-label="开始训练的步骤"><li><span>选动作</span><small>从熟悉的动作开始</small></li><li><span>摆好机位</span><small>按取景引导调整位置</small></li><li><span>练一组</span><small>查看反馈，再做调整</small></li></ol>
+ </div>
+ <div class="home-ready-visual">
+  <a class="home-ready-main" href="/actions/standing_dumbbell_curl" data-nav><img src="{{ url_for('static',filename='training/dumbbell-curl-scene.webp') }}" width="1200" height="800" alt="居家进行站姿哑铃弯举的训练场景" loading="lazy" decoding="async"><span>站姿哑铃弯举 <span>查看动作要点 ↗</span></span></a>
+  <div class="home-ready-exercises"><a href="/actions/bodyweight_squat" data-nav><img src="{{ url_for('static',filename='training/bodyweight-squat-scene.webp') }}" width="1200" height="800" alt="徒手深蹲训练场景" loading="lazy" decoding="async"><span>徒手深蹲 <span aria-hidden="true">↗</span></span></a><a href="/actions/forearm_plank" data-nav><img src="{{ url_for('static',filename='training/forearm-plank-scene.webp') }}" width="1200" height="800" alt="前臂平板支撑训练场景" loading="lazy" decoding="async"><span>前臂平板支撑 <span aria-hidden="true">↗</span></span></a></div>
+ </div>
+</section>
 </div>
 
 </div>
 {% endblock %}
-{% block footer %}<span>知练同行</span><span>看清动作，练好下一组。</span>{% endblock %}
+{% block footer %}<span>正姿智练</span><span>看清动作，练好下一组。</span>{% endblock %}

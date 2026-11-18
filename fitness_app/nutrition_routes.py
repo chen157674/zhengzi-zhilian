@@ -4,8 +4,20 @@ from .auth import body,APIError
 from .nutrition_estimates import estimate,NutritionInputError
 
 def register_nutrition(app):
+    @app.get('/api/v1/nutrition/meal-options')
+    def nutrition_meal_options():
+        if set(request.args)-{'meal_type','scene'}:
+            raise APIError('INVALID_REQUEST','餐食选择参数无效',400)
+        from .meal_recommendations import options
+        return jsonify(data=options(request.args.get('meal_type','lunch'), request.args.get('scene','home')))
+
     from .knowledge_store import KnowledgeStore
     store=KnowledgeStore();app.extensions['knowledge_store']=store;app.extensions.setdefault('stop_hooks',[]).append(store.stop)
+
+    @app.get('/api/v1/nutrition/food-assets')
+    def nutrition_food_assets():
+        from .food_assets import published_food_assets
+        return jsonify(data=published_food_assets())
 
     @app.post('/api/v1/nutrition/estimate')
     def nutrition_estimate():
@@ -21,6 +33,8 @@ def register_nutrition(app):
         data=body({'query','domain','action_id','limit'},max_bytes=8192)
         try:result=store.retrieval(data.get('query'),data.get('domain'),data.get('action_id'),data.get('limit',5))
         except ValueError:raise APIError('VALIDATION_FAILED','请检查知识主题和问题',422) from None
+        from .learning_guides import related_tutorial
+        result['tutorial']=related_tutorial(store,result['matches'])
         return jsonify(data=result)
 
     @app.get('/api/v1/knowledge/chunks/<chunk_id>')
@@ -51,9 +65,11 @@ def register_nutrition(app):
         if not action:raise APIError('NOT_FOUND','动作不存在',404)
         rows=[store.public_row(r) for r in store.by_id.values() if r.get('status')=='published' and r['action_id']==action_id]
         rules=rules_for(action_id)
+        from .learning_guides import tutorial_for
+        tutorial=tutorial_for(store,action_id)
         return jsonify(data={'action':{'id':action_id,'name':action['name'],'equipment':action.get('equipment'),'unit':action['unit'],'cover':cover_catalogue().get(action_id)},
             'capabilities':{'recognition':{'method':action.get('recognition_method'),'verification_status':action.get('recognition_validation','not_independently_validated')},'counting':action.get('counting_available',False),'posture_items':rules,
                             'verification_status':action.get('validation_status','not_independently_validated'),'capability_version':action['capability_version']},
-            'view_guidance':guide(action_id=action_id),'knowledge':{'coverage':'available' if rows else 'limited','status':store.index_status,'chunks':rows},
+            'tutorial':tutorial,'view_guidance':guide(action_id=action_id),'knowledge':{'coverage':'available' if rows else 'limited','status':store.index_status,'chunks':rows},
             'sources':list({r['source_id']:r['source'] for r in rows}.values()),
             'links':{'realtime':'/realtime?'+urlencode({'action':action_id}),'video':'/video?'+urlencode({'action':action_id}),'knowledge':'/coach/knowledge?'+urlencode({'action_id':action_id})}})

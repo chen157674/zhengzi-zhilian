@@ -51,7 +51,7 @@ def read_counting_manifest(path=DEFAULT_CONFIG,allow_development=False):
     path=project_path(path)
     if not path.is_file():raise ValueError('周期参数资源缺失')
     document=json.loads(path.read_text(encoding='utf-8'))
-    if document.get('schema_version')!=1 or document.get('status') not in ({'development','ready'} if allow_development else {'ready'}):raise ValueError('周期参数尚未冻结或版本不支持')
+    if document.get('schema_version')!=1 or document.get('status') not in ({'development','ready'} if allow_development else {'ready'}):raise ValueError('请更新动作周期参数')
     if set(document.get('actions',{}))!=ACTIONS:raise ValueError('动作参数成员不匹配')
     if digest(document['actions'])!=document.get('parameters_sha256'):raise ValueError('动作参数摘要不匹配')
     for action,raw in document['actions'].items():

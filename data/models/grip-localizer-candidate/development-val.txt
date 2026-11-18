@@ -1,6 +1,0 @@
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_006667_pair1.png
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_006667_pair2.png
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_013267_pair1.png
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_013267_pair2.png
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_019933_pair1.png
-E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/annotation/x-anylabeling/localization-yolo/images/1694_019933_pair2.png

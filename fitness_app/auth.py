@@ -71,7 +71,7 @@ def validate_email(value, *, registration=False, field='email'):
             or not EMAIL_LOCAL.fullmatch(local) or not re.fullmatch(r'[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*\.[A-Za-z]{2,63}', domain)):
         raise APIError('VALIDATION_FAILED', '请检查邮箱', 422, {field: '请输入有效邮箱地址'})
     if registration and domain.lower() not in COMMON_EMAIL_DOMAINS:
-        raise APIError('VALIDATION_FAILED', '暂不支持此邮箱', 422, {field: '请使用常见个人邮箱注册'})
+        raise APIError('VALIDATION_FAILED', '请更换邮箱地址', 422, {field: '请使用常见个人邮箱注册'})
     return value.lower()
 
 
@@ -358,7 +358,7 @@ def initialize_admin(db, username, password):
     timestamp = now_ms()
     with admin_transaction(db) as c:
         if c.scalar(select(app_meta.c.initialized_at_ms)) is not None or c.scalar(select(func.count()).select_from(users)):
-            raise ConflictError("已有账号或初始化标识，不能再次初始化")
+            raise ConflictError("请使用已有账号登录")
         c.execute(users.insert().values(id=uid, username_display=username, username_key=key, password_hash=hashed, role="admin"))
         c.execute(user_profiles.insert().values(user_id=uid,**random_profile()))
         c.execute(update(app_meta).where(app_meta.c.id==1).values(initialized_at_ms=timestamp))

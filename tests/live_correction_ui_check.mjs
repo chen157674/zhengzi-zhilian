@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import {BrowserFixture,root} from './formal_browser_support.mjs';
+const cueEvidence=path.join(root,process.env.FITNESS_CUE_EVIDENCE_DIR||'第四轮优化/实现核对');assert(!path.relative(root,cueEvidence).startsWith('..'));
 const fixture=new BrowserFixture('live-correction-ui'),errors=[];
 try{
   fixture.seed("from fitness_app.paths import configure_environment;configure_environment();import os;from fitness_app.database import Database;from fitness_app.auth import initialize_admin;db=Database(os.environ['FITNESS_DATABASE_PATH']);db.initialize();initialize_admin(db,'Cue_Admin','Cue-fixture-local-2026');db.dispose()");
@@ -43,9 +44,9 @@ try{
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   }
   await page.setViewportSize({width:1440,height:1000});
-  await page.screenshot({path:path.join(root,'第四轮优化/实现核对/实时准备.png'),fullPage:true,animations:'disabled'});
+  await page.screenshot({path:path.join(cueEvidence,'实时准备.png'),fullPage:true,animations:'disabled'});
   await page.setViewportSize({width:390,height:844});
-  await page.screenshot({path:path.join(root,'第四轮优化/实现核对/实时准备-窄屏.png'),fullPage:true,animations:'disabled'});
+  await page.screenshot({path:path.join(cueEvidence,'实时准备-窄屏.png'),fullPage:true,animations:'disabled'});
   await page.locator('#live-settings summary').click();
   for(const width of [1440,390,320]){
     await page.setViewportSize({width,height:1000});
@@ -53,7 +54,7 @@ try{
     const fields=await page.locator('.setting-field').evaluateAll(nodes=>nodes.map(n=>({label:n.querySelector('span').getBoundingClientRect().bottom,select:n.querySelector('select').getBoundingClientRect().top,width:n.querySelector('select').getBoundingClientRect().width})));
     assert(fields.every(x=>x.select>x.label&&x.width>150));
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    if(width===390)await page.screenshot({path:path.join(root,'第四轮优化/实现核对/实时设置-窄屏.png'),fullPage:true,animations:'disabled'});
+    if(width===390)await page.screenshot({path:path.join(cueEvidence,'实时设置-窄屏.png'),fullPage:true,animations:'disabled'});
   }
   await page.locator('#live-settings summary').click();
   await page.setViewportSize({width:390,height:844});
@@ -92,14 +93,24 @@ try{
   coaching={state:'needs_adjustment',primary_cue:{message:'双手高度不齐',suggestion:'保持双手同高，缓慢合拢。'}};
   await page.locator('#live-cue-title').filter({hasText:'双手高度不齐'}).waitFor();
   assert.equal(await page.locator('#live-cue-text').innerText(),'保持双手同高，缓慢合拢。');
+  assert.equal(await page.locator('#live-cue [data-cue-label]').innerText(),'动作纠正提示');
+  assert.equal(await page.locator('#live-cue [data-cue-marker]').innerText(),'!');
+  for(const width of [1440,390,320]){
+    await page.setViewportSize({width,height:1000});
+    await page.waitForFunction(()=>{const cue=document.querySelector('#live-cue'),foot=document.querySelector('.live-foot');return innerWidth>767||foot.getBoundingClientRect().top>=cue.getBoundingClientRect().bottom-2;});
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    const sizes=await page.locator('#live-cue').evaluate(cue=>({title:parseFloat(getComputedStyle(cue.querySelector('#live-cue-title')).fontSize),text:parseFloat(getComputedStyle(cue.querySelector('#live-cue-text')).fontSize)}));
+    assert(sizes.title>=(width<=767?22:26));assert(sizes.text>=(width<=767?17:20));
+    if(width===390)await page.locator('#live-workspace').screenshot({path:path.join(cueEvidence,'实时纠正-强调-手机.png'),animations:'disabled'});
+  }
   assert.equal(created.length,1);assert.equal(created[0].recognition_mode,'manual');
   await page.setViewportSize({width:1536,height:1024});
   await page.locator('#live-action-search-panel summary').click();
   await page.locator('#live-action-search').fill('');
   await page.locator('.action-search-result[aria-pressed=true]').waitFor();
-  await page.screenshot({path:path.join(root,'第四轮优化/实现核对/实时分析-按图核对.png'),animations:'disabled'});
+  await page.screenshot({path:path.join(cueEvidence,'实时分析-按图核对.png'),animations:'disabled'});
   const geometry=await page.evaluate(()=>{const box=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};};return {workspace:box('live-workspace'),mode:box('live-mode-auto'),manual:box('live-mode-manual'),stage:box('live-stage'),badge:box('live-action'),settings:box('live-settings'),skeleton:box('live-skeleton'),mirror:box('live-mirror'),summary:document.querySelector('#live-settings summary').textContent};});
-  assert.equal(geometry.workspace.width,1264);
+  assert(geometry.workspace.width>=1200&&geometry.workspace.width<=1280,'桌面训练画面保持现有版心，不随提示内容撑宽');
   assert(Math.abs(geometry.mode.y-geometry.manual.y)<1);
   assert(geometry.badge.y>geometry.stage.y&&geometry.badge.y<geometry.stage.y+30);
   assert(Math.abs(geometry.settings.y-geometry.skeleton.y)<20&&Math.abs(geometry.settings.y-geometry.mirror.y)<20,'设备设置和方形开关必须同排');
@@ -112,7 +123,7 @@ try{
   assert.equal(await page.locator('#live-fullscreen').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('#live-fullscreen').getAttribute('aria-label'),'退出全屏');
   assert(await page.locator('#live-finish').isVisible());
-  await page.screenshot({path:path.join(root,'第四轮优化/实现核对/实时全屏-受控.png'),animations:'disabled'});
+  await page.screenshot({path:path.join(cueEvidence,'实时全屏-受控.png'),animations:'disabled'});
   await page.locator('#live-fullscreen').click();
   await page.waitForFunction(()=>!document.fullscreenElement&&!document.querySelector('#live-workspace').classList.contains('page-expanded'));
   await page.evaluate(()=>{document.querySelector('#live-workspace').requestFullscreen=()=>Promise.reject(new Error('工程模拟全屏拒绝'));});
@@ -128,6 +139,8 @@ try{
   coaching={state:'evidence_insufficient'};
   await page.locator('#live-cue-title').filter({hasText:'分析中'}).waitFor();
   assert.equal(await page.locator('#live-cue-text').isVisible(),false);
+  assert.equal(await page.locator('#live-cue [data-cue-next]').isVisible(),false);
+  assert.notEqual(await page.locator('#live-cue [data-cue-marker]').innerText(),'!');
   const released=page.waitForResponse(response=>response.url().endsWith('/api/v1/previews/'+id)&&response.request().method()==='DELETE');
   await page.locator('#live-toggle').click();await page.locator('#live-cue').waitFor({state:'hidden'});await released;
   assert(await page.evaluate(()=>window.fixtureTracks.every(track=>track.readyState==='ended')));

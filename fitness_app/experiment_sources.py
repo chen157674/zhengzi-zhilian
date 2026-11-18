@@ -28,7 +28,7 @@ def _model_hash(path,modified,size):return _digest(project_path(path).read_bytes
 
 
 def model_state(item):
-    if item.get('status')!='ready':return False,item.get('reason','该方法尚未准备')
+    if item.get('status')!='ready':return False,item.get('reason','请选择已准备的分析方法')
     try:
         path=project_path(item['path']);path.relative_to(ROOT_DATA/'models');stat=path.stat()
         if _model_hash(str(path),stat.st_mtime_ns,stat.st_size)!=item['sha256']:return False,'模型文件与冻结摘要不一致'
@@ -44,7 +44,7 @@ class ExperimentSources:
         signature=tuple((path.stat().st_mtime_ns,path.stat().st_size) for path in paths)
         if signature==self._signature:return self._cached
         blobs=[path.read_bytes() for path in paths];baseline,frozen,results,split=map(json.loads,blobs[:4]);publication=baseline.get('published_comparison',{})
-        if not baseline.get('frozen') or not baseline.get('test_used') or publication.get('schema_version')!=1:raise ValueError('实验尚未完成冻结与真实测试')
+        if not baseline.get('frozen') or not baseline.get('test_used') or publication.get('schema_version')!=1:raise ValueError('请完成实验冻结与测试后查看结果')
         if _digest(blobs[1])!=publication.get('freeze_sha256') or _digest(blobs[2])!=publication.get('results_sha256'):raise ValueError('结果文件与已核发布摘要不符')
         if results.get('freeze_sha256')!=publication['freeze_sha256'] or not frozen.get('frozen') or not results.get('test_used'):raise ValueError('实验版本引用不一致')
         split_hash=_digest(json_text({'assignments':split['assignments']}).encode())
@@ -86,7 +86,7 @@ class ExperimentSources:
             if missing:ready=False;reason=f'数据文件缺失或大小变化（{missing} 段）'
             name='多数类基线' if family=='majority' else f"线性 SVM（C={method['C']}）" if family=='svm' else f"随机森林（深度 {method['max_depth'] if method['max_depth'] is not None else '不限'}）"
             methods.append({'method_id':method['id'],'name':name,'family':family,'ready':ready,'reason':reason,'cached_result':cached is not None})
-        methods.append({'method_id':'geometry-rule','name':'几何阈值基线','ready':False,'reason':'现有整段标签不能确定具体几何阈值，暂不支持此方法。','status':'not_applicable'})
+        methods.append({'method_id':'geometry-rule','name':'几何阈值基线','ready':False,'reason':'请选择与现有标注对应的评估方法。','status':'not_applicable'})
         return {'task_id':task_id,'action_id':action_id,'name':title,'dataset_version':core['publication']['dataset_version'],'dataset_name':'固定公开视频 · 来源片段标签',
             'split_hash':core['split_hash'],'samples':len(keys),'available_samples':available_samples,'development_samples':available_samples-len(keys),
             'subject_group_count':len({core['index'][key]['subject_group'] for key in keys}),

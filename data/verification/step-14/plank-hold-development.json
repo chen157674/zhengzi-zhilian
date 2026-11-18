@@ -1,0 +1,2001 @@
+{
+  "schema_version": 1,
+  "action_id": "forearm_plank",
+  "source_id": "dvids-640237-side",
+  "config": {
+    "minimum_arm_angle": 45.0,
+    "maximum_arm_angle": 135.0,
+    "maximum_forearm_slope": 0.55,
+    "minimum_elbow_drop": 0.08,
+    "minimum_body_projection": 0.8,
+    "minimum_knee_angle": 130.0,
+    "minimum_knee_clearance": 0.07,
+    "confirm_ms": 200,
+    "maximum_gap_ms": 500,
+    "algorithm_version": "forearm-hold-development-1"
+  },
+  "parameters_sha256": "b6637467127860fbfc6230a3b4433028b1c24dc22cc443129d978a1cdd41c104",
+  "pose_cache_sha256": "4891266d68901a28cbbb50d7cfc2058962dac1bb587b3f306252bc2a2d0d3d90",
+  "frames": 363,
+  "intervals": [
+    {
+      "kind": "hold",
+      "start_ms": 1502,
+      "end_ms": 1702,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1702,
+      "end_ms": 1735,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1735,
+      "end_ms": 1768,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1768,
+      "end_ms": 1802,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1802,
+      "end_ms": 1835,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1835,
+      "end_ms": 1869,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1869,
+      "end_ms": 1902,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1902,
+      "end_ms": 1935,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1935,
+      "end_ms": 1969,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 1969,
+      "end_ms": 2002,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2002,
+      "end_ms": 2035,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2035,
+      "end_ms": 2069,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2069,
+      "end_ms": 2102,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2102,
+      "end_ms": 2135,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2135,
+      "end_ms": 2169,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2169,
+      "end_ms": 2202,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2202,
+      "end_ms": 2236,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2236,
+      "end_ms": 2269,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2269,
+      "end_ms": 2302,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2302,
+      "end_ms": 2336,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2336,
+      "end_ms": 2369,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2369,
+      "end_ms": 2402,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2402,
+      "end_ms": 2436,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2436,
+      "end_ms": 2469,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2469,
+      "end_ms": 2502,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2502,
+      "end_ms": 2536,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2536,
+      "end_ms": 2569,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2569,
+      "end_ms": 2603,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2603,
+      "end_ms": 2636,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2636,
+      "end_ms": 2669,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2669,
+      "end_ms": 2703,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2703,
+      "end_ms": 2736,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2736,
+      "end_ms": 2769,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2769,
+      "end_ms": 2803,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2803,
+      "end_ms": 2836,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2836,
+      "end_ms": 2870,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2870,
+      "end_ms": 2903,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2903,
+      "end_ms": 2936,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2936,
+      "end_ms": 2970,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 2970,
+      "end_ms": 3003,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3003,
+      "end_ms": 3036,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3036,
+      "end_ms": 3070,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3070,
+      "end_ms": 3103,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3103,
+      "end_ms": 3136,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3136,
+      "end_ms": 3170,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3170,
+      "end_ms": 3203,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3203,
+      "end_ms": 3237,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3237,
+      "end_ms": 3270,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3270,
+      "end_ms": 3303,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3303,
+      "end_ms": 3337,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3337,
+      "end_ms": 3370,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3370,
+      "end_ms": 3403,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3403,
+      "end_ms": 3437,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3437,
+      "end_ms": 3470,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3470,
+      "end_ms": 3504,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3504,
+      "end_ms": 3537,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3537,
+      "end_ms": 3570,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3570,
+      "end_ms": 3604,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3604,
+      "end_ms": 3637,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3637,
+      "end_ms": 3670,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3670,
+      "end_ms": 3704,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3704,
+      "end_ms": 3737,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3737,
+      "end_ms": 3770,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3770,
+      "end_ms": 3804,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3804,
+      "end_ms": 3837,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3837,
+      "end_ms": 3871,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3871,
+      "end_ms": 3904,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3904,
+      "end_ms": 3937,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3937,
+      "end_ms": 3971,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 3971,
+      "end_ms": 4004,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4004,
+      "end_ms": 4037,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4037,
+      "end_ms": 4071,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4071,
+      "end_ms": 4104,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4104,
+      "end_ms": 4137,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4137,
+      "end_ms": 4171,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4171,
+      "end_ms": 4204,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4204,
+      "end_ms": 4238,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4238,
+      "end_ms": 4271,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4271,
+      "end_ms": 4304,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4304,
+      "end_ms": 4338,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4338,
+      "end_ms": 4371,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4371,
+      "end_ms": 4404,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4404,
+      "end_ms": 4438,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4438,
+      "end_ms": 4471,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4471,
+      "end_ms": 4504,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4504,
+      "end_ms": 4538,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4538,
+      "end_ms": 4571,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4571,
+      "end_ms": 4605,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4605,
+      "end_ms": 4638,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4638,
+      "end_ms": 4671,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4671,
+      "end_ms": 4705,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4705,
+      "end_ms": 4738,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4738,
+      "end_ms": 4771,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4771,
+      "end_ms": 4805,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4805,
+      "end_ms": 4838,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4838,
+      "end_ms": 4872,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4872,
+      "end_ms": 4905,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4905,
+      "end_ms": 4938,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4938,
+      "end_ms": 4972,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 4972,
+      "end_ms": 5005,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5005,
+      "end_ms": 5038,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5038,
+      "end_ms": 5072,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5072,
+      "end_ms": 5105,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5105,
+      "end_ms": 5138,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5138,
+      "end_ms": 5172,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5172,
+      "end_ms": 5205,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5205,
+      "end_ms": 5239,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5239,
+      "end_ms": 5272,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5272,
+      "end_ms": 5305,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5305,
+      "end_ms": 5339,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5339,
+      "end_ms": 5372,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5372,
+      "end_ms": 5405,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5405,
+      "end_ms": 5439,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5439,
+      "end_ms": 5472,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5472,
+      "end_ms": 5506,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5506,
+      "end_ms": 5539,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5539,
+      "end_ms": 5572,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5572,
+      "end_ms": 5606,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5606,
+      "end_ms": 5639,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5639,
+      "end_ms": 5672,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5672,
+      "end_ms": 5706,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5706,
+      "end_ms": 5739,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5739,
+      "end_ms": 5772,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5772,
+      "end_ms": 5806,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5806,
+      "end_ms": 5839,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5839,
+      "end_ms": 5873,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5873,
+      "end_ms": 5906,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5906,
+      "end_ms": 5939,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5939,
+      "end_ms": 5973,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 5973,
+      "end_ms": 6006,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6006,
+      "end_ms": 6039,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6039,
+      "end_ms": 6073,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6073,
+      "end_ms": 6106,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6106,
+      "end_ms": 6139,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6139,
+      "end_ms": 6173,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6173,
+      "end_ms": 6206,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6206,
+      "end_ms": 6240,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6240,
+      "end_ms": 6273,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6273,
+      "end_ms": 6306,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6306,
+      "end_ms": 6340,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6340,
+      "end_ms": 6373,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6373,
+      "end_ms": 6406,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6406,
+      "end_ms": 6440,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6440,
+      "end_ms": 6473,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6473,
+      "end_ms": 6506,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6506,
+      "end_ms": 6540,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6540,
+      "end_ms": 6573,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6573,
+      "end_ms": 6607,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6607,
+      "end_ms": 6640,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6640,
+      "end_ms": 6673,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6673,
+      "end_ms": 6707,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6707,
+      "end_ms": 6740,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6740,
+      "end_ms": 6773,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6773,
+      "end_ms": 6807,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6807,
+      "end_ms": 6840,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6840,
+      "end_ms": 6874,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6874,
+      "end_ms": 6907,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6907,
+      "end_ms": 6940,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6940,
+      "end_ms": 6974,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 6974,
+      "end_ms": 7007,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7007,
+      "end_ms": 7040,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7040,
+      "end_ms": 7074,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7074,
+      "end_ms": 7107,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7107,
+      "end_ms": 7140,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7140,
+      "end_ms": 7174,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7174,
+      "end_ms": 7207,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7207,
+      "end_ms": 7241,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7241,
+      "end_ms": 7274,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7274,
+      "end_ms": 7307,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7307,
+      "end_ms": 7341,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7341,
+      "end_ms": 7374,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7374,
+      "end_ms": 7407,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7407,
+      "end_ms": 7441,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7441,
+      "end_ms": 7474,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7474,
+      "end_ms": 7508,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7508,
+      "end_ms": 7541,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7541,
+      "end_ms": 7574,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7574,
+      "end_ms": 7608,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7608,
+      "end_ms": 7641,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7641,
+      "end_ms": 7674,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7674,
+      "end_ms": 7708,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7708,
+      "end_ms": 7741,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7741,
+      "end_ms": 7774,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7774,
+      "end_ms": 7808,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7808,
+      "end_ms": 7841,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7841,
+      "end_ms": 7875,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7875,
+      "end_ms": 7908,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7908,
+      "end_ms": 7941,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7941,
+      "end_ms": 7975,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 7975,
+      "end_ms": 8008,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8008,
+      "end_ms": 8041,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8041,
+      "end_ms": 8075,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8075,
+      "end_ms": 8108,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8108,
+      "end_ms": 8141,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8141,
+      "end_ms": 8175,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8175,
+      "end_ms": 8208,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8208,
+      "end_ms": 8242,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8242,
+      "end_ms": 8275,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8275,
+      "end_ms": 8308,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8308,
+      "end_ms": 8342,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8342,
+      "end_ms": 8375,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8375,
+      "end_ms": 8408,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8408,
+      "end_ms": 8442,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8442,
+      "end_ms": 8475,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8475,
+      "end_ms": 8508,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8508,
+      "end_ms": 8542,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8542,
+      "end_ms": 8575,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8575,
+      "end_ms": 8609,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8609,
+      "end_ms": 8642,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8642,
+      "end_ms": 8675,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8675,
+      "end_ms": 8709,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8709,
+      "end_ms": 8742,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8742,
+      "end_ms": 8775,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8775,
+      "end_ms": 8809,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8809,
+      "end_ms": 8842,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8842,
+      "end_ms": 8876,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8876,
+      "end_ms": 8909,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8909,
+      "end_ms": 8942,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8942,
+      "end_ms": 8976,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 8976,
+      "end_ms": 9009,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9009,
+      "end_ms": 9042,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9042,
+      "end_ms": 9076,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9076,
+      "end_ms": 9109,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9109,
+      "end_ms": 9142,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9142,
+      "end_ms": 9176,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9176,
+      "end_ms": 9209,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9209,
+      "end_ms": 9243,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9243,
+      "end_ms": 9276,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9276,
+      "end_ms": 9309,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9309,
+      "end_ms": 9343,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9343,
+      "end_ms": 9376,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9376,
+      "end_ms": 9409,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9409,
+      "end_ms": 9443,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9443,
+      "end_ms": 9476,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9476,
+      "end_ms": 9510,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9510,
+      "end_ms": 9543,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9543,
+      "end_ms": 9576,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9576,
+      "end_ms": 9610,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9610,
+      "end_ms": 9643,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9643,
+      "end_ms": 9676,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9676,
+      "end_ms": 9710,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9710,
+      "end_ms": 9743,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9743,
+      "end_ms": 9776,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9776,
+      "end_ms": 9810,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9810,
+      "end_ms": 9843,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9843,
+      "end_ms": 9877,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9877,
+      "end_ms": 9910,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9910,
+      "end_ms": 9943,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9943,
+      "end_ms": 9977,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 9977,
+      "end_ms": 10010,
+      "algorithm_version": "forearm-hold-development-1"
+    },
+    {
+      "kind": "hold",
+      "start_ms": 10010,
+      "end_ms": 10043,
+      "algorithm_version": "forearm-hold-development-1"
+    }
+  ],
+  "merged_intervals": [
+    {
+      "kind": "hold",
+      "start_ms": 1502,
+      "end_ms": 10043,
+      "algorithm_version": "forearm-hold-development-1"
+    }
+  ],
+  "hold_ms": 8541,
+  "reason_frame_counts": {
+    "forearm_support_unconfirmed": 106,
+    "observable": 257
+  },
+  "observations": [
+    {
+      "at_ms": 0,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 53.620118336567124,
+            "knee_angle": 159.65644630648652,
+            "forearm_slope": 0.05353965581613067,
+            "elbow_drop": 0.1870949470933036,
+            "body_projection": 0.9996734746926833,
+            "knee_clearance": 0.037411512811772206
+          },
+          "confidence": 0.9659588932991028
+        }
+      }
+    },
+    {
+      "at_ms": 500,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 53.94417581695001,
+            "knee_angle": 157.13963159979065,
+            "forearm_slope": 0.09592094404177379,
+            "elbow_drop": 0.18745671577094952,
+            "body_projection": 0.9997073250498586,
+            "knee_clearance": 0.0351405309602972
+          },
+          "confidence": 0.9622368812561035
+        }
+      }
+    },
+    {
+      "at_ms": 1001,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 54.054851318996086,
+            "knee_angle": 157.70226819978078,
+            "forearm_slope": 0.02935438012857558,
+            "elbow_drop": 0.1726692931659848,
+            "body_projection": 0.9996395370684912,
+            "knee_clearance": 0.030655859548168206
+          },
+          "confidence": 0.9756008386611938
+        }
+      }
+    },
+    {
+      "at_ms": 1502,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 52.42039278521604,
+            "knee_angle": 166.855223129166,
+            "forearm_slope": 0.215349546371421,
+            "elbow_drop": 0.19797430540708544,
+            "body_projection": 0.9996310179043544,
+            "knee_clearance": 0.07899413621475151
+          },
+          "confidence": 0.9356871247291565
+        }
+      }
+    },
+    {
+      "at_ms": 2002,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.261679150227536,
+            "knee_angle": 173.2294569303867,
+            "forearm_slope": 0.1844019008012255,
+            "elbow_drop": 0.22448184897139006,
+            "body_projection": 0.9996035598232116,
+            "knee_clearance": 0.188581411315443
+          },
+          "confidence": 0.9314708709716797
+        }
+      }
+    },
+    {
+      "at_ms": 2502,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 63.473304500943314,
+            "knee_angle": 174.80014237314998,
+            "forearm_slope": 0.18728800032520493,
+            "elbow_drop": 0.22897441070212618,
+            "body_projection": 0.9993366773477307,
+            "knee_clearance": 0.18889000275023524
+          },
+          "confidence": 0.9554077386856079
+        }
+      }
+    },
+    {
+      "at_ms": 3003,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 61.483751188307544,
+            "knee_angle": 174.72168702452052,
+            "forearm_slope": 0.1885901035830852,
+            "elbow_drop": 0.2313479739983105,
+            "body_projection": 0.9989706436775422,
+            "knee_clearance": 0.18108198871261136
+          },
+          "confidence": 0.9596831798553467
+        }
+      }
+    },
+    {
+      "at_ms": 3504,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 60.95062354348143,
+            "knee_angle": 175.2847864416171,
+            "forearm_slope": 0.21951334118253932,
+            "elbow_drop": 0.224745782293903,
+            "body_projection": 0.9994617256279792,
+            "knee_clearance": 0.1778894892951323
+          },
+          "confidence": 0.9395422339439392
+        }
+      }
+    },
+    {
+      "at_ms": 4004,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 61.278708543362946,
+            "knee_angle": 175.10245410324043,
+            "forearm_slope": 0.220373109560766,
+            "elbow_drop": 0.21672542058017893,
+            "body_projection": 0.9996530230908738,
+            "knee_clearance": 0.17780206780208288
+          },
+          "confidence": 0.9227598905563354
+        }
+      }
+    },
+    {
+      "at_ms": 4504,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.19944537067498,
+            "knee_angle": 175.29275023349845,
+            "forearm_slope": 0.21316606358959425,
+            "elbow_drop": 0.2165564041052301,
+            "body_projection": 0.9995856955419574,
+            "knee_clearance": 0.18059573604683904
+          },
+          "confidence": 0.9239820241928101
+        }
+      }
+    },
+    {
+      "at_ms": 5005,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 60.6708768277004,
+            "knee_angle": 176.50663456032086,
+            "forearm_slope": 0.2269725847040883,
+            "elbow_drop": 0.21972790511894436,
+            "body_projection": 0.9995581187823632,
+            "knee_clearance": 0.18229266374559783
+          },
+          "confidence": 0.9370962381362915
+        }
+      }
+    },
+    {
+      "at_ms": 5506,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 60.805443468803915,
+            "knee_angle": 176.66764005871764,
+            "forearm_slope": 0.22847266102002675,
+            "elbow_drop": 0.23294394419039782,
+            "body_projection": 0.9991298489392355,
+            "knee_clearance": 0.18465032978794793
+          },
+          "confidence": 0.9298351407051086
+        }
+      }
+    },
+    {
+      "at_ms": 6006,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 61.59248004240119,
+            "knee_angle": 177.53188767415523,
+            "forearm_slope": 0.21979048119999642,
+            "elbow_drop": 0.22273196864432296,
+            "body_projection": 0.9994649112178252,
+            "knee_clearance": 0.1801852990162587
+          },
+          "confidence": 0.9377993941307068
+        }
+      }
+    },
+    {
+      "at_ms": 6506,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 63.312401011733954,
+            "knee_angle": 176.34427645618558,
+            "forearm_slope": 0.20319500553922756,
+            "elbow_drop": 0.23039231034642002,
+            "body_projection": 0.9991846745161055,
+            "knee_clearance": 0.18108130282199078
+          },
+          "confidence": 0.9270000457763672
+        }
+      }
+    },
+    {
+      "at_ms": 7007,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.00785785104661,
+            "knee_angle": 177.87052433784487,
+            "forearm_slope": 0.2333380543680009,
+            "elbow_drop": 0.22487935937653888,
+            "body_projection": 0.9994128128418335,
+            "knee_clearance": 0.1836340639489044
+          },
+          "confidence": 0.9236153364181519
+        }
+      }
+    },
+    {
+      "at_ms": 7508,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.942189722469365,
+            "knee_angle": 177.20254972905633,
+            "forearm_slope": 0.21940141155593335,
+            "elbow_drop": 0.230729303979081,
+            "body_projection": 0.9991516613677748,
+            "knee_clearance": 0.18519927717516305
+          },
+          "confidence": 0.9195234179496765
+        }
+      }
+    },
+    {
+      "at_ms": 8008,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.49446615599321,
+            "knee_angle": 177.4828883962308,
+            "forearm_slope": 0.2013468357840107,
+            "elbow_drop": 0.22898255379679375,
+            "body_projection": 0.9991032377561707,
+            "knee_clearance": 0.18410065662602867
+          },
+          "confidence": 0.9491698145866394
+        }
+      }
+    },
+    {
+      "at_ms": 8508,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 60.413750187730344,
+            "knee_angle": 176.34376342253194,
+            "forearm_slope": 0.21759736211372693,
+            "elbow_drop": 0.2215385029791593,
+            "body_projection": 0.9992732909133547,
+            "knee_clearance": 0.17879802439448692
+          },
+          "confidence": 0.947776198387146
+        }
+      }
+    },
+    {
+      "at_ms": 9009,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 62.26396874208146,
+            "knee_angle": 176.34405500371378,
+            "forearm_slope": 0.22731866827330724,
+            "elbow_drop": 0.22263703655310954,
+            "body_projection": 0.9994119091356842,
+            "knee_clearance": 0.18030300099037444
+          },
+          "confidence": 0.9412088990211487
+        }
+      }
+    },
+    {
+      "at_ms": 9510,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 59.087622583037735,
+            "knee_angle": 178.30610979815785,
+            "forearm_slope": 0.2423885641978544,
+            "elbow_drop": 0.22077051980363516,
+            "body_projection": 0.999497981154556,
+            "knee_clearance": 0.17925297393806475
+          },
+          "confidence": 0.9507001042366028
+        }
+      }
+    },
+    {
+      "at_ms": 10010,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": true,
+          "values": {
+            "arm_angle": 48.9341511720991,
+            "knee_angle": 168.99447421913203,
+            "forearm_slope": 0.03054114443901503,
+            "elbow_drop": 0.1534224493466609,
+            "body_projection": 0.9997382679201909,
+            "knee_clearance": 0.07630269021280815
+          },
+          "confidence": 0.9756306409835815
+        }
+      }
+    },
+    {
+      "at_ms": 10510,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 29.83989706405689,
+            "knee_angle": 161.35904247256954,
+            "forearm_slope": 0.0018978647014342715,
+            "elbow_drop": 0.0989478673042837,
+            "body_projection": 0.9991934459744282,
+            "knee_clearance": 0.03808039137235171
+          },
+          "confidence": 0.9525250196456909
+        }
+      }
+    },
+    {
+      "at_ms": 11011,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 26.562755797288144,
+            "knee_angle": 167.4733607980574,
+            "forearm_slope": 0.10730659321507988,
+            "elbow_drop": 0.10685248172232699,
+            "body_projection": 0.9999207935575533,
+            "knee_clearance": 0.042379176289713834
+          },
+          "confidence": 0.9324027895927429
+        }
+      }
+    },
+    {
+      "at_ms": 11512,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 29.695296206404684,
+            "knee_angle": 172.09395257466514,
+            "forearm_slope": 0.028488671284315596,
+            "elbow_drop": 0.10073540842848444,
+            "body_projection": 0.9999585384728182,
+            "knee_clearance": 0.039046537803289656
+          },
+          "confidence": 0.9419827461242676
+        }
+      }
+    },
+    {
+      "at_ms": 12012,
+      "sides": {
+        "left": null,
+        "right": {
+          "supported": false,
+          "values": {
+            "arm_angle": 30.223905740866627,
+            "knee_angle": 171.65784600578976,
+            "forearm_slope": 0.012517283584000557,
+            "elbow_drop": 0.09991259011115354,
+            "body_projection": 0.9999624868814718,
+            "knee_clearance": 0.038321341941154365
+          },
+          "confidence": 0.9470176100730896
+        }
+      }
+    }
+  ],
+  "parameter_basis": "仅本开发侧面片段几何核查：以前臂姿态及膝相对肘—脚尖投影线的离地形态区分支撑／趴卧；长度使用肩踝投影距离，避免髋位变化改变尺度。膝投影高度 0.07、前臂角 45–135°、确认200ms为工程候选，不是质量／临床标准。",
+  "evidence_status": "development_input_only_no_independent_hold_truth",
+  "limitations": [
+    "单一人物与机位，支撑时间尚无独立人工区间真值",
+    "投影形态不能精确测量膝／脚／肘触地或接触力",
+    "完整原片为双机位分屏，本诊断只针对固定侧面面板，不支持多人拼接",
+    "髋高低质量未输出，保持量不使用髋线质量阈值"
+  ]
+}

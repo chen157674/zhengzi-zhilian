@@ -106,9 +106,9 @@ async function perform(user,operation) {
         uncertain=true;
         try {const receipt=await api('/api/v1/operations/'+commandId);if(receipt.status==='succeeded')return {...receipt.result,credential_available:false}}catch(queryError){redirectIfUnauthorized(queryError)}
         document.querySelector('[data-dialog-confirm]').textContent='核对原操作';
-        throw new RequestError('执行结果尚未确认。请核对原操作；不会自动生成另一份临时密码。',0);
+        throw new RequestError('请查看原操作结果。',0);
       }
-      if(uncertain&&error.status===404)throw new RequestError('尚未查到原操作结果，请稍后核对或取消。不会自动再次重置。',0);
+      if(uncertain&&error.status===404)throw new RequestError('请稍后查看原操作，或取消本次核对。',0);
       if(error.code==='VERSION_CONFLICT'){await loadUsers();throw new RequestError('账号状态已变化，列表已刷新。请取消后重新确认。',409)}
       throw error;
     } finally {pending.delete(user.id);updatePending()}
@@ -122,7 +122,7 @@ async function perform(user,operation) {
     if(again) {
       let latest=users.find(item=>item.id===user.id);
       if(!latest){const data=await api('/api/v1/admin/users?'+new URLSearchParams({search:user.username}));latest=data.users.find(item=>item.id===user.id)}
-      if(latest?.can_reset)await perform(latest,'reset');else showMessage('该账号当前不可重置，请刷新列表核实。');
+      if(latest?.can_reset)await perform(latest,'reset');else showMessage('请刷新账号列表后重试。');
     }
   } else {showMessage('账号已停用，旧登录会话已失效。');restoreFocus(user.id,operation)}
 }
@@ -143,7 +143,7 @@ function showResetResult(data) {
   dialog.querySelector('#reset-title').textContent=secret?'密码已重置':'已重置，但未取得临时密码';
   dialog.querySelector('#reset-mark').textContent=secret?'✓':'!';
   dialog.querySelector('#reset-mark').classList.toggle('warning',!secret);
-  message.className='notice';message.textContent=secret?'临时密码只在此处显示一次，请安全交给账号本人。':'原操作已执行，不能从回执取回明文。如需新凭据，请明确重新确认一次重置。';
+  message.className='notice';message.textContent=secret?'临时密码只在此处显示一次，请安全交给账号本人。':'原操作已执行。生成新凭据请再次确认重置。';
   again.hidden=Boolean(secret);
   const expire=()=>{if(data.temporary_expires_at_ms&&Date.now()>=data.temporary_expires_at_ms){expired=true;secret='';input.value='';reveal.disabled=copy.disabled=true;again.hidden=false;message.textContent='临时密码已过期。如需新凭据，请重新确认重置。'}else dialog.querySelector('#temporary-expiry').textContent='临时密码有效 30 分钟（至 '+dateFormat.format(data.temporary_expires_at_ms)+'）；首次登录需先修改密码。'};
   reveal.disabled=copy.disabled=!secret;expire();const interval=setInterval(expire,1000);const releaseFocus=keepDialogFocus(dialog);

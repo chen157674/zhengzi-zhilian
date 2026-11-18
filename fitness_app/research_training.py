@@ -97,7 +97,7 @@ def compare_action(action,samples,features):
 
 def development_comparison(samples,baseline):
     expected={sample.key for sample in samples if sample.partition not in {'test','excluded'}}
-    if expected-set(baseline['extractions']):raise ValueError('开发特征尚未全部处理，不运行不完整开发比较')
+    if expected-set(baseline['extractions']):raise ValueError('请完成开发特征处理后进行比较')
     features={};feature_hashes={};by_key={sample.key:sample for sample in samples}
     for key in sorted(expected):
         feature_key=baseline['extractions'][key]['feature_key'];path=OUTPUT/'features'/f'{feature_key}.json';raw=path.read_bytes();result=json.loads(raw)

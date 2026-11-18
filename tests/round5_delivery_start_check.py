@@ -2,8 +2,9 @@
 import os,json,subprocess,sys,shutil,time,urllib.request,hashlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
 TASK=ROOT/'第五轮优化'
-WORK=TASK/'.verification/delivery-start'
+WORK=(ROOT/os.environ.get('FITNESS_START_WORK','第五轮优化/.verification/delivery-start')).resolve()
 if WORK.exists():raise RuntimeError('本任务验证目录已存在，先核对归属，不覆盖')
 assert WORK.resolve().is_relative_to(TASK.resolve())
 WORK.mkdir(parents=True)
@@ -20,7 +21,8 @@ try:
     if launched.returncode:raise RuntimeError('实际启动入口失败：'+launched.stderr[-1000:])
     lines=[line for line in launched.stdout.splitlines() if line.startswith('{')];info=json.loads(lines[-1]);started=True
     with urllib.request.urlopen('http://127.0.0.1:'+str(info['port'])+'/api/v1/health') as response:health=json.load(response)['data']
-    assert health['project_id']=='fitness-assistant' and health['schema_version']==13
+    from fitness_app.db_schema import SCHEMA_VERSION
+    assert health['project_id']=='fitness-assistant' and health['schema_version']==SCHEMA_VERSION
     # urllib cookie jar proves actual production identity/CSRF, no test-client bypass.
     import http.cookiejar
     opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
@@ -55,7 +57,7 @@ try:
     resource_names=['data/knowledge/index/manifest.json','data/models/semantic-action-classifier.json','data/presentation-assets.json']
     resource_hashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in resource_names}
     fingerprint=hashlib.sha256(json.dumps(source_hashes,sort_keys=True).encode()).hexdigest()
-    report={'scope':'actual_current_source_delivery_start','entry':'scripts/start.ps1 --no-browser --port 0','schema_version':13,'authenticated_pages':pages,'private_apis_no_store':True,'normal_runtime_plan_execution_to_review':True,'new_isolated_database':True,'original_databases_modified':False,'paid_api_calls':0,'model_inference_calls':0,'source_fingerprint':fingerprint,'source_files':source_hashes,'resource_manifests':resource_hashes,'result':'passed'}
+    report={'scope':'actual_current_source_delivery_start','entry':'scripts/start.ps1 --no-browser --port 0','schema_version':SCHEMA_VERSION,'authenticated_pages':pages,'private_apis_no_store':True,'normal_runtime_plan_execution_to_review':True,'new_isolated_database':True,'original_databases_modified':False,'paid_api_calls':0,'model_inference_calls':0,'source_fingerprint':fingerprint,'source_files':source_hashes,'resource_manifests':resource_hashes,'result':'passed'}
     output=(ROOT/os.environ.get('FITNESS_START_EVIDENCE','第五轮优化/实现核对/源码交付启动核对.json')).resolve();assert output.is_relative_to((TASK/'实现核对').resolve()) and output.suffix=='.json'
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({k:v for k,v in report.items() if k not in {'source_files','resource_manifests'}},ensure_ascii=False))

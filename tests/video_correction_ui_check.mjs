@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import {BrowserFixture,root} from './formal_browser_support.mjs';
+const cueEvidence=path.join(root,process.env.FITNESS_CUE_EVIDENCE_DIR||'第四轮优化/实现核对');assert(!path.relative(root,cueEvidence).startsWith('..'));
 const fixture=new BrowserFixture('video-correction-ui'),errors=[];
 try{
   const payload=JSON.parse(fixture.seed(`from fitness_app.paths import configure_environment
@@ -37,13 +38,13 @@ print(json.dumps({'job':job,'record':record,'source':source}))`).trim());
   await page.evaluate(()=>{window.fixtureSeeks=0;document.querySelector('#video-player').addEventListener('seeking',()=>window.fixtureSeeks++);});
   const polled=page.waitForResponse(response=>response.url().endsWith('/api/v1/jobs/'+payload.job.job_id));await polled;
   assert.equal(await page.evaluate(()=>window.fixtureSeeks),0,'相同处理时间的轮询不应重新定位造成闪帧');
-  await page.locator('#video-page').screenshot({path:path.join(root,'第四轮优化/实现核对/视频处理中-演示.png')});
+  await page.locator('#video-page').screenshot({path:path.join(cueEvidence,'视频处理中-演示.png')});
   for(const width of [1440,390]){
     await page.setViewportSize({width,height:1000});
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     assert.equal(await page.locator('#video-correction [data-cue-text]').isVisible(),false);
     assert(!(await page.locator('#video-correction').innerText()).includes('正常'));
-    await page.locator('#video-player-wrap').screenshot({path:path.join(root,'第四轮优化/实现核对/视频原片提示-'+(width===390?'窄屏':'桌面')+'.png')});
+    await page.locator('#video-player-wrap').screenshot({path:path.join(cueEvidence,'视频原片提示-'+(width===390?'窄屏':'桌面')+'.png')});
   }
   payload.job.stopped=true;payload.job.status='completed';payload.job.terminal_persisted=true;
   payload.job.coaching={state:'ended'};payload.job.skeleton={available:false};
@@ -66,7 +67,7 @@ print(json.dumps({'job':job,'record':record,'source':source}))`).trim());
     feedback:node.querySelector('#video-results').getBoundingClientRect().width
   }));
   assert(columns.player>columns.feedback,'桌面结果应以画面为主，不能被旧布局规则挤成窄栏');
-  await page.locator('#video-page').screenshot({path:path.join(root,'第四轮优化/实现核对/视频分析结果-演示.png')});
+  await page.locator('#video-page').screenshot({path:path.join(cueEvidence,'视频分析结果-演示.png')});
   for(const width of [1440,1060,768,390,320]){
     await page.setViewportSize({width,height:1000});
     const layout=await page.evaluate(()=>{const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width};};return {media:rect('video-player-wrap'),result:rect('video-results'),feedback:rect('video-feedback'),events:rect('video-events'),columns:getComputedStyle(document.querySelector('#video-events')).gridTemplateColumns.split(' ').length,overflow:document.documentElement.scrollWidth>innerWidth};});
@@ -74,7 +75,18 @@ print(json.dumps({'job':job,'record':record,'source':source}))`).trim());
     assert(layout.feedback.top>=Math.max(layout.media.bottom,layout.result.bottom)-1,'问题列表独立于窄侧栏并处于媒体摘要之后');
     if(width<=1100)assert(layout.result.top>=layout.media.bottom-1,'中等窗口下摘要在画面之后');
     if(width<=767)assert.equal(layout.columns,1,'手机反馈单列');
-    if(width===1060||width===390)await page.locator('#video-page').screenshot({path:path.join(root,'第四轮优化/实现核对/视频结果-'+(width===1060?'中屏':'窄屏')+'.png')});
+    if(width===1060||width===390)await page.locator('#video-page').screenshot({path:path.join(cueEvidence,'视频结果-'+(width===1060?'中屏':'窄屏')+'.png')});
+    const prominence=await page.locator('#video-correction').evaluate(panel=>{
+      const title=panel.querySelector('[data-cue-title]'),advice=panel.querySelector('[data-cue-text]');
+      return {top:panel.getBoundingClientRect().top,videoBottom:document.querySelector('.video-preview-stage').getBoundingClientRect().bottom,
+        titleSize:parseFloat(getComputedStyle(title).fontSize),adviceSize:parseFloat(getComputedStyle(advice).fontSize),
+        label:panel.querySelector('[data-cue-label]').textContent,marker:panel.querySelector('[data-cue-marker]').textContent};
+    });
+    assert(prominence.top>=prominence.videoBottom,'纠正提示在原片下方，不能覆盖身体或视频控制条');
+    assert(prominence.titleSize>=(width<=767?22:28),'问题标题必须显著大于旧14px字幕');
+    assert(prominence.adviceSize>=(width<=767?17:20));
+    assert.equal(prominence.label,'动作纠正提示');assert.equal(prominence.marker,'!');
+    assert(await page.locator('#video-correction [data-cue-next]').isVisible());
   }
 
   await page.reload();

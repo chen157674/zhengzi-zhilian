@@ -1,0 +1,225 @@
+{
+  "date": "2026-11-14",
+  "generator": "Codex native imagegen via user-authorized local compatibility entry",
+  "shared_prompt": "Use case: photorealistic-natural. Asset type: ONE independent fitness demonstration photograph asset for a warm ivory Chinese fitness website, NOT a UI mockup, not a collage, not a sequence or contact sheet. Single ordinary healthy Chinese adult man around 28, short natural black hair, average lean athletic build, charcoal plain short-sleeve crewneck T-shirt, taupe gray joggers, off-white flat training shoes. No extreme muscles, beauty retouching, cinematic sweat, glossy plastic skin, CGI, dramatic advertising light or artificial orange color grade. Natural skin texture, fabric folds and believable hands. Soft window daylight, balanced exposure, understated warm-neutral editorial photography. Full head, both hands and both shoes plus requested equipment completely visible, 10% safe margins, readable whole-body silhouette. No text, labels, logos, watermarks, arrows, UI, timers, skeleton overlay or movement trails. Only one person, coherent near/far limbs and physically plausible contact with floor and props. No mirror duplicate, no extra objects. This is a demonstration illustration, not footage of a real user's saved session. Landscape3:2 for scene photographs, portrait2:3 for isolated standing cutouts. Natural outfit and lighting consistent across this asset family; do not turn this into an unrealistic fashion editorial.",
+  "new_assets": [
+    {
+      "id": "bodyweight-squat-scene",
+      "label": "徒手深蹲场景",
+      "transparent": false,
+      "usage": "计划动作缩略图、执行页动作示意、记录详情示例预览",
+      "prompt": "Scene: quiet uncluttered training corner, warm off-white wall, pale oak floor, soft daylight from left, no visible posters or decorations, no big houseplants obscuring the silhouette. Comfortable home workout setting. Camera lens50mm with minimal perspective distortion, normal believable human proportions. Subject occupies about70% of frame, not a wide empty hero banner. Single bodyweight squat near bottom, camera at hip height at a right-facing side-three-quarter angle, both heels flat, feet shoulder-width with toes slightly outward, knees follow direction of toes, thighs roughly parallel to floor, hips back naturally, neutral spine with a modest forward torso incline. Hands comfortably joined at chest without covering knees or hips, neck neutral and gaze forward-down. Ordinary controlled squat, no weights or chair, no lifted heels or forced vertical shins. Both shoes visible, knees not collapsing inward. Entire person from head to soles in landscape3:2.",
+      "source": "bodyweight-squat-scene.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_bytes": 1927511,
+      "source_sha256": "bb6e9414cb8c4abf31275df2167e30cdb20db9800c997d236879b7358930d409",
+      "web_asset": {
+        "file": "bodyweight-squat-scene.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 41374,
+        "sha256": "149692894a5e0320435fa46459c9edaddb1b104db51bea71a991c5c836073d94"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "dumbbell-curl-scene",
+      "label": "哑铃弯举场景",
+      "transparent": false,
+      "usage": "动作选择、今日动作、成长看板动作缩略图",
+      "prompt": "Scene: quiet uncluttered training corner, warm off-white wall, pale oak floor, soft daylight from left, no visible posters or decorations, no big houseplants obscuring the silhouette. Comfortable home workout setting. Camera lens50mm with minimal perspective distortion, normal believable human proportions. Subject occupies about70% of frame, not a wide empty hero banner. Standing BILATERAL DUMBBELL CURL, front three-quarter view with body turned about25degrees. Two modest matching matte-black dumbbells held one in each hand, clearly grasped handle centered in each palm. Forearms halfway raised, elbows flexed around90degrees and kept at ribs, upper arms vertical and close to torso, wrists straight and palms face upward. Feet hip-width, knees softly unlocked, shoulders relaxed, no torso sway or exaggerated flexing. Dumbbells separate and visible, their handles connected to actual weight heads. Whole body and both dumbbells fully inside landscape3:2 frame.",
+      "source": "dumbbell-curl-scene.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_bytes": 1795142,
+      "source_sha256": "4d45036b3ad7ab98da2977cd29dc8de2a0b11912f6566d8b17277f2d54982f16",
+      "web_asset": {
+        "file": "dumbbell-curl-scene.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 35592,
+        "sha256": "c497727195334f361d23b2ac318dbe6445be57802d122416e7fdc7965921e7a4"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "forearm-plank-scene",
+      "label": "前臂平板支撑场景",
+      "transparent": false,
+      "usage": "计划动作、执行页示意、记录缩略图",
+      "prompt": "Scene: quiet uncluttered training corner, warm off-white wall, pale oak floor, soft daylight from left, no visible posters or decorations, no big houseplants obscuring the silhouette. Comfortable home workout setting. Camera lens50mm with minimal perspective distortion, normal believable human proportions. Subject occupies about70% of frame, not a wide empty hero banner. FOREARM PLANK on one thin warm-gray yoga mat. True low side view; head toward image LEFT, feet toward RIGHT. Forearms flat on mat, elbows directly under shoulders, neck neutral looking at mat; shoulders, pelvis and ankles approximately aligned. Abdomen supported, no sagging waist or exaggerated raised hips. Legs straight, weight through both forearms and toes, soles not planted flat. Show clear elbow and toe contact and full length of mat with margin. Two arms and two legs plausible with near/far visibility, ordinary realistic human proportions. Side-on horizontal body dominates center of landscape3:2 frame; no standing pose.",
+      "source": "forearm-plank-scene.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_bytes": 1851492,
+      "source_sha256": "9ebe32352a413ff0a7889f8adbe1716bddee3e590c245f38dd59f6841b3b3214",
+      "web_asset": {
+        "file": "forearm-plank-scene.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 37906,
+        "sha256": "17e43fe4af901448918b5ab77f9266cd97443cbbd6c3b2418914361653f43a00"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "machine-chest-press-scene",
+      "label": "坐姿推胸场景",
+      "transparent": false,
+      "usage": "器械动作选择缩略图与示意",
+      "prompt": "Scene: quiet naturally lit small gym with off-white walls and warm-gray floor. ONE standard seated lever chest press machine in simple matte graphite steel with a dark taupe upright back pad, stable seat, two symmetric rigid lever arms pivoting at the upper machine frame. No complex cables needed. Ordinary man seated with head and upper back against near-upright back pad, feet planted flat in front hip-width, handles at mid-chest height. BOTH hands each grasp ONE actual horizontal machine handle attached continuously to its rigid lever arm; palms face down/forward appropriate to handles, wrists straight. Halfway chest press, elbows slightly below shoulders and bent about80degrees, elbows not flared straight sideways, shoulders relaxed. Front-three-quarter camera at chest height showing both hands, connected handles, machine frame, back pad, seat and feet without overlap confusion. Machine support continues to stable floor base; no floating weights, disconnected handles, duplicated bars, body parts through upholstery or impossible seat. Whole person and complete relevant machine in landscape3:2 with10% margin; neutral clean daylight, realistic skin and metal.",
+      "source": "machine-chest-press-scene.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_bytes": 1979996,
+      "source_sha256": "f346f4071766a209815d8b4dbf0fe04df6542034c1315f04d305f68d76132cb7",
+      "web_asset": {
+        "file": "machine-chest-press-scene.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 58750,
+        "sha256": "28ae569ec816d227e6996b704ff8df569f481e035b30175baac85de523ad3eb6"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "squat-front-demo",
+      "label": "深蹲正面演示",
+      "transparent": false,
+      "usage": "动作反馈与并排对比的演示占位，非真实记录或进步证据",
+      "prompt": "Scene: quiet uncluttered training corner, warm off-white wall, pale oak floor, soft daylight from left, no visible posters or decorations, no big houseplants obscuring the silhouette. Comfortable home workout setting. Camera lens50mm with minimal perspective distortion, normal believable human proportions. Subject occupies about70% of frame, not a wide empty hero banner. ONE bodyweight squat in direct FRONT VIEW, camera around knee-to-waist height, modest distance50mm lens. Feet about shoulder-width and toes mildly outward, pelvis lowered to about knee height, both knees aligned over toes rather than touching, both heels flat, equal support both feet. Arms forward at chest level hands loosely joined, no fist gesture or weights. Face neutral, gaze slightly down, upper body subtly inclined naturally. Both knees, ankles and whole shoes clearly visible with symmetrical plausible legs and no huge wide stance. This is a normal neutral demonstration, NOT an incorrect/correct before-after comparison. Single ordinary man and one scene, no split screen or score.",
+      "source": "squat-front-demo.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_bytes": 1822306,
+      "source_sha256": "0977173a789fc5bc4e47518adadb7d9d000b700c771e591dd89a139daecb6b8f",
+      "web_asset": {
+        "file": "squat-front-demo.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 36698,
+        "sha256": "b7a233766d2f56738eb64b1610149d022ae220931c06b1b36c93a43767a50a1e"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "squat-threequarter-cutout",
+      "label": "深蹲三分之四视角透明人物",
+      "transparent": true,
+      "usage": "开放式动作行与教学小图，可置于暖白底",
+      "prompt": "REAL TRANSPARENT PNG ALPHA BACKGROUND, request native transparent background, not white painted background and not baked checkerboard. Isolate only the full person and tiny soft contact shadow under shoes. Portrait2:3. Single BODYWEIGHT SQUAT at controlled bottom from front-right THREE-QUARTER VIEW, turned30degrees from direct front, whole body including head, hands and feet with margin. Feet shoulder-width, toes mildly outward, both heels on same invisible floor plane. Knees follow toes, hips at approximately knee height, back neutral, torso naturally inclined, hands joined at chest. Clear visible near and far limbs, knees/shoes distinct, no knee collapse or extreme squat depth. Same charcoal tee/taupe joggers/offwhite shoes, ordinary healthy man and natural daylight. NO mat, dumbbells, room, wall, furniture, floor plane, rectangle backdrop or text. Do not crop hair or shoes. Preserve realistic cloth and skin with restrained contrast.",
+      "source": "squat-threequarter-cutout.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_bytes": 1840788,
+      "source_sha256": "d1f7abc97c1a527a36b23ccfa9eb6cee939445fbd117a3fafbf837aa4c9f4183",
+      "transparent_fraction": 0.5847,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "subject_bounds": [
+        0,
+        16,
+        996,
+        1536
+      ],
+      "web_asset": {
+        "file": "squat-threequarter-cutout.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 65334,
+        "sha256": "fc09a16f47b63d657be03671e6683e4b0fe5e585be8c4c2428dc6a77a1904fd6"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    },
+    {
+      "id": "curl-threequarter-cutout",
+      "label": "弯举三分之四视角透明人物",
+      "transparent": true,
+      "usage": "动作行与成长看板小图，可置于暖白底",
+      "prompt": "REAL TRANSPARENT PNG ALPHA BACKGROUND, request native transparent background, not painted white and not baked checkerboard. Isolate only full person AND TWO DUMBBELLS with tiny translucent shadow under shoes. Portrait2:3. Single ordinary Chinese man standing front-three-quarter turned30degrees, bilateral dumbbell curl halfway up. Two matching modest matte-black dumbbells each actually held by its handle, forearms around90degrees at elbow, upper arms vertical at ribs, neutral straight wrists, palms supinated facing up. Feet hip-width flat on same invisible ground plane, knees soft, shoulders relaxed, no swinging torso. Clear separated silhouette for both arms and two weights, anatomically plausible grip and five fingers where visible. Whole head, both hands and complete shoes with10% margin. Same charcoal T-shirt/taupe joggers/offwhite shoes, natural daylight and real fabric. No room, wall, visible studio floor, furniture, pedestal, text, logos or box backdrop.",
+      "source": "curl-threequarter-cutout.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_bytes": 1547894,
+      "source_sha256": "5ca9b07e3c860822fb8aa48cfdd46fd1bf57fa88054826697f503f4c6f9a0ef8",
+      "transparent_fraction": 0.7324,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "subject_bounds": [
+        81,
+        15,
+        988,
+        1536
+      ],
+      "web_asset": {
+        "file": "curl-threequarter-cutout.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 46482,
+        "sha256": "c940e4dcde1644144a969757281fa19e513c362975f2a5eed9c56b61255b6c4c"
+      },
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "review_scope": "检查整体自然感、完整人物/器材、可辨识动作和无界面文字；透明通道与文件完整性另经程序核验。不是专家动作学认证或同一人物逐帧一致性验证。"
+    }
+  ],
+  "reused_transparent_assets_root": "fitness_app/static/learn/cutouts",
+  "notes": [
+    "每张为独立源PNG，另输出网页WebP；透明图保留真实alpha。",
+    "源照片是AI生成的动作示意，不写入真实记录，不作为动作检测证据。",
+    "不同图片独立生成，衣着和光线统一，不保证同一人物身份或逐帧连续。",
+    "执行页和成长看板复用核心动作图，不额外生成人物装饰、按钮或统计图。"
+  ],
+  "web_assets_total_bytes": 322136,
+  "validation": {
+    "png_complete": 7,
+    "webp_complete": 7,
+    "true_alpha_assets": 2,
+    "source_png_unchanged": true,
+    "contact_sheets": [
+      "场景素材总览.jpg",
+      "透明人物总览.jpg"
+    ],
+    "review_bytes": 130063,
+    "runtime_assets_replaced": false,
+    "note": "源透明图alpha最大值为254，网页图保留该透明通道，不用白底抠图替代。"
+  }
+}

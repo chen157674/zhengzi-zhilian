@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}准备练习 · {{ action.name }}{% endblock %}{% block page %}practice-prepare{% endblock %}
+{% block head %}<script type="module" src="{{ asset_url('practice_prepare.js') }}"></script>{% endblock %}
+{% block content %}<div class="design-container workspace-page" id="practice-prepare-page" data-action-id="{{ action.action_id }}">
+<a class="back-link" href="/actions/{{ action.action_id }}" data-nav>返回动作讲解</a>
+<div class="page-heading"><h1>准备练习 · {{ action.name }}</h1><p>调整好位置，再开始练习。</p></div>
+<div class="guide-preparation"><div><div class="guide-camera-placeholder"><svg viewBox="0 0 48 40" width="48" height="40" aria-hidden="true"><use href="#camera"></use></svg><p>开启摄像头后预览画面</p></div><a class="text-link" href="/video?action={{ action.action_id }}" data-nav>也可以上传视频</a></div>
+<aside><h2>拍摄前，先看这三点</h2><ol><li><strong>全身入镜</strong><p>从头到脚，完整放进画面中。</p></li><li><strong>侧前的光线</strong><p>保持画面明亮，避免明显逆光。</p></li><li><strong>留出活动空间</strong><p>确认周围没有妨碍动作的物品。</p></li></ol><details><summary>这个动作的拍摄建议</summary>{% for step in framing.steps %}<p class="field-help">{{ step }}</p>{% endfor %}</details><p id="prepare-error" class="approved-dialog-error" role="alert"></p><button class="button" id="prepare-live-start" type="button">开启摄像头</button><p class="field-help">点击后进入实时预览，由浏览器请求相机权限。</p></aside></div></div>{% endblock %}

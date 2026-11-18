@@ -43,7 +43,7 @@ class PdfRenderTests(unittest.TestCase):
         snapshot=self.snapshot();data=render_pdf(snapshot,s.new_id(),self.fx.now[0]);reader=pdf_reader(data)
         self.assertGreaterEqual(len(reader.pages),4);self.assertLess(len(reader.pages),20);self.assertFalse(reader.is_encrypted)
         text='\n'.join(page.extract_text() for page in reader.pages)
-        for expected in ['知练同行','工程测试报告','用户主动指定或修正','自动识别','配重档位','单手','证据不足的区间','两条记录的可比对照','AI复盘与建议','部位侧别 右']:
+        for expected in ['正姿智练','工程测试报告','用户主动指定或修正','自动识别','配重档位','单手','证据不足的区间','两条记录的可比对照','AI复盘与建议','部位侧别 右']:
             self.assertIn(expected,text)
         self.assertNotIn('sk-do-not-export-this-secret',text);self.assertNotIn('/JavaScript',str(reader.trailer));self.assertNotIn('/Launch',str(reader.trailer))
         self.assertIn('本段分析已结束',text);self.assertNotIn('目标完成前结束',text)
@@ -58,7 +58,7 @@ class PdfRenderTests(unittest.TestCase):
         self.assertIn('训练复盘报告',text)
         for label in ('工程测试','非真人检测','示例报告','工程参考','未经独立'):
             self.assertNotIn(label,text)
-        self.assertEqual(pdf_reader(data).metadata.title,'知练同行训练复盘报告')
+        self.assertEqual(pdf_reader(data).metadata.title,'正姿智练训练复盘报告')
 
     def test_target_progress_and_unknown_cycles_are_not_lost(self):
         action=get_action('bodyweight_squat');sid=self.fx.store.create(self.fx.user,self.fx.auth,{'action_id':action['action_id'],'capability_version':action['capability_version'],'source':'camera','mode':'target','target':{'sets':2,'value':3,'unit':'reps','rest_seconds':0}},s.new_id())['session_id'];self.fx.store.set_state(self.fx.user,sid,'running',s.new_id())

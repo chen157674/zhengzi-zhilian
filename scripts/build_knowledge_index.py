@@ -9,7 +9,7 @@ import numpy as np
 
 def main():
     store=KnowledgeStore();folder=project_path('data/knowledge/index');folder.mkdir(parents=True,exist_ok=True)
-    rows=store.rows;vectors=store.encode([r['title']+'。'+r['text'] for r in rows])
+    rows=store.rows;vectors=store.encode([r['title']+'。'+r.get('question','')+'。'+r['text'] for r in rows])
     if vectors.shape!=(len(rows),512) or not np.isfinite(vectors).all():raise ValueError('编码结果无效')
     model=project_path('data/models/bge-small-zh-v1.5')
     info={'version':VERSION,'model_revision':MODEL_REVISION,'model_files':{name:hashlib.sha256((model/name).read_bytes()).hexdigest() for name in sorted(MODEL_RUNTIME_FILES)},

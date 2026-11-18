@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block title %}AI服务设置 · 知练同行{% endblock %}{% block page %}ai-settings{% endblock %}{% block head %}<script type="module" src="/static/ai_settings.js"></script>{% endblock %}
+{% extends 'base.html' %}{% block title %}AI服务设置 · 正姿智练{% endblock %}{% block page %}ai-settings{% endblock %}{% block head %}<script type="module" src="{{ asset_url('ai_settings.js') }}"></script>{% endblock %}
 {% block content %}<div class="design-container settings-page"><a class="back-link" href="/settings" data-nav><svg aria-hidden="true"><use href="#arrow-left"/></svg>返回设置</a><div class="page-heading"><h1>AI服务设置</h1><p>选择解读方式，管理连接与训练历史引用。</p></div>
 <p id="ai-settings-error" class="notice error" role="alert" hidden></p><button id="ai-settings-retry" class="button secondary" hidden>重新加载</button>
 <div class="settings-columns"><section class="settings-card ai-connection-card"><div class="settings-card-heading"><h2>我的AI助理</h2><p id="ai-settings-state" class="connection-status" role="status">正在读取配置…</p></div>

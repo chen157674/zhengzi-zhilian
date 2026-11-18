@@ -65,7 +65,7 @@ app.extensions['database'].dispose()`);
  await page.route('**/api/v1/records/'+realSid+'/training-note',r=>r.fulfill({json:{data:{version:0}}}));
  await page.goto(fx.origin+'/records/'+realSid);
  await page.locator('#record-focus').filter({hasText:'动作纠正提示'}).waitFor();
- assert((await page.locator('#record-focus').textContent()).includes(issue.suggestion));await page.locator('.correction-basis summary').first().click();await page.getByText(/已保存判项：trunk.lean/).first().waitFor();assert((await page.locator('.correction-basis').first().textContent()).includes('fixture-1'));
+ assert((await page.locator('#record-focus').textContent()).includes(issue.suggestion));assert.equal(await page.locator('.correction-basis').count(),0);assert.equal(await page.locator('.correction-method').first().getAttribute('href'),'/actions/machine_chest_press');
  assert(await page.locator('#record-source-select').isVisible());
  assert(await page.locator('[data-source-seek]').first().isDisabled());
  await page.screenshot({path:path.join(output,'记录纠正-手机缺片.png'),fullPage:true});

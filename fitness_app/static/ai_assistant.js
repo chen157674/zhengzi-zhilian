@@ -71,7 +71,7 @@ async function capturePictures(text=''){
 }
 function state(text=''){$('ai-request-state').textContent=text;}
 function fail(error){
-  $('ai-chat-error').textContent=error.message||'暂时无法连接，请稍后重试。';
+  $('ai-chat-error').textContent=error.message||'请稍后重新连接。';
   $('ai-chat-error').hidden=false;
   if(error.status===401)close();
 }
@@ -104,7 +104,7 @@ function addAuthor(node){
   if(!pageMode)return;
   const author=document.createElement('div');author.className='ai-message-author';
   const icon=document.createElement('img');icon.src='/static/round4/'+encodeURIComponent('知形标志.svg');icon.alt='';icon.width=24;icon.height=24;
-  const label=document.createElement('span');label.textContent='知练同行 AI教练';author.append(icon,label);node.append(author);
+  const label=document.createElement('span');label.textContent='正姿智练 AI教练';author.append(icon,label);node.append(author);
 }
 function message(role,text){
   const stick=nearBottom();
@@ -151,12 +151,12 @@ function renderResult(result,mediaBinding=null){
   if(result.visual_review){
     const review=result.visual_review,block=document.createElement('section');block.className='ai-visual-review';
     const label=document.createElement('p');label.className='field-help';label.textContent='AI画面复核 · 仅本次抽样';block.append(label);
-    const checks=review.findings||[],issues=checks.filter(item=>item.status==='observed'),other=checks.filter(item=>item.status!=='observed');
+    const checks=review.findings||[],issues=checks.filter(item=>item.status==='observed'),other=checks.filter(item=>item.status==='not_observed');
     let otherBox=null;
     if(other.length){otherBox=document.createElement('details');const heading=document.createElement('summary');heading.textContent='其他检查（'+other.length+'）';otherBox.append(heading);}
     for(const item of [...issues,...other]){
       const card=document.createElement('section');card.className='ai-evidence-card';card.dataset.visualFinding=item.code;
-      const title=document.createElement('strong');title.textContent=item.status==='observed'?item.title:item.status==='not_observed'?'抽样中未见：'+item.title:'暂无法判断：'+item.title;
+      const title=document.createElement('strong');title.textContent=item.status==='observed'?item.title:item.status==='not_observed'?'检查通过：'+item.title:''+item.title;
       const observation=document.createElement('p');observation.textContent=item.observation;card.append(title,observation);
       copyText.push(title.textContent,item.observation);
       if(item.suggestion){const tip=document.createElement('p');tip.textContent=item.suggestion;card.append(tip);copyText.push(item.suggestion);}
@@ -185,7 +185,9 @@ function renderResult(result,mediaBinding=null){
   }
   const copy=document.createElement('button');copy.type='button';copy.className='ai-copy-reply';copy.textContent='复制';copy.setAttribute('aria-label','复制这条回复');
   copy.onclick=async()=>{try{await navigator.clipboard.writeText(copyText.join('\n'));copy.textContent='已复制';setTimeout(()=>{copy.textContent='复制';},1500);}catch{state('请选中文字复制');}};
-  node.append(copy);follow(stick);
+  node.append(copy);
+  if(result.memory_saved?.saved){const saved=document.createElement('a');saved.className='text-link ai-memory-saved';saved.textContent=result.memory_saved.journal_id?'已记入我的餐食 ↗':'已更新我的记忆 ↗';saved.href='/coach/meals'+(result.memory_saved.journal_id?'':'#memories');saved.dataset.nav='';node.append(saved);}
+  follow(stick);
 }
 async function create(){
   if(creation)return creation;
@@ -226,6 +228,7 @@ function close(){
 }
 async function newConversation(options={}){
   if(busy)return false;
+  if(pageMode&&options?.preserveDraft!==true&&input.value.trim()&&!await confirmDialog({title:'开始新对话？',message:'切换后将清空当前输入。',confirmLabel:'开始新对话'}))return false;
   const previousDraft=input.value;
   setBusy(true);$('ai-chat-error').hidden=true;state('正在准备对话…');
   try{
@@ -257,7 +260,7 @@ async function poll(){
       discardStream();
       if(row.context_current===false){state('训练依据已更新，请更新摘要');$('ai-assistant-refresh').hidden=false;}
       else if(row.status==='cancelled')state('已停止');
-      else {state();fail(new Error(row.message||'本次未能完成回复，请重试。'));}
+      else {state();fail(new Error(row.message||'请重试生成回复。'));}
     }
     pending=null;request=null;setBusy(false);
   }catch(error){
@@ -351,12 +354,12 @@ if(pageMode){opened=true;modalMode();resizeInput();$('ai-send-frame-label').hidd
 refreshViewport();
 if(pageMode){
   let leavingPage=false;
-  document.querySelector('#coach-nutrition-entry').onclick=()=>{location.assign('/coach/nutrition');};
+  document.querySelector('#coach-nutrition-entry').onclick=async()=>{if(await beforeLeave('/coach/nutrition'))location.assign('/coach/nutrition');};
   const priorLeave=window.fitnessLeaveGuard;
   window.fitnessLeaveGuard=async target=>{
     if(busy){state('请先停止或核对当前请求后再离开。');return false;}
     if(priorLeave&&!await priorLeave(target))return false;
-    const allowed=!input.value.trim()||await confirmDialog({title:'离开当前对话？',message:'尚未发送的输入将被清除。',confirmLabel:'离开当前对话'});
+    const allowed=!input.value.trim()||await confirmDialog({title:'离开当前对话？',message:'切换后将清空当前输入。',confirmLabel:'离开当前对话'});
     leavingPage=allowed;return allowed;
   };
   document.querySelector('#coach-context-form')?.addEventListener('submit',async event=>{

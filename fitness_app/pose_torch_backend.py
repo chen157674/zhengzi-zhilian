@@ -27,7 +27,7 @@ class TorchPoseSession:
         for value in graph.graph.input:
             shape=[d.dim_value for d in value.type.tensor_type.shape.dim]
             if shape and shape[0]==0:shape[0]=1
-            if len(shape)!=4 or any(v<=0 for v in shape):raise ValueError('姿态图动态尺寸尚未核查')
+            if len(shape)!=4 or any(v<=0 for v in shape):raise ValueError('请核对姿态图输入尺寸')
             self.inputs.append(SimpleNamespace(name=value.name,shape=shape,type='tensor(float)'))
         self.outputs=[SimpleNamespace(name=v.name) for v in graph.graph.output]
         # ONNX以空字符串表达省略的可选参数，转换器需要删除末尾的空参数。

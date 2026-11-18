@@ -23,7 +23,7 @@ def _feature_map(samples,baseline,expected_hashes):
     result={}
     for sample in samples:
         key=baseline['extractions'][sample.key]['feature_key'];path=OUTPUT/'features'/f'{key}.json'
-        if _hash(path)!=expected_hashes.get(sample.key):raise ValueError('开发比较后的特征内容发生变化，不能冻结旧选择')
+        if _hash(path)!=expected_hashes.get(sample.key):raise ValueError('请根据当前特征重新冻结选择')
         data=_read(path)
         if data['sample_key']!=sample.key or data['feature_key']!=key or data['config_sha256']!=CONFIG_SHA256:raise ValueError('特征缓存与冻结配置不匹配')
         result[sample.key]=data
@@ -36,7 +36,7 @@ def freeze():
     if baseline.get('test_used') or baseline.get('frozen'):raise ValueError('该基线已冻结或使用过独立测试')
     split=split_snapshot(samples)
     if baseline['split_sha256']!=split['split_sha256'] or development['split_sha256']!=split['split_sha256']:raise ValueError('开发／冻结划分不同')
-    if baseline['pose_config']!=pose_config() or development['pose_config']!=baseline['pose_config'] or baseline['feature_config_sha256']!=CONFIG_SHA256 or development['feature_config_sha256']!=CONFIG_SHA256:raise ValueError('开发配置发生变化，不能冻结旧结果')
+    if baseline['pose_config']!=pose_config() or development['pose_config']!=baseline['pose_config'] or baseline['feature_config_sha256']!=CONFIG_SHA256 or development['feature_config_sha256']!=CONFIG_SHA256:raise ValueError('请根据当前配置重新冻结结果')
     registered={method['id']:method for method in METHODS};artifacts=[]
     for action in sorted(SUPPORTED):
         chosen=next(row for row in development['actions'] if row['action_id']==action)
@@ -83,7 +83,7 @@ def independent_test():
         for item in action_config['methods']:
             if item['status']!='ready':continue
             path=project_path(item['path']);path.relative_to(OUTPUT/'models');blob=path.read_bytes()
-            if hashlib.sha256(blob).hexdigest()!=item['sha256']:raise ValueError('冻结模型内容变化，尚未读取独立测试输入')
+            if hashlib.sha256(blob).hexdigest()!=item['sha256']:raise ValueError('请核对冻结模型后读取测试输入')
             # 校验和加载使用同一份已核验字节；只有本机本次训练产物可进入此处。
             models[action_config['action_id'],item['method']['id']]=joblib.load(BytesIO(blob))
     # 在读取第一幅测试图像之前持久记录已经使用；失败后仍不能称测试未见。

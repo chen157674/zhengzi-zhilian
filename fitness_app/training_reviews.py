@@ -6,7 +6,7 @@ from sqlalchemy import select
 from . import db_schema as s
 from .auth import APIError,body
 from .training_plans import invalid,text,ZONE
-from .training_insights import record_statistics
+from .training_insights import record_statistics,observation_groups
 
 class TrainingReviews:
     def __init__(self,app):self.app=app;self.progress=app.extensions['training_progress'];self.plans=app.extensions['training_plans'];self.db=self.plans.db;self.sessions=app.extensions['session_store']
@@ -69,7 +69,7 @@ class TrainingReviews:
         return {'week_start':start.isoformat(),'week_end':end.isoformat(),'timezone':'Asia/Shanghai','data_version':version,'as_of_ms':self.plans.clock(),
                 'plan_progress':progress if progress['plan_id'] else None,'actual_training':{'analysis_record_count':len(valid),'execution_session_count':len([x for x in workout_data if x['actual_started_at_ms'] is not None and x['status']!='voided']),'session_count':len([x for x in workout_data if x['actual_started_at_ms'] is not None and x['status']!='voided']),
                     'source_breakdown':{source:sum(x['source']==source for x in valid) for source in ('camera','video')},'per_action':list(by_action.values())},
-                'retests':retests,'trends':trends,'trend_groups':list(groups.values()),'focus_candidates':[{'record_id':r['session_id'],'message':i.get('message'),'suggestion':i.get('suggestion')} for r in valid for i in r.get('posture',{}).get('findings',[]) if i['status']=='issue'][:5],
+                'retests':retests,'trends':trends,'trend_groups':observation_groups(valid,record_statistics),'focus_candidates':[{'record_id':r['session_id'],'message':i.get('message'),'suggestion':i.get('suggestion')} for r in valid for i in r.get('posture',{}).get('findings',[]) if i['status']=='issue'][:5],
                 'records':[{'record_id':x['session_id'],'state_version':x['state_version'],'action_name':x['action_name'],'source':x['source'],'status':x['status']} for x in valid],
                 'excluded':{'demo':'演示不进入本人统计','invalid':len(records)-len(valid),'version_mismatch':'不同规则/侧别/机位分别列出，不混算改善'},'links':{'records':'/records?view=list','plan':'/training/plan'}}
     def validate(self,inputs,raw):

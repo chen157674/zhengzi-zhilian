@@ -1,7 +1,5 @@
 ﻿$FitnessProjectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-if ($FitnessProjectRoot -ne 'E:\07_Projects\05_PersonalProjects\10_fitness-assistant') {
-    throw '项目根目录不符合已确认的文件边界。'
-}
+if (-not (Test-Path -LiteralPath (Join-Path $FitnessProjectRoot 'fitness_app\app.py'))) { throw '应用目录结构无效。' }
 foreach ($FitnessRelativeDirectory in @('.tmp\build', '.cache\pip', '.cache\npm', '.cache\matplotlib', '.cache\xdg')) {
     $FitnessOutputDirectory = [IO.Path]::GetFullPath((Join-Path $FitnessProjectRoot $FitnessRelativeDirectory))
     if (-not $FitnessOutputDirectory.StartsWith($FitnessProjectRoot + '\')) { throw '输出路径越界。' }

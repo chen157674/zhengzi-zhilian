@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ demo.title }} · 动作反馈{% endblock %}
+{% block page %}video{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ asset_url('home_landing.css') }}"><script type="module" src="{{ asset_url('home_demo.js') }}"></script>{% endblock %}
+{% block content %}
+<div class="design-container saved-example-page">
+ <a class="back-link" href="/video" data-nav>返回视频分析</a>
+ <div class="heading-with-action"><div class="page-heading"><h1>{{ demo.title }} · 分析结果</h1><p>分析完成 · 按时间回看动作反馈</p></div><a class="button secondary" href="/video?demo=1&amp;fresh=1&amp;demo_id={{ demo.id }}" data-nav>重新分析</a></div>
+ <section class="saved-example-summary" data-state="{{ conclusion.state }}" aria-label="本次分析结论"><span>本次分析结论</span><h2>{{ conclusion.title }}</h2><p>{{ conclusion.description }}</p></section>
+ <div class="landing-home">
+  <div id="home-demo" data-saved-example="true" data-initial-ms="{{ initial_ms }}" data-video-url="{{ demo.video_url }}" data-track-url="{{ demo_playlist[0].track_url }}" data-source-sha="{{ demo.video.sha256 }}">
+   <script type="application/json" id="home-demo-playlist">{{ demo_playlist|tojson }}</script>
+   <script type="application/json" id="saved-example-review-ranges">{{ reviews|tojson }}</script>
+   <div class="showcase-player" id="showcase-player">
+    <video id="showcase-video" muted playsinline preload="metadata" poster="{{ demo.poster_url }}" aria-label="{{ demo.title }}"></video><canvas id="showcase-canvas" aria-hidden="true"></canvas>
+    <div class="showcase-badges"><strong>{{ demo.title }}</strong></div>
+    <aside id="showcase-feedback" class="demo-feedback" data-state="observing" aria-busy="true" aria-live="polite" aria-atomic="true"><span class="feedback-mark" aria-hidden="true">·</span><div class="home-cue-copy"><span class="home-cue-label" data-feedback-label>动作观察</span><strong data-feedback-title>正在读取结果</strong><span class="home-cue-next" data-feedback-next hidden>下一次这样做</span><p data-feedback-instruction hidden></p></div></aside>
+    <div class="showcase-tools"><button class="button" type="button" id="showcase-play" hidden>播放</button><button class="button" type="button" id="showcase-toggle">播放</button><button class="button" type="button" id="showcase-fullscreen" disabled>全屏</button></div>
+    <button class="button secondary showcase-exit" type="button" id="showcase-exit-fullscreen">退出全屏</button>
+   </div>
+   <div id="showcase-error" class="showcase-unavailable" role="status" hidden><h2>结果加载失败</h2><button class="button secondary" id="showcase-retry">重新加载</button></div>
+   <div class="demo-caption"><a href="/video?demo=1&amp;fresh=1&amp;demo_id={{ demo.id }}" data-nav>重新分析这段视频 ↗</a></div>
+   <p id="showcase-status" class="sr-only" role="status">正在读取结果</p><span id="showcase-count" hidden></span>
+   <section class="saved-example-feedback"><h2>调整重点</h2>
+    {% for review in reviews %}<article class="feedback-row saved-example-review"><div><strong>{{ review.title }}</strong><p class="field-help">重点回看：{{ timecode(review.start_ms) }}–{{ timecode(review.end_ms) }}</p><p>{{ review.instruction }}</p><details class="saved-feedback-source"><summary>片段来源</summary><p class="field-help">用户标记</p></details></div><button class="button secondary" type="button" data-review-seek="{{ review.start_ms }}">回看重点</button></article>{% endfor %}
+    {% if issues %}<h3 class="saved-evidence-heading">检出片段</h3>{% endif %}
+    {% for issue in issues %}<article class="feedback-row"><div><strong>{{ issue.title }}</strong><p class="field-help">证据时间：{{ timecode(issue.start_ms) }}–{{ timecode(issue.end_ms) }}</p><p>{{ issue.instruction }}</p></div><button class="button secondary" type="button" data-example-seek="{{ issue.seek_ms }}">定位检出片段</button></article>
+    {% else %}<p>{{ conclusion.title }}。</p>{% endfor %}
+   </section>
+  </div>
+ </div>
+</div>
+{% endblock %}

@@ -1,0 +1,366 @@
+{
+  "generator": "Codex native imagegen via authorized local compatibility entry",
+  "images": [
+    {
+      "id": "balanced-meal",
+      "file": "balanced-meal.png",
+      "sha256": "91c72fb7d07f35c2004367eb8660147578af8fdefb1fe2ba2142042dcaf512d5",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. Overhead three-quarter close composition of ONE round off-white dinner plate with clearly distinct servings of cooked green broccoli and carrots, gently browned chicken pieces, and cooked brown-and-white rice, on the RIGHT two thirds of the photograph. A small bowl of cucumber and cherry tomatoes nearby. Comfortable editorial spacing, realistic chopsticks on a linen napkin, no raw meat. Full plate rim visible. Soft ivory negative space on the left quarter.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "balanced-meal.webp",
+        "bytes": 114124,
+        "sha256": "b5e965d33a1c6bce8ed40d1478f1a9a747e0844cf78790f017cef156dde4146d"
+      },
+      "review_scope": "联系表核对食材可辨识、熟食呈现、配色与干净构图；照片只作搭配示意，不代表称重或营养检测。"
+    },
+    {
+      "id": "broccoli",
+      "file": "broccoli.png",
+      "sha256": "6307271245fe46fdcc21c60360f06ed4e972ca22215dca2faf8406349bf14d47",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A close still-life of a small matte ivory bowl heaped with vibrant steamed broccoli florets, beside a few washed whole tomatoes and carrot slices. Vegetables are the unmistakable focal point. Clean uncluttered composition, bowl centred, whole bowl fits within frame, close texture, no artificial glowing greens.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "broccoli.webp",
+        "bytes": 98348,
+        "sha256": "df7c34ec01f47ae90105761a70c1fbba5e9f8148790c75fe95d51c9b57e9e47e"
+      },
+      "review_scope": "联系表核对食材可辨识、熟食呈现、配色与干净构图；照片只作搭配示意，不代表称重或营养检测。"
+    },
+    {
+      "id": "protein-foods",
+      "file": "protein-foods.png",
+      "sha256": "30b98e4a850d70fd32592881a05953b62bf6afef6823caa45e264d99f0501b7c",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A refined still-life of everyday protein foods: a small ceramic plate of cooked chicken breast slices with slight browning, a separate small plate of firm white tofu cubes, and one halved hard-boiled egg with a natural yellow yolk. All dishes clearly separated on warm ivory table, no raw chicken, no supplements, no fitness shaker. Food centred, dishes entirely visible.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "protein-foods.webp",
+        "bytes": 83640,
+        "sha256": "0366c185d524a323049eed1bbb5c13880fc44708a41a6a4783829b839c73a8ca"
+      },
+      "review_scope": "联系表核对食材可辨识、熟食呈现、配色与干净构图；照片只作搭配示意，不代表称重或营养检测。"
+    },
+    {
+      "id": "staple-foods",
+      "file": "staple-foods.png",
+      "sha256": "6bed3c48d08c29a6eb7501edc61e92048d41a2eb4f07ee15b3702066325289e7",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A modest ivory bowl of cooked rice with mixed brown grains, beside a half sweet potato showing orange cooked flesh and a short piece of steamed corn on a small plate. Everyday staple foods, distinct recognisable grains and realistic textures, no oversized feast. Central composition, all dishes fit within frame.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "staple-foods.webp",
+        "bytes": 97318,
+        "sha256": "08855437481e7f6276a8abf90e1a45b6c67e4f007c05a63cf9bc8eeca64b2b8e"
+      },
+      "review_scope": "联系表核对食材可辨识、熟食呈现、配色与干净构图；照片只作搭配示意，不代表称重或营养检测。"
+    },
+    {
+      "id": "breakfast",
+      "file": "breakfast.png",
+      "sha256": "710bfc77cc84b869069507d8ad750264273fc8e6c6b192db81daa5718ff0b431",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. An approachable Chinese breakfast still-life: two small slices of whole-grain toast on a ceramic plate, one halved boiled egg, an unbranded clear glass of milk, a small bowl of orange segments. No cereal spills, no packaged products. Three-quarter overhead viewpoint, same warm ivory studio as other food assets. Complete dishes visible, soft realistic shadows.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "breakfast.webp",
+        "bytes": 81276,
+        "sha256": "162d9657955eda3af44690e69930c6702b25ed9edd64f9db738933a99644f32e"
+      },
+      "review_scope": "联系表核对食材可辨识、熟食呈现、配色与干净构图；照片只作搭配示意，不代表称重或营养检测。"
+    },
+    {
+      "id": "instant-noodles",
+      "file": "instant-noodles.png",
+      "sha256": "06bd2e2003feb111fb514ee6830e495cfb7c3039b1338d72dfb0f4bbbbf36e84",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One small ivory ceramic bowl of prepared instant ramen: unmistakable tightly curly yellow instant noodles in a modest amount of amber broth, with a plain wooden fork resting beside the bowl. Noodles are the only food subject, no egg, meat or vegetable garnish that would imply an added ingredient. Bowl is fully visible and centred, close three-quarter overhead view; recognisable convenience noodles, clean appetising realistic food photography, not a noodle restaurant feast.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "instant-noodles.webp",
+        "bytes": 56052,
+        "sha256": "c36be659dc03495da9afc083a995f87b953b339860d5c0daed5891fdcb6154a0",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2254241,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "hamburger",
+      "file": "hamburger.png",
+      "sha256": "91291baf7be28fbc6472768423ebc7a29397b3bad67a4b175ab1d1a22f2155b3",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One recognisable single-patty beef hamburger with a rounded sesame bun, cooked beef patty, a slice of tomato and lettuce, with a thin cheese slice. On one small matte ivory plate, no fries, drinks or other dishes. Complete burger silhouette entirely in frame, three-quarter tabletop close-up, honest moderate burger size, natural realistic bread and cooked patty textures, no dripping sauces or dramatic stack.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "hamburger.webp",
+        "bytes": 67310,
+        "sha256": "52811c2a18b60ee4010860cea76e422897c8dade42b76a8c736af1e3d3b10c27",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2404950,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "lean-beef",
+      "file": "lean-beef.png",
+      "sha256": "38ef0c97267e7eddb4c154002fc7d6e883a38208f7231df7a86bf35268a72197",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A small matte ivory plate of cooked lean beef strips, gently browned, juicy fully cooked interior with natural beef grain visible. A modest everyday serving, no raw red steak, no blood, no sausage, no rice, no vegetables, no extra dishes. Beef alone is clearly the subject, whole plate visible, three-quarter overhead view, very subtle steam.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "lean-beef.webp",
+        "bytes": 69818,
+        "sha256": "79981d9c1a2bfa5d25ec596c406725bb70d4c872de10b0e9c254c5df0c117e75",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2476719,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "fried-chicken",
+      "file": "fried-chicken.png",
+      "sha256": "96cd254459c165f808f2879e917ec3ee174245141bfc739fc9c7021142800aba",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. Two small pieces of fully cooked fried chicken with recognisable crisp golden coating, on a small matte ivory plate. Realistic bone-in thigh or drumstick forms, no exposed raw flesh, no sauce pools, fries, drinks or side dishes. Entire plate in frame, central three-quarter close-up, realistic appetising but modest serving.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "fried-chicken.webp",
+        "bytes": 81488,
+        "sha256": "a9e650f059379fc0cf3ce382f6951c002c9c35d5c876ae424bd1cbd4b9a598f2",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2507407,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "french-fries",
+      "file": "french-fries.png",
+      "sha256": "c7947f7002e2dd3c749f95a07e2c822a1c1e9fe74d16c48eaad535ca83d91f72",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A modest serving of recognisable golden potato french fries on a small matte ivory ceramic plate, fine crisp edges and natural potato texture, no seasoning dust, no sauces, burgers or other foods. No carton or packaging. Entire plate visible, central three-quarter overhead composition, clear uncluttered subject.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "french-fries.webp",
+        "bytes": 85184,
+        "sha256": "cd4d4be1585ca5e8e3f16142debbcb4ec8c0203a9a3c279f1416cb77588ecd03",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2601754,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "milk-tea",
+      "file": "milk-tea.png",
+      "sha256": "bddac40cf9723c693fcf830ba17db0c83e918a73cba70e518c5796b4f35b53e0",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One clear unbranded glass containing beige milk tea with a small layer of dark tapioca pearls at the bottom, a plain reusable straw leaning naturally inside. No lid, plastic cup, labels or packaging. The whole glass fits in frame, same warm ivory table and soft natural light, realistic milky liquid and recognisable pearls, no other food.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "milk-tea.webp",
+        "bytes": 24382,
+        "sha256": "efd92881b5da5a2a911afed450af6e7c7bd635c1fdcc28d376a75b44385b4a6d",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 1852075,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "soda",
+      "file": "soda.png",
+      "sha256": "498183c55ff46634f58da02a4e687e3a3e946de527949f9758ad77cc3cf85587",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One short unbranded clear tumbler of dark cola with a few clear ice cubes and subtle carbonation bubbles. Entire glass visible on warm ivory table, no bottles, cans, labels, brand marks, lemon or food garnish. Three-quarter close-up, restrained editorial drink photography, natural reflections rather than advertisement effects.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "soda.webp",
+        "bytes": 58014,
+        "sha256": "c90dbf666936021e35293b9ff14768e8430fe311f0b70824c60f56b1532bf66c",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2196389,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "rice",
+      "file": "rice.png",
+      "sha256": "dc982299e1bd77de11ca55da71caef382cd42bf75c5ced3f2429d04c3acad578",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One small matte ivory bowl filled with plain steamed white rice, distinct cooked rice grains, a modest everyday portion. No meat, vegetables, eggs, toppings or other dishes. Entire bowl visible and centred on warm ivory table, three-quarter overhead close view, natural believable food texture.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "rice.webp",
+        "bytes": 30784,
+        "sha256": "0ce2cb5f53cc6fe5fd769220d5031721d76a5643159a562be1a71c0a106ed2f5",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 1990270,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "eggs",
+      "file": "eggs.png",
+      "sha256": "3a69a3c27e0e6b591b14744f64e5115be8a102810127e9a418ebd5a46f6595cd",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. One whole peeled hard-boiled egg and one hard-boiled egg cut neatly into two halves, on a small matte ivory plate. Firm natural white and golden-yellow yolk, realistic edible texture; no cracked shells, raw eggs, salads or other foods. Entire plate visible, central three-quarter overhead composition.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "eggs.webp",
+        "bytes": 40234,
+        "sha256": "252fb40101a20b81a81675feb60ad8c6283976f29b8952858925d2a618feb42c",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2210680,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "fish",
+      "file": "fish.png",
+      "sha256": "cec8be95eed5d4e4eb85545b34e1f2692bd8bc869eebea5ba81f165590bc5e9b",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A small matte ivory plate of gently steamed white fish fillet, fully cooked and flaky with a little natural skin visible. Fish alone with no vegetable garnish, rice or other dishes, no raw salmon or sushi. Whole plate visible, central three-quarter overhead photograph, delicate natural edible texture.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "fish.webp",
+        "bytes": 49006,
+        "sha256": "6cd51c4d2c99eb00ba2fcda2c925321c6702cd4ff90b4dc227a41986dafde52e",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2328107,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "tofu",
+      "file": "tofu.png",
+      "sha256": "adeb0344c4ef0d35d6eda5d4f5e632a698ef763e4396140a37b5d7dbd148c7ba",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A small matte ivory plate of firm white tofu cut into five or six clear cubes, lightly steamed, naturally textured with straight soft edges. No meat, sauce pools, mixed vegetables or other food. Whole plate fits inside the frame, central three-quarter overhead composition, realistic everyday Chinese ingredient.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "tofu.webp",
+        "bytes": 44146,
+        "sha256": "5ee9e6f182d26126971cc5a895aea3f347c8d933af081d580f924a9e2fe6bad1",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2225545,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    },
+    {
+      "id": "chicken-breast",
+      "file": "chicken-breast.png",
+      "sha256": "691066f27156aa8565452555bb6c333e7c747b8b536b16af382aee4b40fde719",
+      "size": [
+        1536,
+        1024
+      ],
+      "prompt": "Premium realistic editorial food photography for a Chinese fitness nutrition guide, warm ivory tabletop, soft natural window light from upper left, matte ceramic dishes, honest fresh food texture, appetizing everyday Chinese home cooking, muted olive and terracotta palette. Landscape 1536x1024. No text, numbers, logos, labels, packaging, people, hands, nutrition charts, or watermark. Food must be recognisable, properly cooked when served. A small matte ivory plate holding sliced fully cooked chicken breast with a gently browned exterior and natural pale interior, clear realistic cooked chicken fibres. No raw chicken, whole bird, vegetables, rice or other foods. Whole plate visible and centred, three-quarter overhead close photograph, modest everyday portion.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "chicken-breast.webp",
+        "bytes": 62492,
+        "sha256": "071f51d4c059cf72a24f4a02e4dbfcaaaa0a5142e43729b0655fccbf907211e0",
+        "size": [
+          1200,
+          800
+        ]
+      },
+      "bytes": 2373000,
+      "reviewed_on": "2026-11-12",
+      "review_scope": "两张联系表逐项核对12种主体、熟食质感、无品牌文字和统一暖白构图；是食物示意素材，不作为用户真实餐食照片或营养检测证据。"
+    }
+  ]
+}

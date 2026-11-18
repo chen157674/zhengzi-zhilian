@@ -157,7 +157,7 @@ class BasicRecognizer:
             message={'uncertain_gym_variant':'动作变式尚不确定，可手动指定动作',
                      'gym_motion_unconfirmed':'正在确认连续动作，请保持自然运动',
                      'gym_visual_unstable':'动作画面尚不稳定，请保持器械与身体入镜',
-                     'background_or_unsupported_variant':'尚未确认训练动作，可手动指定动作'}.get(current_reason,message)
+                     'background_or_unsupported_variant':'请选择训练动作，或保持清楚取景继续识别'}.get(current_reason,message)
         if not self.available:message='自动识别暂不可用，可使用手动备用'
         return {'mode':'auto','release_mode':'basic_reference','state':state,'available':self.available,'message':message,
                 'action_id':self.confirmed,'candidate_action_id':self.pending,'reason':reason or self.latest.get('reason') or self.reason,

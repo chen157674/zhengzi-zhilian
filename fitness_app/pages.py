@@ -22,6 +22,37 @@ ROUND4_ASSETS = {
     '首页背景装饰.svg': 'image/svg+xml',
 }
 
+def page_return():
+    """仅为有明确上级的子页面提供返回入口，一级页面使用主导航。"""
+    path=request.path
+    if path=='/training/review' and request.args.get('from') in {'guide','nutrition'}:
+        return {'href':'/coach/nutrition' if request.args['from']=='nutrition' else '/coach/knowledge','label':'返回饮食建议' if request.args['from']=='nutrition' else '返回健身指南'}
+    if path=='/coach/meals':return {'href':'/coach/nutrition','label':'返回饮食建议'}
+    if path in {'/','/login','/register','/setup','/realtime','/video',
+                '/training/plan','/training/review','/records','/coach','/account'}:
+        return None
+    if path=='/coach/knowledge':
+        action=request.args.get('action_id')
+        if action and get_action(action):return {'href':'/actions/'+action,'label':'返回动作图解'}
+        if request.args.get('view')=='actions':return {'href':'/coach/knowledge','label':'返回健身指南'}
+    if path=='/coach/references':return {'href':'/coach/nutrition','label':'返回饮食建议'}
+    if path=='/coach/nutrition/calculator':return {'href':'/coach/nutrition','label':'返回饮食建议'}
+    if path.startswith('/coach/knowledge/'):return {'href':'/coach/knowledge','label':'返回健身指南'}
+    if path.startswith('/actions/'):return {'href':'/coach/knowledge?view=actions','label':'返回动作库'}
+    if path=='/actions':return {'href':'/video' if request.args.get('source')=='video' else '/realtime','label':'返回视频分析' if request.args.get('source')=='video' else '返回实时分析'}
+    if path in {'/account/ai','/account/sessions','/account/password','/admin/users'}:return {'href':'/settings','label':'返回设置'}
+    if path in {'/settings','/account/training-profile'}:return {'href':'/account','label':'返回个人中心'}
+    if path.startswith('/records/'):
+        candidate=safe_return_to(request.args.get('returnTo'),'/records?view=list')
+        if candidate!='/records' and not candidate.startswith('/records?'):candidate='/records?view=list'
+        return {'href':candidate,'label':'返回训练记录'}
+    if path.startswith('/coach/tasks/'):return {'href':'/coach/tasks','label':'返回纠正任务'}
+    if path=='/coach/tasks':return {'href':'/records?view=list','label':'返回训练记录'}
+    if path.startswith('/training/') and path!='/training/plan':return {'href':'/training/plan','label':'返回训练计划'}
+    if path.startswith('/video/'):return {'href':'/video','label':'返回视频分析'}
+    if path.startswith('/prepare') or path.startswith('/realtime/'):return {'href':'/realtime','label':'返回实时分析'}
+    return None
+
 
 def register_pages(app,db):
     seed_catalogue(db)
@@ -52,7 +83,7 @@ def register_pages(app,db):
             with db.transaction(False) as c:
                 profile=c.execute(select(user_profiles).where(user_profiles.c.user_id==current_user.user_id)).mappings().first()
             avatar=avatar_url(profile['avatar_id'],profile['avatar_key'],profile['version']) if profile else avatar_url(None)
-        return {"identity":current_user if current_user.is_authenticated else None,"header_avatar":avatar}
+        return {"identity":current_user if current_user.is_authenticated else None,"header_avatar":avatar,"page_return":page_return()}
 
     @app.get('/account')
     def account_page():return render_template('account.html',active='')
@@ -92,6 +123,9 @@ def register_pages(app,db):
     @app.get('/training/review')
     def training_review_page():return render_template('training_review.html',active='training',training_tab='review',review_ready=True)
 
+    @app.get('/coach/meals')
+    def meal_journal_page():return render_template('meal_journal.html',active='guide',guide_tab='nutrition',nutrition_ready=True)
+
     @app.get('/training/plan')
     @app.get('/training/plans/new')
     @app.get('/training/plans/<pid>/edit')
@@ -117,11 +151,21 @@ def register_pages(app,db):
 
     @app.get('/coach/nutrition')
     def nutrition_page():
-        return render_template('nutrition.html',active='guide',guide_tab='nutrition',nutrition_ready=True)
+        from .meal_recommendations import options
+        return render_template('nutrition.html',active='guide',guide_tab='nutrition',nutrition_ready=True,meal_options=options())
+
+    @app.get('/coach/nutrition/calculator')
+    def nutrition_calculator_page():
+        return redirect('/coach/nutrition?calculator=1')
 
     @app.get('/coach/knowledge')
     def knowledge_page():
-        return render_template('knowledge.html',active='guide',nutrition_ready=True,knowledge_view='actions' if request.args.get('view')=='actions' else 'query')
+        catalog=app.extensions['knowledge_store'].catalog()
+        return render_template('knowledge.html',active='guide',nutrition_ready=True,knowledge_catalog=catalog,knowledge_view='actions' if request.args.get('view')=='actions' else 'query')
+
+    @app.get('/coach/references')
+    def reference_library_page():
+        return render_template('references.html',active='guide',guide_tab='nutrition',nutrition_ready=True,references=app.extensions['knowledge_store'].references())
 
     @app.get('/coach/knowledge/<chunk_id>')
     def knowledge_source_page(chunk_id):
@@ -135,6 +179,13 @@ def register_pages(app,db):
         if not action:abort(404)
         return render_template('action_guide.html',active='guide',nutrition_ready=True,action=action)
 
+    @app.get('/actions/<action_id>/practice')
+    def action_practice_prepare(action_id):
+        action=get_action(action_id)
+        if not action:abort(404)
+        from .framing_guide import guide
+        return render_template('practice_prepare.html',active='guide',action=action,framing=guide(action_id=action_id))
+
     @app.before_request
     def page_access():
         if request.path.startswith(("/api/","/static/","/_local/")):
@@ -146,7 +197,7 @@ def register_pages(app,db):
             from urllib.parse import quote
             return redirect("/login?returnTo="+quote(request.full_path.rstrip('?'),safe=''))
         if request.path.startswith("/admin/") and current_user.is_authenticated and current_user.role!="admin":
-            return render_template("unavailable.html",active="",title="没有访问权限",message="当前账号不能访问管理工具。"),403
+            return render_template("unavailable.html",active="",title="没有访问权限",message="请使用管理员账号访问管理工具。"),403
 
     @app.get("/")
     def home():
@@ -159,15 +210,15 @@ def register_pages(app,db):
 
     @app.get('/static/demo/<demo_id>/<asset>')
     def public_demo_asset(demo_id,asset):
-        demo=demo_resource(demo_id,require_track=asset=='track')
-        if not demo or asset not in {'video','track','poster'} or not demo.get(asset):abort(404)
-        item=demo[asset]
+        demo=demo_resource(demo_id,require_track=asset in {'track','analysis-track'})
+        if not demo or asset not in {'video','track','analysis-track','poster'} or not demo.get('track' if asset=='analysis-track' else asset):abort(404)
+        item=demo['track' if asset=='analysis-track' else asset]
         if asset=='track' and demo.get('display_annotation'):
             response=jsonify(demo_display_track(demo))
             response.set_etag(demo['track_etag'])
             response.cache_control.no_cache=True
             return response.make_conditional(request)
-        return send_file(project_path(item['path']),mimetype={'video':'video/mp4','track':'application/json','poster':'image/jpeg'}[asset],conditional=True,etag=item['sha256'])
+        return send_file(project_path(item['path']),mimetype={'video':'video/mp4','track':'application/json','analysis-track':'application/json','poster':'image/jpeg'}[asset],conditional=True,etag=item['sha256'])
 
     @app.get("/setup")
     @app.get("/login")

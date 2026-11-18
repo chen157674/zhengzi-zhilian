@@ -32,6 +32,8 @@ def create_app(config: dict | None = None) -> Flask:
         SESSION_REFRESH_EACH_REQUEST=False,PERMANENT_SESSION_LIFETIME=timedelta(hours=12))
     if config:
         app.config.update(config)
+    from .web_assets import register_web_assets
+    register_web_assets(app)
     from .mobile_origin import configure_mobile_origin
     configure_mobile_origin(app,app.config.get('MOBILE_PUBLIC_ORIGIN') or os.environ.get('FITNESS_PUBLIC_ORIGIN'))
     app.json.ensure_ascii = False
@@ -67,13 +69,13 @@ def create_app(config: dict | None = None) -> Flask:
             request.max_content_length=MAX_AVATAR_BYTES+64*1024
             request.max_form_memory_size=128*1024;request.max_form_parts=2
             if request.content_length is not None and request.content_length>request.max_content_length:
-                raise APIError('AVATAR_TOO_LARGE','头像文件不能超过4 MiB',413)
+                raise APIError('AVATAR_TOO_LARGE','请选择4 MiB以内的头像',413)
         if request.method=='POST' and (request.path=='/api/v1/inputs' or request.path.startswith('/api/v1/records/') and request.path.endswith('/source-match')):
             from .media import MAX_BYTES
             request.max_content_length=MAX_BYTES+64*1024
             request.max_form_memory_size=128*1024;request.max_form_parts=1
             if request.content_length is not None and request.content_length>request.max_content_length:
-                raise APIError('INPUT_TOO_LARGE','单个视频不能超过 1 GiB',413)
+                raise APIError('INPUT_TOO_LARGE','请选择1 GiB以内的视频',413)
         if request.method=='POST' and request.path.startswith('/api/v1/sessions/') and request.path.endswith('/commands'):
             request.max_content_length=64*1024
         if request.method=='POST' and request.path.startswith('/api/v1/jobs/') and request.path.endswith('/cancel'):
@@ -110,7 +112,7 @@ def create_app(config: dict | None = None) -> Flask:
 
     @app.after_request
     def envelope(response):
-        if request.endpoint not in {'static','public_demo_asset'}:
+        if request.endpoint not in {'static','versioned_static','public_demo_asset'}:
             response.headers['Cache-Control']='no-store'
         # 文件型JSON是原始展示资源，保留流式响应及其摘要，不套API信封。
         if response.is_json and not response.direct_passthrough:
@@ -170,6 +172,10 @@ def create_app(config: dict | None = None) -> Flask:
         register_nutrition(app)
         from .nutrition_profiles import register_nutrition_profiles
         register_nutrition_profiles(app)
+        from .diet_journal import register_diet_journal
+        register_diet_journal(app)
+        from .growth_dashboard import register_growth_dashboard
+        register_growth_dashboard(app)
         from .training_insights import register_training_insights
         register_training_insights(app)
         from .retests import register_retests

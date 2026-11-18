@@ -85,7 +85,7 @@ class CompactVideoVLM(VideoActionVLM):
                 'context_span_ms':int(span),'upper_body_detail_used':detail_rgb is not None,'runtime_enabled':False}
 
     def prepare_inputs(self,frames,timestamps,observed=None,detail_rgb=None):
-        if self.processor is None:raise RuntimeError('视觉处理器尚未准备')
+        if self.processor is None:raise RuntimeError('请准备视觉处理资源')
         text=compact_prompt()
         if observed:text+='\nApproximate projected joint observations, possibly inaccurate; use visual equipment/movement too: '+json.dumps(observed,sort_keys=True)
         content=[{'type':'video'}]

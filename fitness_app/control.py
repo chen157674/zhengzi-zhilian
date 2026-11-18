@@ -124,7 +124,7 @@ class ControlRegistry:
         with self.lock:
             entry=self.entries.get(session_id) or self.cleanup.get(session_id)
             if not entry or entry['auth_id']!=auth_id or not self._matches(entry,token,controller_epoch,stream_epoch):
-                raise APIError('CONTROL_CONFLICT','无法核实原控制关系',409)
+                raise APIError('CONTROL_CONFLICT','请重新读取训练控制状态',409)
             return {key:entry[key] for key in ('user_id','auth_id','session_id')}
 
     def forget(self,session_id):

@@ -95,7 +95,7 @@ class ReferenceSimilarity:
         similarity,self.similarity_resource=repo_asset('angle_baseline','weights/angle_similarity_model_L300.h5')
         self.usefulness=_AngleNetwork(useful,'usefulness');self.similarity=_AngleNetwork(similarity,'similarity')
         data=registry().get('datasets',{}).get('angle_baseline',{})
-        if data.get('state')!='ready':raise ValueError('基准角度元数据尚未准备完成')
+        if data.get('state')!='ready':raise ValueError('请准备基准角度数据')
         item=next(row for row in data['files'] if row['upstream_path']=='dataset/exercise_angles.json')
         labels=json.loads(checked(item['path'],item).read_text(encoding='utf-8'))
         self.angle_names=sorted({name for names in labels.values() for name in names})

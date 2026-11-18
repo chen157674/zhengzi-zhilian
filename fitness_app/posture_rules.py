@@ -65,19 +65,19 @@ REASONS = {
     'scene_reference_unavailable': '本项缺少可靠的画面参考方向，暂不判断侧倾',
     'scene_reference_dependency_missing': '本项参考方向暂不可用',
     'awaiting_motion': '等待连续动作后判断这一项，静止画面不作动作结论',
-    'bilateral_projection_disagreement': '左右肩髋投影给出的结论不一致，暂不能确认躯干摆动',
+    'bilateral_projection_disagreement': '请稳定机位并让双侧肩髋持续入镜',
     'unsupported_view': '当前机位不适合判断这一项',
     'view_mismatch': '声明的机位与可见姿态方向明显不符',
-    'view_unknown': '暂时无法确定适用机位',
+    'view_unknown': '请调整拍摄角度并选择机位',
     'required_parts_or_identity_missing': '关键部位没有连续可见',
-    'cycle_evidence_missing': '完整周期的姿态证据不足',
+    'cycle_evidence_missing': '请完整完成一次动作并保持取景',
     'cycle_evidence_gap': '周期中有较长的观测中断',
     'extreme_duration_insufficient': '关键阶段缺少足够的连续帧',
     'extreme_not_bracketed_by_cycle': '没有观察到完整的离开、极值和返回',
     'awaiting_complete_cycle': '正在等待可观察的完整动作周期',
     'posture_duration_unconfirmed': '正在等待姿态偏差的连续观测确认',
     'rack_phase_unconfirmed': '当前不是可判断肘腕对齐的起始位',
-    'forearm_support_unconfirmed': '当前尚未确认前臂支撑姿势',
+    'forearm_support_unconfirmed': '请调整为前臂支撑姿势',
 }
 
 

@@ -25,7 +25,7 @@ class RedesignTests(unittest.TestCase):
             with self.subTest(path=path):
                 response=self.fx.client.get(path)
                 self.assertEqual(response.status_code,200)
-                self.assertIn('知练同行',response.get_data(as_text=True))
+                self.assertIn('正姿智练',response.get_data(as_text=True))
                 self.assertNotIn('管理工具',response.get_data(as_text=True))
         anonymous=self.fx.app.test_client()
         self.assertEqual(anonymous.get('/account').status_code,302)

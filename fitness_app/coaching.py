@@ -11,7 +11,7 @@ MAX_FEEDBACK_AGE_MS=2500
 ALIGNMENT={'plank.hip_high','plank.hip_low','push_up.hip_high','push_up.hip_low','barbell_row.trunk','overhead_press.elbow',
            'machine_chest_press.pretrained_upper_body_balance'}
 STATES={
-    'save_failed':('结果尚未保存','先重试保存或处理保存故障，再继续训练。'),
+    'save_failed':('结果待保存','先重试保存或处理保存故障，再继续训练。'),
     'ended':('本次分析已结束','可在个人记录查看已保存的动作和姿态反馈。'),
     'interrupted':('本次分析已中断','先检查输入或处理错误，已保存的结果可在个人记录查看。'),
     'paused':('已暂停','准备好后继续，暂停期间不会累计动作结果。'),
@@ -23,7 +23,7 @@ STATES={
     'waiting_for_input':('正在等待新的画面','检查视频输入或摄像头连接，恢复后再继续。'),
     'moving':('正在观察动作','保持可控制的节奏，完成起始、动作和返回。'),
     'ready_to_move':('已识别起始姿态','可以开始完成一次完整动作。'),
-    'evidence_insufficient':('暂时无法判断这一项','保持相关部位可见，按推荐机位完成完整动作后再观察。'),
+    'evidence_insufficient':('','保持相关部位可见，按推荐机位完成完整动作后再观察。'),
     'observing':('正在观察姿态','当前已观察范围未发现该项偏差，继续平稳完成动作。'),
     'waiting_for_cycle':('等待一次完整动作','完成动作和返回后，系统会更新本次可评估的项目。'),
 }

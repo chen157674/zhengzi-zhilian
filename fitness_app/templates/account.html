@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}个人中心 · 知练同行{% endblock %}
+{% block title %}个人中心 · 正姿智练{% endblock %}
 {% block page %}account{% endblock %}
-{% block head %}<script type="module" src="/static/account.js"></script>{% endblock %}
+{% block head %}<script type="module" src="{{ asset_url('account.js') }}"></script>{% endblock %}
 {% block content %}
 <div class="design-container" id="profile-page">
-  <div class="page-heading"><h1>个人中心</h1><p>维护个人资料，回顾最近的训练。</p></div>
+  <div class="page-heading"><h1>个人中心</h1></div>
   <p id="account-error" class="notice error" role="alert" hidden></p><button class="button secondary" id="account-retry" hidden>重新加载</button>
   <div class="profile-grid">
     <section class="profile-editor" aria-labelledby="profile-editor-title">

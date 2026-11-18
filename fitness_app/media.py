@@ -27,7 +27,7 @@ def copy_input(source, destination, maximum=MAX_BYTES):
         chunk=source.read(min(1024*1024, maximum-size+1))
         if not chunk:break
         size+=len(chunk)
-        if size>maximum:raise APIError('INPUT_TOO_LARGE','单个视频不能超过 1 GiB',413)
+        if size>maximum:raise APIError('INPUT_TOO_LARGE','请选择1 GiB以内的视频',413)
         destination.write(chunk);digest.update(chunk)
     if not size:raise APIError('UNDECODABLE_MEDIA','所选文件为空',422)
     return size,digest.hexdigest()
@@ -44,7 +44,7 @@ def display_rgb(frame):
     """转正和等比缩放仅作用于内存推理帧，不转码或保存用户原片。"""
     import numpy as np
     rotation=frame.rotation
-    if rotation%90:raise APIError('UNSUPPORTED_MEDIA','暂不支持非直角旋转的视频',415)
+    if rotation%90:raise APIError('UNSUPPORTED_MEDIA','请将视频旋转为0、90、180或270度后上传',415)
     scale=min(1,1280/max(frame.width,frame.height),720/min(frame.width,frame.height))
     width=max(1,round(frame.width*scale));height=max(1,round(frame.height*scale))
     rgb=frame.reformat(width=width,height=height,format='rgb24').to_ndarray()
@@ -71,7 +71,7 @@ def probe_video(path):
                 'source_width':frame.width,'source_height':frame.height,'rotation':frame.rotation,'origin_ms':origin,
                 'validation':'container_and_first_decoded_frame','duration_known':duration is not None}
     except (av.FFmpegError,StopIteration,ValueError,OverflowError) as error:
-        raise APIError('UNDECODABLE_MEDIA','视频容器或首帧无法解码，请重新选择文件',422) from error
+        raise APIError('UNDECODABLE_MEDIA','请重新选择可播放的视频文件',422) from error
 
 
 def video_frames(path,info,*,start_ms=0,end_ms=None):
@@ -127,7 +127,7 @@ class MediaInputs:
         if demo_id is not None:
             from .presentation_assets import demo_resource
             demo=demo_resource(demo_id,require_track=False)
-            if not demo:raise APIError('DEMO_UNAVAILABLE','内置演示原片暂不可用',503)
+            if not demo:raise APIError('DEMO_UNAVAILABLE','请选择训练视频',503)
         input_id=s.new_id();path=self._path(input_id);kept=False
         with self.lock:
             if self.closed:raise APIError('INVALID_STATE','服务正在停止',409)

@@ -22,10 +22,10 @@ class TrainingAllocations:
     def __init__(self,app):self.app=app;self.workouts=app.extensions['training_workouts'];self.plans=app.extensions['training_plans'];self.db=self.plans.db;self.sessions=app.extensions['session_store']
     def _record(self,c,uid,rid):
         row=self.sessions._session(c,uid,uuid_id(rid));record=self.sessions.snapshot(uid,rid,True)
-        if record.get('confirmed_demo_findings'):raise APIError('RECORD_NOT_AVAILABLE','人工演示标注不能用于自动计划完成量',422)
+        if record.get('confirmed_demo_findings'):raise APIError('RECORD_NOT_AVAILABLE','请关联本人实际训练记录',422)
         if row['source']=='demo' or row['status'] not in {'completed','ended_early'} or record.get('included_in_statistics') is False:raise APIError('RECORD_NOT_AVAILABLE','请采用已结束并有效保存的本人记录',422)
         writer=self.app.extensions['persistence'];current=writer.snapshot(uid,rid)
-        if current['save_state']!='clean':raise APIError('RECORD_NOT_AVAILABLE','记录保存尚未确认',409)
+        if current['save_state']!='clean':raise APIError('RECORD_NOT_AVAILABLE','记录待保存',409)
         if record['source']=='video':
             jobs=c.execute(select(s.jobs.c.status).where(s.jobs.c.session_id==rid)).scalars().all();revisions=c.execute(select(s.video_revisions.c.status).where(s.video_revisions.c.session_id==rid)).scalars().all()
             if record['status']!='completed' or any(x!='completed' for x in [*jobs,*revisions]):raise APIError('RECORD_NOT_AVAILABLE','上传分析须完整完成后才能采用',422)
@@ -47,7 +47,7 @@ class TrainingAllocations:
                 try:record=self._record(c,uid,summary['session_id'])
                 except APIError:continue
                 reasons=[]
-                if item.get('variant') and record['config'].get('variant')!=item['variant']:reasons.append('动作变式无法确认或不一致')
+                if item.get('variant') and record['config'].get('variant')!=item['variant']:reasons.append('请选择一致的动作变式')
                 unit='ms' if item['target_duration_ms'] is not None else 'reps'
                 used=c.execute(select(s.training_record_allocations).where(s.training_record_allocations.c.user_id==uid,s.training_record_allocations.c.valid==1,or_(s.training_record_allocations.c.record_id==record['session_id'],s.training_record_allocations.c.source_sha256==record['source_sha256'] if record['source_sha256'] else False))).mappings().all()
                 used_cycles={n for link in used if link['record_id']==record['session_id'] for allocation in json.loads(link['allocations_json']) for n in allocation.get('cycle_ids',[])}
@@ -70,9 +70,9 @@ class TrainingAllocations:
                     linked_date=c.execute(select(s.training_plan_sessions.c.scheduled_date).join(s.training_workouts,s.training_workouts.c.plan_session_id==s.training_plan_sessions.c.id).where(s.training_workouts.c.id==link['workout_id'])).scalar()
                     if linked_date!=json.loads(workout['target_snapshot_json'])['date']:
                         reasons.append('同源记录已用于其他计划日期');break
-                if not record['counting_available'] and unit=='reps':reasons.append('该记录不能自动计量，可作为方法参考并手动记组')
+                if not record['counting_available'] and unit=='reps':reasons.append('请关联该记录作为方法参考，并手动记录训练组')
                 performed_date=dt.datetime.fromtimestamp((record['started_at_ms'] or record['created_at_ms'])/1000,ZONE).date().isoformat()
-                result.append({'record_id':record['session_id'],'state_version':record['state_version'],'action_id':record['action_id'],'available_quantity':available,'unit':unit,'count_unit':record['unit'],'performed_date':performed_date,'source':record['source'],'reference_only':not record['counting_available'] and unit=='reps','compatible':not reasons and available>0,'reasons':reasons if available else reasons+['没有尚未采用的有效完成量'],'cycle_ids':[x['event_seq'] for x in events],'cycles':[{'id':e['event_seq'],'side':e['side'],'start_ms':e['start_ms'],'end_ms':e['end_ms']} for e in events],'hold_ranges':hold_ranges})
+                result.append({'record_id':record['session_id'],'state_version':record['state_version'],'action_id':record['action_id'],'available_quantity':available,'unit':unit,'count_unit':record['unit'],'performed_date':performed_date,'source':record['source'],'reference_only':not record['counting_available'] and unit=='reps','compatible':not reasons and available>0,'reasons':reasons if available else reasons+['请选择新的有效完成量'],'cycle_ids':[x['event_seq'] for x in events],'cycles':[{'id':e['event_seq'],'side':e['side'],'start_ms':e['start_ms'],'end_ms':e['end_ms']} for e in events],'hold_ranges':hold_ranges})
         return {'candidates':result,'page':records['page'],'has_more':records['page']*records['page_size']<records['total'],'candidate_limit':records['page_size']}
 
     def save(self,uid,auth,wid,data,key):
@@ -90,7 +90,7 @@ class TrainingAllocations:
                 item=self._item(row,iid);record=self._record(c,uid,rid)
                 if record['state_version']!=record_version:raise ConflictError('分析记录已修订')
                 if record['action_id']!=item['action_id']:raise APIError('RECORD_NOT_COMPATIBLE','动作不同',422)
-                if item.get('variant') and record['config'].get('variant')!=item['variant']:raise APIError('RECORD_NOT_COMPATIBLE','动作变式无法确认',422)
+                if item.get('variant') and record['config'].get('variant')!=item['variant']:raise APIError('RECORD_NOT_COMPATIBLE','请确认动作变式',422)
                 session=c.execute(select(s.training_plan_sessions).where(s.training_plan_sessions.c.id==row['plan_session_id'])).mappings().one()
                 performed=dt.datetime.fromtimestamp((record['started_at_ms'] or record['created_at_ms'])/1000,ZONE).date().isoformat()
                 if performed!=session['scheduled_date']:
@@ -98,7 +98,7 @@ class TrainingAllocations:
                 used=list(c.execute(select(s.training_record_allocations).where(s.training_record_allocations.c.user_id==uid,s.training_record_allocations.c.valid==1,or_(s.training_record_allocations.c.record_id==rid,s.training_record_allocations.c.source_sha256==record['source_sha256'] if record['source_sha256'] else False))).mappings())
                 for link in used:
                     source_date=c.execute(select(s.training_plan_sessions.c.scheduled_date).join(s.training_workouts,s.training_workouts.c.plan_session_id==s.training_plan_sessions.c.id).where(s.training_workouts.c.id==link['workout_id'])).scalar()
-                    if source_date!=session['scheduled_date']:raise APIError('RECORD_ALREADY_ALLOCATED','同源训练不能分配到不同计划日期',409)
+                    if source_date!=session['scheduled_date']:raise APIError('RECORD_ALREADY_ALLOCATED','请将同次训练关联到对应的计划日期',409)
                 if reference_only:
                     if any(x['workout_id']==wid and x['item_id']==iid and x['record_id']==rid and x['unit']=='reference' for x in used):raise APIError('RECORD_ALREADY_ALLOCATED','该参考记录已关联',409)
                     lid=s.new_id();c.execute(s.training_record_allocations.insert().values(id=lid,user_id=uid,workout_id=wid,item_id=iid,record_id=rid,record_version=record_version,allocations_json='[]',source_sha256=record['source_sha256'],unit='reference',allocated_quantity=0))

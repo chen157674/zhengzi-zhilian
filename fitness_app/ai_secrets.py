@@ -30,4 +30,4 @@ class SecretVault:
             if value.get('owner')!=owner or not isinstance(value.get('key'),str):raise ValueError('owner')
             return value['key']
         except (InvalidToken,ValueError,KeyError,UnicodeError,TypeError) as error:
-            raise StorageError('API密钥密文无法核对，原配置保留，请重新设置') from error
+            raise StorageError('请重新设置API密钥，原配置保留') from error

@@ -1,5 +1,5 @@
 """计划执行、冻结目标与逐组实际量；与姿态质量分别统计。"""
-import json,datetime as dt
+import json,re,datetime as dt
 from flask import request,jsonify
 from flask_login import current_user
 from sqlalchemy import select,update,delete
@@ -42,9 +42,31 @@ class TrainingWorkouts:
         completion,results=self.completion(items,sets,links)
         source={x['source'] for x in sets};source='mixed' if len(source)>1 else next(iter(source),'manual')
         elapsed=row['elapsed_active_ms']+(max(0,self.clock()-row['active_since_ms']) if row['active_since_ms'] is not None and row['status']=='running' else 0)
-        return {k:row[k] for k in ('id','user_id','state_version','status','plan_session_id','plan_revision_id','actual_started_at_ms','actual_ended_at_ms')}|{'target_snapshot':target,'items':results,'completion':completion,'source':source,'record_links':[{**x,'allocations':json.loads(x['allocations_json'])} for x in links],'allowed_commands':COMMANDS[row['status']],'elapsed_active_ms':elapsed}
+        return {k:row[k] for k in ('id','user_id','state_version','status','plan_session_id','plan_revision_id','actual_started_at_ms','actual_ended_at_ms')}|{'target_snapshot':target,'items':results,'completion':completion,'note':json.loads(row['completion_json']).get('user_note',''),'source':source,'record_links':[{**x,'allocations':json.loads(x['allocations_json'])} for x in links],'allowed_commands':COMMANDS[row['status']],'elapsed_active_ms':elapsed}
     def get(self,uid,auth,wid):
-        with self.db.transaction(False) as c:return self.snapshot(c,self.row(c,uid,auth,wid))
+        with self.db.transaction(False) as c:result=self.snapshot(c,self.row(c,uid,auth,wid))
+        from .learning_guides import training_picture
+        for item in result['items']:item['thumbnail']=training_picture(item['action_id'])
+        return result
+    @staticmethod
+    def stored_completion(snapshot):
+        value=dict(snapshot['completion'])
+        if snapshot.get('note'):value['user_note']=snapshot['note']
+        return json_text(value)
+    def save_note(self,uid,auth,wid,data,key):
+        key=uuid_id(key);version=integer(data.get('expected_version'),'expected_version');note=data.get('note')
+        if not isinstance(note,str) or len(note)>500 or re.search(r'[<>\x00-\x08\x0b\x0c\x0e-\x1f]',note):
+            raise APIError('VALIDATION_FAILED','备注请填写500字以内的普通文字',422)
+        with self.db.transaction() as c:
+            row=self.row(c,uid,auth,wid)
+            def write():
+                if row['state_version']!=version:raise ConflictError('训练已在其他页面更新，本地备注保留')
+                if row['status']=='voided':raise APIError('INVALID_STATE','已作废执行仅可查看',409)
+                snapshot=self.snapshot(c,row);snapshot['note']=note.strip()
+                c.execute(update(s.training_workouts).where(s.training_workouts.c.id==wid,s.training_workouts.c.user_id==uid).values(completion_json=self.stored_completion(snapshot),state_version=version+1))
+                return {'id':wid,'version':version+1}
+            idempotent(c,uid,key,data,'training.workout.note',write,wid)
+        return self.get(uid,auth,wid)
     def create(self,uid,auth,data,key):
         key=uuid_id(key);sid=uuid_id(data.get('plan_session_id'));version=integer(data.get('session_expected_version'),'session_expected_version')
         with self.db.transaction() as c:
@@ -75,12 +97,12 @@ class TrainingWorkouts:
             row=self.row(c,uid,auth,wid)
             def write():
                 if row['state_version']!=version:raise ConflictError('执行已更新')
-                if kind not in COMMANDS[row['status']]:raise APIError('INVALID_STATE','当前执行不能进行此操作',409)
+                if kind not in COMMANDS[row['status']]:raise APIError('INVALID_STATE','请刷新训练执行状态后重试',409)
                 if kind in {'complete','void'} and data.get('confirmed') is not True:invalid('confirmed','请明确确认完成或作废')
                 now=self.clock();values={'state_version':version+1}
                 if kind in {'start','resume'}:
                     plan=c.execute(select(s.training_plans).join(s.training_plan_sessions,s.training_plan_sessions.c.plan_id==s.training_plans.c.id).where(s.training_plan_sessions.c.id==row['plan_session_id'])).mappings().one()
-                    if plan['status']!='active':raise APIError('PLAN_PAUSED','计划未启用或已暂停，不能开始新的活动',409)
+                    if plan['status']!='active':raise APIError('PLAN_PAUSED','请先启用训练计划',409)
                     schedule=c.execute(select(s.training_plan_sessions).where(s.training_plan_sessions.c.id==row['plan_session_id'],s.training_plan_sessions.c.user_id==uid)).mappings().one()
                     if kind=='start' and (schedule['status']!='planned' or date(schedule['scheduled_date'])!=self.plans.today()):raise APIError('WORKOUT_NOT_AVAILABLE','安排已改期或跳过，请重新核对今日训练',409)
                     other=c.execute(select(s.training_workouts.c.id).where(s.training_workouts.c.user_id==uid,s.training_workouts.c.status=='running',s.training_workouts.c.id!=wid)).first()
@@ -93,8 +115,8 @@ class TrainingWorkouts:
                     if row['active_since_ms'] is not None:values['elapsed_active_ms']=row['elapsed_active_ms']+max(0,now-row['active_since_ms'])
                     if kind in {'complete','end_early','void'}:values['actual_ended_at_ms']=now
                 snapshot=self.snapshot(c,row)
-                if kind=='complete' and (not snapshot['items'] or snapshot['completion']['completed_items']!=snapshot['completion']['target_items']):raise APIError('WORKOUT_TARGET_NOT_MET','目标尚未全部达标，可继续或提前结束',422)
-                values['completion_json']=json_text(snapshot['completion'])
+                if kind=='complete' and (not snapshot['items'] or snapshot['completion']['completed_items']!=snapshot['completion']['target_items']):raise APIError('WORKOUT_TARGET_NOT_MET','可继续完成目标，或选择提前结束',422)
+                values['completion_json']=self.stored_completion(snapshot)
                 c.execute(update(s.training_workouts).where(s.training_workouts.c.id==wid,s.training_workouts.c.user_id==uid).values(**values))
                 return {'id':wid,'version':version+1}
             idempotent(c,uid,key,data,'training.workout.'+kind,write,wid)
@@ -132,7 +154,7 @@ class TrainingWorkouts:
                     else:c.execute(s.training_workout_sets.insert().values(id=s.new_id(),user_id=uid,workout_id=wid,item_id=iid,set_index=index,**values))
                 c.execute(update(s.training_workouts).where(s.training_workouts.c.id==wid).values(state_version=version+1))
                 snapshot=self.snapshot(c,{**row,'state_version':version+1})
-                c.execute(update(s.training_workouts).where(s.training_workouts.c.id==wid).values(completion_json=json_text(snapshot['completion'])))
+                c.execute(update(s.training_workouts).where(s.training_workouts.c.id==wid).values(completion_json=self.stored_completion(snapshot)))
                 return {'id':wid,'version':version+1}
             idempotent(c,uid,key,data,'training.set.delete' if remove else 'training.set.save',write,wid+':'+iid+':'+str(index))
         result=self.get(uid,auth,wid);result['updated_set']=next(x for x in result['items'] if x['item_id']==iid)['sets'][index-1];return result
@@ -165,6 +187,9 @@ def register_workouts(app):
     def workout_detail(wid):return jsonify(data=service.get(current_user.user_id,current_user.id,wid))
     @app.post('/api/v1/training/workouts/<wid>/commands')
     def workout_command(wid):return jsonify(data=service.command(current_user.user_id,current_user.id,wid,body({'expected_version','type','confirmed','reason'}),request.headers.get('Idempotency-Key')))
+    @app.put('/api/v1/training/workouts/<wid>/note')
+    def workout_note(wid):
+        return jsonify(data=service.save_note(current_user.user_id,current_user.id,wid,body({'expected_version','note'}),request.headers.get('Idempotency-Key')))
     @app.route('/api/v1/training/workouts/<wid>/items/<iid>/sets/<int:index>',methods=['PUT','DELETE'])
     def workout_set(wid,iid,index):
         fields={'expected_version'} if request.method=='DELETE' else {'expected_version','actual_reps','actual_duration_ms','load','status','source'}

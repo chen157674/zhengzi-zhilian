@@ -16,5 +16,5 @@ export function feedbackSummary(record){
     const values=findings.filter(x=>x.code===rule.code);
     return {code:rule.code,title:rule.title,status:values.some(x=>x.status==='issue')?'issue':values.some(x=>x.status==='not_observed')?'clear':'unassessable'};
   });
-  return {state,title:state==='issue'?'有动作需要调整':state==='clear'?'已检查项目未见偏差':'暂未形成动作结论',issues,checks};
+  return {state,title:state==='issue'?'有动作需要调整':state==='clear'?'检查项通过':'',issues,checks};
 }

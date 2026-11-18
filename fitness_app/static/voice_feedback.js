@@ -17,10 +17,10 @@ export function createVoiceFeedback(actionId){
     catalogue=data;player=new VoicePlayer(data,{onStatus:event=>{
       if(disposed)return;
       if(event.state==='playing')say('正在播报：'+event.text);
-      else if(event.state==='unavailable')say('本条语音不可用，文字反馈继续显示。');
+      else if(event.state==='unavailable')say('请查看文字反馈。');
       else if(event.state==='idle'&&status.textContent.startsWith('正在播报'))readiness();
     }});readiness();if(snapshot)update(snapshot,owner,blocked);
-  }).catch(()=>{player?.setEnabled(false);player=null;catalogue=null;if(!disposed){toggle.disabled=true;status.textContent='暂时无法读取语音资源，文字反馈仍可用。'}});
+  }).catch(()=>{player?.setEnabled(false);player=null;catalogue=null;if(!disposed){toggle.disabled=true;status.textContent='请查看文字反馈，或重试加载语音。'}});
   toggle.addEventListener('change',()=>{player?.setEnabled(toggle.checked);readiness()});
   function update(data,owns,isBlocked=false){
     snapshot=data;owner=owns;blocked=isBlocked;if(!player||!data)return;

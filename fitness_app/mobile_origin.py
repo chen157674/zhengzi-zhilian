@@ -63,7 +63,7 @@ def configure_mobile_origin(app,value):
     if not origin:return
     parsed=urlsplit(origin);trusted=parsed.hostname
     if ':' in trusted:trusted='['+trusted+']'
-    if trusted in {'localhost','127.0.0.1','[::1]'}:raise ValueError('手机访问地址不能是电脑自身的回环地址')
+    if trusted in {'localhost','127.0.0.1','[::1]'}:raise ValueError('请使用电脑的局域网地址进行手机访问')
     app.config['MOBILE_PUBLIC_ORIGIN']=origin
     app.config['TRUSTED_HOSTS']=[*app.config['TRUSTED_HOSTS'],trusted]
     app.session_interface=SchemeCookies();app.wsgi_app=OriginProxy(app.wsgi_app,origin)

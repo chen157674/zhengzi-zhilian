@@ -1,20 +1,19 @@
 {
-  "version": "fitness-knowledge-20261030-1",
+  "version": "fitness-knowledge-20261112-6",
   "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
   "model_files": {
     "config.json": "3853a7979202c348751b753e36f579c41d8da7d36af617d3d907e1fc9b441f2a",
     "model.safetensors": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
-    "README.md": "c48a4eeea77f6b1d38b48ec1c5b8d4f86d5550cc43fa345a0db1b2ca1d082369",
     "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
     "tokenizer.json": "48cea5d44424912a6fd1ea647bf4fe50b55ab8b1e5879c3275f80e339e8fae26",
     "tokenizer_config.json": "e6f3b96db926a37d4039995fbf5ad17de158dfb8f6343d607e4dbaad18d75f5a",
     "vocab.txt": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
   },
-  "knowledge_sha256": "1b04e3d712c6bed76dd329d673deb705559a6cece1c2d952f2558f5bcfa69344",
-  "count": 50,
+  "knowledge_sha256": "db6e2a8045a8d091a9f87baa675f4a43ac3402b0308077e1b4c676cf3e333b7e",
+  "count": 170,
   "dimensions": 512,
   "license": "MIT",
   "retrieval": "BM25+L2-CLS+RRF60",
-  "vectors_sha256": "96e0d5375e55e993292dc880a973fb9765b4fb509a3a582d703ced9011fe72b2",
-  "vectors_file": "vectors-96e0d5375e55e993.npy"
+  "vectors_sha256": "43eda19b09973abcf4b61cccc2b6a76cd85d0889aced958ec09b80d45afe50e4",
+  "vectors_file": "vectors-43eda19b09973abc.npy"
 }

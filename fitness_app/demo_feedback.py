@@ -33,9 +33,9 @@ def build_demo_feedback(frame,output,rules,coaching):
             if status=='not_observed':detail='未发现偏差'
             elif status=='issue':detail=item.get('message') or rule['title']
             elif reason=='unsupported_view':detail='需要'+('或'.join(VIEW_NAMES[v] for v in rule.get('views',[]) if v in VIEW_NAMES))+'机位'
-            elif reason=='target_ambiguous':detail='训练目标不唯一，暂不能判断'
+            elif reason=='target_ambiguous':detail='请保持单人完整入镜'
             elif reason in WAITING:detail='等待连续动作证据'
-            else:detail=item.get('message') or '关键部位未连续可见，暂不能判断'
+            else:detail=item.get('message') or '请保持关键部位持续入镜'
             side=item.get('side','none')
             label=check_label(rule)+('（左侧）' if side=='left' else '（右侧）' if side=='right' else '')
             checks.append({'code':rule['code'],'label':label,'status':status,'detail':detail,
@@ -60,5 +60,5 @@ def build_demo_feedback(frame,output,rules,coaching):
     elif checks and valid_target and any(item['reason'] in WAITING for item in checks):
         result.update(state='observing',title='正在观察动作',description='需要一小段连续动作后，才能判断姿态。',instruction='')
     else:
-        result.update(state='unassessable',title='暂时无法判断',description='机位或关键部位的可见性不足，不能确认当前是否存在偏差。',instruction='请按下方检查项的机位要求，让相关部位连续入镜。')
+        result.update(state='unassessable',title='',description='请调整机位，让关键部位持续入镜。',instruction='请按下方检查项的机位要求，让相关部位连续入镜。')
     return result

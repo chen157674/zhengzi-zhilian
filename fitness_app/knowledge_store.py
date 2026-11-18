@@ -4,7 +4,7 @@ from collections import Counter
 from pathlib import Path
 from .paths import ROOT,project_path
 
-VERSION='fitness-knowledge-20261030-1'
+VERSION='fitness-knowledge-20261112-6'
 MODEL_REVISION='7999e1d3359715c523056ef9478215996d62a620'
 DOMAINS={'movement','nutrition','hypertrophy'}
 MODEL_RUNTIME_FILES=frozenset({'config.json','model.safetensors','special_tokens_map.json','tokenizer.json','tokenizer_config.json','vocab.txt'})
@@ -91,6 +91,35 @@ def entries():
                'status':'published','variant_scope':'shared_dumbbell_principles' if source=='S07' else None}
         value['sha256']=hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
         result.append(value)
+    # 原有条目ID不动；新增教程用独立稳定ID，避免插入导致旧引用指向别的动作。
+    curriculum=json.loads((ROOT/'fitness_app/learning_curriculum.json').read_text(encoding='utf-8'))
+    from .catalogue import get_action
+    for action_id,lesson in curriculum['guides'].items():
+        action=get_action(action_id)
+        source={'title':'正姿智练 · '+action['name']+'入门教程','url':None,'reuse':'本项目原创训练方法整理，非外部机构逐项认证或实际检测结论'}
+        text='；'.join(step['title']+'：'+step['text'] for step in lesson['steps'])
+        value={'id':'k:lesson:'+action_id,'domain':'movement','action_id':action_id,'title':action['name']+'怎么练',
+               'text':text,'source_id':'L:'+action_id,'source':source,'locator':'learning_curriculum.json / '+action_id,
+               'version':VERSION,'source_type':'project_tutorial','reviewed_on':'2026-11-11','status':'published','variant_scope':action_id}
+        value['sha256']=hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+        result.append(value)
+    meals=json.loads((ROOT/'fitness_app/nutrition_meals.json').read_text(encoding='utf-8'))
+    for lesson in meals['guides']:
+        value={'id':'k:food:'+lesson['id'],'domain':'nutrition','action_id':None,'title':lesson['title'],
+               'text':lesson['text'],'source_id':'F:'+lesson['id'],
+               'source':{'title':'正姿智练 · 日常饮食搭配','url':None,'reuse':meals['source_note']},
+               'locator':'nutrition_meals.json / '+lesson['id'],'version':VERSION,'source_type':'project_food_guide',
+               'reviewed_on':'2026-11-11','status':'published','variant_scope':None}
+        value['sha256']=hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True).encode()).hexdigest();result.append(value)
+    research=json.loads((ROOT/'fitness_app/nutrition_research.json').read_text(encoding='utf-8'))
+    for item in research['entries']:
+        source=research['sources'][item['source_id']]
+        value={'id':item['id'],'domain':item['domain'],'action_id':None,'title':item['title'],
+               'text':item['text'],'question':item['question'],'category':item['category'],
+               'applicability':item['applicability'],'source_id':item['source_id'],'source':source,
+               'locator':item['locator'],'version':VERSION,'source_type':item['source_type'],
+               'reviewed_on':item.get('reviewed_on',research['sources'][item['source_id']]['checked_on']),'status':'published','variant_scope':None}
+        value['sha256']=hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True).encode()).hexdigest();result.append(value)
     return result
 
 def terms(text):
@@ -100,7 +129,7 @@ def terms(text):
 class KnowledgeStore:
     def __init__(self,index_dir=None):
         self.rows=entries();self.by_id={r['id']:r for r in self.rows};self.lock=threading.RLock();self.encoder_lock=threading.RLock()
-        self.docs=[Counter(terms(r['title']+' '+r['text'])) for r in self.rows]
+        self.docs=[Counter(terms(r['title']+' '+r.get('question','')+' '+r['text'])) for r in self.rows]
         self.avg=sum(map(lambda x:sum(x.values()),self.docs))/len(self.docs)
         self.df=Counter(term for doc in self.docs for term in doc)
         self.index_dir=project_path(index_dir or 'data/knowledge/index');self.encoder=None;self.vectors=None
@@ -148,14 +177,14 @@ class KnowledgeStore:
     def search(self,query,domain,action_id=None,limit=5):
         if not isinstance(query,str) or not query.strip() or len(query)>1000 or not isinstance(domain,str) or domain not in DOMAINS|{'all'} or type(limit) is not int or not 1<=limit<=5:raise ValueError('知识查询参数无效')
         if domain=='all' and action_id is not None:raise ValueError('全部主题不接受单动作约束')
-        if action_id is not None and (not isinstance(action_id,str) or action_id not in {'machine_chest_press','standing_dumbbell_curl','bodyweight_squat'}):raise ValueError('动作不在知识范围')
+        if action_id is not None and (not isinstance(action_id,str) or action_id not in {r['action_id'] for r in self.rows if r['action_id']}):raise ValueError('动作不在知识范围')
         rejected=False
         # 产品范围与明确动作是硬条件，语义相似不能覆盖它们。
         if re.search(r'诊断|撕裂|损伤程度|脊柱局部曲度|个性化处方|营养处方|肾病|类固醇|握力数值|器械配重|哑铃多少公斤',query):rejected=True
         if domain=='movement' and action_id:
             aliases={'machine_chest_press':r'推胸','standing_dumbbell_curl':r'弯举|锤式','bodyweight_squat':r'深蹲|下蹲'}
             if any(k!=action_id and re.search(v,query) for k,v in aliases.items()):rejected=True
-            if re.search(r'面拉|硬拉|划船|绳索|杠铃',query):rejected=True
+            if action_id in aliases and re.search(r'面拉|硬拉|划船|绳索|杠铃',query):rejected=True
         if rejected:return {'version':VERSION,'retrieval_mode':'scope_filter','matches':[],'status':'no_match','domain':domain,'action_id':action_id}
         query=query.replace('次数','周期').replace('秒数','时间')
         allowed=[i for i,r in enumerate(self.rows) if self.by_id.get(r['id'],{}).get('status')=='published' and (domain=='all' or r['domain']==domain) and (domain!='movement' or action_id is None or r['action_id']==action_id)]
@@ -179,6 +208,13 @@ class KnowledgeStore:
                 for j,i in enumerate(semantic):ranks[i]=ranks.get(i,0)+1/(60+j+1)
                 mode='hybrid'
             except (OSError,ValueError,ImportError,RuntimeError):mode='keyword_fallback'
+        # 明确提问某个动作时优先它的教程，最长名称区分辅助引体/普通引体等变式。
+        from .catalogue import definitions
+        named=[a for a in definitions() if a['name'] in query]
+        if named:
+            intended=max(named,key=lambda a:len(a['name']))['action_id']
+            for i in ranks:
+                if self.rows[i]['action_id']==intended:ranks[i]+=.2
         chosen=sorted(ranks,key=lambda i:(-ranks[i],i))[:limit]
         return {'version':VERSION,'retrieval_mode':mode,'matches':[self.public_row(self.by_id[self.rows[i]['id']]) for i in chosen],
                 'status':'matched' if chosen else 'no_match','domain':domain,'action_id':action_id}
@@ -197,15 +233,32 @@ class KnowledgeStore:
             if row.get('status')!='published':return {'id':chunk_id,'title':row['title'],'status':'withdrawn','version':row['version']}
             return self.public_row(row)
 
+    def references(self):
+        """仅列当前发布研究条目的文献元数据；不暴露私人对话。"""
+        with self.lock:
+            result={}
+            for row in self.by_id.values():
+                source=row.get('source',{})
+                if row.get('status')!='published' or not source.get('reference_id'):continue
+                item=result.setdefault(row['source_id'],{**copy.deepcopy(source),'source_id':row['source_id'],'knowledge_count':0})
+                item['knowledge_count']+=1
+            return sorted(result.values(),key=lambda r:r['reference_id'])
+
     def catalog(self):
         from .catalogue import definitions
+        from .presentation_assets import cover_catalogue
+        from .learning_guides import learning_cards
+        covers=cover_catalogue()
+        actions=definitions()
         with self.lock:
             rows=[self.public_row(r) for r in self.by_id.values() if r.get('status')=='published']
         labels={'movement':'动作知识','nutrition':'饮食知识','hypertrophy':'增肌与恢复'}
         return {'version':VERSION,'index_status':self.index_status,
                 'domains':[{'id':key,'label':labels[key],'topics':list(dict.fromkeys(r['title'] for r in rows if r['domain']==key)),
                             'available_count':sum(r['domain']==key for r in rows)} for key in sorted(DOMAINS)],
-                'actions':[{'action_id':a['action_id'],'name':a['name'],'equipment':a.get('equipment',''),'aliases':a.get('aliases',[]),'knowledge_count':sum(r['action_id']==a['action_id'] for r in rows)} for a in definitions()],
+                'nutrition_topics':[{'category':category,'question':next(r['question'] for r in rows if r.get('category')==category)} for category in dict.fromkeys(r['category'] for r in rows if r.get('category'))],
+                'lessons':learning_cards(self,actions),
+                'actions':[{'action_id':a['action_id'],'name':a['name'],'equipment':a.get('equipment',''),'cover':covers.get(a['action_id']),'aliases':a.get('aliases',[]),'knowledge_count':sum(r['action_id']==a['action_id'] for r in rows)} for a in actions],
                 'example_queries':[{'query':r['title'],'domain':r['domain'],'action_id':r['action_id']} for r in rows[::10]]}
 
     def retrieval(self,query,domain,action_id=None,limit=5):

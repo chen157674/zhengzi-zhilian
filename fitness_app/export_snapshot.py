@@ -107,7 +107,7 @@ class ExportSnapshots:
             self.sessions._actor(c,uid,auth);records=[]
             for sid in ids:
                 row=self.sessions._session(c,uid,sid);config=json.loads(row['config_json'])
-                if row['status'] not in TERMINAL or row['started_at_ms'] is None or row['source']=='demo' or config.get('included_in_statistics',True) is not True:raise APIError('EXPORT_SOURCE_UNAVAILABLE','请选择已训练并结束的本人当前有效记录，演示或旧修订不能新导出',409)
+                if row['status'] not in TERMINAL or row['started_at_ms'] is None or row['source']=='demo' or config.get('included_in_statistics',True) is not True:raise APIError('EXPORT_SOURCE_UNAVAILABLE','请选择本人已结束的当前训练记录',409)
                 definition=json.loads(c.scalar(select(s.action_capabilities.c.definition_json).where(s.action_capabilities.c.action_id==row['action_id'],s.action_capabilities.c.capability_version==row['capability_version'])))
                 records.append({'id':sid,'version':row['state_version'],'action_id':row['action_id'],'action_name':definition.get('name',row['action_id']),'started_at_ms':row['started_at_ms']})
         return {'records':records,'expected_versions':{v['id']:v['version'] for v in records},'ai_reports':self.ai_options(uid,auth,ids),'retention_hours':24,'export_does_not_call_ai':True}

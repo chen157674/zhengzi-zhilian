@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}实时分析 · 知练同行{% endblock %}
+{% block title %}实时分析 · 正姿智练{% endblock %}
 {% block page %}realtime{% endblock %}
-{% block head %}<script type="module" src="/static/live.js"></script>{% endblock %}
+{% block head %}<script type="module" src="{{ asset_url('live.js') }}"></script>{% endblock %}
 {% block content %}
 <div class="live-shell" id="live-workspace" data-state="ready">
-  <div class="page-heading live-heading"><h1>实时分析</h1><p>自动识别动作，也可以手动指定。</p></div>
+  <div class="page-heading live-heading"><h1>实时分析</h1></div>
   <p id="live-phase" class="sr-only" role="status">准备就绪</p>
   <p id="live-error" class="notice error" role="alert" hidden></p>
-  <section id="live-save-banner" class="notice error" hidden><strong>本次结果尚未全部保存</strong><p>分析已冻结，请先处理未保存的内容。</p><div class="button-row"><button type="button" class="button" id="live-save-retry">重试保存</button><button type="button" class="button secondary" id="live-save-discard">保留已保存内容</button></div></section>
+  <section id="live-save-banner" class="notice error" hidden><strong>还有结果待保存</strong><p>分析已冻结，请先处理未保存的内容。</p><div class="button-row"><button type="button" class="button" id="live-save-retry">重试保存</button><button type="button" class="button secondary" id="live-save-discard">保留已保存内容</button></div></section>
   <div class="live-toolbar">
     <div class="live-recognition">
       <div class="live-mode-switch" role="group" aria-label="识别方式">
@@ -28,10 +28,10 @@
   <div class="live-stage" id="live-stage">
     <video id="live-source" playsinline muted hidden></video><canvas id="live-canvas" aria-label="同帧摄像头画面与姿态骨架" hidden></canvas>
     <strong id="live-action" class="live-action-badge">自动识别 · 等待开始</strong>
-    <div class="live-empty" id="live-empty"><svg aria-hidden="true"><use href="#camera"/></svg><h2 id="live-empty-title">准备开始训练</h2><p id="live-empty-text">开启摄像头，开始这一组。</p></div>
+    <div class="live-empty" id="live-empty"><svg aria-hidden="true"><use href="#camera"/></svg><h2 id="live-empty-title">准备开始训练</h2><p id="live-empty-text">开启摄像头，开始这一组。</p><div class="live-empty-tips"><span>全身入镜</span><span>光线充足</span><span>固定机位</span></div></div>
     <button type="button" class="live-fullscreen" id="live-fullscreen" aria-label="全屏" title="全屏" aria-pressed="false" disabled><span class="sr-only">全屏</span></button>
     <span class="live-paused" id="live-paused" hidden>已暂停 · 继续后重新取景</span>
-    <aside class="live-cue" id="live-cue" hidden><button type="button" id="live-cue-collapse" class="cue-collapse" aria-expanded="true">收起提示</button><span class="cue-heading">动作纠正提示</span><strong id="live-cue-title"></strong><span id="live-cue-next" class="cue-next" hidden>下一次这样做</span><p id="live-cue-text"></p><p id="live-cue-meta" class="cue-meta" hidden></p><button id="live-retest-start" class="button secondary small" type="button" hidden>验证这项调整</button></aside>
+    <aside class="live-cue" id="live-cue" hidden><button type="button" id="live-cue-collapse" class="cue-collapse" aria-expanded="true">收起提示</button><div class="correction-cue-label"><span class="correction-cue-marker" data-cue-marker aria-hidden="true">·</span><span class="cue-heading" data-cue-label>片段反馈</span></div><div class="correction-cue-message" role="status" aria-live="polite" aria-atomic="true"><strong id="live-cue-title" data-cue-title></strong><span id="live-cue-next" class="cue-next" data-cue-next hidden>下一次这样做</span><p id="live-cue-text" data-cue-text></p></div><p id="live-cue-meta" class="cue-meta" hidden></p><button id="live-retest-start" class="button secondary small" type="button" hidden>验证这项调整</button></aside>
   </div>
   <section id="live-retest-panel" class="detail-panel" hidden></section>
   <div class="live-foot">
@@ -42,7 +42,7 @@
       <button class="button ghost ai-entry" data-ai-open type="button">问AI教练 <span aria-hidden="true">→</span></button>
     </div>
     <p id="live-status" role="status"></p><p id="live-skeleton-save-state" class="field-help" role="status"></p><p id="live-stability-save-state" class="field-help" role="status"></p>
-    <details class="live-framing-guide" id="live-framing-guide"><summary id="live-guide-summary">取景建议</summary><div><ol id="live-guide-steps"></ol><div id="live-guide-items"></div></div></details>
+    <p id="live-framing-note" class="capture-hint" role="status"></p>
   </div>
   <section id="live-summary" hidden><div class="page-heading"><h1>本次训练结果</h1><p id="live-summary-message"></p></div><div id="live-summary-records"></div><div class="button-row"><button type="button" class="button" id="live-again">再练一次</button><a class="button secondary" href="/records" data-nav>查看训练记录</a></div></section>
 </div>

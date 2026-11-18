@@ -6,7 +6,7 @@ export async function renderRecordRetest(data){
  const host=document.querySelector('#record-retest');if(!host)return;
  const key=data.session_id+':'+data.state_version;if(host.dataset.key===key)return;host.dataset.key=key;host.hidden=false;host.replaceChildren();
  host.append(el('h2',data.retest?'调整后复测':'验证一项调整'));
- if(data.retest){const r=data.retest;host.append(el('p',r.message));if(r.title)host.append(el('p',r.title,'field-help'));if(r.observation){const o=r.observation;host.append(el('p',o.unit==='cycles'?`同项可评估 ${o.evaluated} 次，无法评估 ${o.unknown} 次。`:`同项有效观察 ${(o.evaluated/1000).toFixed(1)} 秒；未知区间不算正常。`,'field-help'));}}
+ if(data.retest){const r=data.retest;host.append(el('p',r.message));if(r.title)host.append(el('p',r.title,'field-help'));if(r.observation){const o=r.observation;host.append(el('p',o.unit==='cycles'?`同项可评估 ${o.evaluated} 次。`:`同项有效观察 ${(o.evaluated/1000).toFixed(1)} 秒。`,'field-help'));}}
  try{const value=await api('/api/v1/records/'+data.session_id+'/retest-options');if(host.dataset.key!==key)return;
   if(!value.options.length){if(!data.retest)host.hidden=true;return;}
   host.append(el('p','只复测你选中的一项提示；自动识别动作后，主动结束并查看结果。','field-help'));
@@ -17,7 +17,7 @@ export class LiveRetest{
  constructor(){this.option=null;this.host=document.querySelector('#live-retest-panel');this.ready=this.load();}
  async load(){const query=new URLSearchParams(location.search),sid=query.get('retest_record'),eid=query.get('retest_evidence');if(!sid&&!eid)return;
   this.host.hidden=false;this.host.replaceChildren(el('p','正在读取原提示…'));
-  try{if(!sid||!eid)throw new Error('复测来源不完整，请从记录中的提示重新进入。');const data=await api('/api/v1/records/'+encodeURIComponent(sid)+'/retest-options');this.option=data.options.find(v=>v.origin.evidence_id===eid);if(!this.option)throw new Error('原提示已更新或不适合复测，请重新选择。');this.host.replaceChildren(el('strong','验证这项调整'),el('p',this.option.title),el('p',`${this.option.action_name} · 原机位：${names[this.option.view]}。仍自动识别动作；请主动开启摄像头，结束后查看同项参考结果。`,'field-help'));this.state=el('p','尚未开始采集；此处不会自动申请相机权限。','field-help');this.host.append(this.state);
+  try{if(!sid||!eid)throw new Error('复测来源不完整，请从记录中的提示重新进入。');const data=await api('/api/v1/records/'+encodeURIComponent(sid)+'/retest-options');this.option=data.options.find(v=>v.origin.evidence_id===eid);if(!this.option)throw new Error('原提示已更新或不适合复测，请重新选择。');this.host.replaceChildren(el('strong','验证这项调整'),el('p',this.option.title),el('p',`${this.option.action_name} · 原机位：${names[this.option.view]}。仍自动识别动作；请主动开启摄像头，结束后查看同项参考结果。`,'field-help'));this.state=el('p','请点击开始采集，并按提示开启摄像头。','field-help');this.host.append(this.state);
   }catch(error){this.error=error;this.host.replaceChildren(el('p',error.message,'notice error'));}
   const exit=el('a','返回普通训练','text-link');exit.href='/realtime';exit.dataset.nav='';this.host.append(exit);
  }

@@ -1,0 +1,62 @@
+{
+  "method": "Lossy WebP derivative, original PNG crop only; no generative edits to poses",
+  "images": [
+    {
+      "id": "standard-push-up",
+      "source": "../standard-push-up.png",
+      "source_sha256": "54fe92b186100c5a15e6feb9d3a898586d7de3a1e2a92e49fded299d11e3114b",
+      "crop_box": [
+        0,
+        368,
+        1536,
+        779
+      ],
+      "file": "standard-push-up.webp",
+      "width": 1536,
+      "height": 411,
+      "bytes": 33414,
+      "sha256": "1accb5785d38864056ffd1d0f037a94b0ea91302a68056dc0a4b760e0320df03",
+      "review_status": "reviewed_crop_complete_body",
+      "purpose": "New wide tutorial layout; preserve existing triptych source and phase order",
+      "review_scope": "原图裁切，三个阶段/人物/支撑保持完整；不改变动作姿态。"
+    },
+    {
+      "id": "bodyweight-glute-bridge",
+      "source": "../bodyweight-glute-bridge.png",
+      "source_sha256": "7a452c938fdaf7809f21d8a54c41f6fa222f1dfa26a7a20e4c9de3fc885dd260",
+      "crop_box": [
+        0,
+        430,
+        1536,
+        787
+      ],
+      "file": "bodyweight-glute-bridge.webp",
+      "width": 1536,
+      "height": 357,
+      "bytes": 33952,
+      "sha256": "b975f3129003290fa1071c7a5f216016b43c35ec8f4f74f02bf4ac8bb68d6f90",
+      "review_status": "reviewed_crop_complete_body",
+      "purpose": "New wide tutorial layout; preserve existing triptych source and phase order",
+      "review_scope": "原图裁切，三个阶段/人物/支撑保持完整；不改变动作姿态。"
+    },
+    {
+      "id": "forearm-plank",
+      "source": "../forearm-plank.png",
+      "source_sha256": "034e4d48f0aa753be584c8a701b5b7860aba11c095f6f7c433ea251b3487e7e2",
+      "crop_box": [
+        0,
+        396,
+        1536,
+        733
+      ],
+      "file": "forearm-plank.webp",
+      "width": 1536,
+      "height": 337,
+      "bytes": 29710,
+      "sha256": "a58eca2f572af8e8fbb3ff075433ec08d2d0317dea347108facece46b753d9ec",
+      "review_status": "reviewed_crop_complete_body",
+      "purpose": "New wide tutorial layout; preserve existing triptych source and phase order",
+      "review_scope": "原图裁切，三个阶段/人物/支撑保持完整；不改变动作姿态。"
+    }
+  ]
+}

@@ -55,7 +55,7 @@ def filters(uid,data=None,as_of_ms=None):
         if data.get(field) is not None:
             try:dates[field]=datetime.strptime(data[field],'%Y-%m-%d').replace(tzinfo=ZONE)
             except (TypeError,ValueError):raise APIError('VALIDATION_FAILED','日期格式应为YYYY-MM-DD',422) from None
-    if len(dates)==2 and dates['date_from']>dates['date_to']:raise APIError('VALIDATION_FAILED','开始日期不能晚于结束日期',422)
+    if len(dates)==2 and dates['date_from']>dates['date_to']:raise APIError('VALIDATION_FAILED','请按先后顺序选择起止日期',422)
     if 'date_from' in dates:conditions.append(s.analysis_sessions.c.started_at_ms>=int(dates['date_from'].timestamp()*1000))
     if 'date_to' in dates:conditions.append(s.analysis_sessions.c.started_at_ms<int((dates['date_to']+timedelta(days=1)).timestamp()*1000))
     if as_of_ms is not None:
@@ -145,6 +145,28 @@ def compact_record(data,note=None):
         'training_note':note,'source_range':source_range,'exercise_basis':exercise_basis,'no_issue_is_not_overall_correct':True}
 
 
+def observation_groups(records,statistics=None):
+    """按同动作/规则/侧别/机位/单位分组，保留未知分母与实际记录身份。"""
+    groups={}
+    for record in records:
+        for stat in (statistics or record_statistics)(record):
+            rule=next((item for item in record.get('supported_items',[]) if item['code']==stat['code']),{})
+            policy=json.dumps(record.get('input_policy'),sort_keys=True,ensure_ascii=False,separators=(',',':'))
+            key=(record['action_id'],stat['code'],stat['side'],stat['rule_version'],stat['view'],stat['unit'],record.get('capability_version'),policy)
+            group=groups.setdefault(key,{'action_id':record['action_id'],'action_name':record['action_name'],'code':stat['code'],
+                'title':rule.get('title',stat['code']),**{field:stat[field] for field in ('side','rule_version','view','unit')},
+                'records':[],'totals':{'issue':0,'evaluated':0,'unknown':0},
+                'capability_version':record.get('capability_version'),
+                'comparable_view':stat['view'] not in {'unknown','auto'}})
+            group['records'].append({'record_id':record['session_id'],'record_version':record['state_version'],
+                'started_at_ms':record.get('started_at_ms') or record['created_at_ms'],
+                **{field:stat[field] for field in ('issue','evaluated','unknown')}})
+            for field in ('issue','evaluated','unknown'):group['totals'][field]+=stat[field]
+    for group in groups.values():
+        total=group['totals'];total['ratio']=total['issue']/total['evaluated'] if total['evaluated'] else None
+    return list(groups.values())
+
+
 class TrainingInsights:
     def __init__(self,sessions,training_info):self.sessions=sessions;self.db=sessions.db;self.training_info=training_info;self.clock=training_info.clock
 
@@ -232,7 +254,7 @@ class TrainingInsights:
             with self.db.transaction(False) as c:self.sessions._actor(c,uid,auth)
             data=self.sessions.snapshot(uid,sid,True)
             if versions is not None and (not isinstance(versions,dict) or versions.get(sid)!=data['state_version']):raise ConflictError('记录已变化，请重新选择比较')
-            if data['source']=='demo' or not data['included_in_statistics'] or data['status'] not in TERMINAL:raise APIError('COMPARISON_UNAVAILABLE','演示、未结束或已替代记录不能作为当前个人改善对比',409)
+            if data['source']=='demo' or not data['included_in_statistics'] or data['status'] not in TERMINAL:raise APIError('COMPARISON_UNAVAILABLE','请选择本人已结束的当前训练记录进行对比',409)
             snapshots.append(data);facts.append(compact_record(data,self.training_info.get_note(uid,auth,sid) if include_notes else None))
         comparable=(snapshots[0]['action_id']==snapshots[1]['action_id'] and snapshots[0]['capability_version']==snapshots[1]['capability_version'] and snapshots[0].get('input_policy')==snapshots[1].get('input_policy'));pairs=[]
         lookup={(r['code'],r['side'],r['rule_version'],r['view'],r['unit']):r for r in facts[1]['statistics']}

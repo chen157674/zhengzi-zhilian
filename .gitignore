@@ -1,9 +1,7 @@
-# 本地环境、凭据、数据库与任务临时产物
 .venv/
 .tmp/
 .cache/
 .tools/
-.finesse/
 **/__pycache__/
 *.py[cod]
 node_modules/
@@ -18,41 +16,19 @@ node_modules/
 *.db
 *.log
 *.maintenance.lock
-**/.verification/
-# 冻结提交副本单独保留，不把嵌套仓库和压缩包再次纳入开发仓库
-/比赛提交/
-/预指导提交/
-/OPC专项赛/
-*.bundle
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.task
+!data/models/pose_landmarker_full.task
+*.onnx
+!data/models/skelgym/world-features.onnx
+!data/models/skelgym/world-transformer.onnx
+/data/datasets/user-demos/
+/data/avatars/
+/data/uploads/
 *.zip
-# 大型权重、私人媒体、实验原始数据不进入Git
-/data/*
-!/data/models/
-!/data/fonts/
-!/data/knowledge/
-!/data/presentation-assets.json
-/data/models/**/*.safetensors
-/data/models/**/*.bin
-/data/models/**/*.pt
-/data/models/**/*.pth
-/data/models/**/*.onnx
-/data/models/**/*.task
-/data/knowledge/*
-!/data/knowledge/index/
-# 保留原历史已有的小型自有编码器
-!/data/models/skelgym/world-features.onnx
-!/data/models/skelgym/world-transformer.onnx
-# 旧轮大批设计图保留在本地；本轮UI与交付材料纳入版本
-/design/
-/前端重设计/
-/第三轮优化/**/*.png
-/第三轮优化/**/*.jpg
-/第四轮优化/**/*.png
-/第四轮优化/**/*.jpg
-/第四轮优化/**/*.mp4
-/第四轮优化/**/*.pdf
-/项目完善/**/*.png
-/项目完善/**/*.jpg
-# 系统文件
+*.bundle
 Thumbs.db
 .DS_Store

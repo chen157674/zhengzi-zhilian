@@ -1,5 +1,5 @@
-{% extends 'base.html' %}{% block title %}算法实验 · 知练同行{% endblock %}{% block page %}experiments{% endblock %}
-{% block head %}<link rel="stylesheet" href="{{ url_for('static',filename='experiments.css') }}"><script type="module" src="{{ url_for('static',filename='experiments.js') }}"></script>{% endblock %}
+{% extends 'base.html' %}{% block title %}算法实验 · 正姿智练{% endblock %}{% block page %}experiments{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ asset_url('experiments.css') }}"><script type="module" src="{{ asset_url('experiments.js') }}"></script>{% endblock %}
 {% block content %}<div class="container experiment-page" id="experiment-page" data-experiment-id="{{ experiment_id }}">
 <div class="page-heading"><div class="experiment-heading"><h1 id="experiment-title" tabindex="-1">{{ '实验结果' if experiment_id else '算法实验' }}</h1><span id="experiment-badge" class="status-badge disabled" hidden></span></div><p id="experiment-subtitle">在同一数据与划分下比较已有方法</p></div>
 <nav class="management-tabs" aria-label="管理工具"><a href="/admin/users" data-nav>账号管理</a><a class="selected" aria-current="page" href="/admin/experiments" data-nav>算法实验</a></nav>
@@ -10,15 +10,15 @@
 <fieldset class="experiment-methods"><legend>对比方法</legend><div id="experiment-method-options" class="experiment-method-grid"></div></fieldset><p id="experiment-method-error" class="field-error" role="alert" hidden></p>
 <div class="experiment-submit"><p class="notice">复用已经冻结的原始预测，汇总所选方法。此处不进行在线训练或重新推理视频。</p><button id="experiment-start" type="button" class="button" disabled>开始对比</button></div>
 </section>
-<section id="experiment-empty" class="panel experiment-empty" {% if experiment_id %}hidden{% endif %}><h2>实验状态</h2><div><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><h3>尚未开始实验</h3><p class="muted">完成后显示适用指标、拒判和失败信息。</p></div></section>
+<section id="experiment-empty" class="panel experiment-empty" {% if experiment_id %}hidden{% endif %}><h2>实验状态</h2><div><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><h3>待开始</h3><p class="muted">完成后显示适用指标、拒判和失败信息。</p></div></section>
 <section id="experiment-result" {% if not experiment_id %}hidden{% endif %}>
 <div id="experiment-run-note" class="notice" role="status">正在读取本人实验…</div>
 <div class="experiment-meta" id="experiment-meta"></div>
 <div id="experiment-progress-wrap" class="experiment-progress" hidden><progress id="experiment-progress" max="1" value="0" aria-label="已保存的方法结果进度"></progress><span id="experiment-progress-text"></span></div>
 <div class="account-table-panel"><div class="table-scroll"><table id="experiment-comparison" aria-label="方法比较"><thead><tr><th>方法</th><th>状态</th><th>正类精确率</th><th>正类召回率</th><th>宏平均 F1</th><th>判断覆盖率</th><th>分类预测耗时</th></tr></thead><tbody id="experiment-result-rows"></tbody></table></div></div>
 <p class="field-help experiment-scope" id="experiment-scope"></p>
-<section class="notice warning"><h2>暂不可计算的指标</h2><ul id="experiment-unavailable"></ul><p>模型输出和 AI 辅助标注不能作为自身准确率的真值。</p></section>
-<details class="detail-panel" id="experiment-detail"><summary>查看混淆矩阵与来源组结果</summary><p class="muted">拒判保留在主指标分母中；可判断子集上的条件指标不能替代主指标。</p><div id="experiment-method-details"></div></details>
+<section class="notice warning"><h2>待统计指标</h2><ul id="experiment-unavailable"></ul><p>准确率评测基准：独立标注。</p></section>
+<details class="detail-panel" id="experiment-detail"><summary>查看混淆矩阵与来源组结果</summary><p class="muted">主指标统计全部样本，条件指标统计可评估样本。</p><div id="experiment-method-details"></div></details>
 <div class="button-row experiment-result-actions"><button id="experiment-cancel" type="button" class="button secondary" hidden>取消对比</button><a id="experiment-back" href="/admin/experiments" class="button secondary" data-nav>返回实验配置</a><button id="experiment-run-again" type="button" class="button" disabled>重新运行</button></div>
 </section>
 <section class="panel experiment-history"><div class="experiment-history-heading"><h2>我的实验记录</h2><span class="muted" id="experiment-history-total">—</span></div><div id="experiment-history-list"></div><div class="pagination"><button type="button" id="experiment-history-prev" class="button secondary small" disabled>上一页</button><span id="experiment-history-page">—</span><button type="button" id="experiment-history-next" class="button secondary small" disabled>下一页</button></div></section>

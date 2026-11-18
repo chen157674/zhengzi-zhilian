@@ -117,7 +117,7 @@ class SkeletonStore:
                     if len(raw)>MAX_CHUNK or not decoder.eof or decoder.unused_data:raise ValueError('size')
                     frames=json.loads(raw)['frames']
                     result['frames'].extend(frame for frame in frames if frame['t']>after)
-                except (ValueError,KeyError,TypeError,zlib.error):raise APIError('SKELETON_DATA_UNAVAILABLE','已保存骨架数据未能通过完整性校验',503) from None
+                except (ValueError,KeyError,TypeError,zlib.error):raise APIError('SKELETON_DATA_UNAVAILABLE','请重新加载骨架记录',503) from None
                 if len(result['frames'])>=limit:break
             result['frames']=result['frames'][:limit]
             if result['frames'] and result['frames'][-1]['t']<result['last_ms']:result['next_after_ms']=result['frames'][-1]['t']

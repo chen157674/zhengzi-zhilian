@@ -1,0 +1,860 @@
+{
+  "scope": "development_cache_motion_guard_not_independent_accuracy",
+  "base_model_version": "semantic-fusion-73f2b4ade491-6ec0b1ba26",
+  "feature_manifest_sha256": "0b99c418d52715f7bf52dc716775d0197a59d6389edf86b6538bc4d9cfc5d087",
+  "selection": "training positives and already observed preparation negatives only; validation not used to select thresholds",
+  "selected": {
+    "config": {
+      "angle_degrees": 5.0,
+      "displacement_torso": 0.06,
+      "minimum_frames": 8,
+      "minimum_span_ms": 1200,
+      "maximum_gap_ms": 500,
+      "minimum_visibility": 0.7,
+      "minimum_coverage": 0.7,
+      "minimum_signal_families": 2
+    },
+    "train_veto_count": 0,
+    "train_veto_ids": [],
+    "negative_veto_count": 4
+  },
+  "candidate_count": 16,
+  "candidates": [
+    {
+      "config": {
+        "angle_degrees": 5.0,
+        "displacement_torso": 0.06,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 5.0,
+        "displacement_torso": 0.08,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 5.0,
+        "displacement_torso": 0.1,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 5.0,
+        "displacement_torso": 0.12,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 1,
+      "train_veto_ids": [
+        "legacy-885361246779916e1b73"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 6.0,
+        "displacement_torso": 0.06,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 6.0,
+        "displacement_torso": 0.08,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 6.0,
+        "displacement_torso": 0.1,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 6.0,
+        "displacement_torso": 0.12,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 1,
+      "train_veto_ids": [
+        "legacy-885361246779916e1b73"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 8.0,
+        "displacement_torso": 0.06,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 8.0,
+        "displacement_torso": 0.08,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 1,
+      "train_veto_ids": [
+        "legacy-521020fa57ac5972d624"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 8.0,
+        "displacement_torso": 0.1,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 2,
+      "train_veto_ids": [
+        "legacy-de2b34d4928bb061740f",
+        "legacy-521020fa57ac5972d624"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 8.0,
+        "displacement_torso": 0.12,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 4,
+      "train_veto_ids": [
+        "legacy-de2b34d4928bb061740f",
+        "legacy-885361246779916e1b73",
+        "legacy-521020fa57ac5972d624",
+        "youtube-i14hrj7l7CI-61000-91000"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 10.0,
+        "displacement_torso": 0.06,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 0,
+      "train_veto_ids": [],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 10.0,
+        "displacement_torso": 0.08,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 1,
+      "train_veto_ids": [
+        "legacy-521020fa57ac5972d624"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 10.0,
+        "displacement_torso": 0.1,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 2,
+      "train_veto_ids": [
+        "legacy-de2b34d4928bb061740f",
+        "legacy-521020fa57ac5972d624"
+      ],
+      "negative_veto_count": 4
+    },
+    {
+      "config": {
+        "angle_degrees": 10.0,
+        "displacement_torso": 0.12,
+        "minimum_frames": 8,
+        "minimum_span_ms": 1200,
+        "maximum_gap_ms": 500,
+        "minimum_visibility": 0.7,
+        "minimum_coverage": 0.7,
+        "minimum_signal_families": 2
+      },
+      "train_veto_count": 5,
+      "train_veto_ids": [
+        "legacy-de2b34d4928bb061740f",
+        "legacy-885361246779916e1b73",
+        "legacy-fa8813f0231a0b7bc789",
+        "legacy-521020fa57ac5972d624",
+        "youtube-i14hrj7l7CI-61000-91000"
+      ],
+      "negative_veto_count": 4
+    }
+  ],
+  "policy_signature": "acdea88bc0502881d2d000d7f26103dd18fb381630199d6a54902b8d8d517e08",
+  "train_motion_states": {
+    "moving": 476,
+    "insufficient": 102,
+    "unconfirmed": 4,
+    "static_exempt": 3
+  },
+  "validation_motion_states": {
+    "insufficient": 34,
+    "moving": 154,
+    "unconfirmed": 4,
+    "hold_supported": 1,
+    "static_exempt": 2
+  },
+  "validation_positive_clips": 193,
+  "correct_before": 171,
+  "correct_after": 169,
+  "accuracy_before": 0.8860103626943006,
+  "accuracy_after": 0.8756476683937824,
+  "per_class": {
+    "standard_push_up": {
+      "clips": 22,
+      "correct_before": 21,
+      "correct_after": 21,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.9545454545454546,
+      "recall_after": 0.9545454545454546
+    },
+    "standing_dumbbell_curl": {
+      "clips": 24,
+      "correct_before": 24,
+      "correct_after": 24,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "bodyweight_squat": {
+      "clips": 24,
+      "correct_before": 24,
+      "correct_after": 24,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "conventional_deadlift": {
+      "clips": 20,
+      "correct_before": 19,
+      "correct_after": 19,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.95,
+      "recall_after": 0.95
+    },
+    "barbell_bent_over_row": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "barbell_overhead_press": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "cable_y_raise": {
+      "clips": 2,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.5,
+      "recall_after": 0.5
+    },
+    "dumbbell_chest_fly": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "cable_chest_fly": {
+      "clips": 3,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.3333333333333333,
+      "recall_after": 0.3333333333333333
+    },
+    "assisted_pull_up": {
+      "clips": 3,
+      "correct_before": 3,
+      "correct_after": 3,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "seated_cable_row": {
+      "clips": 3,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.6666666666666666,
+      "recall_after": 0.6666666666666666
+    },
+    "overhead_dumbbell_extension": {
+      "clips": 25,
+      "correct_before": 21,
+      "correct_after": 21,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.84,
+      "recall_after": 0.84
+    },
+    "dumbbell_lateral_raise": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "cable_face_pull": {
+      "clips": 3,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.3333333333333333,
+      "recall_after": 0.3333333333333333
+    },
+    "cable_triceps_pushdown": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "dumbbell_front_raise": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "hammer_curl": {
+      "clips": 5,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.4,
+      "recall_after": 0.4
+    },
+    "bent_over_dumbbell_reverse_fly": {
+      "clips": 2,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.5,
+      "recall_after": 0.5
+    },
+    "pec_deck_fly": {
+      "clips": 3,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.3333333333333333,
+      "recall_after": 0.3333333333333333
+    },
+    "dumbbell_shoulder_press": {
+      "clips": 24,
+      "correct_before": 21,
+      "correct_after": 20,
+      "newly_vetoed_correct": 1,
+      "recall_before": 0.875,
+      "recall_after": 0.8333333333333334
+    },
+    "reverse_pec_deck_fly": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "machine_chest_press": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "barbell_bench_press": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "pull_up": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "lat_pulldown": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "bodyweight_glute_bridge": {
+      "clips": 3,
+      "correct_before": 3,
+      "correct_after": 2,
+      "newly_vetoed_correct": 1,
+      "recall_before": 1.0,
+      "recall_after": 0.6666666666666666
+    },
+    "high_knees": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "bent_knee_sit_up": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "incline_dumbbell_press": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "dumbbell_bench_press": {
+      "clips": 1,
+      "correct_before": 0,
+      "correct_after": 0,
+      "newly_vetoed_correct": 0,
+      "recall_before": 0.0,
+      "recall_after": 0.0
+    },
+    "forearm_plank": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "jumping_jack": {
+      "clips": 1,
+      "correct_before": 1,
+      "correct_after": 1,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    },
+    "reverse_lunge": {
+      "clips": 2,
+      "correct_before": 2,
+      "correct_after": 2,
+      "newly_vetoed_correct": 0,
+      "recall_before": 1.0,
+      "recall_after": 1.0
+    }
+  },
+  "new_rejections": [
+    {
+      "id": "youtube-OOe_HrNnQWw-96000-114000",
+      "expected": "dumbbell_shoulder_press",
+      "action_before": "dumbbell_shoulder_press",
+      "action_after": null,
+      "evidence": {
+        "version": "visible-motion-evidence-1",
+        "state": "unconfirmed",
+        "reason": "motion_unconfirmed",
+        "veto": true,
+        "scope": "visible_kinematic_change_not_exercise_correctness",
+        "signals": {
+          "elbow": {
+            "range": 4.892480352081307,
+            "unit": "image_degrees",
+            "frames": 32
+          },
+          "upper_arm": {
+            "range": 4.653870596959592,
+            "unit": "image_degrees",
+            "frames": 32
+          },
+          "wrist_0": {
+            "range": 0.04473042190063714,
+            "unit": "torso_ratio",
+            "frames": 32
+          },
+          "wrist_1": {
+            "range": 0.026986781392565676,
+            "unit": "torso_ratio",
+            "frames": 32
+          }
+        },
+        "frames": 32,
+        "moving_signals": []
+      }
+    },
+    {
+      "id": "youtube-FKqiXZVTVS4-26000-42000-curated",
+      "expected": "bodyweight_glute_bridge",
+      "action_before": "bodyweight_glute_bridge",
+      "action_after": null,
+      "evidence": {
+        "version": "visible-motion-evidence-1",
+        "state": "unconfirmed",
+        "reason": "motion_unconfirmed",
+        "veto": true,
+        "scope": "visible_kinematic_change_not_exercise_correctness",
+        "signals": {
+          "trunk": {
+            "range": 1.1600075765795026,
+            "unit": "image_degrees",
+            "frames": 32
+          },
+          "hip": {
+            "range": 1.349707673022749,
+            "unit": "image_degrees",
+            "frames": 32
+          },
+          "knee": {
+            "range": 1.384531198071791,
+            "unit": "image_degrees",
+            "frames": 32
+          },
+          "ankle_0": {
+            "range": 0.03172070799188664,
+            "unit": "torso_ratio",
+            "frames": 32
+          },
+          "ankle_1": {
+            "range": 0.03454546820255791,
+            "unit": "torso_ratio",
+            "frames": 32
+          }
+        },
+        "frames": 32,
+        "moving_signals": []
+      }
+    }
+  ],
+  "known_preparation_negatives": [
+    {
+      "start_ms": 6067,
+      "end_ms": 8868,
+      "predicted": "barbell_bent_over_row",
+      "expected": null,
+      "evidence": {
+        "version": "visible-motion-evidence-1",
+        "state": "unconfirmed",
+        "reason": "motion_unconfirmed",
+        "veto": true,
+        "scope": "visible_kinematic_change_not_exercise_correctness",
+        "signals": {
+          "elbow": {
+            "range": 3.423852358750679,
+            "unit": "image_degrees",
+            "frames": 43
+          },
+          "upper_arm": {
+            "range": 3.6164644674576714,
+            "unit": "image_degrees",
+            "frames": 43
+          },
+          "wrist_0": {
+            "range": 0.05030529863387992,
+            "unit": "torso_ratio",
+            "frames": 43
+          },
+          "wrist_1": {
+            "range": 0.030975517423505128,
+            "unit": "torso_ratio",
+            "frames": 43
+          }
+        },
+        "frames": 43,
+        "moving_signals": []
+      }
+    },
+    {
+      "start_ms": 7267,
+      "end_ms": 10468,
+      "predicted": "barbell_bent_over_row",
+      "expected": null,
+      "evidence": {
+        "version": "visible-motion-evidence-1",
+        "state": "unconfirmed",
+        "reason": "motion_unconfirmed",
+        "veto": true,
+        "scope": "visible_kinematic_change_not_exercise_correctness",
+        "signals": {
+          "elbow": {
+            "range": 3.706017203255186,
+            "unit": "image_degrees",
+            "frames": 49
+          },
+          "upper_arm": {
+            "range": 2.159867299962304,
+            "unit": "image_degrees",
+            "frames": 49
+          },
+          "wrist_0": {
+            "range": 0.03040107328781041,
+            "unit": "torso_ratio",
+            "frames": 49
+          },
+          "wrist_1": {
+            "range": 0.025038976862195916,
+            "unit": "torso_ratio",
+            "frames": 49
+          }
+        },
+        "frames": 49,
+        "moving_signals": []
+      }
+    }
+  ],
+  "training_vetoed_entries": [],
+  "phase_reviews": {
+    "schema_version": 1,
+    "protocol": "round3_sampled_motion_phase_1",
+    "scope": "development_phase_audit_not_independent_accuracy",
+    "original_labels_unchanged": true,
+    "reviews": [
+      {
+        "id": "legacy-b01dbed9009d80dcd8ce",
+        "source_path": "data/datasets/development-movements/reverse-lunge-dvids-551833.mp4",
+        "source_sha256": "fb564598f5184e4539b893ca0ffd516c0b731148296603dca79a70fa86f7f830",
+        "group": "public_dvids_collection",
+        "partition": "train",
+        "feature_signature": "c3b0b3fdd11c9781df13081c8eeb780d649171ae6509a81e7be926523b62493f",
+        "sampled_source_timestamps_ms": [
+          3403,
+          3871,
+          4304,
+          4738,
+          5172,
+          5639,
+          6073,
+          6506
+        ],
+        "publisher_action_id": "reverse_lunge",
+        "reviewed_action_id": null,
+        "phase": "stationary_preparation_or_instruction",
+        "reviewer": "Codex visual review of exact sampled frames plus pose motion; not independent coach labels",
+        "scope": "actual model input window only; not the whole source video and not specific-error truth",
+        "contact_sheet": "data/verification/round3/motion-evidence-review.jpg",
+        "specific_error_ground_truth": false,
+        "notes": "原始标题/整段动作标签保留；仅本次采样窗口未见执行该动态动作。"
+      },
+      {
+        "id": "legacy-872b63c860f72aaab8f0",
+        "source_path": "data/datasets/development-movements/barbell-row-dvids-639914-side.mp4",
+        "source_sha256": "77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50",
+        "group": "public_dvids_collection",
+        "partition": "train",
+        "feature_signature": "33a95be5bed91b706e0080301e2ac9db1ccd5107e8787b49dcc5477e160cbeff",
+        "sampled_source_timestamps_ms": [
+          3403,
+          3871,
+          4304,
+          4738,
+          5172,
+          5639,
+          6073,
+          6506
+        ],
+        "publisher_action_id": "barbell_bent_over_row",
+        "reviewed_action_id": null,
+        "phase": "stationary_preparation_or_instruction",
+        "reviewer": "Codex visual review of exact sampled frames plus pose motion; not independent coach labels",
+        "scope": "actual model input window only; not the whole source video and not specific-error truth",
+        "contact_sheet": "data/verification/round3/motion-evidence-review.jpg",
+        "specific_error_ground_truth": false,
+        "notes": "原始标题/整段动作标签保留；仅本次采样窗口未见执行该动态动作。"
+      },
+      {
+        "id": "youtube-OOe_HrNnQWw-96000-114000",
+        "source_path": "data/datasets/development-movements/youtube-OOe_HrNnQWw.mp4",
+        "source_sha256": "ce26c82c372e251746a73c724a4e7e3ff2a5e82eecb164ec2ba35ea659f5b7ea",
+        "group": "youtube-channel:UCwL6i80ui6Po2Jov2jVRlbQ",
+        "partition": "validation",
+        "feature_signature": "88e2e80627ef26bdb6a54de98ded0c0ee3d41ff07d99c66e7bc8995cae8e2e1b",
+        "sampled_source_timestamps_ms": [
+          103403,
+          103870,
+          104304,
+          104738,
+          105172,
+          105639,
+          106073,
+          106506
+        ],
+        "publisher_action_id": "dumbbell_shoulder_press",
+        "reviewed_action_id": null,
+        "phase": "stationary_preparation_or_instruction",
+        "reviewer": "Codex visual review of exact sampled frames plus pose motion; not independent coach labels",
+        "scope": "actual model input window only; not the whole source video and not specific-error truth",
+        "contact_sheet": "data/verification/round3/motion-evidence-review.jpg",
+        "specific_error_ground_truth": false,
+        "notes": "原始标题/整段动作标签保留；仅本次采样窗口未见执行该动态动作。"
+      },
+      {
+        "id": "youtube-FKqiXZVTVS4-26000-42000-curated",
+        "source_path": "data/datasets/development-movements/youtube-FKqiXZVTVS4.webm",
+        "source_sha256": "843bc018d4d7d224f121f8cb20b848093ff5f84b1a1928623ebd9bc87722dc9f",
+        "group": "youtube-channel:UCH9eCeOdGCEzdcLT4_PgRMA",
+        "partition": "validation",
+        "feature_signature": "a8cbce20e95ac262120fb8ad0c14760d03d5a419714b1410447b3ffcefd73dd8",
+        "sampled_source_timestamps_ms": [
+          32400,
+          32867,
+          33300,
+          33733,
+          34200,
+          34633,
+          35066,
+          35500
+        ],
+        "publisher_action_id": "bodyweight_glute_bridge",
+        "reviewed_action_id": null,
+        "phase": "stationary_preparation_or_instruction",
+        "reviewer": "Codex visual review of exact sampled frames plus pose motion; not independent coach labels",
+        "scope": "actual model input window only; not the whole source video and not specific-error truth",
+        "contact_sheet": "data/verification/round3/motion-evidence-review.jpg",
+        "specific_error_ground_truth": false,
+        "notes": "实际采样为仰卧屈膝起始位置，髋未抬起；不将臀桥静态顶端保持误当准备。"
+      }
+    ]
+  },
+  "phase_reviewed_validation": {
+    "positive_clips": 191,
+    "negative_clips": 4,
+    "positive_correct_before": 169,
+    "positive_correct_after": 169,
+    "negative_false_accepts_before": 2,
+    "negative_false_accepts_after": 0,
+    "original_protocol_retained": true,
+    "independent_validation": false
+  },
+  "unreviewed_correct_vetoes": [],
+  "training_negative_cases": 4,
+  "new_gpu_inferences": 0,
+  "published_weights_changed": false,
+  "runtime_enabled": false,
+  "safe_nonregression_candidate": true
+}

@@ -12,16 +12,16 @@ const title=kind=>kind==='comparison'?'前后对比':'训练复盘';
 const rangeText=r=>`本次选定 ${r.selected_records} 条训练，参考 ${r.history_records} 条历史记录。${r.history_enabled?'':'历史参考已关闭。'}`;
 function state(text){$('ai-report-state').textContent=text;}
 function fail(e){if(disposed)return;$('ai-report-error').textContent=e.message||String(e);$('ai-report-error').hidden=false;privateError(e);}
-function controls(){if(!dialog)return;for(const id of ['generate','refresh','history-reference','consent','check','resend','stop','new','delete','delete-yes','history-refresh'])$('ai-report-'+id).disabled=Boolean(busy);$('ai-report-generate').disabled=Boolean(busy)||Boolean(pending)||!options?.provider.available||!(options?.records.length||options?.history?.records_total);$('ai-report-history-reference').disabled=Boolean(busy)||Boolean(pending)||options?.read_scope.history_enabled===false;$('ai-report-refresh').disabled=Boolean(busy)||Boolean(pending);$('ai-report-new').disabled=Boolean(busy)||active.has(current?.status);}
+function controls(){if(!dialog)return;for(const id of ['generate','refresh','history-reference','consent','check','resend','stop','new','delete','delete-yes','history-refresh','copy','regenerate'])$('ai-report-'+id).disabled=Boolean(busy);$('ai-report-generate').disabled=Boolean(busy)||Boolean(pending)||!options?.provider.available||!(options?.records.length||options?.history?.records_total);$('ai-report-history-reference').disabled=Boolean(busy)||Boolean(pending)||options?.read_scope.history_enabled===false;$('ai-report-refresh').disabled=Boolean(busy)||Boolean(pending);$('ai-report-new').disabled=Boolean(busy)||active.has(current?.status);}
 async function action(task){if(busy||disposed)return;const token={};busy=token;controls();$('ai-report-error').hidden=true;const own=sequence;try{await task(own);}catch(e){if(valid(own))fail(e);}finally{if(busy===token){busy=null;controls();}}}
 function remember(value){sessionStorage.setItem(storageKey,JSON.stringify(value));pending=value;}
 function forget(id){if(pending?.id!==id)return;sessionStorage.removeItem(storageKey);pending=null;}
-function restore(){const raw=sessionStorage.getItem(storageKey);if(!raw)return;const value=JSON.parse(raw);if(!/^[0-9a-f-]{36}$/.test(value.id)||!['review','comparison'].includes(value.body?.kind)||value.body.consent!==true||!Array.isArray(value.body.record_ids)||value.body.record_ids.length>20||!value.body.expected_context)throw new Error('上次生成信息无法读取，请查看复盘历史。');pending=value;}
-function measurement(row){const unit=row.unit==='ms'?'秒':'次',number=v=>row.unit==='ms'?(v/1000).toFixed(1):v;return `偏差 ${number(row.issue)} / 可评估 ${number(row.evaluated)} ${unit}；无法判断 ${number(row.unknown)} ${unit}`;}
-function observations(data,box){box.replaceChildren();if(data.comparison){if(!data.comparison.comparable){box.append(el('p','暂不能作可比对照：'+data.comparison.reason,'notice'));return;}for(const pair of data.comparison.comparisons){const card=el('article',undefined,'ai-report-comparison');card.append(el('strong',(pair.title||issueNames[pair.code]||'参考姿态检查')+(pair.side==='left'?' · 左侧':pair.side==='right'?' · 右侧':'')),el('p','前次：'+measurement(pair.before)),el('p','后次：'+measurement(pair.after)),el('p',pair.interpretation,'field-help'));box.append(card);}}else if(data.history){for(const group of data.history.rule_cohorts){box.append(el('p',(group.title||group.code)+'：'+group.records_with_issue+' / '+group.assessed_records+' 条可评估记录出现提示；'+group.unassessable_records+' 条无法评估。','field-help'));}}else box.append(el('p','本次不引用历史记录。','field-help'));}
+function restore(){const raw=sessionStorage.getItem(storageKey);if(!raw)return;const value=JSON.parse(raw);if(!/^[0-9a-f-]{36}$/.test(value.id)||!['review','comparison'].includes(value.body?.kind)||value.body.consent!==true||!Array.isArray(value.body.record_ids)||value.body.record_ids.length>20||!value.body.expected_context)throw new Error('请从复盘历史查看上次结果。');pending=value;}
+function measurement(row){const unit=row.unit==='ms'?'秒':'次',number=v=>row.unit==='ms'?(v/1000).toFixed(1):v;return `偏差 ${number(row.issue)} / 可评估 ${number(row.evaluated)} ${unit}`;}
+function observations(data,box){box.replaceChildren();if(data.comparison){if(!data.comparison.comparable){box.append(el('p','对照条件：'+data.comparison.reason,'notice'));return;}for(const pair of data.comparison.comparisons){const card=el('article',undefined,'ai-report-comparison');card.append(el('strong',(pair.title||issueNames[pair.code]||'参考姿态检查')+(pair.side==='left'?' · 左侧':pair.side==='right'?' · 右侧':'')),el('p','前次：'+measurement(pair.before)),el('p','后次：'+measurement(pair.after)),el('p',pair.interpretation,'field-help'));box.append(card);}}else if(data.history){for(const group of data.history.rule_cohorts){box.append(el('p',(group.title||group.code)+'：'+group.records_with_issue+' / '+group.assessed_records+' 条可评估记录出现提示。','field-help'));}}else box.append(el('p','本次不引用历史记录。','field-help'));}
 async function prepare(own){
  const view=++reportView;options=null;current=null;clearTimeout(pollTimer);
- $('ai-report-result').hidden=true;$('ai-report-options').hidden=true;$('ai-report-consent').checked=false;$('ai-report-options').querySelector('details').open=false;
+ $('ai-report-result').hidden=true;$('ai-report-options').hidden=true;$('ai-report-consent').checked=true;
  state('正在读取训练范围…');
  const value=await api('/api/v1/ai/report-options',{method:'POST',body:config});
  if(!viewing(own,view))return;
@@ -49,7 +49,7 @@ async function prepare(own){
  state('');controls();
 }
 function render(row){
- current=row;$('ai-report-options').hidden=true;$('ai-report-result').hidden=false;$('ai-report-delete-confirm').hidden=true;
+ current=row;const ready=row.status==='succeeded'&&!row.report_body_deleted&&row.context_current!==false&&Boolean(row.result);$('ai-report-copy').hidden=$('ai-report-regenerate').hidden=!ready;$('ai-report-options').hidden=true;$('ai-report-result').hidden=false;$('ai-report-delete-confirm').hidden=true;
  const box=$('ai-report-answer');box.replaceChildren();
  $('ai-report-result-title').textContent=title(row.kind)+' · '+(names[row.status]||row.status);
  $('ai-report-stop').hidden=!active.has(row.status);$('ai-report-delete').hidden=row.status!=='succeeded'||row.report_body_deleted;
@@ -67,13 +67,13 @@ function render(row){
   if(result.facts?.comparison){
    box.append(el('h3','检测观测对照'));observations({comparison:result.facts.comparison},box.appendChild(el('div')));
   }
-  const details=el('details',undefined,'ai-report-basis');
-  details.append(el('summary','查看详细解读与依据'));
+  const details=el('section',undefined,'ai-report-basis');
+  details.append(el('h3','动作建议'));
   for(const item of result.explanations){
    const card=el('article',undefined,'ai-evidence-card'),e=item.evidence;
    card.append(el('strong',(e.title||e.message||'已保存的参考观察')+(e.side==='right'?' · 右侧':e.side==='left'?' · 左侧':'')),el('p',item.explanation),el('p','调整：'+item.adjustment));details.append(card);
   }
-  details.append(el('p',rangeText(result.read_scope),'field-help'));
+
   if(result.facts?.selected_records?.length){
    const sources=el('ul',undefined,'ai-report-sources');
    for(const record of result.facts.selected_records){
@@ -82,10 +82,10 @@ function render(row){
    }
    details.append(sources);
   }
-  for(const limitation of result.limitations)details.append(el('p',limitation,'field-help'));
+
   box.append(details);
  }else if(!active.has(row.status))box.append(el('p',row.message||'生成未完成，请重试。','notice'));
- state(active.has(row.status)?'正在生成，可关闭窗口，稍后从历史查看。':row.status==='uncertain'?'生成状态待确认，请稍后查看。':'');controls();
+ state(active.has(row.status)?'正在生成，可关闭窗口，稍后从历史查看。':row.status==='uncertain'?'':'');controls();
 }
 async function history(own){
  const value=await api('/api/v1/ai/reports?'+new URLSearchParams({page:String(page),page_size:'10'}));
@@ -106,9 +106,9 @@ async function history(own){
 }
 function later(id,own,view=reportView){clearTimeout(pollTimer);if(viewing(own,view))pollTimer=setTimeout(()=>show(id,own,view).catch(e=>{if(viewing(own,view)){fail(e);$('ai-report-pending').hidden=false;state('状态读取失败，请重试。');}}),650);}
 async function show(id,own,view=reportView){clearTimeout(pollTimer);const row=await api('/api/v1/ai/reports/'+id);if(!viewing(own,view))return;if(!active.has(row.status))forget(id);$('ai-report-pending').hidden=!pending||pending.id===id;$('ai-report-resend').hidden=true;render(row);if(active.has(row.status))later(id,own,view);else await history(own);}
-async function check(own){const view=++reportView;const id=pending?.id||current?.request_id;if(!id)return;try{await show(id,own,view);}catch(e){if(!viewing(own,view))return;if(e.status!==404||!pending)throw e;state('暂未查到生成结果，请稍后查看或重试。');$('ai-report-resend').hidden=false;$('ai-report-options').hidden=false;for(const id of ['range','history-toggle','basis','submit'])$('ai-report-'+id).hidden=false;$('ai-report-empty').hidden=true;$('ai-report-count').textContent='待核对原请求';$('ai-report-range-label').hidden=true;$('ai-report-scope').textContent='原请求：'+pending.body.record_ids.length+'条选定记录，历史范围 '+({none:'不引用',related:'相关训练',all:'筛选内全部历史'}[pending.body.history_scope]||'按原配置')+'。';$('ai-report-sources').replaceChildren();$('ai-report-read-scope').textContent='请先查看上次生成进度。';$('ai-report-observations').replaceChildren();$('ai-report-provider').textContent='';$('ai-report-provider').hidden=true;$('ai-report-consent').checked=false;}}
-async function send(own){const view=++reportView,original=pending;try{const row=await api('/api/v1/ai/reports',{method:'POST',commandId:original.id,body:original.body});if(!viewing(own,view))return;render(row);$('ai-report-pending').hidden=true;if(active.has(row.status))later(row.request_id,own,view);else{forget(original.id);await show(row.request_id,own);}await history(own);}catch(e){if(!viewing(own,view))return;if(e.unknown){$('ai-report-pending').hidden=false;state('生成状态待确认，请稍后查看。');}else{forget(original.id);if(e.status===409){options=null;$('ai-report-consent').checked=false;state('范围或设置已变化，请重新核对范围。');}}throw e;}}
-export async function openAIReport(input={}){if(!dialog||disposed)return;document.querySelector('#ai-assistant:not([hidden]) #ai-assistant-close')?.click();if($('report-export-dialog')?.open)$('report-export-back').click();opener=document.activeElement;opened=true;const own=++sequence;busy=null;config={kind:input.kind||'review',context_kind:'overview',record_ids:[...(input.record_ids||[])],history_scope:input.kind==='comparison'?'none':input.record_ids?.length?'related':'all',...(input.filters?{filters:input.filters}:{})};options=current=null;page=1;$('ai-report-error').hidden=true;$('ai-report-answer').replaceChildren();$('ai-report-result').hidden=true;$('ai-report-pending').hidden=true;$('ai-report-resend').hidden=true;if(!dialog.open){dialog.showModal();releaseFocus=keepDialogFocus(dialog);document.documentElement.classList.add('modal-open');}$('ai-report-back').focus();try{restore();if(pending){$('ai-report-options').hidden=true;$('ai-report-pending').hidden=false;state('上次生成尚未确认，请先查看进度。');}else await prepare(own);await history(own);}catch(e){if(valid(own))fail(e);}controls();}
+async function check(own){const view=++reportView;const id=pending?.id||current?.request_id;if(!id)return;try{await show(id,own,view);}catch(e){if(!viewing(own,view))return;if(e.status!==404||!pending)throw e;state('请稍后查看生成结果，或重试。');$('ai-report-resend').hidden=false;$('ai-report-options').hidden=false;for(const id of ['range','history-toggle','basis','submit'])$('ai-report-'+id).hidden=false;$('ai-report-empty').hidden=true;$('ai-report-count').textContent='待核对原请求';$('ai-report-range-label').hidden=true;$('ai-report-scope').textContent='原请求：'+pending.body.record_ids.length+'条选定记录，历史范围 '+({none:'不引用',related:'相关训练',all:'筛选内全部历史'}[pending.body.history_scope]||'按原配置')+'。';$('ai-report-sources').replaceChildren();$('ai-report-read-scope').textContent='请先查看上次生成进度。';$('ai-report-observations').replaceChildren();$('ai-report-provider').textContent='';$('ai-report-provider').hidden=true;$('ai-report-consent').checked=true;}}
+async function send(own){const view=++reportView,original=pending;try{const row=await api('/api/v1/ai/reports',{method:'POST',commandId:original.id,body:original.body});if(!viewing(own,view))return;render(row);$('ai-report-pending').hidden=true;if(active.has(row.status))later(row.request_id,own,view);else{forget(original.id);await show(row.request_id,own);}await history(own);}catch(e){if(!viewing(own,view))return;if(e.unknown){$('ai-report-pending').hidden=false;state('');}else{forget(original.id);if(e.status===409){options=null;state('范围或设置已变化，请重新核对范围。');}}throw e;}}
+export async function openAIReport(input={}){if(!dialog||disposed)return;document.querySelector('#ai-assistant:not([hidden]) #ai-assistant-close')?.click();if($('report-export-dialog')?.open)$('report-export-back').click();opener=document.activeElement;opened=true;const own=++sequence;busy=null;config={kind:input.kind||'review',context_kind:'overview',record_ids:[...(input.record_ids||[])],history_scope:input.record_ids?.length?'none':'all',...(input.filters?{filters:input.filters}:{})};options=current=null;page=1;$('ai-report-error').hidden=true;$('ai-report-answer').replaceChildren();$('ai-report-result').hidden=true;$('ai-report-pending').hidden=true;$('ai-report-resend').hidden=true;if(!dialog.open){dialog.showModal();releaseFocus=keepDialogFocus(dialog);document.documentElement.classList.add('modal-open');}$('ai-report-back').focus();try{restore();if(pending){$('ai-report-options').hidden=true;$('ai-report-pending').hidden=false;state('请先查看上次生成进度。');}else await prepare(own);await history(own);}catch(e){if(valid(own))fail(e);}controls();}
 function close(){opened=false;sequence++;busy=null;clearTimeout(pollTimer);dialog.close();releaseFocus?.();releaseFocus=null;document.documentElement.classList.remove('modal-open');opener?.focus({preventScroll:true});}
 if(dialog){
  $('ai-report-back').onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});
@@ -117,6 +117,8 @@ if(dialog){
  $('ai-report-generate').onclick=()=>action(async own=>{if(pending)return check(own);if(!$('ai-report-consent').checked)throw new Error('请先确认发送本次训练摘要。');if(!options)throw new Error('请先核对本次范围。');remember({id:crypto.randomUUID(),body:{...config,expected_versions:options.expected_versions,expected_context:options.expected_context,consent:true}});await send(own);});
  $('ai-report-check').onclick=()=>action(check);$('ai-report-resend').onclick=()=>action(own=>{if(!$('ai-report-consent').checked)throw new Error('请先重新确认发送原请求中的训练摘要。');return send(own);});
  $('ai-report-new').onclick=()=>action(own=>{if(pending)throw new Error('请先查看或停止上次生成。');return prepare(own);});
+ $('ai-report-copy').onclick=async()=>{try{await navigator.clipboard.writeText($('ai-report-answer').innerText);$('ai-report-copy').textContent='已复制';}catch{fail(new Error('复制未完成，可以选中文字复制。'));}};
+ $('ai-report-regenerate').onclick=()=>action(async own=>{if(pending||active.has(current?.status))throw new Error('请先核对原任务。');await prepare(own);if(!valid(own)||!options?.provider.available)throw new Error('请先核对本次范围与服务设置。');remember({id:crypto.randomUUID(),body:{...config,expected_versions:options.expected_versions,expected_context:options.expected_context,consent:true}});await send(own);});
  $('ai-report-stop').onclick=()=>action(async own=>{const id=current.request_id,latest=await api('/api/v1/ai/requests/'+id);if(!valid(own))return;await api('/api/v1/ai/requests/'+id+'/cancel',{method:'POST',body:{expected_version:latest.state_version}});if(valid(own))await show(id,own);});
  $('ai-report-delete').onclick=()=>{$('ai-report-delete-confirm').hidden=false;};$('ai-report-delete-no').onclick=()=>{$('ai-report-delete-confirm').hidden=true;};
  $('ai-report-delete-yes').onclick=()=>action(async own=>{const id=current.request_id,latest=await api('/api/v1/ai/reports/'+id);if(!valid(own))return;if(!latest.report_body_deleted)await api('/api/v1/ai/reports/'+id,{method:'DELETE',body:{expected_version:latest.state_version}});if(valid(own))await show(id,own);});

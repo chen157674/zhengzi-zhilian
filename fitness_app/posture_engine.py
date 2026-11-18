@@ -136,7 +136,7 @@ class PostureEngine:
         if code=='deadlift.extension' and status=='issue':
             limited=[label for key,label in (('hip_image_degrees','髋'),('knee_image_degrees','膝')) if result.get(key,180)<RULES[code][4]]
             evidence['limited_joints']=limited
-            message='顶端'+('、'.join(limited)+'仍有屈曲，未达到伸展参考带' if limited else '髋膝同时伸展的持续证据不足')
+            message='顶端'+('、'.join(limited)+'仍有屈曲，未达到伸展参考带' if limited else '请在起身时保持髋膝同时伸展')
             suggestion='在可控制的范围内让髋和膝同时自然伸展、站直后再回落；避免后仰或强行锁膝。'
         return {'code': code, 'status': status, 'reason': reason,
                 'start_ms': result.get('start_ms', event['start_ms']),

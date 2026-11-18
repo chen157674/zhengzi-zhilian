@@ -1,0 +1,199 @@
+{
+  "version": "food-library-20261112-1",
+  "assets": [
+    {
+      "id": "instant-noodles",
+      "label": "泡面",
+      "group": "staple",
+      "aliases": [
+        "泡面",
+        "方便面",
+        "速食面",
+        "即食面",
+        "instant noodles",
+        "instant ramen"
+      ]
+    },
+    {
+      "id": "hamburger",
+      "label": "汉堡",
+      "group": "other",
+      "aliases": [
+        "鸡胸肉汉堡",
+        "牛肉汉堡",
+        "炸鸡汉堡",
+        "汉堡包",
+        "汉堡",
+        "牛肉堡",
+        "鸡腿堡",
+        "芝士堡",
+        "hamburger",
+        "burger"
+      ],
+      "excludes": [
+        "素食汉堡",
+        "植物肉汉堡"
+      ]
+    },
+    {
+      "id": "lean-beef",
+      "label": "牛肉",
+      "group": "protein",
+      "aliases": [
+        "牛肉",
+        "牛排",
+        "牛里脊",
+        "beef",
+        "steak"
+      ],
+      "excludes": [
+        "牛肉干",
+        "牛肉肠",
+        "牛肉丸"
+      ]
+    },
+    {
+      "id": "fried-chicken",
+      "label": "炸鸡",
+      "group": "other",
+      "aliases": [
+        "炸鸡腿",
+        "炸鸡块",
+        "炸鸡",
+        "fried chicken"
+      ]
+    },
+    {
+      "id": "french-fries",
+      "label": "薯条",
+      "group": "staple",
+      "aliases": [
+        "炸薯条",
+        "薯条",
+        "french fries",
+        "fries"
+      ]
+    },
+    {
+      "id": "milk-tea",
+      "label": "奶茶",
+      "group": "drink",
+      "aliases": [
+        "珍珠奶茶",
+        "奶茶",
+        "milk tea",
+        "bubble tea"
+      ]
+    },
+    {
+      "id": "soda",
+      "label": "可乐与汽水",
+      "group": "drink",
+      "aliases": [
+        "无糖可乐",
+        "可乐",
+        "汽水",
+        "碳酸饮料",
+        "cola",
+        "soda"
+      ]
+    },
+    {
+      "id": "rice",
+      "label": "米饭",
+      "group": "staple",
+      "aliases": [
+        "白米饭",
+        "杂粮饭",
+        "糙米饭",
+        "米饭",
+        "rice"
+      ]
+    },
+    {
+      "id": "eggs",
+      "label": "鸡蛋",
+      "group": "protein",
+      "aliases": [
+        "水煮蛋",
+        "煮鸡蛋",
+        "鸡蛋",
+        "茶叶蛋",
+        "egg"
+      ]
+    },
+    {
+      "id": "fish",
+      "label": "鱼肉",
+      "group": "protein",
+      "aliases": [
+        "清蒸鱼",
+        "鱼肉",
+        "鱼",
+        "fish"
+      ]
+    },
+    {
+      "id": "tofu",
+      "label": "豆腐",
+      "group": "protein",
+      "aliases": [
+        "嫩豆腐",
+        "豆腐",
+        "tofu"
+      ],
+      "excludes": [
+        "豆腐脑",
+        "豆腐皮"
+      ]
+    },
+    {
+      "id": "chicken-breast",
+      "label": "鸡胸肉",
+      "group": "protein",
+      "aliases": [
+        "鸡胸肉",
+        "鸡胸",
+        "chicken breast"
+      ]
+    },
+    {
+      "id": "balanced-meal",
+      "label": "一餐搭配",
+      "group": "other",
+      "aliases": [],
+      "fallback": "meal"
+    },
+    {
+      "id": "broccoli",
+      "label": "蔬菜搭配",
+      "group": "vegetable",
+      "aliases": [
+        "西兰花",
+        "broccoli"
+      ],
+      "fallback": "vegetable"
+    },
+    {
+      "id": "protein-foods",
+      "label": "鱼肉蛋豆食物搭配",
+      "group": "protein",
+      "aliases": [],
+      "fallback": "protein"
+    },
+    {
+      "id": "staple-foods",
+      "label": "主食搭配",
+      "group": "staple",
+      "aliases": [],
+      "fallback": "staple"
+    },
+    {
+      "id": "breakfast",
+      "label": "早餐搭配",
+      "group": "other",
+      "aliases": [],
+      "fallback": "breakfast"
+    }
+  ]
+}

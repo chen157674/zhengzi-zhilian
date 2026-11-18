@@ -1,0 +1,261 @@
+{
+  "generator": "Codex native imagegen via user-authorized local compatibility entry",
+  "purpose": "Approved three-food nutrition interface image assets; food and quantities are illustrative",
+  "base_path": "fitness_app/static/food",
+  "images": [
+    {
+      "id": "rice",
+      "label": "白米饭",
+      "source_file": "cutouts/rice.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "0094c0027ce019f8b1a2636e3d811403953ac715a63bf5b2c3cd7b96d97d9329",
+      "transparent": true,
+      "fully_transparent_fraction": 0.5713,
+      "prompt": "Initial standalone rice calibration: real transparent PNG; natural white rice in speckled ivory bowl; 35-degree camera; window light upper left; household portion; complete silhouette; no garnish or synthetic gloss.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/rice.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 76342,
+        "sha256": "8dbbaa2535373fad12ff84448332b20ba22ae9cb00d39e085623bd54bea634fa",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "tomato-egg",
+      "label": "番茄炒蛋",
+      "source_file": "cutouts/tomato-egg.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "a7c4b61deac8198095e5dc8964be8a365331785e4a7ed3f710bb4aa9175f6e07",
+      "transparent": true,
+      "fully_transparent_fraction": 0.5464,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a shallow ordinary ivory ceramic plate of HOME-COOKED CHINESE TOMATO SCRAMBLED EGGS. Several irregular soft fully cooked pale golden egg folds mixed naturally with soft red tomato wedges, some tomato juice modestly visible. More actual egg than glossy sauce. Natural muted red and yolk yellow, not fluorescent orange, no repeated identical chunks, no neon garnish. No spring onion sprinkling, no rice or other food. Ordinary loose heap, not a perfect mound. The plate remains visible around edges.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/tomato-egg.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 155366,
+        "sha256": "6eb87a862fdc099702512ea3db2da40864d9551d65939944704f959e21197ab4",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "leafy-greens",
+      "label": "清炒青菜",
+      "source_file": "cutouts/leafy-greens.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "fff0f0c40adb6526f43d2dc9c433d3f2e1ac68009cf043e456502e3f5898ffa7",
+      "transparent": true,
+      "fully_transparent_fraction": 0.4532,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a shallow small ivory ceramic plate of STIR-FRIED BOK CHOY / Chinese leafy greens, fully cooked natural dark green leaves and pale-green tender stems. Irregular overlapping leaves with honest wrinkles, some stems visible. Light sheen from a very small amount of cooking oil, not shiny lacquer. A few naturally imperfect leaf edges, not idealized plastic leaves. No garlic cloves, peppers, sesame or garnishes, no other food. Real everyday family dish, whole plate visible.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/leafy-greens.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 133100,
+        "sha256": "996ed172b0af1841815c7d51b6c7326c59b350237b927184e44558ed2370382a",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "tofu",
+      "label": "家常豆腐",
+      "source_file": "cutouts/tofu.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "f42bdd745a270eb65fb07641d48d6e1fc6c6627ef7bebf935856122e272f1883",
+      "transparent": true,
+      "fully_transparent_fraction": 0.501,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small matte off-white ceramic plate of FULLY COOKED HOMESTYLE TOFU: 6-8 irregular rectangular pieces lightly pan-seared on some faces, naturally porous ivory interior, modest pale amber cooking sauce gathered in tiny amounts, not deep fried crust or curry. Soft irregular tofu corners and sizes. No red chili, meat, mushrooms, vegetables or herb garnish. The dish must read as tofu rather than cheese or potatoes. Full ordinary plate visible.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/tofu.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 126848,
+        "sha256": "b6248bcefe741a13b5635439eccdf5b853897002a8650b2d3dac922216321962",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "fish",
+      "label": "清蒸鱼肉",
+      "source_file": "cutouts/fish.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "50295d638298e691db7f6459d36c963b9fda8ef231829afdf4532a784abf65e2",
+      "transparent": true,
+      "fully_transparent_fraction": 0.5421,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small plain ivory plate with TWO FULLY COOKED STEAMED WHITE-FISH PORTIONS, modest everyday quantity, pale ivory flaky flesh with a little silver-gray natural skin on one edge. Asymmetrical real fish shape, a few separated flakes, moist but not glassy or raw. No bones visibly sticking out, no head, no whole fish. No lemon, herbs, sauce garnish, rice or vegetables. Believable natural cooked fish, NOT raw salmon or sushi.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/fish.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 96122,
+        "sha256": "0b5d964cb2cc12d0dd74538b6a9dbb495b2d783115fd38e8c50483259d167285",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "chicken",
+      "label": "家常鸡肉",
+      "source_file": "cutouts/chicken.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "f187e539d181996dc111125e339209256b4b65b83be3f49a1b840bc069f2a80b",
+      "transparent": true,
+      "fully_transparent_fraction": 0.4452,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small ivory ceramic plate of fully cooked plain PAN-SEARED CHICKEN BREAST PIECES, 5-7 irregular thick hand-cut pieces, gently browned on some edges with natural pale cooked interior and subtle chicken fibers. Arranged casually without perfect fan symmetry or grill mark patterns. Moist but not oily or lacquered, modest household serving. No vegetables, sauce pour, raw meat, bones, skin pile, garnish or utensils. The cooked chicken texture must be recognisable and honest.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/chicken.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 139170,
+        "sha256": "32ccb0a736545eccc08ffb9e6cb8f15fddd5d88a615cc8c38ce66a535fc234e1",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "sweet-potato",
+      "label": "蒸红薯",
+      "source_file": "cutouts/sweet-potato.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "5eb24c23090764acbcb9b86fb125e89866a4f263ac4d23336f186ce0bf0bb8b0",
+      "transparent": true,
+      "fully_transparent_fraction": 0.4948,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small ivory ceramic plate holding one SMALL FULLY COOKED STEAMED SWEET POTATO broken naturally into two unequal pieces. Some reddish-purple brown skin intact, matte muted orange-yellow cooked flesh with irregular fibrous crumb, rough natural break rather than a perfectly geometric slice. Not caramelized, no honey/butter/glaze, no purple flesh, no steam effect. No other food or props. Whole plate and root pieces clearly visible.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/sweet-potato.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 120062,
+        "sha256": "87e7838f5ad20758495f54bb859ba638e7dd88cde72b2d054663401a164cb6bc",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "toast",
+      "label": "全麦吐司",
+      "source_file": "cutouts/toast.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "8bb99a92bf86c3d0007deacdcd38641a527c4ebb0ba27411f4c7b079342173ed",
+      "transparent": true,
+      "fully_transparent_fraction": 0.4617,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small matte ivory plate with TWO MODEST WHOLE-WHEAT TOAST SLICES overlapping casually, one slice slightly tilted against the other, naturally irregular porous brown crumb and medium-brown toasted crust. Very slight uneven browning, tiny natural grain flecks, no identical repeating holes or seeds. Not burnt, no butter, jam, avocado, egg, dairy, fruit or other food. Real ordinary supermarket-style Chinese breakfast toast, full plate visible, no perfectly symmetrical stack.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/toast.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 159648,
+        "sha256": "54be4acb07410ae8bd8fbdccee761f2a383a6a0c6a530caa0b170eaab4ed6aeb",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "boiled-eggs",
+      "label": "水煮鸡蛋",
+      "source_file": "cutouts/boiled-eggs.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "c944a3913fb17fcfbd4c4b3eaf02a31b187f4d5708dc0eb9553639f8a417bc57",
+      "transparent": true,
+      "fully_transparent_fraction": 0.46,
+      "prompt": "Use case: photorealistic-natural. Reusable isolated food photography asset for a Chinese fitness beginner nutrition website. ONE food dish ONLY, not a UI, not a collage. PNG with REAL TRANSPARENT ALPHA BACKGROUND. Set tool background='transparent' if available. Do NOT paint checkerboard or white background. Preserve gentle semi-transparent contact shadow close under the dish, not a broad baked-in backdrop. Landscape 3:2 canvas, entire vessel centered with at least 12% clear margin on all sides, no crop. Three-quarter camera, about 35 degrees above tabletop, 70mm full-frame equivalent, same consistent viewpoint across this series. Soft distant WINDOW LIGHT FROM UPPER LEFT, neutral daylight with subtle warm food colors, low-contrast highlights, no rim lights, no hard spot shadows. Simple matte OFF-WHITE lightly speckled everyday Chinese stoneware, no ornate rims, no designer luxury dish. Photo subject occupies around 72% image width and 60% height. Food is a modest household portion, NOT a nutrition prescription.\nTexture must be naturally uneven, random and believable, like a skilled documentary cookbook photographer captured a real home-cooked meal. Honest natural food surfaces, imperfect arrangements, restrained saturation and normal contrast. No perfect geometric garnishing or repeated patterns. No beauty-filter smoothing, no food-ad lacquer, no excessive oil, plastic highlights, wax, CGI, 3D rendering, hyper-sharpened microdetail, giant portions, steam effects, artificial glow, vignette, hovering dish. Plate or bowl must be geometrically coherent. Only the specified food on its vessel, no hands, utensils, table, linen, ingredients sprinkled outside, background props, words, logos, watermark or decorative greenery. Transparent pixels surrounding everything. Photorealistic honest food image, no stylization. \n\nSubject: a small plain matte ivory plate with ONE PEELED FULLY COOKED HARD-BOILED EGG CUT INTO TWO HALVES, two halves placed casually with yolks visible at slightly different angles. Whites naturally smooth with minor peeling imperfections, yolks matte yellow with a subtle crumb texture, not orange neon or jammy, no runny raw center. No additional whole egg, no eggshells, no herb/salt garnish, no other food. Gentle natural lighting and coherent egg anatomy, full plate visible.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cutouts/boiled-eggs.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 77412,
+        "sha256": "5828d41c01281446cc974a99e80c485408f7cf5c2a8bfe6fca33607d5840450c",
+        "layout": "按alpha有效主体裁留白后，960×720画布共同落地线630；原PNG不改"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "cafeteria-lunch",
+      "label": "食堂午餐搭配示意",
+      "source_file": "cafeteria-lunch.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "41acf1b7804c5874c47ceeb4a800fd99f0762d6c6f6107a4867341fea204cb42",
+      "transparent": false,
+      "fully_transparent_fraction": 0.0,
+      "prompt": "Use case photorealistic-natural. Create ONE 3:2 landscape real-life editorial photograph for a Chinese beginner nutrition guide: an everyday Chinese university cafeteria LUNCH, a modest stainless steel divided meal tray on a worn very light neutral cafeteria table close to a window. Three food components: plain white rice in a small portion, home-style tomato scrambled eggs in another compartment, stir-fried leafy greens in another. Tray is normal and slightly scuffed, food casually served, ordinary modest food not lavish or dieting display. Single person viewpoint with no person or hands visible, natural three-quarter overhead camera about 40 degrees above table, soft distant window light upper left, neutral white balance, muted honest colors, asymmetrical random egg curds and tomato, some natural tomato juice, greens with realistic folds, rice irregular. Entire tray visible with margin, one plain pair wooden chopsticks rests to its right, no other dishes, no food decorating table, no coffee, linen, plants or luxury props. Background softly recognizable as normal cafeteria tabletop, no busy signs, menu text or people. Has a real tabletop/environment; OPAQUE image, not transparent. Looks like a skilled documentary food photographer shot a real ordinary freshly served Chinese lunch. Avoid AI food-ad styling, no glossy lacquer, oversaturation, synthetic 3D smoothness, perfectly symmetrical servings, magical steam, fake lens flare, cinematic spotlight, watermark, labels, letters or UI. No nutritional claims or portions superimposed. This is an illustrative food photograph, not evidence of actual consumption.",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cafeteria-lunch.webp",
+        "width": 1440,
+        "height": 960,
+        "bytes": 161906,
+        "sha256": "826ba1e5672e82c44676ab25ccca8f8fd2193a770362e66288a2f692e0133da9"
+      },
+      "review_scope": "Visually checked in compressed contact sheet: natural household food appearance, coherent dishes, matching light/angle, no obvious CG gloss or pattern repetition; genuine alpha, nonclipped silhouette and web encoding checked programmatically. Not a nutritional quantity certification."
+    },
+    {
+      "id": "portion-palm",
+      "label": "分量说明手掌",
+      "sha256": "58b2e1efdd53281f52e8e5c3e9430aca6699223c0ce2e18c4da10f5e488e9764",
+      "prompt": "Generate ONE separate photorealistic fitness website material PNG with REAL transparent alpha background. Use the native imagegen transparent background setting explicitly, not a painted white or checkerboard background. Natural soft window light, realistic skin texture, cloth wrinkles, restrained warm neutral palette, no plastic skin or exaggerated muscles. No text, labels, arrows, logos, UI or collage. A single isolated subject and only explicitly requested props. Full relevant silhouette with comfortable margins. This is an illustrative teaching asset, not measurement or proof of a real user's performance. A single ordinary adult open HAND PALM, front-facing with all five natural fingers straight but relaxed and slightly separated, wrist vertical and a short forearm stump ending cleanly at lower frame edge. Palm toward camera, realistic skin creases, no nail polish, no jewelry. Hand is only a visual size reference for explaining food portion, no exact numbers or food. Entire fingers and palm visible, portrait2:3. Genuine transparent outside hand and short wrist.",
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "cutouts/portion-palm.webp",
+        "bytes": 56934,
+        "sha256": "4807e7e3e25ed78f0492b2616c3921a96ab25e295aa38f59fc6e95c5bed9a31a",
+        "width": 600,
+        "height": 900
+      },
+      "review_scope": "压缩联系表检查完整轮廓、自然外观与阶段可区分；真实alpha和SHA已核验，不等于专家动作学认证。",
+      "source_file": "cutouts/portion-palm.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "transparent": true,
+      "fully_transparent_fraction": 0.5861
+    }
+  ],
+  "reviewed_on": "2026-11-13",
+  "source_bytes": 23054815,
+  "web_bytes": 1302910
+}

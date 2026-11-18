@@ -16,21 +16,23 @@ export function historyVideo(container,sid,isDemo=false,record=null,idPrefix='re
   async function loadDemo(){
     select.disabled=true;message.textContent='正在核对登记演示原片…';
     try{const data=await api(`/api/v1/records/${sid}/demo-source`);if(disposed)return;demoAttribution(credit,data);source.setRemote(data.video_url);video.hidden=false;message.textContent='';syncSource()}
-    catch(error){if(!privateError(error)){source.clear();video.hidden=true;message.textContent=error.message||'演示原片暂不可用';syncSource()}}finally{select.disabled=false}
+    catch(error){if(!privateError(error)){source.clear();video.hidden=true;message.textContent=error.message||'请重新选择训练视频';syncSource()}}finally{select.disabled=false}
   }
-  if(isDemo){select.textContent='重新加载演示原片';select.onclick=loadDemo;video.addEventListener('error',()=>{source.clear();video.hidden=true;message.textContent='演示原片暂时无法播放，请重新加载。';syncSource();});loadDemo()}
+  if(isDemo){select.textContent='重新加载演示原片';select.onclick=loadDemo;video.addEventListener('error',()=>{source.clear();video.hidden=true;message.textContent='请重新加载训练视频。';syncSource();});loadDemo()}
   picker.onchange=async()=>{
     const file=picker.files[0];picker.value='';if(!file||matching||disposed)return;
-    if(file.size>1024**3){message.textContent='单文件不能超过 1 GiB';return}
+    if(file.size>1024**3){message.textContent='请选择1 GiB以内的视频';return}
     matching=true;select.disabled=true;message.textContent='正在匹配原文件内容…';const matchController=new AbortController();const timeout=setTimeout(()=>matchController.abort(),30000);const abortMatch=()=>matchController.abort();aborter.signal.addEventListener('abort',abortMatch,{once:true});
     try{await sendVideo(`/api/v1/records/${sid}/source-match`,file,undefined,matchController.signal);if(disposed)return;source.set(file);syncSource();video.hidden=false;message.textContent='原文件匹配成功，可按已保存问题时间回看。';toggle.disabled=!hasSkeleton;video.dispatchEvent(new Event('fitness-source-matched'))}
-    catch(error){if(!disposed&&!privateError(error))message.textContent=error.message||'匹配未确认，请重新选择。'}finally{clearTimeout(timeout);aborter.signal.removeEventListener('abort',abortMatch);matching=false;if(!disposed)select.disabled=false}
+    catch(error){if(!disposed&&!privateError(error))message.textContent=error.message||'请重新选择匹配视频。'}finally{clearTimeout(timeout);aborter.signal.removeEventListener('abort',abortMatch);matching=false;if(!disposed)select.disabled=false}
   };
-  window.addEventListener('pagehide',()=>{disposed=true;aborter.abort();source.clear()},{once:true});
-  window.addEventListener('fitness-auth-revoked',()=>{disposed=true;aborter.abort();source.clear();container.replaceChildren();},{once:true});
+  const pageExit=()=>{disposed=true;aborter.abort();source.clear();};
+  const authExit=()=>{disposed=true;aborter.abort();source.clear();container.replaceChildren();};
+  window.addEventListener('pagehide',pageExit,{once:true});
+  window.addEventListener('fitness-auth-revoked',authExit,{once:true});
   function setRange(value){for(const [field,key] of [['source_start_ms','aiRangeStartMs'],['source_end_ms','aiRangeEndMs']]){
     const stamp=value?.config?.[field];if(Number.isFinite(stamp))video.dataset[key]=String(stamp);else delete video.dataset[key];}
     video.dataset.aiReviewTimesMs=JSON.stringify(reviewSampleTimes(value,value?.config?.source_start_ms||0,value?.config?.source_end_ms||Infinity));}
   setRange(record);
-  return {video,toggle,dispose(){disposed=true;aborter.abort();source.clear();video.pause();},updateRecord(value){record=value;setRange(value);update();},hasMatched:()=>source.has(),setSkeletonAvailable(value){actions.dataset.skeletonAvailable=String(value);hasSkeleton=value;toggle.disabled=!value||!source.has();retained.textContent=value?'可显示已保存的骨架':'';},seek(milliseconds){if(!source.has()){message.textContent='请先重新选择并匹配原视频，再定位问题。';select.focus();return}video.pause();video.currentTime=milliseconds/1000;video.scrollIntoView({block:'center'})}};
+  return {video,toggle,dispose(){disposed=true;aborter.abort();source.clear();video.pause();window.removeEventListener('pagehide',pageExit);window.removeEventListener('fitness-auth-revoked',authExit);},updateRecord(value){record=value;setRange(value);update();},hasMatched:()=>source.has(),setSkeletonAvailable(value){actions.dataset.skeletonAvailable=String(value);hasSkeleton=value;toggle.disabled=!value||!source.has();retained.textContent=value?'可显示已保存的骨架':'';},seek(milliseconds){if(!source.has()){message.textContent='请先重新选择并匹配原视频，再定位问题。';select.focus();return}video.pause();video.currentTime=milliseconds/1000;video.scrollIntoView({block:'center'})}};
 }

@@ -12,7 +12,7 @@ MAX_AVATAR_BYTES=4*1024*1024
 
 def decode_avatar(stream):
     raw=stream.read(MAX_AVATAR_BYTES+1)
-    if len(raw)>MAX_AVATAR_BYTES:raise APIError('AVATAR_TOO_LARGE','头像文件不能超过4 MiB',413)
+    if len(raw)>MAX_AVATAR_BYTES:raise APIError('AVATAR_TOO_LARGE','请选择4 MiB以内的头像',413)
     if not raw:raise APIError('INVALID_AVATAR','请选择一张图片',422)
     try:
         with warnings.catch_warnings():
@@ -28,7 +28,7 @@ def decode_avatar(stream):
                 output=BytesIO();background.convert('RGB').save(output,format='JPEG',quality=88,optimize=True)
                 return output.getvalue()
     except (UnidentifiedImageError,OSError,ValueError,SyntaxError,Image.DecompressionBombWarning,Image.DecompressionBombError) as error:
-        raise APIError('INVALID_AVATAR','图片无法解码，请换一张正常图片',422) from error
+        raise APIError('INVALID_AVATAR','请重新选择图片',422) from error
 
 
 def stored_avatar(root,key):

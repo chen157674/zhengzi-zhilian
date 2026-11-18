@@ -2,7 +2,7 @@
 import secrets
 
 AVATARS=tuple({'id':f'avatar-{i:02d}','label':f'运动伙伴{i:02d}',
-               'url':f'/static/avatars/avatar-{i:02d}.png'} for i in range(1,7))
+               'url':f'/static/avatars/avatar-{i:02d}.webp'} for i in range(1,7))
 AVATAR_IDS=tuple(x['id'] for x in AVATARS)
 
 

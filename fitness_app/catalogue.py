@@ -67,7 +67,7 @@ def seed_catalogue(db):
                 action_capabilities.c.capability_version==item["capability_version"])).mappings().first()
             if previous:
                 if previous["definition_hash"]!=digest:
-                    raise StorageError("动作定义已改变，需要新能力版本，不能覆盖历史定义")
+                    raise StorageError("请为调整后的动作定义创建新的能力版本")
             else:
                 c.execute(action_capabilities.insert().values(action_id=item["action_id"],capability_version=item["capability_version"],
                     definition_json=payload,definition_hash=digest))

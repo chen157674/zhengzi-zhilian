@@ -126,7 +126,7 @@ class AISettingsStore:
             if not row['key_ciphertext']:raise APIError('AI_PERSONAL_KEY_MISSING','请设置个人密钥，或主动选择系统额度',409)
             key=self.vault.open('user:'+uid,row['key_ciphertext'])
         else:
-            if not p['enabled'] or not self._system_configured(p):raise APIError('AI_SYSTEM_UNAVAILABLE','系统AI服务尚未配置，请稍后再试或使用个人密钥',409)
+            if not p['enabled'] or not self._system_configured(p):raise APIError('AI_SYSTEM_UNAVAILABLE','请配置系统AI服务或使用个人密钥',409)
             key=self.vault.open('system',p['key_ciphertext']) if p['key_ciphertext'] else secret(self.environment_key,'system_key')
         return row,p,key,source
 
@@ -158,7 +158,7 @@ class AISettingsStore:
                 changed={**values,'version':version+1,'updated_at_ms':self.clock()}
                 if raw:changed.update(key_ciphertext=self._seal(c,'system',raw),key_suffix=raw[-4:])
                 final={**old,**changed}
-                if final['budget_micro_cny'] and final['budget_micro_cny']<final['spent_micro_cny']+final['reserved_micro_cny']:invalid('budget_yuan','预算不能低于已用和已预留金额')
+                if final['budget_micro_cny'] and final['budget_micro_cny']<final['spent_micro_cny']+final['reserved_micro_cny']:invalid('budget_yuan','请将预算设置为已用与预留金额之和以上')
                 if final['enabled'] and not self._system_configured(final):
                     invalid('enabled','启用前需要系统密钥')
                 if old['_exists']:c.execute(update(s.ai_system_policy).where(s.ai_system_policy.c.id==1).values(**changed))

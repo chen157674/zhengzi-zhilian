@@ -7,8 +7,9 @@ if(root){
   const connections=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[27,29],[29,31],[28,30],[30,32]];
   const toggle=root.querySelector('#showcase-toggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const feedback=root.querySelector('#showcase-feedback');
+  const reviewRanges=JSON.parse(root.querySelector('#saved-example-review-ranges')?.textContent||'[]');
   const quickFeedback=root.querySelector('#showcase-quick-feedback');
-  let userPaused=false;
+  let userPaused=false,initialPositioned=false;
   const playlist=JSON.parse(root.querySelector('#home-demo-playlist')?.textContent||'[]');
   let playlistIndex=0;
   function selectDemo(index){
@@ -16,15 +17,17 @@ if(root){
     playlistIndex=index;root.dataset.demoId=item.id;root.dataset.videoUrl=item.video_url;root.dataset.trackUrl=item.track_url;root.dataset.sourceSha=item.source_sha;
     video.poster=item.poster_url;video.setAttribute('aria-label',item.title);
     root.querySelector('.showcase-badges strong').textContent=item.title;
-    root.querySelector('.demo-caption a').href='/video?demo=1&demo_id='+encodeURIComponent(item.id);
+    root.querySelector('.demo-caption a').href=(root.dataset.savedExample==='true'?'/video?demo=1&fresh=1&demo_id=':'/video?demo=1&demo_id=')+encodeURIComponent(item.id);
     load();
   }
   let track=null,generation=0,controller=null,callback=null,disposed=false,inView=true;
   function showFeedback(data){
-    renderFeedback(feedback,data);
+    const stamp=video.currentTime*1000;
+    const review=track&&root.dataset.savedExample==='true'?reviewRanges.find(r=>r.source==='user_confirmed_demo_annotation'&&r.start_ms<=stamp&&stamp<r.end_ms):null;
+    renderFeedback(feedback,data,review);
     if(!quickFeedback)return;
     const state=validFeedback(data)?data.state:'unassessable';
-    const label=state==='issue'&&data?.display_basis==='user_confirmed_demo_annotation'?'查看调整建议':{clear:'当前检查项正常',issue:'发现偏差 · 查看调整建议',unassessable:'暂时无法判断',observing:'正在分析'}[state];
+    const label=state==='issue'&&data?.display_basis==='user_confirmed_demo_annotation'?'查看调整建议':{clear:'当前检查项正常',issue:'发现偏差 · 查看调整建议',unassessable:'',observing:'正在分析'}[state];
     if(quickFeedback.textContent!==label)quickFeedback.textContent=label;
     quickFeedback.dataset.state=state;
   }
@@ -50,7 +53,7 @@ if(root){
     const frame=track.frames[left];canvas.dataset.frameSeq=String(left);canvas.dataset.sourceMs=String(frame.t);canvas.dataset.mediaMs=String(stamp);
     // 超出已核帧范围时清图，不沿用最后一副骨架。
     if(stamp<frame.t||stamp-frame.t>100){showFeedback(null);return;}
-    const currentFeedback=stamp<2000?{schema_version:1,state:'observing',title:'正在分析',description:'等待连续动作。',instruction:'',scope_note:'',checks:[],highlight:null}:frame.feedback;
+    const currentFeedback=stamp<2000&&root.dataset.savedExample!=='true'?{schema_version:1,state:'observing',title:'正在分析',description:'等待连续动作。',instruction:'',scope_note:'',checks:[],highlight:null}:frame.feedback;
     showFeedback(currentFeedback);
     const xy=p=>[ox+p[0]*cw,oy+p[1]*ch];ctx.strokeStyle='#42f0ad';ctx.fillStyle='#dcfff0';ctx.lineWidth=Math.max(2,box.width/360);
     for(const [a,b] of connections){if(!frame.p[a]||!frame.p[b])continue;ctx.beginPath();ctx.moveTo(...xy(frame.p[a]));ctx.lineTo(...xy(frame.p[b]));ctx.stroke()}
@@ -72,28 +75,29 @@ if(root){
     catch{if(!disposed&&track){status.textContent='已准备好，点击播放。';if(toggle){toggle.textContent='播放';toggle.dataset.state='play';}play.hidden=Boolean(toggle)}}
   }
   async function load(){
-    const own=++generation;controller?.abort();const requestController=new AbortController();controller=requestController;cancelFrame();video.pause();track=null;
+    const own=++generation;controller?.abort();const requestController=new AbortController();controller=requestController;cancelFrame();video.pause();track=null;initialPositioned=false;
     canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);delete canvas.dataset.sourceMs;delete canvas.dataset.mediaMs;delete canvas.dataset.frameSeq;
     error.hidden=true;wrap.hidden=false;play.hidden=true;fullscreen.disabled=true;status.textContent='正在加载视频…';if(toggle)toggle.disabled=true;
     showFeedback({schema_version:1,state:'observing',title:'正在分析',description:'姿态结论会随视频画面同步更新。',instruction:'',scope_note:'',checks:[],highlight:null});
     const timeout=setTimeout(()=>requestController.abort(),10000);
     try{
-      const response=await fetch(root.dataset.trackUrl,{signal:controller.signal,credentials:'same-origin'});if(!response.ok)throw Error('展示轨迹暂不可用');const data=await response.json();
+      const response=await fetch(root.dataset.trackUrl,{signal:controller.signal,credentials:'same-origin'});if(!response.ok)throw Error('请重新加载动作轨迹');const data=await response.json();
       if(!validTrack(data))throw Error('展示轨迹与视频不匹配');if(disposed||own!==generation)return;
       track=data;video.src=root.dataset.videoUrl;video.load();
-    }catch(e){if(!disposed&&own===generation)fail(e.name==='AbortError'?'视频加载超时，请重新加载。':e instanceof TypeError?'展示资源连接失败，请重新加载。':'展示资源暂不可用或与视频不匹配，请重新加载。')}finally{clearTimeout(timeout)}
+    }catch(e){if(!disposed&&own===generation)fail(e.name==='AbortError'?'视频加载超时，请重新加载。':e instanceof TypeError?'展示资源连接失败，请重新加载。':'请重新加载视频与动作轨迹。')}finally{clearTimeout(timeout)}
   }
-  video.addEventListener('loadeddata',()=>{paint();if(track){fullscreen.disabled=false;if(toggle){toggle.disabled=false;toggle.textContent=video.paused?'播放':'暂停';toggle.dataset.state=video.paused?'play':'pause';}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)attemptPlay();else play.hidden=Boolean(toggle);}});
+  video.addEventListener('loadeddata',()=>{if(track&&root.dataset.savedExample==='true'&&!initialPositioned){initialPositioned=true;const stamp=Number(root.dataset.initialMs);if(Number.isFinite(stamp)&&stamp>0)video.currentTime=Math.min(stamp/1000,Math.max(0,video.duration-.05));}paint();if(track){fullscreen.disabled=false;if(toggle){toggle.disabled=false;toggle.textContent=video.paused?'播放':'暂停';toggle.dataset.state=video.paused?'play':'pause';}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)attemptPlay();else play.hidden=Boolean(toggle);}});
   video.addEventListener('play',()=>{play.hidden=true;status.textContent='正在播放视频';schedule()});
   video.addEventListener('pause',()=>{cancelFrame();if(track&&!disposed){paint();play.hidden=Boolean(toggle);status.textContent='视频已暂停'}});
   video.addEventListener('seeked',()=>paint());video.addEventListener('timeupdate',()=>{if(!video.requestVideoFrameCallback||video.paused)paint()});
-  video.addEventListener('ended',()=>{if(!disposed&&!userPaused)selectDemo((playlistIndex+1)%playlist.length);});
-  video.addEventListener('error',()=>{if(track)fail('视频无法播放，请重新加载。')});
+  video.addEventListener('ended',()=>{if(!disposed&&!userPaused&&root.dataset.savedExample!=='true')selectDemo((playlistIndex+1)%playlist.length);});
+  for(const button of root.querySelectorAll('[data-example-seek],[data-review-seek]'))button.onclick=()=>{userPaused=true;video.pause();video.currentTime=Number(button.dataset.exampleSeek??button.dataset.reviewSeek)/1000;wrap.scrollIntoView({block:'center',behavior:'instant'});};
+  video.addEventListener('error',()=>{if(track)fail('请重新加载视频。')});
   play.addEventListener('click',()=>attemptPlay(true));root.querySelector('#showcase-retry').addEventListener('click',load);
   toggle?.addEventListener('click',()=>{if(video.paused)attemptPlay(true);else{userPaused=true;video.pause();}});
   video.addEventListener('play',()=>{if(toggle){toggle.textContent='暂停';toggle.dataset.state='pause';}});
   video.addEventListener('pause',()=>{if(toggle){toggle.textContent='播放';toggle.dataset.state='play';}});
-  root.querySelector('#showcase-fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await wrap.requestFullscreen()}catch{status.textContent='浏览器暂不支持全屏，可在当前页面播放。'}});
+  root.querySelector('#showcase-fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await wrap.requestFullscreen()}catch{status.textContent='请在当前页面播放。'}});
   root.querySelector('#showcase-exit-fullscreen').addEventListener('click',()=>document.exitFullscreen().catch(()=>{status.textContent='可按Esc退出全屏。'}));
   document.addEventListener('fullscreenchange',()=>{requestAnimationFrame(()=>paint());});window.addEventListener('resize',()=>paint());
   document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else attemptPlay()});
@@ -101,5 +105,6 @@ if(root){
   const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;if(!inView)video.pause();else attemptPlay()},{threshold:.15});observer.observe(wrap);
   window.addEventListener('pagehide',()=>{disposed=true;generation++;controller?.abort();cancelFrame();observer.disconnect();video.pause();video.removeAttribute('src');video.load();track=null},{once:true});
   window.addEventListener('pageshow',event=>{if(event.persisted){disposed=false;observer.observe(wrap);load();}});
+  if(root.dataset.savedExample==='true')userPaused=true;
   if(playlist.length)selectDemo(0);else load();
 }

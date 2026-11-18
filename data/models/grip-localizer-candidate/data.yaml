@@ -1,6 +1,0 @@
-path: E:/07_Projects/05_PersonalProjects/10_fitness-assistant/data/models/grip-localizer-candidate
-train: train.txt
-val: development-val.txt
-names:
-  0: hand
-  1: handle

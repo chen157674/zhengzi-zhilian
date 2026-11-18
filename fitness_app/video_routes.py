@@ -1,5 +1,7 @@
 """本地视频任务 API；回看匹配只计算摘要，不启动视觉任务。"""
 import hmac
+import json
+from .paths import project_path
 from flask import request,jsonify,render_template
 from flask_login import current_user
 from sqlalchemy import select
@@ -12,6 +14,7 @@ from .media import copy_input
 from .catalogue import definitions,get_action
 from .posture_engine import create_analysis_engine as create_counter
 from .presentation_assets import demo_resource,demo_catalogue
+from .demo_result_summary import evidence_ranges,review_ranges,timecode
 
 
 def register_video(app,db):
@@ -82,6 +85,29 @@ def register_video(app,db):
         selected=next((item for item in demos if item['id']==requested),None) if requested else (demos[0] if demos else None)
         if requested and not selected:raise APIError('DEMO_UNAVAILABLE','该演示暂不可用，请从视频分析页重新选择',404)
         return render_template(template,active='video',actions=definitions(),action=action,demo=selected,demos=demos,allow_observer=bool(testing and app.config.get('ALLOW_POSE_ONLY_SESSIONS')))
+
+    @app.get('/video/examples/<demo_id>')
+    def saved_example(demo_id):
+        demo=demo_resource(demo_id)
+        if not demo or demo_id not in {item['id'] for item in demo_catalogue()}:
+            raise APIError('DEMO_UNAVAILABLE','该视频结果暂不可用，请重新选择',404)
+        track=json.loads(project_path(demo['track']['path']).read_text(encoding='utf-8'))
+        if track.get('source_sha256')!=demo['video']['sha256'] or track.get('action_id')!=demo['action_id'] or track.get('feedback_schema_version')!=1:
+            raise APIError('RESULT_UNAVAILABLE','视频与已保存结果不匹配，请重新分析',409)
+        # 原始逐帧检查保持独立；不将首页人工展示标注当成算法输出。
+        frames=track.get('frames',[]);issues=evidence_ranges(track,demo['duration_ms']);reviews=review_ranges(demo)
+        playlist=[{'id':demo['id'],'title':demo.get('display_title',demo['title']),'video_url':demo['video_url'],
+                   'track_url':'/static/demo/'+demo['id']+'/analysis-track?v='+demo['track']['sha256'][:12],
+                   'poster_url':demo['poster_url'],'source_sha':demo['video']['sha256']}]
+        titles=list(dict.fromkeys(issue['title'] for issue in issues))
+        assessed=any(check.get('status')=='not_observed' for frame in frames for check in frame.get('feedback',{}).get('checks',[]))
+        conclusion={'state':'issue','title':'发现'+str(len(titles))+'项需要调整的动作细节','description':'；'.join(titles)} if titles else {
+            'state':'clear' if assessed else 'unassessable',
+            'title':'已检查项目未见明确偏差' if assessed else '请补充清晰完整的动作画面',
+            'description':'可以回看各时段的动作观察。' if assessed else '请让关键部位连续入镜，并使用适合当前动作的机位。'}
+        return render_template('saved_example.html',active='video',demo=demo,demo_playlist=playlist,issues=issues,
+            conclusion=conclusion,reviews=reviews,timecode=timecode,
+            initial_ms=reviews[0]['start_ms'] if reviews else issues[0]['seek_ms'] if issues else 0)
 
     @app.get('/video/jobs/<job_id>')
     def video_job_page(job_id):

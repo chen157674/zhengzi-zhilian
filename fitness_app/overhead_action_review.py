@@ -51,7 +51,7 @@ def release_policy(info):
     if hashlib.sha256(raw).hexdigest()!=document['evaluation_sha256']:raise ValueError('实时过顶验证结果变化')
     report=json.loads(raw)
     if report['state']!='completed' or report['version']!=version() or not report['safe_nonregression_candidate']:
-        raise ValueError('实时过顶复核尚未通过开发门禁')
+        raise ValueError('请使用当前已发布的动作复核模型')
     if document.get('execution_version')=='stream1':
         raw=project_path(document['execution_evaluation_path']).read_bytes()
         if hashlib.sha256(raw).hexdigest()!=document['execution_evaluation_sha256']:

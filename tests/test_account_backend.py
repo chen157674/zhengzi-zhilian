@@ -77,7 +77,8 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(first['avatar_source'],'builtin');self.assertEqual(len(AVATARS),6)
         for item in AVATARS:
             with fx.client.get(item['url']) as response:
-                self.assertEqual(response.status_code,200);self.assertTrue(response.data.startswith(b'\x89PNG'))
+                self.assertEqual(response.status_code,200);self.assertEqual(response.mimetype,'image/webp')
+                self.assertLess(len(response.data),16000)
 
     def test_profile_updates_are_versioned_private_and_do_not_change_login(self):
         fx=self.fx;mine=self.profile();other=fx.app.test_client();fx.login(other,'Other_User');theirs=self.profile(other)

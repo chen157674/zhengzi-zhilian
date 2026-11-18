@@ -25,14 +25,15 @@ class TrainingProgressTests(unittest.TestCase):
         response=self.service.schedule(self.fx.user,self.fx.auth,self.plan['id'],sid,'reschedule',{'expected_version':0,'plan_expected_version':1,'target_date':target.isoformat()},s.new_id())
         self.assertEqual(response['session']['id'],sid);self.assertTrue(response['affected_weeks']);self.assertTrue(any(x['event_type']=='reschedule' for x in self.progress()['changes']))
     def test_pause_excludes_then_resume_does_not_invent_training(self):
+        original_week=self.service.monday().isoformat()
         self.plans.command(self.fx.user,self.fx.auth,self.plan['id'],'pause',{'expected_version':1},s.new_id())
         # 当日暂停后当日尚未结束；当前paused计划的全部未开始项均不得开练。
         today=self.service.today(self.fx.user,self.fx.auth);self.assertEqual(today['plan_status'],'paused');self.assertFalse(today['day']['can_start'])
         self.fx.now[0]+=2*86400000
         with self.fx.db.transaction() as c:c.execute(update(s.auth_sessions).where(s.auth_sessions.c.id==self.fx.auth).values(expires_at_ms=self.fx.now[0]+86400000))
-        result=self.progress();self.assertTrue(result['excluded_sessions'])
+        result=self.service.progress(self.fx.user,self.fx.auth,original_week,self.plan['id']);self.assertTrue(result['excluded_sessions'])
         self.plans.command(self.fx.user,self.fx.auth,self.plan['id'],'resume',{'expected_version':2,'past_due_policy':'keep_missed'},s.new_id())
-        result=self.progress();self.assertEqual(result['completed_sessions'],0);self.assertTrue(result['excluded_sessions'])
+        result=self.service.progress(self.fx.user,self.fx.auth,original_week,self.plan['id']);self.assertEqual(result['completed_sessions'],0);self.assertTrue(result['excluded_sessions'])
     def test_days_before_first_activation_are_not_scheduled_not_missed(self):
         week=self.service.week(self.fx.user,self.fx.auth,self.plan['id'])
         for day in week['days']:

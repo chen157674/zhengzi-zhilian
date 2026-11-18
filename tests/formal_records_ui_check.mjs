@@ -32,7 +32,7 @@ try{
   await page.setViewportSize({width:390,height:844});
   const mobileRows=await page.locator('#record-rows tr[data-session-id]').evaluateAll(nodes=>nodes.map(node=>{const row=node.getBoundingClientRect(),actions=node.querySelector('.row-actions').getBoundingClientRect(),state=node.children[4].getBoundingClientRect();return {left:row.left,right:row.right,actionsLeft:actions.left,actionsRight:actions.right,stateRight:state.right};}));
   assert(mobileRows.length===10&&mobileRows.every(row=>row.left>=0&&row.right<=390&&row.actionsLeft>=0&&row.actionsRight<=390&&row.stateRight<=390),'手机每条记录的状态与操作均在屏内');
-  const firstChoice=page.locator('#record-rows tr[data-session-id] input:not([disabled])').first();await firstChoice.check();assert.equal(await page.locator('#record-selection').innerText(),'已选 1 条');await firstChoice.uncheck();assert.equal(await page.locator('#record-selection').innerText(),'已选 0 条');
+  const firstChoice=page.locator('#record-rows tr[data-session-id] input:not([disabled])').first();await firstChoice.check();assert.equal(await page.locator('#record-selection').innerText(),'已选 1 条');await firstChoice.uncheck();assert.equal(await page.locator('#record-selection').textContent(),'');
   await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
   await page.screenshot({path:path.join(evidence,'训练记录-有内容窄屏.png'),animations:'disabled'});
   await page.setViewportSize({width:1440,height:1000});
@@ -40,7 +40,7 @@ try{
   assert.match(await page.locator('#record-page-label').innerText(),/1 \/ 3/);
   await page.locator('#record-select-page').check();assert.equal(await page.locator('#record-select-page').isChecked(),true);
   await page.locator('#record-next').click();await page.locator('#record-page-label').filter({hasText:'第 2 / 3 页'}).waitFor();
-  assert.equal(await page.locator('#record-selection').innerText(),'已选 0 条');
+  assert.equal(await page.locator('#record-selection').textContent(),'');
   const remove=page.locator('#record-rows tr').first().getByRole('button',{name:'删除',exact:true});
   let deletes=0;page.on('request',request=>{if(request.url().endsWith('/api/v1/records/delete')&&request.method()==='POST')deletes++});
   await remove.click();await page.getByRole('button',{name:'取消',exact:true}).click();assert.equal(deletes,0);
@@ -53,7 +53,7 @@ try{
     await page.locator('#record-tab-info').click();
     assert.match(await page.locator('#detail-coverage').innerText(),/0 \/ 1/);await page.locator('#record-tab-events').click();
     assert.match(await page.locator('#detail-event-list').innerText(),/质量无法评估/);
-    await page.locator('#record-back').click();await page.locator('#record-total').filter({hasText:'共 1 条'}).waitFor();assert.equal(await page.locator('#record-search').inputValue(),'肩推');
+    await page.locator('#page-back').click();await page.locator('#record-total').filter({hasText:'共 1 条'}).waitFor();assert.equal(await page.locator('#record-search').inputValue(),'肩推');
     await page.locator('#record-clear').click();await page.locator('#record-total').filter({hasText:'共 16 条'}).waitFor();
     // API 的错误批次检查只补本页确认集合与版本联动，事务约束沿用先前证据。
     const record=(await(await context.request.get(fixture.origin+'/api/v1/records?page=2&page_size=10')).json()).data.records[0];

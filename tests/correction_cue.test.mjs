@@ -9,12 +9,12 @@ test('缺少结果、观察动作、取景失败不能显示正常',()=>{
   assert.deepEqual(coachingCue({state:'needs_adjustment',primary_cue:{message:'右肘外移',suggestion:'收回右肘'}}),{state:'issue',title:'右肘外移',instruction:'收回右肘'});
 });
 test('机位限制不冒充看不清，记录重复问题合并，无评估不会显示正常',()=>{
-  assert.equal(coachingCue({state:'evidence_insufficient'}).title,'分析中');
+  assert.equal(coachingCue({state:'evidence_insufficient'}).title,'');
   assert.notEqual(feedbackSummary({posture:{findings:[{status:'unassessable'}]}}).state,'clear');
   const rows=[{code:'x',status:'issue',start_ms:0,end_ms:1000},{code:'x',status:'issue',start_ms:1000,end_ms:2000},{code:'x',status:'issue',start_ms:4000,end_ms:5000}];
   assert.equal(feedbackSummary({posture:{findings:rows}}).issues.length,2);
   assert.equal(rows[0].end_ms,1000);
-  assert.equal(feedbackSummary({posture:{findings:[{status:'not_observed'}]}}).title,'已检查项目未见偏差');
+  assert.equal(feedbackSummary({posture:{findings:[{status:'not_observed'}]}}).title,'检查项通过');
 });
 test('回看严格匹配原视频时间，问题优先，未知范围不继承正常',()=>{
   const record={posture:{findings:[{status:'not_observed',start_ms:100,end_ms:300},{status:'issue',start_ms:150,end_ms:200,message:'手臂不齐',suggestion:'保持双手同高'}]}};
@@ -43,7 +43,7 @@ test('完成后回看真实问题和对应建议，不向区间外延伸',()=>{
   assert.deepEqual(record,before);
 });
 test('保存失败和中断优先保留，不被正在观察遮盖',()=>{
-  assert.equal(videoCue({stopped:false,save_state:'save_failed'},null,15000).title,'结果尚未保存');
+  assert.equal(videoCue({stopped:false,save_state:'save_failed'},null,15000).title,'结果待保存');
   assert.equal(videoCue({stopped:false,save_state:'clean',coaching:{state:'interrupted'}},null,15000).title,'分析中断');
   assert.equal(videoCue(null,null,0).title,'等待分析');
 });
@@ -61,7 +61,7 @@ test('暂停、遮挡和保存失败撤回旧primary_cue，保留真实状态说
   for(const state of ['preparing','paused','resting','ended','save_failed','interrupted','waiting_for_input','no_person','multiple_people','positioning','evidence_insufficient']){
     const input={state,instruction:'重新检查取景',primary_cue:{message:'旧问题',suggestion:'旧建议'}};
     const before=structuredClone(input);const cue=coachingCue(input);
-    assert.notEqual(cue.state,'issue');assert.notEqual(cue.title,'旧问题');assert.equal(cue.instruction,'重新检查取景');assert.deepEqual(input,before);
+    assert.notEqual(cue.state,'issue');assert.notEqual(cue.title,'旧问题');assert.equal(cue.instruction,state==='evidence_insufficient'?'':'重新检查取景');assert.deepEqual(input,before);
   }
 });
 test('部位侧别和正式时间只格式化已有有效证据',()=>{

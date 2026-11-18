@@ -172,13 +172,13 @@ class SessionManager:
             if data['source']!='camera':raise APIError('INVALID_STATE','仅摄像头会话可申请控制',409)
             repeated=self._receipt(uid,sid,key,digest)
             if repeated is not None:return repeated
-            if data['status'] in TERMINAL:raise APIError('INVALID_STATE','已结束会话不能取得控制',409)
+            if data['status'] in TERMINAL:raise APIError('INVALID_STATE','请创建新的训练会话',409)
             rt=self._runtime(uid,sid,auth_id,expires_at_ms)
             if data.get('save_state')!='clean':raise APIError('STORAGE_UNAVAILABLE','请先处理原会话保存故障',503)
             def commit():
                 extra={'resume_from':'resting','rest_remaining_ms':self._rest_remaining(rt)} if data['status']=='resting' else None
                 result=self._set(rt,'paused' if data['started_at_ms'] is not None else 'ready',key,payload['expected_version'],'control_acquired',digest,extra=extra)
-                if result.get('save_state')!='clean':raise StorageError('控制状态尚未保存')
+                if result.get('save_state')!='clean':raise StorageError('控制状态待保存')
                 self._drop(rt);rt.auth_id=auth_id;rt.expires_at_ms=expires_at_ms;rt.frozen=False
                 return result
             # 新身份的合法接管用当前身份写事务，失败后恢复原运行绑定。
@@ -215,15 +215,15 @@ class SessionManager:
             elif rt.data.get('save_state')!='clean' or rt.frozen and command!='resume':
                 raise APIError('STORAGE_UNAVAILABLE','分析已冻结，请先处理保存状态',503)
             elif command in {'start','resume'}:
-                if state!=('ready' if command=='start' else 'paused'):raise APIError('INVALID_STATE','当前状态不能开始或继续',409)
+                if state!=('ready' if command=='start' else 'paused'):raise APIError('INVALID_STATE','请刷新训练状态后继续',409)
                 from .catalogue import get_action
                 definition=get_action(rt.data['action_id'])
                 if not definition or definition['capability_version']!=rt.data['capability_version']:
                     raise APIError('STALE_CAPABILITY','动作能力已变化，请重新选择动作建立新会话；原记录保留',409)
                 self.store.require_input_policy(rt.data['config'])
                 rt.adapter=self.engine_provider(rt.data['action_id'])
-                if rt.adapter is None and not self.allow_observer:raise APIError('ACTION_UNAVAILABLE','该动作的计数能力尚未开放',503)
-                if rt.adapter and not getattr(rt.adapter,'counting_available',True) and rt.data['mode']=='target':raise APIError('ACTION_UNAVAILABLE','该动作目前支持姿态观察，暂不支持次数目标',409)
+                if rt.adapter is None and not self.allow_observer:raise APIError('ACTION_UNAVAILABLE','请选择已配置计数的动作',503)
+                if rt.adapter and not getattr(rt.adapter,'counting_available',True) and rt.data['mode']=='target':raise APIError('ACTION_UNAVAILABLE','请为该动作选择姿态观察目标',409)
                 if rt.adapter:rt.adapter.reset('new_flow')
                 resting=command=='resume' and rt.data['resume_from']=='resting' and rt.data['rest_remaining_ms']>0
                 if resting:
@@ -231,7 +231,7 @@ class SessionManager:
                     self.previews.reserve_session(uid,sid)
                     try:result=self._set(rt,'resting',key,expected,'rest_resumed',digest,extra={'rest_remaining_ms':rt.data['rest_remaining_ms']})
                     except Exception:self.previews.close_session(uid,sid);raise
-                    if result['save_state']!='clean':raise StorageError('继续休息尚未保存')
+                    if result['save_state']!='clean':raise StorageError('休息状态待保存')
                     rt.rest_deadline=self.monotonic()+result['rest_remaining_ms']/1000
                 else:
                     pid=uuid_id(payload.get('preview_id'))
@@ -243,7 +243,7 @@ class SessionManager:
                 rt.frozen_rest_ms=None
                 self.controls.rotate_stream(uid,auth_id,sid,payload['control_token'],payload['controller_epoch'],payload['stream_epoch'])
             elif command=='pause':
-                if state not in {'running','waiting','countdown','resting'}:raise APIError('INVALID_STATE','当前状态不能暂停',409)
+                if state not in {'running','waiting','countdown','resting'}:raise APIError('INVALID_STATE','请刷新训练状态后暂停',409)
                 extra={'resume_from':'resting' if state=='resting' else 'running'}
                 if state=='resting':extra['rest_remaining_ms']=self._rest_remaining(rt)
                 self._set(rt,'paused',key,expected,'user_paused',digest,extra=extra)
@@ -253,7 +253,7 @@ class SessionManager:
                 if state!='resting':raise APIError('INVALID_STATE','当前不在休息阶段',409)
                 remaining=self._rest_remaining(rt)
                 if remaining<=0:raise APIError('INVALID_STATE','休息已经结束，请刷新状态',409)
-                if remaining+30000>3600000:raise APIError('REST_LIMIT','延长后不能超过 3600 秒',422)
+                if remaining+30000>3600000:raise APIError('REST_LIMIT','请将训练时长设置在3600秒以内',422)
                 self._set(rt,'resting',key,expected,'rest_extended',digest,extra={'rest_remaining_ms':remaining+30000})
                 if rt.data['save_state']=='clean':rt.rest_deadline=self.monotonic()+(remaining+30000)/1000
             else:
@@ -483,7 +483,7 @@ class SessionManager:
                 result.setdefault('terminal_persisted',data.get('save_state')=='clean' and data.get('status') in TERMINAL)
                 return result
             rt=self.live.get(sid)
-            if not rt or rt.user_id!=uid:raise APIError('CONTROL_CONFLICT','原进程已无该任务，不能推断已停止',409)
+            if not rt or rt.user_id!=uid:raise APIError('CONTROL_CONFLICT','请重新读取原任务状态',409)
             data=self.writer.snapshot(uid,sid)
             if data['state_version']!=payload['expected_version']:raise ConflictError('最后保存版本已变化，请重新核对')
             self._drop(rt);self.controls.release(sid)

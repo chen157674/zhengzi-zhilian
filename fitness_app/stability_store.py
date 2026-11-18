@@ -67,7 +67,7 @@ class StabilityStore:
                 windows.append(json.loads(payload))
         compared=report(windows)
         result={'status':row['status'],'policy_version':row['policy_version'],'window_count':row['window_count'],'state_version':row['state_version'],'reason':row['reason'],
-            'comparisons':compared,'message':'前后观测变化仅供参考，不是体能或健康评分。','limitations':LIMITATIONS,'evidence_level':'reference','independent_specific_error_accuracy':None,
+            'comparisons':compared,'message':'前后动作观测变化。','limitations':LIMITATIONS,'evidence_level':'reference','independent_specific_error_accuracy':None,
             'maximum_windows':MAX_WINDOWS,'unknown_windows':sum(all(m['status']!='observed' for m in w['metrics']) for w in windows)}
         result['assessment_state']='compared' if any(v['state']=='compared' for v in compared) else 'not_comparable' if any(v['state']=='not_comparable' for v in compared) else 'insufficient_evidence'
         if include_windows:result['windows']=windows

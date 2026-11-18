@@ -12,7 +12,7 @@ def configure(net):
     for name,value in net.named_parameters():
         enabled=name.startswith(PREFIXES);value.requires_grad_(enabled)
         if enabled:selected[name]=value
-    if not all(any(n.startswith(prefix) for n in selected) for prefix in PREFIXES):raise ValueError('视觉末层/时序/投影/分类头结构不同，不能静默只训练头')
+    if not all(any(n.startswith(prefix) for n in selected) for prefix in PREFIXES):raise ValueError('请核对视觉、时序、投影与分类头结构后训练')
     return selected
 
 

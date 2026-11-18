@@ -51,7 +51,7 @@ def register_account(app,db):
             if not isinstance(name,str):raise APIError('VALIDATION_FAILED','昵称格式无效',422)
             name=unicodedata.normalize('NFC',name).strip()
             if not 2<=len(name)<=24 or any(unicodedata.category(ch).startswith('C') or ch in '<>&' for ch in name):
-                raise APIError('VALIDATION_FAILED','昵称为2～24个可见字符，不能包含控制符或标签',422,{'nickname':'请检查昵称'})
+                raise APIError('VALIDATION_FAILED','请输入2～24个可见字符作为昵称',422,{'nickname':'请检查昵称'})
             changes['nickname']=name
         if not changes:raise APIError('VALIDATION_FAILED','请输入要修改的昵称',422)
         with db.transaction() as c:
@@ -67,7 +67,7 @@ def register_account(app,db):
         with db.transaction(False) as c:
             user=identity(c)
             key=c.scalar(select(s.user_profiles.c.avatar_key).where(s.user_profiles.c.user_id==user['id']))
-        if not key:raise APIError('NOT_FOUND','尚未上传自定义头像',404)
+        if not key:raise APIError('NOT_FOUND','请上传自定义头像',404)
         path=stored_avatar(avatar_root,key)
         if not path.is_file():raise APIError('NOT_FOUND','头像文件暂不可用，请重新上传',404)
         try:return send_file(path,mimetype='image/jpeg',conditional=False,max_age=0)
@@ -135,7 +135,7 @@ def register_account(app,db):
                     for name,value,unit,count in (('reps',amounts['reference_reps'],'reps',amounts['rep_sessions']),
                                                   ('hold',amounts['reference_hold_ms'],'ms',amounts['hold_sessions']))}
         completion.update(schema_version=1,unavailable_sessions=stats['total_sessions']-amounts['rep_sessions']-amounts['hold_sessions'],
-                          scope='仅汇总记录当时可用的已确认参考完成量；0不代表实际没有运动，null表示没有对应计数能力记录')
+                          scope='完成量统计范围：已保存的动作计数记录；空值表示待补充计数记录。')
         recent=app.extensions['session_store'].list_records(current_user.user_id,1,5)
         return jsonify(data={**dict(stats),'reference_reps':amounts['reference_reps'],'reference_hold_ms':amounts['reference_hold_ms'],
                              'completion_summary':completion,'recent_records':recent['records'],

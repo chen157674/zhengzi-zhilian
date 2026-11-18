@@ -33,7 +33,7 @@ def choices(value,allowed,field):
     if value is None:return []
     if not isinstance(value,list) or len(value)>len(allowed):invalid(field)
     if any(not isinstance(v,str) or v not in allowed for v in value):invalid(field)
-    if len(value)!=len(set(value)):invalid(field,'选项不能重复')
+    if len(value)!=len(set(value)):invalid(field,'请选择不同的选项')
     return list(value)
 
 
@@ -70,7 +70,7 @@ def note_values(data):
             if number<1 or number!=number.to_integral_value() or values['load_basis']!='device_setting':invalid('load_value','配重档位需为正整数，口径为器械档位')
             values['load_value']=int(number)
         else:
-            if values['load_basis']=='device_setting':invalid('load_basis','器械档位不能当作公斤或磅')
+            if values['load_basis']=='device_setting':invalid('load_basis','请按器械档位记录负荷')
             values['load_value']=float(number)
     elif values['load_unit'] is not None or values['load_basis'] is not None:
         invalid('load_value','未填写负重时请同时清空单位与口径')

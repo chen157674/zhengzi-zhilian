@@ -58,7 +58,7 @@ class VideoAnalyses:
     def _available(self):
         if self.closed:raise APIError('SERVICE_STOPPED','服务正在停止',409)
         if self.writer.unhealthy:raise APIError('STORAGE_UNAVAILABLE','请先处理未保存的分析结果',503)
-        if any(run.finalization_pending for run in self.runs.values()):raise APIError('STORAGE_UNAVAILABLE','原视频任务收尾尚未保存，请先核对原任务状态',503)
+        if any(run.finalization_pending for run in self.runs.values()):raise APIError('STORAGE_UNAVAILABLE','请先查看原视频任务的保存状态',503)
         for key,run in list(self.runs.items()):
             if run.stopped and not run.finalization_pending and run.thread and not run.thread.is_alive():self.runs.pop(key,None)
         if len(self.runs)>=64:raise APIError('ANALYSIS_BUSY','尚有任务未释放，请稍后再试',409)
@@ -69,7 +69,7 @@ class VideoAnalyses:
             old=self.store.command_result(uid,auth,key,'video.analysis.create',payload)
             if old:return self.snapshot(uid,auth,old)
             self._available()
-            if not self.app.config.get('TESTING') and not model_status()['available']:raise APIError('MODEL_UNAVAILABLE','姿态模型资源暂不可用，尚未开始消耗视频输入',503)
+            if not self.app.config.get('TESTING') and not model_status()['available']:raise APIError('MODEL_UNAVAILABLE','请准备姿态模型后开始分析',503)
             if payload['mode']=='auto' and not self.app.config.get('TESTING') and resources()[0] is None:
                 raise APIError('RECOGNITION_UNAVAILABLE','自动识别资源暂不可用，可主动改用手动分析',503)
             pid=s.new_id();self.slot.claim(uid,pid,'video_analysis');created=False
@@ -166,7 +166,7 @@ class VideoAnalyses:
     def _saved(self,run,sid,operation,payload):
         self._check(run)
         data=self.writer.submit(run.user_id,sid,run.auth_id,operation,payload)
-        if data['save_state']!='clean':raise StorageError('结果批次尚未保存')
+        if data['save_state']!='clean':raise StorageError('请先保存当前结果批次')
         return data
 
     @staticmethod
@@ -327,10 +327,10 @@ class VideoAnalyses:
     def cleanup(self,uid,auth,identity,revision=False):
         with self.lock,self.db.transaction(False) as c:
             self.sessions._actor(c,uid,auth);row=self.store._revision(c,uid,identity) if revision else self.store._parent(c,uid,identity)
-            if row['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','分析尚未结束，不能清理输入',409)
+            if row['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','请等待分析结束后清理视频',409)
             if revision and json.loads(row['config_json']).get('parent_pass'):
                 segment=self.store._segment(c,uid,row['segment_id']);parent=self.store._parent(c,uid,segment['analysis_id'])
-                if parent['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','整段视频尚未结束',409)
+                if parent['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','视频分析进行中',409)
             iid=row['input_id']
         self.inputs.cleanup(uid,iid,allow_consumed=True)
         with self.db.transaction() as c:
@@ -368,7 +368,7 @@ class VideoAnalyses:
                 row=self.store._revision(c,uid,identity) if revision else self.store._parent(c,uid,identity)
             run=self.runs.get(identity)
             if not run or not run.finalization_pending:
-                if row['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','任务尚在处理，不能代替工作线程收尾',409)
+                if row['status'] not in FINAL:raise APIError('ANALYSIS_BUSY','任务正在处理，请等待保存完成',409)
                 return self.revision(uid,auth,identity) if revision else self.snapshot(uid,auth,identity)
             if not run.stopped:raise APIError('ANALYSIS_BUSY','工作线程仍在释放，请稍后核对',409)
             if row['state_version']!=version:raise ConflictError('任务状态已更新，请重新读取')

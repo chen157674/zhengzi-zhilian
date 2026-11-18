@@ -4,6 +4,8 @@ import path from 'node:path';
 import {BrowserFixture,root} from './formal_browser_support.mjs';
 
 const fixture=new BrowserFixture('ai-assistant-interaction');
+const output=path.resolve(root,process.env.FITNESS_UI_EVIDENCE_DIR||'第四轮优化/实现核对');
+assert(!path.relative(root,output).startsWith('..'),'证据目录须在项目内');
 fixture.env.APPDATA=path.join(fixture.temporary,'roaming');
 fixture.env.LOCALAPPDATA=path.join(fixture.temporary,'localappdata');
 const errors=[];let posts=0,created=0,allowFinish=false,polls=0,cancelled=false,contextCurrent=true;
@@ -49,7 +51,7 @@ try{
  await page.locator('.ai-copy-reply').click();assert.equal(await page.evaluate(()=>window.copiedReply),answer.summary);
  await input.dispatchEvent('keydown',{key:'Enter',code:'Enter',isComposing:true});assert.equal(posts,1);
  assert(await page.locator('#ai-chat-send').isEnabled());
- await page.screenshot({path:path.join(root,'第四轮优化/实现核对/AI教练-侧栏.png')});
+ await page.screenshot({path:path.join(output,'AI教练-侧栏.png')});
  await page.locator('#ai-chat-new').click();await page.locator('#ai-chat-welcome').waitFor();
  await input.fill('1+1等于几？');await input.press('Enter');
  await page.locator('.ai-chat-message.assistant').filter({hasText:'健身相关的问题'}).waitFor();
@@ -59,9 +61,10 @@ try{
  await page.locator('#ai-chat-stop').click();await page.locator('#ai-request-state').filter({hasText:'已停止'}).waitFor();
  assert.equal(await page.locator('[data-streaming=true]').count(),0);
  await page.setViewportSize({width:375,height:844});
+ await page.waitForFunction(()=>Math.abs(parseFloat(document.querySelector('#ai-assistant').style.getPropertyValue('--ai-viewport-height'))-visualViewport.height)<1);
  const mobile=await page.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth,formBottom:document.querySelector('#ai-chat-form').getBoundingClientRect().bottom,height:innerHeight}));
- assert(mobile.width<=mobile.viewport);assert(mobile.formBottom<=mobile.height+1);
- await page.screenshot({path:path.join(root,'第四轮优化/实现核对/AI教练-流式窄屏.png')});
+ assert(mobile.width<=mobile.viewport);assert(mobile.formBottom<=mobile.height+1,JSON.stringify(mobile));
+ await page.screenshot({path:path.join(output,'AI教练-流式窄屏.png')});
  assert.deepEqual(errors,[]);
  console.log('Enter/Shift+Enter/IME, progressive replies, preserved draft, close/reopen, new chat, scope redirect and mobile layout: passed.');
 }finally{await fixture.close();}

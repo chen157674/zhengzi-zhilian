@@ -82,7 +82,7 @@ class PersistenceCoordinator:
                 payload=pending['payload'];data.update(save_state='save_failed',analysis_frozen=True,
                     pending={'operation':pending['operation'],'event_seq':payload.get('event_seq'),
                              'set_index':payload.get('set_index'),'attempts':pending['attempts']},
-                    save_error='部分内容尚未确认保存，分析已暂停，请核对最后确认版本。')
+                    save_error='分析已暂停，请先保存当前内容。')
             if session_id in self._discarded:
                 data.update(status='interrupted',end_reason='unsaved_discarded',analysis_frozen=True,
                             save_state='save_failed',terminal_persisted=False,unsaved_discarded=True)
@@ -142,7 +142,7 @@ class PersistenceCoordinator:
         """仅由合法继续命令在业务状态成功落库后调用，不对客户端开放。"""
         with self._lock:
             self.store.snapshot(user_id,session_id)
-            if session_id in self._pending or session_id in self._discarded:raise StorageError("保存尚未恢复，不能继续分析")
+            if session_id in self._pending or session_id in self._discarded:raise StorageError("请恢复保存后继续分析")
             self._frozen.discard(session_id)
 
     @contextmanager

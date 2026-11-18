@@ -149,7 +149,7 @@ class SessionStore:
                         config.get('source_start_ms')==segment['start_ms'] and config.get('source_end_ms')==segment['end_ms'])
                     if not trusted_revision:raise APIError('INVALID_STATE','内部视频修订归属或状态不匹配',409)
                 if not media or (media['status']!='consumed' if trusted_revision else media['status']!='ready' or media['expires_at_ms']<=self.clock()):
-                    raise APIError("VALIDATION_FAILED","视频尚未完成校验或已过期",422)
+                    raise APIError("VALIDATION_FAILED","请重新选择视频并完成校验",422)
                 metadata=json.loads(media['encoding_json'] or '{}')
                 unknown_duration=media['duration_ms'] is None and metadata.get('duration_known') is False and metadata.get('validation')=='container_and_first_decoded_frame'
                 if not media['sha256'] or len(media['sha256'])!=64 or not media['bytes'] or (not media['duration_ms'] and not unknown_duration):
@@ -201,10 +201,10 @@ class SessionStore:
             def write():
                 if expected_version is not None and row['state_version']!=expected_version:raise ConflictError("会话已更新，请重新读取")
                 if row['status'] in TERMINAL:
-                    if state!=row['status']:raise APIError("INVALID_STATE","已结束会话不能重新开始",409)
+                    if state!=row['status']:raise APIError("INVALID_STATE","请创建新的训练会话",409)
                     return {'id':session_id,'state_version':row['state_version'],**({'context_digest':context['request_digest']} if context else {})}
                 if extra.get('active_ms',row['active_ms'])<row['active_ms']:
-                    raise APIError("VALIDATION_FAILED","活动时长不能倒退",422)
+                    raise APIError("VALIDATION_FAILED","请核对训练时长",422)
                 changes={**extra,'status':state,'state_version':row['state_version']+1}
                 if state=='running' and row['started_at_ms'] is None:changes['started_at_ms']=self.clock()
                 if state in TERMINAL:
@@ -244,17 +244,17 @@ class SessionStore:
                 if not isinstance(item.get('evidence'),dict) or len(json_text(item['evidence']))>4096:raise APIError('VALIDATION_FAILED','姿态证据无效',422)
             elif reference and status!='unassessable':raise APIError('VALIDATION_FAILED','参考姿态结论需要规则版本与证据',422)
             if status!='unassessable' and supported[code].get('status') not in {'verified','reference'}:
-                raise APIError("VALIDATION_FAILED","未验证判项不能生成问题或正常结论",422)
+                raise APIError("VALIDATION_FAILED","请使用已验证的检查项",422)
             left=integer(item.get('start_ms'),'assessment.start_ms');right=integer(item.get('end_ms'),'assessment.end_ms')
             if not start<=left<right<=end:raise APIError("VALIDATION_FAILED","证据区间超出本次动作",422)
             if not isinstance(item.get('reason',''),str) or len(item.get('reason',''))>512:
-                raise APIError("VALIDATION_FAILED","无法评估原因无效",422)
-            if status=='unassessable' and not item.get('reason','').strip():raise APIError("VALIDATION_FAILED","无法评估需要明确原因",422)
+                raise APIError("VALIDATION_FAILED","请填写评估原因",422)
+            if status=='unassessable' and not item.get('reason','').strip():raise APIError("VALIDATION_FAILED","请填写评估原因",422)
         return json_text(data,list)
 
     def append_event(self,user_id,session_id,event,auth_id=None):
         allowed={'event_seq','set_index','side','start_ms','end_ms','algorithm_version','feature_schema_version','assessments','active_ms'}
-        if set(event)-allowed:raise APIError("INVALID_REQUEST","事件含不支持的字段")
+        if set(event)-allowed:raise APIError("INVALID_REQUEST","请核对事件字段")
         sequence=integer(event.get('event_seq'),'event_seq',1);index=integer(event.get('set_index'),'set_index',1,100)
         start=integer(event.get('start_ms'),'start_ms');end=integer(event.get('end_ms'),'end_ms')
         if end<=start:raise APIError("VALIDATION_FAILED","动作区间无效",422)
@@ -271,8 +271,8 @@ class SessionStore:
             group=c.execute(select(s.session_sets).where(s.session_sets.c.session_id==session_id,s.session_sets.c.set_index==index)).mappings().first()
             if not group:raise APIError("VALIDATION_FAILED","组不属于该会话",422)
             def write():
-                if row['status']!='running':raise APIError("INVALID_STATE","当前状态不能生成完成事件",409)
-                if group['status'] not in {'pending','active'}:raise APIError('INVALID_STATE','该组已结束，不能新增事件',409)
+                if row['status']!='running':raise APIError("INVALID_STATE","请刷新训练状态后完成动作",409)
+                if group['status'] not in {'pending','active'}:raise APIError('INVALID_STATE','请开始新的一组训练',409)
                 self._current_group(c,row,group)
                 if sequence!=row['last_event_seq']+1:raise ConflictError("事件序号不连续，请先同步已提交事件")
                 c.execute(s.action_events.insert().values(session_id=session_id,set_id=group['id'],event_seq=sequence,side=side,
@@ -312,7 +312,7 @@ class SessionStore:
                 if item.get('evidence_level')!='reference':raise APIError('VALIDATION_FAILED','姿态观察需要明确参考依据',422)
             def write():
                 if row['status']!='running' or group['status'] not in {'pending','active'}:
-                    raise APIError('INVALID_STATE','当前状态不能写入姿态观察',409)
+                    raise APIError('INVALID_STATE','请刷新训练状态后记录姿态',409)
                 self._current_group(c,row,group)
                 for item in findings:
                     condition=(s.posture_observations.c.session_id==session_id,s.posture_observations.c.set_id==group['id'],
@@ -322,7 +322,7 @@ class SessionStore:
                     encoded=json_text(item)
                     if old:
                         if item['end_ms']<old['end_ms'] or (item['end_ms']==old['end_ms'] and encoded!=old['data_json']):
-                            raise ConflictError('姿态观察不能倒退或覆盖同一时点')
+                            raise ConflictError('请按时间顺序提交新的姿态观察')
                         c.execute(update(s.posture_observations).where(s.posture_observations.c.id==old['id']).values(end_ms=item['end_ms'],data_json=encoded))
                     else:
                         c.execute(s.posture_observations.insert().values(session_id=session_id,set_id=group['id'],
@@ -357,14 +357,14 @@ class SessionStore:
                 if item['kind']=='hold' and code is not None:raise APIError("VALIDATION_FAILED","保持区间不绑定质量代码",422)
                 if code is not None and code not in supported:raise APIError("VALIDATION_FAILED","区间检测项无效",422)
                 if item['kind']=='issue' and (code not in supported or supported[code].get('status')!='verified'):
-                    raise APIError("VALIDATION_FAILED","未验证判项不能生成问题区间",422)
+                    raise APIError("VALIDATION_FAILED","请使用已验证的检查项生成问题区间",422)
                 if not isinstance(item.get('algorithm_version'),str) or not 1<=len(item['algorithm_version'])<=100:raise APIError("VALIDATION_FAILED","区间算法版本无效",422)
                 if item.get('reason') is not None and (not isinstance(item['reason'],str) or len(item['reason'])>512):raise APIError("VALIDATION_FAILED","区间原因无效",422)
-                if item['kind']=='unassessable' and not (item.get('reason') or '').strip():raise APIError("VALIDATION_FAILED","无法评估区间需要原因",422)
+                if item['kind']=='unassessable' and not (item.get('reason') or '').strip():raise APIError("VALIDATION_FAILED","请填写该时段的评估原因",422)
             def write():
                 if row['status'] not in {'running','waiting'} or (row['status']=='waiting' and any(item['kind']=='hold' for item in intervals)):
-                    raise APIError("INVALID_STATE","当前状态不能累计保持",409)
-                if group['status'] not in {'pending','active'}:raise APIError('INVALID_STATE','该组已结束，不能新增观察区间',409)
+                    raise APIError("INVALID_STATE","请刷新训练状态后记录保持时长",409)
+                if group['status'] not in {'pending','active'}:raise APIError('INVALID_STATE','请开始新的一组动作观察',409)
                 self._current_group(c,row,group)
                 keys={(item['kind'],item.get('item_code')) for item in intervals}
                 for kind,code in keys:
@@ -382,7 +382,7 @@ class SessionStore:
                     holding.c.session_id==session_id,holding.c.set_id==group['id'],holding.c.kind=='hold',
                     unknown.c.kind=='unassessable',unknown.c.item_code.is_(None),
                     holding.c.start_ms<unknown.c.end_ms,holding.c.end_ms>unknown.c.start_ms))
-                if conflict:raise APIError("VALIDATION_FAILED","确认支撑与无法确认支撑区间不能重叠",422)
+                if conflict:raise APIError("VALIDATION_FAILED","请为不同支撑状态选择独立的观察时段",422)
                 holds=c.scalar(select(func.coalesce(func.sum(s.observation_intervals.c.end_ms-s.observation_intervals.c.start_ms),0))
                     .where(s.observation_intervals.c.session_id==session_id,s.observation_intervals.c.set_id==group['id'],s.observation_intervals.c.kind=='hold'))
                 c.execute(update(s.session_sets).where(s.session_sets.c.id==group['id']).values(hold_ms=holds,status='active'))
@@ -483,7 +483,7 @@ class SessionStore:
         if source:
             if source not in {'camera','video'}:raise APIError("VALIDATION_FAILED","来源筛选无效",422)
             conditions.append(s.analysis_sessions.c.source==source)
-        if date_from and date_to and date_from>date_to:raise APIError("VALIDATION_FAILED","开始日期不能晚于结束日期",422)
+        if date_from and date_to and date_from>date_to:raise APIError("VALIDATION_FAILED","请按先后顺序选择起止日期",422)
         for key,value in [('date_from',date_from),('date_to',date_to)]:
             if not value:continue
             try:

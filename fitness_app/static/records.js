@@ -1,6 +1,7 @@
 import {api,confirmDialog,showMessage} from './app.js';
 import {openReportExport} from './report_export_ui.js';
 import {openAIReport} from './ai_report_ui.js';
+import {openRecordComparison} from './record_comparison.js';
 import {el,terminal,dateFormat,quantity,recordStatus,privateError} from './record_common.js';
 
 const form=document.querySelector('#record-filters'),rows=document.querySelector('#record-rows'),table=document.querySelector('#records-table');
@@ -9,23 +10,31 @@ const errorBox=document.querySelector('#records-error'),retry=document.querySele
 const fields=['action_id','source','period','search'],selected=new Set(),pageSize=10;
 let records=[],page=1,wantedPage=1,total=0,sequence=0,debounce=null,busy=false;
 const initial=new URLSearchParams(location.search);
-if(initial.has('discarded')){const message=document.querySelector('#records-return-message');message.hidden=false;message.textContent=initial.get('discarded')==='pending'?'已确认放弃未保存部分，已有摘要保留；终态尚未写入存储，不能显示为保存成功。':'已确认放弃未保存部分，仅保留此前已保存摘要。'}
+let preciseRange=Object.fromEntries(['date_from','date_to'].filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(initial.get(k)||'')).map(k=>[k,initial.get(k)]));
+const rangeLabel=el('span',undefined,'field-help record-date-range');
+rangeLabel.style.gridColumn='1 / -1';rangeLabel.hidden=true;form.append(rangeLabel);
+if(Object.keys(preciseRange).length)form.elements.period.append(new Option('指定日期','custom'));
+if(initial.has('discarded')){const message=document.querySelector('#records-return-message');message.hidden=false;message.textContent=initial.get('discarded')==='pending'?'已保留现有摘要，请继续保存任务状态。':'已确认放弃未保存部分，仅保留此前已保存摘要。'}
 for(const name of fields){if(initial.has(name))form.elements[name].value=initial.get(name)}
+if(Object.keys(preciseRange).length){form.elements.period.value='custom';rangeLabel.textContent=[preciseRange.date_from,preciseRange.date_to].filter(Boolean).filter((v,i,a)=>i===0||v!==a[0]).join(' — ');rangeLabel.hidden=false;}
 if(!form.elements.period.value)form.elements.period.value='30';
 wantedPage=Math.max(1,Number.parseInt(initial.get('page')||'1',10)||1);
 function selectable(record){return terminal.has(record.status)&&record.save_state==='clean'}
 document.querySelector('#records-export').onclick=()=>openReportExport([...selected]);
 document.querySelector('#records-ai-review').onclick=()=>openAIReport({record_ids:[...selected]});
-document.querySelector('#records-compare').onclick=()=>openAIReport({kind:'comparison',record_ids:records.filter(r=>selected.has(r.session_id)).sort((a,b)=>a.started_at_ms-b.started_at_ms).map(r=>r.session_id)});
+document.querySelector('#records-compare').onclick=()=>openRecordComparison(records.filter(r=>selected.has(r.session_id)).sort((a,b)=>a.started_at_ms-b.started_at_ms).map(r=>r.session_id),{returnTo:contextURL()});
 function updateSelection(){
-  document.querySelector('#records-compare').disabled=busy||selected.size!==2;
+  const pair=records.filter(r=>selected.has(r.session_id)),sameAction=pair.length===2&&pair[0].action_id===pair[1].action_id;
+  document.querySelector('#records-compare').disabled=busy||selected.size!==2||!sameAction;
+  document.querySelector('#records-compare').title=selected.size===2&&!sameAction?'请选择同一个动作的两条记录；详细规则和机位由服务端继续核对':'比较同项动作记录';
   document.querySelector('#records-export').textContent=selected.size?'导出所选PDF':'训练报告';
   const eligible=records.filter(selectable),count=eligible.filter(item=>selected.has(item.session_id)).length;
   selectPage.checked=eligible.length>0&&count===eligible.length;selectPage.indeterminate=count>0&&count<eligible.length;
   selectPage.disabled=busy||!eligible.length;deleteSelected.disabled=busy||!selected.size;
-  document.querySelector('#record-selection').textContent=`已选 ${selected.size} 条`;
+  document.querySelector('.records-actionbar').dataset.hasSelection=String(selected.size>0);
+  document.querySelector('#record-selection').textContent=selected.size?`已选 ${selected.size} 条`:'';
 }
-function contextURL(){const params=new URLSearchParams({view:'list',page:String(page)});for(const name of fields){const value=form.elements[name].value;if(value)params.set(name,value)}return '/records?'+params}
+function contextURL(){const params=new URLSearchParams({view:'list',page:String(page)});for(const name of fields){const value=form.elements[name].value;if(value)params.set(name,value)}for(const [name,value]of Object.entries(preciseRange))params.set(name,value);return '/records?'+params}
 function render(){
   rows.replaceChildren();
   for(const record of records){
@@ -51,7 +60,8 @@ function dateBoundary(days){const formatter=new Intl.DateTimeFormat('en-CA',{tim
 async function load(){
   const current=++sequence,query=new URLSearchParams({page:String(wantedPage),page_size:String(pageSize)});
   for(const name of ['action_id','source','search'])if(form.elements[name].value)query.set(name,form.elements[name].value);
-  if(form.elements.period.value!=='all')query.set('date_from',dateBoundary(Number(form.elements.period.value)));
+  if(Object.keys(preciseRange).length){for(const [name,value]of Object.entries(preciseRange))query.set(name,value);}
+  else if(form.elements.period.value!=='all')query.set('date_from',dateBoundary(Number(form.elements.period.value)));
   table.setAttribute('aria-busy','true');errorBox.hidden=retry.hidden=true;
   document.querySelector('#record-prev').disabled=document.querySelector('#record-next').disabled=true;
   try{const data=await api('/api/v1/records?'+query);if(current!==sequence)return;records=data.records;total=data.total;page=wantedPage=data.page;selected.clear();render();history.replaceState(null,'',contextURL())}
@@ -66,9 +76,9 @@ async function deleteRecords(items){
   const commandId=crypto.randomUUID();let uncertain=false;
   try{
     const result=await confirmDialog({title:'删除记录',message:`将删除已选 ${items.length} 条摘要（${items.map(item=>item.action_name+' '+dateFormat.format(item.started_at_ms)).join('；')}）。仅删除这些记录，不删除用户原视频。`,confirmLabel:'删除记录',danger:true,onConfirm:async()=>{
-      try{if(uncertain){const receipt=await api('/api/v1/operations/'+commandId);if(receipt.status==='succeeded')return receipt.result;throw new Error('尚未确认原删除结果，请稍后核对')}
+      try{if(uncertain){const receipt=await api('/api/v1/operations/'+commandId);if(receipt.status==='succeeded')return receipt.result;throw new Error('请稍后查看原删除结果')}
         return await api('/api/v1/records/delete',{method:'POST',commandId,body:{ids,expected_versions}});
-      }catch(error){if(privateError(error))throw error;if(error.unknown){uncertain=true;document.querySelector('[data-dialog-confirm]').textContent='核对原删除';try{const receipt=await api('/api/v1/operations/'+commandId);if(receipt.status==='succeeded')return receipt.result}catch(queryError){privateError(queryError)}throw new Error('删除结果尚未确认，请核对原操作；不会自动再发另一批删除。')}
+      }catch(error){if(privateError(error))throw error;if(error.unknown){uncertain=true;document.querySelector('[data-dialog-confirm]').textContent='核对原删除';try{const receipt=await api('/api/v1/operations/'+commandId);if(receipt.status==='succeeded')return receipt.result}catch(queryError){privateError(queryError)}throw new Error('请查看原删除操作的结果。')}
         if(error.code==='VERSION_CONFLICT'||error.code==='INVALID_STATE'){await load();throw new Error('记录状态已变化，未执行本批删除。请取消并重新选择。')}throw error;
       }
     }});
@@ -76,9 +86,9 @@ async function deleteRecords(items){
   }finally{busy=false;render();table.focus()}
 }
 function changed(){clearTimeout(debounce);sequence++;selected.clear();wantedPage=1;updateSelection()}
-function reset(){form.reset();changed();load()}
+function reset(){preciseRange={};rangeLabel.hidden=true;form.querySelector('option[value="custom"]')?.remove();form.reset();changed();load()}
 form.addEventListener('submit',event=>{event.preventDefault();changed();load()});
-for(const name of ['action_id','source','period'])form.elements[name].addEventListener('change',()=>{changed();load()});
+for(const name of ['action_id','source','period'])form.elements[name].addEventListener('change',()=>{if(name==='period'){preciseRange={};rangeLabel.hidden=true;form.querySelector('option[value="custom"]')?.remove();}changed();load()});
 form.elements.search.addEventListener('input',()=>{changed();debounce=setTimeout(load,250)});
 document.querySelector('#record-clear').onclick=reset;retry.onclick=load;
 selectPage.onchange=()=>{for(const record of records.filter(selectable)){if(selectPage.checked)selected.add(record.session_id);else selected.delete(record.session_id)}render()};

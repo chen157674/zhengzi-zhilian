@@ -55,7 +55,7 @@ class CoachPractice:
     def mutate(self,uid,auth,tid,data,key,command=False):
         tid=uuid_id(tid);key=uuid_id(key);version=integer(data.get('expected_version'),'expected_version')
         task=self.store.get(uid,auth,tid)
-        if task['status']!='ready':raise APIError('RETEST_SOURCE_UNAVAILABLE','来源已失效，不能继续练习',409)
+        if task['status']!='ready':raise APIError('RETEST_SOURCE_UNAVAILABLE','请重新选择练习来源',409)
         if command:
             if (task.get('practice') or {}).get('knowledge_status')=='source_invalid':raise APIError('KNOWLEDGE_WITHDRAWN','练习方法来源已失效，请重新编辑步骤并核对来源',409)
             kind=data.get('type');changes=None
@@ -82,7 +82,7 @@ class CoachPractice:
                         item=self.app.extensions['knowledge_store'].published(ref['id'],ref['version'])
                         if not item or item['status']!='published':raise APIError('KNOWLEDGE_WITHDRAWN','练习依据已变化，请重新编辑步骤',409)
                     allowed={'start_practice':{'saved','awaiting_retest'},'finish_practice':{'practicing'},'dismiss':{'saved','practicing','awaiting_retest'},'restore':{'dismissed'}}
-                    if row['status'] not in allowed[kind]:raise APIError('INVALID_STATE','当前练习状态不能执行此操作',409)
+                    if row['status'] not in allowed[kind]:raise APIError('INVALID_STATE','请刷新练习状态后重试',409)
                     values['status']={'start_practice':'practicing','finish_practice':'awaiting_retest','dismiss':'dismissed','restore':'saved'}[kind]
                 else:
                     if changes['linked_workout_id']:
@@ -110,7 +110,7 @@ class CoachPractice:
         if task['status']!='ready':raise APIError('SOURCE_CHANGED','来源已更新或失效，请重新选择',409)
         origin=task['origin'];source=self.store.sessions.snapshot(uid,origin['session_id'],True)
         if not task['target_record_id']:
-            return {'task_id':tid,'task_version':task['state_version'],'comparability':{'status':'awaiting_target','reasons':['尚未选择新的复测记录']},'metrics':None,'media':None}
+            return {'task_id':tid,'task_version':task['state_version'],'comparability':{'status':'awaiting_target','reasons':['请选择新的复测记录']},'metrics':None,'media':None}
         target=self.store.sessions.snapshot(uid,task['target_record_id'],True);comparison=task['comparison']
         from .training_insights import record_statistics,record_evidence
         selected=self.app.extensions['retests'].resolve(uid,auth,origin)

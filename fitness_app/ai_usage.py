@@ -10,10 +10,10 @@ from .deepseek_client import PRICING_VERSION,estimate_reservation
 TERMINAL={'succeeded','failed','cancelled','uncertain'}
 ERRORS={
  'AI_KEY_INVALID':'AI密钥无效或已失效，请到AI服务设置检查',
- 'AI_KEY_STORAGE_UNAVAILABLE':'AI密钥存储无法读取；本次未发送，请到AI服务设置重新核对',
+ 'AI_KEY_STORAGE_UNAVAILABLE':'请到AI服务设置重新配置密钥后发送',
  'AI_BALANCE_INSUFFICIENT':'AI账户余额不足',
  'AI_RATE_LIMITED':'AI服务限流，请稍后再试',
- 'AI_NETWORK_UNCERTAIN':'上游状态暂不能确认，可能已产生用量；请先核对请求状态',
+ 'AI_NETWORK_UNCERTAIN':'请求用量待核对，请先查看原请求状态',
  'AI_RESPONSE_INVALID':'AI返回内容无效，没有生成有效报告',
  'AI_OUTPUT_INCOMPLETE':'AI回复被截断，没有生成有效报告',
  'AI_EVIDENCE_INVALID':'AI回复与检测依据不一致，没有生成有效报告',
@@ -91,7 +91,7 @@ class AIUsageStore:
         """恢复同一父任务，保留次数/累计支出，不另建账本行。"""
         with self.db.transaction() as c:
             self.sessions._actor(c,uid,auth);row=self._row(c,uid,rid)
-            if row['kind']!='coach' or row['status']!='succeeded':raise ConflictError('该任务无法继续')
+            if row['kind']!='coach' or row['status']!='succeeded':raise ConflictError('请重新发起任务')
             settings,policy,_,source=self.settings.active(c,uid)
             if source!=row['source'] or settings['version']!=row['settings_version'] or source=='system' and policy['version']!=row['policy_version']:raise ConflictError('AI设置已改变，请重新开始')
             if c.scalar(select(func.count()).select_from(s.ai_requests).where(s.ai_requests.c.user_id==uid,s.ai_requests.c.status.in_(('queued','running')))):raise APIError('AI_BUSY','已有AI请求正在处理',409)

@@ -10,7 +10,7 @@ from .pose import checked_model_hash
 def correction_resource(name):
     manifest = project_path(ROOT/'data/models/correction-resources.json')
     if not manifest.is_file():
-        raise FileNotFoundError('纠错输入资源尚未登记')
+        raise FileNotFoundError('请配置纠错输入资源')
     record = json.loads(manifest.read_text(encoding='utf-8'))['resources'][name]
     path = project_path(record['path'])
     stat = path.stat()

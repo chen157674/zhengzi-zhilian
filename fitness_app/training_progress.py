@@ -90,7 +90,7 @@ class TrainingProgress:
                 if plan['status'] not in {'active','paused'}:raise APIError('INVALID_STATE','当前计划不可调整安排',409)
                 if session['schedule_version']!=version:raise ConflictError('日期安排已更新')
                 workout=c.execute(select(s.training_workouts).where(s.training_workouts.c.plan_session_id==sid)).mappings().first()
-                if workout and workout['status']!='ready':raise APIError('WORKOUT_ALREADY_STARTED','已开始的执行不能改期或跳过',409)
+                if workout and workout['status']!='ready':raise APIError('WORKOUT_ALREADY_STARTED','请完成当前训练后调整日程',409)
                 values={'schedule_version':version+1};target=session['scheduled_date'];reason=None
                 if kind=='reschedule':
                     if integer(data.get('plan_expected_version'),'plan_expected_version')!=plan['state_version']:raise ConflictError('计划已更新')
@@ -101,7 +101,7 @@ class TrainingProgress:
                     if conflict:raise APIError('SCHEDULE_CONFLICT','目标日已有训练安排，请选择其他日期',409)
                     values.update(scheduled_date=target,rescheduled_from=session['scheduled_date'])
                 elif kind=='skip':
-                    if session['status']!='planned':raise APIError('INVALID_STATE','当前安排不能跳过',409)
+                    if session['status']!='planned':raise APIError('INVALID_STATE','请刷新训练安排后重试',409)
                     reason=data.get('reason')
                     if reason is not None:
                         from .training_plans import text

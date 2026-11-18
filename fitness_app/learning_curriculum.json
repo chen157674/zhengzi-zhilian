@@ -1,0 +1,1086 @@
+{
+  "version": "beginner-curriculum-1",
+  "review_status": "project_editorial_not_external_expert_certification",
+  "guides": {
+    "standard_push_up": {
+      "category": "徒手",
+      "focus": "胸部 · 手臂",
+      "level": "进阶基础",
+      "tagline": "先保持身体成一直线，再完成屈肘推起。",
+      "image": "/static/learn/standard-push-up.webp",
+      "image_alt": "中国成年教练演示俯撑准备、屈肘下放、推回起点三个动作阶段",
+      "phases": [
+        "俯撑准备",
+        "屈肘下放",
+        "推回起点"
+      ],
+      "steps": [
+        {
+          "title": "俯撑准备",
+          "text": "双手撑地，约比肩宽，双脚向后伸直，腹部收紧，头到脚跟成直线。"
+        },
+        {
+          "title": "屈肘下放",
+          "text": "弯曲肘部，让胸部缓慢靠近地面，身体整体下降，肘部自然向斜后方。"
+        },
+        {
+          "title": "推回起点",
+          "text": "用双手推地，身体整体回到起点，不先抬胸或塌腰。"
+        }
+      ],
+      "reminders": [
+        "躯干保持一条线",
+        "不耸肩顶脖子",
+        "下降和推起都可控"
+      ],
+      "first_try": "先试少量可控的动作；完整俯卧撑困难时，可先做高支撑版本。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STANDARD FLOOR PUSH-UP. Side view, head points right, toes and hands on floor. Panel1 straight-arm high plank with wrists beneath shoulders, neutral spine from head through hips to ankles. Panel2 controlled lowered push-up, elbows bent back diagonally, chest hovering just above floor, body straight and no knees on floor. Panel3 returned high plank. Hands and feet stay fixed, whole body visible.",
+      "status": "reviewed"
+    },
+    "reverse_lunge": {
+      "category": "徒手",
+      "focus": "腿部 · 臀部",
+      "level": "基础入门",
+      "tagline": "后撤一步，前脚踩稳，再站回起点。",
+      "image": "/static/learn/reverse-lunge.webp",
+      "image_alt": "中国成年教练演示站立准备、后撤屈膝、回到站立三个动作阶段",
+      "phases": [
+        "站立准备",
+        "后撤屈膝",
+        "回到站立"
+      ],
+      "steps": [
+        {
+          "title": "站立准备",
+          "text": "双脚与髋同宽站立，双手放在身体两侧或轻扶髋部。"
+        },
+        {
+          "title": "后撤屈膝",
+          "text": "一脚向后迈步，前脚踩稳，双膝自然弯曲，后膝靠近地面但不撞地。"
+        },
+        {
+          "title": "回到站立",
+          "text": "用前脚平稳发力回到站立，再换另一侧，保持重心可控。"
+        }
+      ],
+      "reminders": [
+        "前脚脚跟踩稳",
+        "膝盖顺脚尖方向",
+        "先稳住再换侧"
+      ],
+      "first_try": "先不负重练习，可扶稳定支撑物帮助保持平衡。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "BODYWEIGHT REVERSE LUNGE. Three-quarter side view facing right. Panel1 upright feet hip-width. Panel2 right/front foot stays planted while other foot steps backward on ball of foot, both knees bent, rear knee hovering above floor, torso upright. Panel3 return feet to standing. Show same front/rear leg identity, no forward lunge.",
+      "status": "reviewed"
+    },
+    "bodyweight_glute_bridge": {
+      "category": "徒手",
+      "focus": "臀部 · 腿后侧",
+      "level": "基础入门",
+      "tagline": "脚踩稳，用臀部把髋抬起。",
+      "image": "/static/learn/bodyweight-glute-bridge.webp",
+      "image_alt": "中国成年教练演示仰卧屈膝、平稳抬髋、缓慢落下三个动作阶段",
+      "phases": [
+        "仰卧屈膝",
+        "平稳抬髋",
+        "缓慢落下"
+      ],
+      "steps": [
+        {
+          "title": "仰卧屈膝",
+          "text": "仰卧在垫上，膝盖弯曲，双脚约与髋同宽踩地，手臂放在身体两侧。"
+        },
+        {
+          "title": "平稳抬髋",
+          "text": "保持双脚踩稳，收紧臀部抬起髋部，让肩、髋、膝大致连成斜线。"
+        },
+        {
+          "title": "缓慢落下",
+          "text": "保持控制缓慢放下髋部，不靠突然挺腰获得高度。"
+        }
+      ],
+      "reminders": [
+        "不要向后顶腰",
+        "膝盖不向两侧散开",
+        "颈部自然放松"
+      ],
+      "first_try": "先空手找到臀部发力，能平稳抬起和放下即可。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "BODYWEIGHT GLUTE BRIDGE on exercise mat. Side view, head left and feet right. Panel1 supine knees bent, feet flat and arms on floor. Panel2 hips lifted until shoulders hips knees form a diagonal line, upper back/head supported, no excessive lumbar arch. Panel3 controlled lower back to mat. All three full bodies, same feet positions.",
+      "status": "reviewed"
+    },
+    "bent_knee_sit_up": {
+      "category": "徒手",
+      "focus": "腹部",
+      "level": "进阶基础",
+      "tagline": "屈膝固定姿势，控制起身和回落。",
+      "image": "/static/learn/bent-knee-sit-up.webp",
+      "image_alt": "中国成年教练演示仰卧屈膝、卷起坐起、控制回落三个动作阶段",
+      "phases": [
+        "仰卧屈膝",
+        "卷起坐起",
+        "控制回落"
+      ],
+      "steps": [
+        {
+          "title": "仰卧屈膝",
+          "text": "仰卧在垫上，双膝弯曲，双脚踩地，双臂交叉放在胸前。"
+        },
+        {
+          "title": "卷起坐起",
+          "text": "呼气并逐步卷起躯干，向膝盖方向坐起，颈部自然，不用手拉头。"
+        },
+        {
+          "title": "控制回落",
+          "text": "慢慢回落，保持动作连续，不向后砸下。"
+        }
+      ],
+      "reminders": [
+        "不抱头猛拉",
+        "不靠甩臂起身",
+        "回落慢一些"
+      ],
+      "first_try": "先做自己可控制的幅度；起身吃力时不要用拉扯颈部的方式硬做。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "BENT-KNEE SIT-UP, NOT straight-leg sit-up. Side view on mat, head left, feet right. Panel1 lying supine with knees bent feet flat, arms crossed gently over chest. Panel2 trunk curled and lifted toward thighs, seated tilted upright, feet stay flat. Panel3 returning supine under control. No hands pulling neck, no external person anchoring feet.",
+      "status": "reviewed"
+    },
+    "forearm_plank": {
+      "category": "徒手",
+      "focus": "核心",
+      "level": "基础入门",
+      "tagline": "前臂撑稳，让身体保持一条线。",
+      "image": "/static/learn/forearm-plank.webp",
+      "image_alt": "中国成年教练演示前臂就位、伸腿支撑、稳定保持三个动作阶段",
+      "phases": [
+        "前臂就位",
+        "伸腿支撑",
+        "稳定保持"
+      ],
+      "steps": [
+        {
+          "title": "前臂就位",
+          "text": "前臂放在垫上，肘部在肩部下方附近，双手自然放置。"
+        },
+        {
+          "title": "伸腿支撑",
+          "text": "双脚向后伸直，用前臂和脚尖支撑，收紧腹部与臀部。"
+        },
+        {
+          "title": "稳定保持",
+          "text": "保持头、躯干、髋部和脚跟大致成直线，平稳呼吸，失去姿势时结束。"
+        }
+      ],
+      "reminders": [
+        "不塌腰",
+        "不把臀部抬得过高",
+        "不要憋气"
+      ],
+      "first_try": "先保持自己能维持姿势的短时间，稳定比撑得更久重要。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "FOREARM PLANK progression, full-body side view. Panel1 kneeling on mat with forearms parallel, elbows beneath shoulders. Panel2 extend legs into toe-supported forearm plank, straight neutral body. Panel3 SAME correct stable forearm plank at slightly later moment, no push-up/hip lift. Show elbows supported, forearms and toes clearly touching mat, no extra limbs.",
+      "status": "reviewed"
+    },
+    "jumping_jack": {
+      "category": "徒手",
+      "focus": "全身",
+      "level": "基础入门",
+      "tagline": "手脚配合打开，再轻轻回到起点。",
+      "image": "/static/learn/jumping-jack.webp",
+      "image_alt": "中国成年教练演示并脚站立、手脚打开、轻落合拢三个动作阶段",
+      "phases": [
+        "并脚站立",
+        "手脚打开",
+        "轻落合拢"
+      ],
+      "steps": [
+        {
+          "title": "并脚站立",
+          "text": "并脚站立，双臂自然放在身体两侧，前方留出活动空间。"
+        },
+        {
+          "title": "手脚打开",
+          "text": "轻跳让双脚向两侧打开，同时双臂向上举起。"
+        },
+        {
+          "title": "轻落合拢",
+          "text": "再轻跳回到并脚站立，双臂回到身体两侧，保持节奏可控。"
+        }
+      ],
+      "reminders": [
+        "落地轻一些",
+        "膝盖自然缓冲",
+        "空间不够先停下"
+      ],
+      "first_try": "先用慢节奏熟悉手脚配合，也可先采用逐步侧迈的低冲击方式。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "JUMPING JACK, full front view. Panel1 feet together arms at sides. Panel2 feet apart, arms raised in arc overhead with hands separated comfortably, soft knees. Panel3 feet together arms down again. Show shoes near floor and soft landing, no airborne impossible pose, entire figure all panels.",
+      "status": "reviewed"
+    },
+    "high_knees": {
+      "category": "徒手",
+      "focus": "全身 · 腿部",
+      "level": "基础入门",
+      "tagline": "交替抬膝，先把节奏和站姿稳住。",
+      "image": "/static/learn/high-knees.webp",
+      "image_alt": "中国成年教练演示站稳准备、抬起一膝、换侧抬膝三个动作阶段",
+      "phases": [
+        "站稳准备",
+        "抬起一膝",
+        "换侧抬膝"
+      ],
+      "steps": [
+        {
+          "title": "站稳准备",
+          "text": "双脚与髋同宽站立，躯干自然直立，手臂弯曲放在身体两侧。"
+        },
+        {
+          "title": "抬起一膝",
+          "text": "一侧膝盖向上抬起到自己可控制的位置，支撑脚轻踩地。"
+        },
+        {
+          "title": "换侧抬膝",
+          "text": "放下后换另一侧，手臂自然配合，不为了抬高而后仰。"
+        }
+      ],
+      "reminders": [
+        "不向后仰",
+        "脚步落地轻",
+        "先慢后快"
+      ],
+      "first_try": "先以原地高抬腿走的节奏练习，再逐渐加快。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "ALTERNATING HIGH KNEES marching/running-in-place, frontal three-quarter view. Panel1 upright both feet down arms bent. Panel2 left knee raised near hip height, right leg supports, opposite arm forward. Panel3 right knee raised, left leg supports, opposite arm forward. Clear alternating legs, neutral torso, no leaning back.",
+      "status": "reviewed"
+    },
+    "barbell_overhead_press": {
+      "category": "杠铃",
+      "focus": "肩部 · 手臂",
+      "level": "需掌握器械",
+      "tagline": "站稳支撑，让杠铃平稳经过头顶。",
+      "image": "/static/learn/barbell-overhead-press.webp",
+      "image_alt": "中国成年教练演示前架准备、向上推举、控制下放三个动作阶段",
+      "phases": [
+        "前架准备",
+        "向上推举",
+        "控制下放"
+      ],
+      "steps": [
+        {
+          "title": "前架准备",
+          "text": "双脚约与髋同宽站稳，用轻杠握住，杠铃停在锁骨前方附近，手腕自然。"
+        },
+        {
+          "title": "向上推举",
+          "text": "收紧腹部，平稳向上推举，头部适当避开杠铃经过的路线，不靠后仰顶起。"
+        },
+        {
+          "title": "控制下放",
+          "text": "将杠铃控制下放到起始位置，躯干保持稳定。"
+        }
+      ],
+      "reminders": [
+        "不用腿猛蹬",
+        "不向后折腰",
+        "先确认头顶空间"
+      ],
+      "first_try": "先用空杆或轻杆学习路线；不熟悉前架姿势时请现场教练协助。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STANDING BARBELL OVERHEAD PRESS, side-three-quarter view. Panel1 light barbell front rack at upper chest, standing upright feet stable. Panel2 bar overhead above mid-foot with elbows comfortably extended, no backbend, no leg drive. Panel3 bar returns upper chest. Use short realistic light straight bar with small plates, same secure pronated grip, bar path clear of face.",
+      "status": "reviewed"
+    },
+    "barbell_bent_over_row": {
+      "category": "杠铃",
+      "focus": "背部",
+      "level": "需掌握器械",
+      "tagline": "先保持俯身姿势，再把杠铃拉向腹部。",
+      "image": "/static/learn/barbell-bent-over-row.webp",
+      "image_alt": "中国成年教练演示屈髋俯身、向腹部拉、缓慢放下三个动作阶段",
+      "phases": [
+        "屈髋俯身",
+        "向腹部拉",
+        "缓慢放下"
+      ],
+      "steps": [
+        {
+          "title": "屈髋俯身",
+          "text": "双脚站稳，双膝微屈，从髋部向前折叠，背部保持自然，用轻杠垂在身体前方。"
+        },
+        {
+          "title": "向腹部拉",
+          "text": "保持躯干角度，屈肘将杠铃拉向腹部附近，不突然抬胸甩起。"
+        },
+        {
+          "title": "缓慢放下",
+          "text": "缓慢伸肘下放，保持双脚支撑与俯身姿势。"
+        }
+      ],
+      "reminders": [
+        "不弓背猛拉",
+        "躯干不来回晃",
+        "重量先轻一些"
+      ],
+      "first_try": "先掌握屈髋俯身的稳定姿势，再增加轻杆划船动作。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "BARBELL BENT OVER ROW, a REAL SINGLE STRAIGHT BARBELL. The rod is one CONTINUOUS LONG METAL SHAFT visibly spanning BETWEEN BOTH HANDS and continuing OUTSIDE BOTH HANDS to one modest circular weight plate at EACH END. BOTH plates, shaft, and two overhand grips clearly visible in EVERY panel. It must NOT be two dumbbells. Use FRONT-RIGHT THREE-QUARTER camera so long bar is visible across foreground, not end-on side view hiding shaft. Feet planted about hip-width, knees softly bent, hips hinged with torso inclined near35degrees above horizontal, neutral natural back. Panel1 arms extended down, single bar below shoulders in front of shins but off floor. Panel2 same torso/hips/feet, elbows travel BACK and single bar rises toward lower abdomen; bar stays horizontal and shaft unbroken. Panel3 bar lowered, same hip hinge. No upright row, no overhead lift, no alternating unilateral row, no upright torso, no isolated dumbbell. Both hands grasp SAME rod shoulder-width with actual fingers. Simple light barbell, not gigantic plates. Keep apparatus identical in all panels.",
+      "status": "reviewed"
+    },
+    "conventional_deadlift": {
+      "category": "杠铃",
+      "focus": "臀腿 · 背部",
+      "level": "需掌握器械",
+      "tagline": "杠铃靠近身体，先从稳妥的起始姿势学起。",
+      "image": "/static/learn/conventional-deadlift.webp",
+      "image_alt": "中国成年教练演示屈髋握杠、贴腿站起、屈髋放回三个动作阶段",
+      "phases": [
+        "屈髋握杠",
+        "贴腿站起",
+        "屈髋放回"
+      ],
+      "steps": [
+        {
+          "title": "屈髋握杠",
+          "text": "双脚约与髋同宽，杠铃靠近小腿；屈髋屈膝握杠，背部自然，双臂伸直。"
+        },
+        {
+          "title": "贴腿站起",
+          "text": "稳住腹部，双脚推地，杠铃沿腿前方贴近身体向上移动，髋膝一起伸展。"
+        },
+        {
+          "title": "屈髋放回",
+          "text": "站稳后从髋部折叠，再屈膝将杠铃控制放回，不向后仰腰。"
+        }
+      ],
+      "reminders": [
+        "不弓背硬拽",
+        "杠铃靠近腿",
+        "放下同样要控制"
+      ],
+      "first_try": "先用轻重量或训练杆，起始高度和握法不确定时请现场教练协助。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "CONVENTIONAL BARBELL DEADLIFT. Side view facing right. Panel1 floor bar over mid-foot close to shins, hip hinge knees bent enough to grip outside legs, neutral back arms straight. Panel2 standing tall holding bar close to thighs, hips/knees extended without leaning back. Panel3 controlled hip hinge lowering bar toward floor. Standard-size light plates allow realistic floor start; no sumo stance, no rowing arms, no bent spine.",
+      "status": "reviewed"
+    },
+    "barbell_bench_press": {
+      "category": "杠铃",
+      "focus": "胸部 · 手臂",
+      "level": "需掌握器械",
+      "tagline": "先设好保护和握距，再控制推起。",
+      "image": "/static/learn/barbell-bench-press.webp",
+      "image_alt": "中国成年教练演示卧凳握杠、控制下放、平稳推起三个动作阶段",
+      "phases": [
+        "卧凳握杠",
+        "控制下放",
+        "平稳推起"
+      ],
+      "steps": [
+        {
+          "title": "卧凳握杠",
+          "text": "平卧在卧推凳上，双脚踩稳，肩背贴凳；确认保护杆位置，握杠后手腕自然。"
+        },
+        {
+          "title": "控制下放",
+          "text": "将轻杠控制下放到胸部附近，肘部自然弯曲，不弹碰胸部。"
+        },
+        {
+          "title": "平稳推起",
+          "text": "向上平稳推起至双臂舒适伸展，再保持控制。"
+        }
+      ],
+      "reminders": [
+        "先设安全保护",
+        "双脚不乱蹬",
+        "不让杠铃砸胸"
+      ],
+      "first_try": "从空杆学习，第一次操作请教练或可靠保护者协助出入架。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "FLAT BARBELL BENCH PRESS, full body side-three-quarter view. Real bench inside rack with safety bars just below chest level. Panel1 supine stable shoulder/back support feet flat, light bar held above chest arms extended. Panel2 bar lowered near mid chest elbows bent naturally, not touching neck. Panel3 arms extend bar above chest. No arch exaggeration, no spotter figures, small plates, real rack.",
+      "status": "reviewed"
+    },
+    "dumbbell_bench_press": {
+      "category": "哑铃",
+      "focus": "胸部 · 手臂",
+      "level": "基础器械",
+      "tagline": "两手平稳推起，落下时也保持控制。",
+      "image": "/static/learn/dumbbell-bench-press.webp",
+      "image_alt": "中国成年教练演示卧凳准备、向上推起、缓慢回落三个动作阶段",
+      "phases": [
+        "卧凳准备",
+        "向上推起",
+        "缓慢回落"
+      ],
+      "steps": [
+        {
+          "title": "卧凳准备",
+          "text": "平卧在凳上，双脚踩稳，双手握轻哑铃放在胸部两侧，手腕自然对齐。"
+        },
+        {
+          "title": "向上推起",
+          "text": "肩背保持支撑，双手平稳向上推起，哑铃不相互撞击。"
+        },
+        {
+          "title": "缓慢回落",
+          "text": "慢慢屈肘回到胸侧自己可控的位置，不让肩部被重量向后拉扯。"
+        }
+      ],
+      "reminders": [
+        "双腕不折弯",
+        "不过度下放",
+        "哑铃不互撞"
+      ],
+      "first_try": "先用轻哑铃熟悉出入凳与稳定持铃，再练完整动作。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "FLAT DUMBBELL BENCH PRESS, side-three-quarter view full bench and feet. Panel1 supine feet flat with two light dumbbells beside chest, bent elbows. Panel2 both dumbbells pressed upward over chest, soft elbows, no collision. Panel3 controlled return chest sides. Back/shoulders supported all frames, realistic 2 dumbbells with proper grips.",
+      "status": "reviewed"
+    },
+    "incline_dumbbell_press": {
+      "category": "哑铃",
+      "focus": "上胸部 · 手臂",
+      "level": "基础器械",
+      "tagline": "靠稳上斜凳，沿胸前方向推起。",
+      "image": "/static/learn/incline-dumbbell-press.webp",
+      "image_alt": "中国成年教练演示靠凳准备、向上推起、控制下放三个动作阶段",
+      "phases": [
+        "靠凳准备",
+        "向上推起",
+        "控制下放"
+      ],
+      "steps": [
+        {
+          "title": "靠凳准备",
+          "text": "把训练凳调成适中的上斜角度，坐稳靠背，双脚踩地，轻哑铃位于胸部两侧。"
+        },
+        {
+          "title": "向上推起",
+          "text": "保持肩背支撑，沿胸前上方平稳推起哑铃，不耸肩顶起。"
+        },
+        {
+          "title": "控制下放",
+          "text": "慢慢回落到自己可控制的胸侧位置，躯干不向前离开凳背。"
+        }
+      ],
+      "reminders": [
+        "凳子不要过陡",
+        "双脚稳放",
+        "不靠耸肩推起"
+      ],
+      "first_try": "先以轻重量确认凳背角度与出入凳方式。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "INCLINE DUMBBELL PRESS. Clearly incline bench at about 30 degrees above horizontal, NOT upright shoulder-press bench. Panel1 seated/reclined back supported feet flat dumbbells chest sides elbows bent. Panel2 press vertically above upper chest. Panel3 return chest sides. Full person/bench/dumbbells in each panel, same moderate incline.",
+      "status": "reviewed"
+    },
+    "pec_deck_fly": {
+      "category": "器械",
+      "focus": "胸部",
+      "level": "基础器械",
+      "tagline": "坐稳后做抱合动作，不靠躯干往前扑。",
+      "image": "/static/learn/pec-deck-fly.webp",
+      "image_alt": "中国成年教练演示调好坐姿、双臂抱合、慢慢打开三个动作阶段",
+      "phases": [
+        "调好坐姿",
+        "双臂抱合",
+        "慢慢打开"
+      ],
+      "steps": [
+        {
+          "title": "调好坐姿",
+          "text": "按器械说明调座椅，让把手或前臂垫处于胸部附近，背部靠稳，脚踩地。"
+        },
+        {
+          "title": "双臂抱合",
+          "text": "肘部保持自然弯曲，用双臂平稳向胸前抱合，身体不向前扑。"
+        },
+        {
+          "title": "慢慢打开",
+          "text": "控制返回到舒适的打开位置，不让肩部被拉到过后。"
+        }
+      ],
+      "reminders": [
+        "先调座椅",
+        "背部贴稳",
+        "打开不过深"
+      ],
+      "first_try": "选择轻配重，先熟悉这台器械的把手或前臂垫使用方式。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "PEC DECK CHEST FLY MACHINE. Seated facing forward back on upright pad feet flat, realistic hand-grip pec deck with lever arms. Panel1 arms open to sides at chest height elbows slightly bent hands holding handles. Panel2 handles brought together in front of chest, hugging arc. Panel3 return open without forcing shoulders behind torso. Front three-quarter view, consistent exact machine.",
+      "status": "reviewed"
+    },
+    "dumbbell_chest_fly": {
+      "category": "哑铃",
+      "focus": "胸部",
+      "level": "需掌握控制",
+      "tagline": "肘部保持微屈，沿弧线打开和合拢。",
+      "image": "/static/learn/dumbbell-chest-fly.webp",
+      "image_alt": "中国成年教练演示卧凳持铃、沿弧线打开、控制合拢三个动作阶段",
+      "phases": [
+        "卧凳持铃",
+        "沿弧线打开",
+        "控制合拢"
+      ],
+      "steps": [
+        {
+          "title": "卧凳持铃",
+          "text": "平卧在凳上，脚踩稳，双手把轻哑铃举到胸部上方，肘部保持微屈。"
+        },
+        {
+          "title": "沿弧线打开",
+          "text": "保持肘部角度，将双臂沿弧线向两侧打开，到自己舒适可控的位置。"
+        },
+        {
+          "title": "控制合拢",
+          "text": "沿相同弧线合拢到胸前上方，不把动作变成屈肘推举。"
+        }
+      ],
+      "reminders": [
+        "重量要轻",
+        "不过度打开",
+        "肘部不锁死"
+      ],
+      "first_try": "先用很轻的哑铃学习弧线，肩部不舒适就停止。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "FLAT BENCH DUMBBELL CHEST FLY with retained gentle elbow bend. Fixed elevated FOOT-END THREE-QUARTER view, show near and far arms distinctly; whole flat horizontal bench and planted feet. SAME man lying SUPINE, head supported, shoulders/buttocks on bench, feet flat on floor. ONE light compact dumbbell in EACH hand, neutral wrists, palms FACE EACH OTHER. Panel1 both dumbbells above MID-CHEST with clear soft20-30degree elbow bend. Panel2 arms OPEN LATERALLY in a broad hugging arc while KEEPING THAT SAME ELBOW BEND; do NOT straighten arms into a rigid T; upper arms stop roughly LEVEL WITH TORSO/bench top, not sag below bench. Forearms remain aligned with held weights, not 90degree press elbows. Panel3 controlled hugging return above chest, same soft bend. Not dumbbell press, not reverse fly, not incline bench, not extreme stretch. Dumbbells modest and coherent, shoulders remain supported, torso neutral, no giant rib arch. Choose camera making bent elbows and level upper arms easy to read.",
+      "status": "reviewed"
+    },
+    "cable_chest_fly": {
+      "category": "绳索",
+      "focus": "胸部",
+      "level": "基础器械",
+      "tagline": "站稳支撑，用双臂沿弧线向前抱合。",
+      "image": "/static/learn/cable-chest-fly.webp",
+      "image_alt": "中国成年教练演示分腿站稳、胸前抱合、控制返回三个动作阶段",
+      "phases": [
+        "分腿站稳",
+        "胸前抱合",
+        "控制返回"
+      ],
+      "steps": [
+        {
+          "title": "分腿站稳",
+          "text": "在双侧绳索器械间站稳，可轻微前后分腿，握住两侧把手，肘部自然弯曲。"
+        },
+        {
+          "title": "胸前抱合",
+          "text": "躯干保持稳定，将双臂沿弧线向胸前合拢，不突然前扑。"
+        },
+        {
+          "title": "控制返回",
+          "text": "缓慢打开回到自己可控制的位置，保持两侧拉力可控。"
+        }
+      ],
+      "reminders": [
+        "站姿先稳定",
+        "绳索别甩动",
+        "不打开过深"
+      ],
+      "first_try": "先用轻配重，并按器械说明确认滑轮高度和站位。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STANDING CABLE CHEST FLY between dual adjustable pulleys at chest/shoulder height. Panel1 split stance soft knees upright/slight lean, arms open slightly bent gripping handles, cables taut to side towers. Panel2 handles meet in front of chest hugging arc. Panel3 controlled return open. Real cables connect each handle to proper pulleys; no disconnected handles or floating machinery.",
+      "status": "reviewed"
+    },
+    "cable_triceps_pushdown": {
+      "category": "绳索",
+      "focus": "手臂后侧",
+      "level": "基础器械",
+      "tagline": "上臂稳在身侧，用伸肘把把手下压。",
+      "image": "/static/learn/cable-triceps-pushdown.webp",
+      "image_alt": "中国成年教练演示握把准备、伸肘下压、控制回升三个动作阶段",
+      "phases": [
+        "握把准备",
+        "伸肘下压",
+        "控制回升"
+      ],
+      "steps": [
+        {
+          "title": "握把准备",
+          "text": "面对高位滑轮站稳，握住把手或绳索，上臂靠近躯干，肘部弯曲。"
+        },
+        {
+          "title": "伸肘下压",
+          "text": "保持上臂位置，伸展肘部把把手压向大腿附近，不用身体下沉砸配重。"
+        },
+        {
+          "title": "控制回升",
+          "text": "控制把手上升回到起点，肘部不向前大幅漂移。"
+        }
+      ],
+      "reminders": [
+        "上臂别乱动",
+        "不耸肩",
+        "配重慢慢回升"
+      ],
+      "first_try": "先用轻配重练伸肘方向，站得近一些但不碰配重装置。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "CABLE TRICEPS PUSHDOWN with short straight handle from overhead pulley. Side-three-quarter view facing right. Panel1 elbows bent about right angle close to ribs handle near upper abdomen. Panel2 elbows extend handle down near thighs, upper arms remain by torso. Panel3 controlled elbows flex start. Upright torso, real taut cable leading upward from handle, no squat/rowing.",
+      "status": "reviewed"
+    },
+    "overhead_dumbbell_extension": {
+      "category": "哑铃",
+      "focus": "手臂后侧",
+      "level": "需掌握控制",
+      "tagline": "双手稳握一只哑铃，只让肘部控制起落。",
+      "image": "/static/learn/overhead-dumbbell-extension.webp",
+      "image_alt": "中国成年教练演示稳握举过头、屈肘下放、伸肘抬起三个动作阶段",
+      "phases": [
+        "稳握举过头",
+        "屈肘下放",
+        "伸肘抬起"
+      ],
+      "steps": [
+        {
+          "title": "稳握举过头",
+          "text": "双手按稳妥握法托住一只轻哑铃，坐稳或站稳，将其举到头部上方。"
+        },
+        {
+          "title": "屈肘下放",
+          "text": "上臂尽量保持稳定，弯曲肘部，让哑铃缓慢落到头后可控位置。"
+        },
+        {
+          "title": "伸肘抬起",
+          "text": "控制伸肘把哑铃抬回上方，避免挺腰代偿。"
+        }
+      ],
+      "reminders": [
+        "先确保握牢",
+        "不向后折腰",
+        "头后幅度可控"
+      ],
+      "first_try": "第一次用轻重量，并请教练确认双手托铃方式。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "TWO-HAND OVERHEAD DUMBBELL TRICEPS EXTENSION. Same adult seated upright on low stable bench feet flat. Panel1 both hands securely support ONE compact dumbbell overhead arms near vertical. Panel2 elbow flexion lowers dumbbell behind head while upper arms stay near ears, torso neutral. Panel3 extend elbows return overhead. No loose/unsafe grip, no shoulder press with two dumbbells.",
+      "status": "reviewed"
+    },
+    "reverse_pec_deck_fly": {
+      "category": "器械",
+      "focus": "肩后侧 · 上背",
+      "level": "基础器械",
+      "tagline": "胸部靠稳垫子，向两侧展开手臂。",
+      "image": "/static/learn/reverse-pec-deck-fly.webp",
+      "image_alt": "中国成年教练演示面向胸垫、双臂打开、慢慢回收三个动作阶段",
+      "phases": [
+        "面向胸垫",
+        "双臂打开",
+        "慢慢回收"
+      ],
+      "steps": [
+        {
+          "title": "面向胸垫",
+          "text": "调整座椅后面向器械坐好，胸部轻靠支撑垫，双手握住前方把手。"
+        },
+        {
+          "title": "双臂打开",
+          "text": "肘部自然微屈，双臂向两侧打开，保持胸部靠垫，不猛向后甩。"
+        },
+        {
+          "title": "慢慢回收",
+          "text": "控制把手回到前方，肩部保持放松。"
+        }
+      ],
+      "reminders": [
+        "面向胸垫坐",
+        "不耸肩",
+        "不靠后仰甩起"
+      ],
+      "first_try": "先看器械使用图，确认反向飞鸟模式与把手位置。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "REVERSE PEC DECK REAR DELT FLY. Athlete SITS FACING the chest pad, NOT facing away. Rear-three-quarter view shows back and sides. Panel1 chest on pad arms forward holding machine handles at shoulder level. Panel2 arms open sideways until roughly torso line with soft elbows, chest remains supported. Panel3 return arms forward. Same realistic machine with actual handle lever arms.",
+      "status": "reviewed"
+    },
+    "dumbbell_shoulder_press": {
+      "category": "哑铃",
+      "focus": "肩部 · 手臂",
+      "level": "基础器械",
+      "tagline": "坐稳靠背，双手平稳向上推起。",
+      "image": "/static/learn/dumbbell-shoulder-press.webp",
+      "image_alt": "中国成年教练演示肩侧准备、向上推举、缓慢回落三个动作阶段",
+      "phases": [
+        "肩侧准备",
+        "向上推举",
+        "缓慢回落"
+      ],
+      "steps": [
+        {
+          "title": "肩侧准备",
+          "text": "坐在较直立的靠背凳上，脚踩稳，双手握轻哑铃放在肩部两侧。"
+        },
+        {
+          "title": "向上推举",
+          "text": "收紧腹部，向上平稳推举到舒适位置，不耸肩或把腰向前顶。"
+        },
+        {
+          "title": "缓慢回落",
+          "text": "控制回落到肩侧起点，保持手腕自然。"
+        }
+      ],
+      "reminders": [
+        "不塌腰",
+        "哑铃不互撞",
+        "回落保持控制"
+      ],
+      "first_try": "轻重量开始，先确认凳背支撑和肩部可控范围。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "SEATED DUMBBELL SHOULDER PRESS. Upright bench backrest around 80 degrees, feet flat. Panel1 light dumbbells shoulder sides elbows bent. Panel2 press dumbbells overhead arms extended softly, neutral back fully supported. Panel3 return shoulder sides. Front-three-quarter view, no incline chest press, no dumbbell collisions.",
+      "status": "reviewed"
+    },
+    "cable_y_raise": {
+      "category": "绳索",
+      "focus": "肩部",
+      "level": "需掌握控制",
+      "tagline": "轻重量，双臂向斜上方组成 Y 形。",
+      "image": "/static/learn/cable-y-raise.webp",
+      "image_alt": "中国成年教练演示握把站稳、斜上方抬起、慢慢下放三个动作阶段",
+      "phases": [
+        "握把站稳",
+        "斜上方抬起",
+        "慢慢下放"
+      ],
+      "steps": [
+        {
+          "title": "握把站稳",
+          "text": "面对低位双滑轮站稳，双手握住把手，先以很轻的拉力准备。"
+        },
+        {
+          "title": "斜上方抬起",
+          "text": "肘部微屈，双臂沿斜上方抬起，形成舒适的 Y 形，不耸肩硬举。"
+        },
+        {
+          "title": "慢慢下放",
+          "text": "沿原路线缓慢放下，躯干不后仰。"
+        }
+      ],
+      "reminders": [
+        "配重先很轻",
+        "不耸肩",
+        "不向后仰"
+      ],
+      "first_try": "先确认滑轮高度和绳索路线，动作不顺时请教练调整站位。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "DUAL LOW CABLE Y RAISE. One full-size functional trainer has TWO separate tall upright towers, joined overhead, TWO distinct LOW ADJUSTABLE PULLEYS locked at shin height, one on LEFT TOWER and one on RIGHT TOWER. Athlete stands ONE STEP IN FRONT of machine facing towers, viewed from FIXED REAR THREE-QUARTER so both low pulleys and both taut cables are visible around either side of body. The LEFT handle connects by ONE uninterrupted visible cable to LEFT low pulley; RIGHT handle to RIGHT low pulley. Two cables, two low pulleys, two weight stacks, no shared anchor, no cable vanishing or passing through torso. Keep wide enough view in each vertical panel to show both towers, full body and floor base. Panel1 hands low-forward gripping D-handles with soft elbows. Panel2 both nearly straight arms lift FORWARD-UP into clear broad Y above shoulder height, shoulders controlled, torso upright without leaning back; SAME two cables now run diagonally down to their OWN low pulleys. Panel3 hands lower to initial low-forward position. Same machine and actor all3 stages. NO high-pulley/overhead cable source, no miniature disconnected pulleys floating on floor, no free handles, no crossed impossible cables. Cable attachment clarity mandatory.",
+      "status": "reviewed"
+    },
+    "dumbbell_lateral_raise": {
+      "category": "哑铃",
+      "focus": "肩部",
+      "level": "基础器械",
+      "tagline": "手肘自然微屈，把哑铃抬到舒适高度。",
+      "image": "/static/learn/dumbbell-lateral-raise.webp",
+      "image_alt": "中国成年教练演示持铃站稳、向两侧抬、控制放下三个动作阶段",
+      "phases": [
+        "持铃站稳",
+        "向两侧抬",
+        "控制放下"
+      ],
+      "steps": [
+        {
+          "title": "持铃站稳",
+          "text": "双脚站稳，双手持轻哑铃放在身体两侧，肘部自然微屈。"
+        },
+        {
+          "title": "向两侧抬",
+          "text": "手臂向两侧略偏前方抬起，到肩附近或自己舒适的高度，不突然耸肩。"
+        },
+        {
+          "title": "控制放下",
+          "text": "缓慢落回身体两侧，不靠身体摆动连续甩起。"
+        }
+      ],
+      "reminders": [
+        "重量轻一些",
+        "不耸肩甩起",
+        "手腕保持自然"
+      ],
+      "first_try": "先选能慢慢抬起的轻重量，肩部不舒适时降低幅度。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STANDING DUMBBELL LATERAL RAISE, full front three-quarter view. Panel1 light dumbbells arms by sides, elbows slightly flexed. Panel2 raise arms laterally slightly forward of pure side to around shoulder height, elbows softly bent, wrists neutral, shoulders not shrugged. Panel3 return down. No thumbs sharply rotated downward, no overhead/Y raise, no torso swing.",
+      "status": "reviewed"
+    },
+    "bent_over_dumbbell_reverse_fly": {
+      "category": "哑铃",
+      "focus": "肩后侧 · 上背",
+      "level": "需掌握控制",
+      "tagline": "保持俯身，上臂向两侧展开。",
+      "image": "/static/learn/bent-over-dumbbell-reverse-fly.webp",
+      "image_alt": "中国成年教练演示屈髋俯身、手臂展开、控制合拢三个动作阶段",
+      "phases": [
+        "屈髋俯身",
+        "手臂展开",
+        "控制合拢"
+      ],
+      "steps": [
+        {
+          "title": "屈髋俯身",
+          "text": "轻屈膝并从髋部俯身，背部自然，双手持轻哑铃垂在肩部下方。"
+        },
+        {
+          "title": "手臂展开",
+          "text": "保持躯干位置，双臂向两侧打开，肘部微屈，不猛抬头或甩腰。"
+        },
+        {
+          "title": "控制合拢",
+          "text": "缓慢合拢回到起点，整程保持重心稳定。"
+        }
+      ],
+      "reminders": [
+        "不弓背",
+        "不抬起躯干借力",
+        "幅度可控"
+      ],
+      "first_try": "先掌握不持铃的屈髋与展开动作，再加轻哑铃。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "BENT-OVER DUMBBELL REVERSE FLY. Rear-three-quarter view so lateral arm arc visible, torso hinged forward with neutral spine, knees slightly bent. Panel1 dumbbells hanging below shoulders palms facing each other. Panel2 soft-elbow arms spread sideways in reverse fly, torso SAME angle. Panel3 lower to hanging. No row: elbows do not fold into a pull, no upright raise.",
+      "status": "reviewed"
+    },
+    "dumbbell_front_raise": {
+      "category": "哑铃",
+      "focus": "肩部",
+      "level": "基础器械",
+      "tagline": "身体站稳，向前抬起再慢慢放下。",
+      "image": "/static/learn/dumbbell-front-raise.webp",
+      "image_alt": "中国成年教练演示持铃准备、向前抬起、缓慢回落三个动作阶段",
+      "phases": [
+        "持铃准备",
+        "向前抬起",
+        "缓慢回落"
+      ],
+      "steps": [
+        {
+          "title": "持铃准备",
+          "text": "双脚站稳，双手持轻哑铃放在大腿前方，肘部微屈。"
+        },
+        {
+          "title": "向前抬起",
+          "text": "保持躯干不后仰，把哑铃向前抬起到肩附近或自己舒适高度。"
+        },
+        {
+          "title": "缓慢回落",
+          "text": "控制下降回起点，不让重量直接甩回。"
+        }
+      ],
+      "reminders": [
+        "不借后仰发力",
+        "不抬得过高",
+        "下放慢一些"
+      ],
+      "first_try": "轻重量开始，先练可控的抬起和下降。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STANDING DUMBBELL FRONT RAISE, side-three-quarter view. Panel1 dumbbells at fronts of thighs arms nearly straight. Panel2 both dumbbells raised FORWARD to shoulder height, elbows slightly bent, neutral upright torso. Panel3 controlled return. No lateral raise, no overhead press, no back lean.",
+      "status": "reviewed"
+    },
+    "assisted_pull_up": {
+      "category": "器械",
+      "focus": "背部 · 手臂",
+      "level": "基础器械",
+      "tagline": "确认助力和踏台，再稳定拉起身体。",
+      "image": "/static/learn/assisted-pull-up.webp",
+      "image_alt": "中国成年教练演示确认助力、向上拉起、控制下降三个动作阶段",
+      "phases": [
+        "确认助力",
+        "向上拉起",
+        "控制下降"
+      ],
+      "steps": [
+        {
+          "title": "确认助力",
+          "text": "按器械说明选择助力，用踏台稳妥上下器械，双手握把，膝部放稳助力垫。"
+        },
+        {
+          "title": "向上拉起",
+          "text": "腹部收紧，控制屈肘把身体向上拉，不用腿踢或躯干摆动。"
+        },
+        {
+          "title": "控制下降",
+          "text": "缓慢回到起点，按说明安全离开助力垫与踏台。"
+        }
+      ],
+      "reminders": [
+        "先确认助力方向",
+        "不跳上跳下",
+        "下降保持控制"
+      ],
+      "first_try": "第一次使用请教练协助；助力大小的方向因器械结构而异，先看机身说明。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "Correct the apparatus geometry and viewing direction for a REAL COUNTERWEIGHT-ASSISTED PULL-UP / DIP MACHINE, not a lat pulldown. SAME REAR-LEFT THREE-QUARTER camera in all panels so the Chinese adult man's back and face profile are visible. Athlete FACES INTO THE MACHINE toward the upright frame and weight stack. The top overhead pull-up handles are rigidly fixed to frame and NEVER move. Both knees rest on ONE horizontal padded assistance carriage clearly connected by a visible steel arm to a vertical sliding guide; carriage moves vertically WITH knees. Show a mechanically coherent base, vertical guide rails, weight stack and two fixed side mounting steps, no seat, no backrest. Panel 1 knees on LOWER carriage, arms extended up to fixed handles. Panel 2 torso lifts by bending elbows, chin near fixed handles, knee carriage RISES the same amount as knees. Panel 3 controlled lowering, carriage and knees back down, arms extended. Feet trail naturally behind the pad, no feet on imaginary supports. Equipment frame and fixed handles exactly same positions across all panels. Entire body and complete machine fit within each third. Do not turn person away from frame, do not omit support connection, do not depict a seated pulldown.",
+      "status": "reviewed"
+    },
+    "pull_up": {
+      "category": "徒手",
+      "focus": "背部 · 手臂",
+      "level": "进阶动作",
+      "tagline": "先稳定悬垂，再控制拉起和下降。",
+      "image": "/static/learn/pull-up.webp",
+      "image_alt": "中国成年教练演示握杠悬垂、稳定拉起、缓慢下降三个动作阶段",
+      "phases": [
+        "握杠悬垂",
+        "稳定拉起",
+        "缓慢下降"
+      ],
+      "steps": [
+        {
+          "title": "握杠悬垂",
+          "text": "稳妥握住固定单杠，双臂伸展，躯干稳定，确认脚下空间。"
+        },
+        {
+          "title": "稳定拉起",
+          "text": "控制屈肘向上拉起身体，不靠甩腿或摆荡冲上去。"
+        },
+        {
+          "title": "缓慢下降",
+          "text": "缓慢下降回可控制的悬垂位置，不突然松手掉下。"
+        }
+      ],
+      "reminders": [
+        "握稳固定单杠",
+        "不甩腿借力",
+        "下降不突然坠落"
+      ],
+      "first_try": "做不了完整动作时，优先从器械辅助版本或教练指导的练习开始。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "STRICT PULL-UP from fixed overhead bar. Front-three-quarter view. Panel1 active stable hang arms extended feet off floor knees gently bent. Panel2 chin approaches above bar elbows bent torso stable. Panel3 controlled lower hang. Full body and fixed freestanding pullup rig visible per panel, no leg kick, no rope, no cable pulldown, no second person.",
+      "status": "reviewed"
+    },
+    "lat_pulldown": {
+      "category": "器械",
+      "focus": "背部 · 手臂",
+      "level": "基础器械",
+      "tagline": "腿部固定好，把杆拉向胸前。",
+      "image": "/static/learn/lat-pulldown.webp",
+      "image_alt": "中国成年教练演示坐稳握杆、向胸前拉、控制回升三个动作阶段",
+      "phases": [
+        "坐稳握杆",
+        "向胸前拉",
+        "控制回升"
+      ],
+      "steps": [
+        {
+          "title": "坐稳握杆",
+          "text": "调好座椅与腿垫，双脚踩稳，双手握住上方拉杆，躯干自然。"
+        },
+        {
+          "title": "向胸前拉",
+          "text": "保持身体稳定，屈肘把杆拉向胸前附近，避免后仰甩动或拉到颈后。"
+        },
+        {
+          "title": "控制回升",
+          "text": "控制伸肘，让拉杆缓慢回到上方，不被配重突然带起。"
+        }
+      ],
+      "reminders": [
+        "先调腿垫",
+        "不拉到颈后",
+        "不大幅后仰"
+      ],
+      "first_try": "用轻配重熟悉路线，杆长和握距按器械说明与自身情况调整。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "SEATED CABLE LAT PULLDOWN. Choose fixed SIDE-FRONT THREE-QUARTER camera that clearly shows BOTH THIGH HOLD-DOWN PAD sitting over thighs JUST ABOVE KNEES, and BAR travels IN FRONT OF FACE to UPPER CHEST. Real simple lat pulldown station: vertical weight stack tower IN FRONT of seated athlete, overhead boom extending toward athlete, one top pulley ABOVE/SLIGHTLY IN FRONT of forehead, SINGLE taut cable from top pulley directly to CENTER OF LONG BAR. Low flat seat with NO upright backrest. Athlete sits FACING TOWER, knees/chest toward tower, feet flat in front, thighs under two cylindrical pads mechanically attached to seat frame. Panel1 arms raised overhead grip slightly wider than shoulders; bar above head, cable taut visible. Panel2 elbows pull DOWN toward sides and bar reaches upper chest in FRONT OF NECK, only small natural lean, no behind-neck bar. Panel3 controlled return overhead, same machine geometry. Keep chest, elbows, thigh pad, seat, feet and overhead pulley visible in every panel. No cable through head, behind back, disconnected bar or tower behind athlete. Anatomically coherent hands, no magical unsupported pads. Whole apparatus fullsize not toy.",
+      "status": "reviewed"
+    },
+    "seated_cable_row": {
+      "category": "绳索",
+      "focus": "背部 · 手臂",
+      "level": "基础器械",
+      "tagline": "脚踩稳，先稳定躯干再屈肘划船。",
+      "image": "/static/learn/seated-cable-row.webp",
+      "image_alt": "中国成年教练演示脚踩踏板、向腹部拉、控制前送三个动作阶段",
+      "phases": [
+        "脚踩踏板",
+        "向腹部拉",
+        "控制前送"
+      ],
+      "steps": [
+        {
+          "title": "脚踩踏板",
+          "text": "坐在低位划船器械上，双脚踩稳踏板，膝盖自然微屈，双手握把。"
+        },
+        {
+          "title": "向腹部拉",
+          "text": "保持背部自然与躯干稳定，屈肘把把手拉向腹部附近，不向后猛倒。"
+        },
+        {
+          "title": "控制前送",
+          "text": "缓慢伸肘前送，身体不被拉成弓背。"
+        }
+      ],
+      "reminders": [
+        "不大幅后仰",
+        "不含胸弓背",
+        "回程保持控制"
+      ],
+      "first_try": "先用轻配重，确认能在同一坐姿下平稳拉回和送出。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "SEATED LOW CABLE ROW on real rowing bench, side view facing right. Panel1 feet on footplates knees slightly bent upright neutral torso arms extended forward holding close-grip handle attached to taut low cable. Panel2 elbows draw back handle toward lower abdomen, torso same angle. Panel3 reach arms forward controlled without rounding lumbar spine. Not rowing ergometer, not lat pulldown.",
+      "status": "reviewed"
+    },
+    "cable_face_pull": {
+      "category": "绳索",
+      "focus": "肩后侧 · 上背",
+      "level": "基础器械",
+      "tagline": "向脸部方向拉绳，肘部自然向两侧打开。",
+      "image": "/static/learn/cable-face-pull.webp",
+      "image_alt": "中国成年教练演示站稳握绳、向脸部拉、慢慢送回三个动作阶段",
+      "phases": [
+        "站稳握绳",
+        "向脸部拉",
+        "慢慢送回"
+      ],
+      "steps": [
+        {
+          "title": "站稳握绳",
+          "text": "把滑轮调到脸部附近高度，握住绳索两端，后退到绳索有轻拉力，站稳。"
+        },
+        {
+          "title": "向脸部拉",
+          "text": "双手向脸部两侧拉开，肘部自然向外，躯干不后仰借力。"
+        },
+        {
+          "title": "慢慢送回",
+          "text": "控制把绳索送回前方，肩部保持自然。"
+        }
+      ],
+      "reminders": [
+        "配重不要过大",
+        "不耸肩",
+        "绳索别撞脸"
+      ],
+      "first_try": "轻配重开始，先确认绳索端头和滑轮连接牢固。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "CABLE ROPE FACE PULL, side-three-quarter view toward pulley tower. Pulley at face height, two-end rope attachment. Panel1 arms forward gripping rope ends thumbs/knuckles natural. Panel2 pull rope ends toward sides of face, hands near ears, elbows open outward, torso upright. Panel3 arms return forward. Real taut cable remains connected, rope separates around face not through face, no triceps pushdown.",
+      "status": "reviewed"
+    },
+    "hammer_curl": {
+      "category": "哑铃",
+      "focus": "手臂",
+      "level": "基础入门",
+      "tagline": "掌心相对，像握锤子一样控制起落。",
+      "image": "/static/learn/hammer-curl.webp",
+      "image_alt": "中国成年教练演示中立握铃、屈肘抬起、控制下放三个动作阶段",
+      "phases": [
+        "中立握铃",
+        "屈肘抬起",
+        "控制下放"
+      ],
+      "steps": [
+        {
+          "title": "中立握铃",
+          "text": "双手持轻哑铃，掌心朝向身体两侧，站稳，手腕保持自然。"
+        },
+        {
+          "title": "屈肘抬起",
+          "text": "上臂尽量靠近躯干，缓慢屈肘抬起，握法不旋转成掌心向上。"
+        },
+        {
+          "title": "控制下放",
+          "text": "保持掌心相对，控制哑铃回到身体两侧。"
+        }
+      ],
+      "reminders": [
+        "握法保持中立",
+        "不甩腰借力",
+        "放下也慢一些"
+      ],
+      "first_try": "与普通弯举分开练习，先用轻重量熟悉掌心相对的握法。",
+      "editorial_source": "本项目动作入门教程",
+      "image_prompt_movement": "DUMBBELL HAMMER CURL, full frontal-three-quarter view. Panel1 standing dumbbells beside thighs, palms face inward toward each other, dumbbell shafts vertical orientation clear neutral grip. Panel2 flex elbows bring dumbbells toward shoulders without supination; palms remain inward, elbows close torso. Panel3 controlled return. No twisting into supinated curl, no torso swing.",
+      "status": "reviewed"
+    }
+  }
+}

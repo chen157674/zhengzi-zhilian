@@ -15,8 +15,8 @@ let restoredConfig=false,restQuote=null,displayTimer=null;
 let sid=root.dataset.sessionId||'',control=null,lastControl=null,current=null,busy=false,pollTimer=null,heartbeatTimer=null,disposed=false,stopped=false;
 const pendingKey='fitness-create-'+document.body.dataset.userId;
 let pendingCreate=null,pendingReadFailed=false;
-try{const saved=sessionStorage.getItem(pendingKey);if(saved){const value=JSON.parse(saved);if(typeof value.commandId!=='string'||!value.body||value.body.source!=='camera')throw new Error('invalid pending marker');pendingCreate=value}}catch{pendingReadFailed=true;errorBox.textContent='无法读取本页待核对请求；确认存储可用并核对原记录后再开始。';errorBox.hidden=false}
-function clearPending(){pendingCreate=null;try{sessionStorage.removeItem(pendingKey)}catch{showMessage('原请求已确认，但本页请求标识未能清除；刷新后可再次核对原记录。')}}
+try{const saved=sessionStorage.getItem(pendingKey);if(saved){const value=JSON.parse(saved);if(typeof value.commandId!=='string'||!value.body||value.body.source!=='camera')throw new Error('invalid pending marker');pendingCreate=value}}catch{pendingReadFailed=true;errorBox.textContent='请启用会话存储，查看原记录后再开始。';errorBox.hidden=false}
+function clearPending(){pendingCreate=null;try{sessionStorage.removeItem(pendingKey)}catch{showMessage('请刷新页面并查看原记录。')}}
 function error(error){voice.suspend();if(privateError(error)){cameraControl.suspend();return}if(error.fields)target.paint(error.fields,true);errorBox.textContent=error.message||String(error);if(error.fields?.session_id){const link=document.createElement('a');link.href='/realtime/'+encodeURIComponent(error.fields.session_id);link.textContent='返回当前分析';link.className='text-link';errorBox.append(' ',link)}errorBox.hidden=false}
 function owns(){return Boolean(control&&current?.control.has_controller&&control.controller_epoch===current.control.controller_epoch)}
 function credentials(){if(!owns())throw new Error('当前页只读，请先取得或接管控制。');return {control_token:control.control_token,controller_epoch:control.controller_epoch,stream_epoch:current.control.stream_epoch}}
@@ -37,7 +37,7 @@ function render(){
   document.querySelector('#training-title').textContent=live?'实时分析':'训练准备';
   document.querySelector('#training-subtitle').textContent=live?(owns()?'本页正在控制本次分析。':'当前页只读，不会自动开启摄像头或取得控制。'):'先检查取景，再开始分析。';
   start.disabled=busy||pendingReadFailed||(!pendingCreate&&(!canStart||!cameraControl.current()?.ready));start.textContent=pendingCreate?'核对原创建':'开始分析';
-  document.querySelector('#camera-start-reason').textContent=canStart?'准备预览不计次数，不生成训练记录。':'动作分析能力尚未开放；准备预览不计数。';
+  document.querySelector('#camera-start-reason').textContent=canStart?'准备预览不计次数，不生成训练记录。':'动作取景预览。';
   if(!current)return;
   voice.update(current,owns(),busy||stopped);
   const own=owns(),ended=terminal.has(state),failed=current.save_state==='save_failed';
@@ -54,12 +54,12 @@ function render(){
   const goalNode=document.querySelector('#live-goal');goalNode.hidden=!goal;
   if(goal)goalNode.textContent=`已完成 ${current.completed_sets} / ${goal.sets} 组 · 每组目标 ${goal.value} ${goal.unit==='seconds'?'秒':goal.unit==='per_side_reps'?'次／侧':'次'}`;
   document.querySelector('#live-amount').textContent=current.counting_available?(current.unit==='seconds'?(shown.hold_ms/1000).toFixed(1):String(shown.total_count)):'—';
-  document.querySelector('#live-unit').textContent=current.counting_available?(current.unit==='seconds'?'秒':'次'):'计数能力尚未开放';
+  document.querySelector('#live-unit').textContent=current.counting_available?(current.unit==='seconds'?'秒':'次'):'请选择已准备好的训练动作';
   document.querySelector('#live-sides').textContent=current.unit==='per_side_reps'||current.action_id==='high_knees'?`左 ${shown.left_count} 次 · 右 ${shown.right_count} 次`:'';
   document.querySelector('#live-active').textContent=duration(current.live_active_ms??current.active_ms);
   const countdown=document.querySelector('#live-countdown');countdown.hidden=state!=='countdown';countdown.textContent=`准备开始 · ${Math.max(1,Math.ceil((current.countdown_remaining_ms||0)/1000))}`;
   document.querySelector('#live-feedback').textContent=failed?'新增分析与反馈已停止，请先处理保存。':ended?endedMessage:stopped?'本页已停止采集，正在核对保存状态。':current.coaching?.primary_cue?.suggestion||current.coaching?.instruction||voice.problemText(current)||motionText(current.latest_frame?.analysis)||current.latest_frame?.framing.message||(current.unit==='seconds'?'等待可确认的前臂支撑。':'等待可观察的完整周期。');
-  document.querySelector('#live-controller-note').textContent=ended?'本次分析不能继续；新训练请从准备页开始。':own?'':'本页只读；取得控制后仍需点击继续并检查取景。';
+  document.querySelector('#live-controller-note').textContent=ended?'请从准备页开始新的训练。':own?'':'本页只读；取得控制后仍需点击继续并检查取景。';
   claim.hidden=own||ended;claim.disabled=busy;claim.textContent=current.control.has_controller?'接管当前训练':'取得本页控制';
   const reconnect=['running','waiting'].includes(state)&&!cameraControl.isOpen();
   resume.hidden=ended||(!['paused','ready'].includes(state)&&!reconnect);resume.textContent=reconnect?'重新检查取景':state==='ready'?'开始分析':current.resume_from==='resting'&&current.rest_remaining_ms>0?'继续休息':'继续分析';resume.disabled=busy||!own||!canStart||failed;
@@ -67,7 +67,7 @@ function render(){
   end.disabled=busy||!own||ended;cancelCountdown.hidden=state!=='countdown';cancelCountdown.disabled=busy||!own;
   const result=document.querySelector('#live-result');result.hidden=!ended||failed||current.started_at_ms===null;result.href='/records/'+sid;
   banner.hidden=!failed;
-  if(failed)document.querySelector('#live-save-description').textContent=`最后确认保存 ${dateFormat.format(current.last_saved_at_ms)}；其后尚未写入的动作或时间不会计作已保存成果。`;
+  if(failed)document.querySelector('#live-save-description').textContent=`已保存至 ${dateFormat.format(current.last_saved_at_ms)}。`;
   document.querySelector('#live-retry-save').disabled=busy;document.querySelector('#live-discard').disabled=busy||!lastControl;
   renderRest();
 }
@@ -110,7 +110,7 @@ async function recoverCreate(){
   try{receipt=await api('/api/v1/operations/'+pending.commandId)}
   catch(caught){
     if(caught.status!==404)throw caught;
-    const retried=await confirmDialog({title:'核对原创建',message:'暂未查到训练，请稍后重试。',confirmLabel:'重试原创建',onConfirm:async()=>{
+    const retried=await confirmDialog({title:'核对原创建',message:'请稍后重新读取训练。',confirmLabel:'重试原创建',onConfirm:async()=>{
       try{return await api('/api/v1/sessions',{method:'POST',commandId:pending.commandId,body:pending.body})}
       catch(error){if(!error.unknown)clearPending();if(error.code==='STALE_CAPABILITY')error.message='动作设置已更新，请取消此窗口后重新选择动作。';throw error}
     }});
@@ -136,10 +136,10 @@ async function continueFlow(first=false){
   const preview=await cameraControl.prepare();
   if(!sid){
     const request={commandId:crypto.randomUUID(),body:{action_id:root.dataset.actionId,capability_version:root.dataset.capabilityVersion,source:'camera',...(document.querySelector('#session-save-skeleton').checked?{save_skeleton:true}:{}),...selected}};
-    try{sessionStorage.setItem(pendingKey,JSON.stringify(request));pendingCreate=request}catch{throw new Error('无法保存本页请求标识，尚未发送创建，请检查浏览器存储后重试。')}
+    try{sessionStorage.setItem(pendingKey,JSON.stringify(request));pendingCreate=request}catch{throw new Error('请启用浏览器会话存储后开始训练。')}
     let created;
     try{created=await api('/api/v1/sessions',{method:'POST',commandId:request.commandId,body:request.body})}
-    catch(caught){if(!caught.unknown)clearPending();throw caught.unknown?new Error('训练状态待确认，请点击重新读取。'):caught}
+    catch(caught){if(!caught.unknown)clearPending();throw caught.unknown?new Error(''):caught}
     sid=created.session_id;root.dataset.sessionId=sid;clearPending();apply(created);
   }
   if(!owns()&&!(await acquire()))return;
@@ -154,9 +154,9 @@ async function continueFlow(first=false){
     else{if(current.save_state==='clean'&&['ready','paused'].includes(current.status))cameraControl.resumePreview();else await cameraControl.suspend();throw caught}
   }
   apply(result);
-  if(!['countdown','running','waiting'].includes(result.status)||result.save_state!=='clean')throw new Error('开始状态尚未确认，请核对原会话。');
+  if(!['countdown','running','waiting'].includes(result.status)||result.save_state!=='clean')throw new Error('请查看原训练会话状态。');
   stopped=false;cameraControl.attach({session_id:sid,...credentials()});
-  history.replaceState(null,'','/realtime/'+sid);document.title='实时分析 · 知练同行';
+  history.replaceState(null,'','/realtime/'+sid);document.title='实时分析 · 正姿智练';
 }
 async function command(name,extra={}){
   const send=async()=>{const result=await api(`/api/v1/sessions/${sid}/commands`,{method:'POST',commandId:crypto.randomUUID(),body:payload(name,extra)});apply(result);return result};
@@ -180,7 +180,7 @@ async function command(name,extra={}){
 }
 async function cleanup(body,key){
   const csrf=await cameraControl.csrfToken();const response=await fetch(`/api/v1/sessions/${sid}/commands`,{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json','X-CSRFToken':csrf,'Idempotency-Key':key},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
-  const result=await response.json();if(!response.ok)throw new RequestError(result.error?.message||'收尾未确认',response.status,{},result.error?.code);
+  const result=await response.json();if(!response.ok)throw new RequestError(result.error?.message||'待完成保存',response.status,{},result.error?.code);
   return result.data;
 }
 function savedTerminal(data){return (terminal.has(data.status)&&data.save_state==='clean')||(data.stopped&&data.terminal_persisted&&data.save_state==='clean')}
@@ -192,10 +192,10 @@ async function endDialog(target=null){
     try{return await refresh()}
     catch(caught){
       if(caught.code==='STORAGE_UNAVAILABLE'||caught.status>=500)return cleanup(body,key);
-      throw new Error('训练结束状态待确认，请重试。');
+      throw new Error('');
     }
   }
-  return confirmDialog({title:target?'结束并保存后离开':'结束本次分析',message:'只保留已经完成并确认保存的动作或时间。尚未完成的动作不计入；保存未确认时留在当前页处理。',confirmLabel:target?'结束并保存后离开':'结束并保存',onConfirm:async()=>{
+  return confirmDialog({title:target?'结束并保存后离开':'结束本次分析',message:'将保存已完成的动作与训练时长，请等待保存完成。',confirmLabel:target?'结束并保存后离开':'结束并保存',onConfirm:async()=>{
     // 只在用户确认时停止本页输入；单纯打开／取消弹窗不改变训练。
     cameraControl.hold('正在结束，核对最后保存状态…');
     try{
@@ -219,7 +219,7 @@ async function endDialog(target=null){
       stopped=true;
       if(result.status)apply(result);else if(current){current={...current,save_state:result.save_state,state_version:result.state_version,last_saved_at_ms:result.last_saved_at_ms,analysis_frozen:true};render()}
       if(savedTerminal(result)){if(!target&&current.started_at_ms!==null)location.assign('/records/'+sid);return true}
-      showMessage('分析已停止，保存尚未确认。请重试保存或明确放弃未保存部分。');return false;
+      showMessage('分析已停止，请重试保存或放弃待保存内容。');return false;
     }finally{await cameraControl.suspend()}
   }});
 }
@@ -233,10 +233,10 @@ extendRest.onclick=()=>runBusy(()=>command('extend_rest'));
 pause.onclick=()=>runBusy(async()=>{await command('pause');await cameraControl.suspend()});
 cancelCountdown.onclick=()=>runBusy(async()=>{const result=await command('cancel_countdown');await cameraControl.suspend();if(result.status==='ready'){history.replaceState(null,'','/prepare?action='+encodeURIComponent(root.dataset.actionId));await cameraControl.asPreview()}});
 end.onclick=()=>runBusy(()=>endDialog());
-document.querySelector('#live-retry-save').onclick=()=>runBusy(async()=>{const result=await api(`/api/v1/sessions/${sid}/commands`,{method:'POST',commandId:crypto.randomUUID(),body:{command:'retry_save',expected_version:current.state_version}});apply(result);if(result.save_state!=='clean')showMessage('原批次尚未保存，分析继续冻结。')});
+document.querySelector('#live-retry-save').onclick=()=>runBusy(async()=>{const result=await api(`/api/v1/sessions/${sid}/commands`,{method:'POST',commandId:crypto.randomUUID(),body:{command:'retry_save',expected_version:current.state_version}});apply(result);if(result.save_state!=='clean')showMessage('请先保存当前批次，再继续分析。')});
 async function discardDialog(navigate=false){
   const body=cleanupPayload('discard_unsaved',{confirm:true,last_committed_version:current.state_version}),key=crypto.randomUUID();
-  const result=await confirmDialog({title:'放弃未保存部分',message:`已确认保存至 ${dateFormat.format(current.last_saved_at_ms)}。其后未写入的动作、时间和事件会丢失且无法恢复，旧摘要保留。`,confirmLabel:'确认放弃未保存部分',danger:true,onConfirm:()=>cleanup(body,key)});
+  const result=await confirmDialog({title:'放弃未保存部分',message:`已保存至 ${dateFormat.format(current.last_saved_at_ms)}。继续后将放弃其后的待保存内容。`,confirmLabel:'确认放弃未保存部分',danger:true,onConfirm:()=>cleanup(body,key)});
   if(!result?.unsaved_discarded)return false;
   stopped=true;current={...current,unsaved_discarded:true};await cameraControl.suspend();
   if(navigate){const suffix=result.terminal_persisted===false?'pending':'confirmed';location.assign('/records?discarded='+suffix)}
@@ -248,7 +248,7 @@ window.fitnessLeaveGuard=async target=>{
   voice.suspend();
   if(stopped&&current?.unsaved_discarded)return true;
   if(current?.save_state==='save_failed'&&lastControl){
-    const proceed=await confirmDialog({title:'内容尚未保存',message:'请留在当前页重试保存。若继续离开，需要再次明确确认放弃尚未保存部分，已有摘要保留。',confirmLabel:'继续放弃确认'});
+    const proceed=await confirmDialog({title:'内容待保存',message:'请重试保存，或选择放弃待保存内容后离开。',confirmLabel:'继续放弃确认'});
     return proceed?discardDialog():false;
   }
   if(!sid||!current||current.status==='ready'||terminal.has(current.status)||!owns()){await cameraControl.suspend();return true}

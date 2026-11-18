@@ -39,7 +39,7 @@ def segment_decisions(decisions,duration_ms,unassessable=None):
     该函数定义工程边界，不能把合成窗口测试当作实际视频分段准确率。
     """
     duration=_integer(duration_ms,'duration_ms')
-    if duration==0:raise ValueError('源范围不能为空')
+    if duration==0:raise ValueError('请提供视频源范围')
     if not isinstance(decisions,list):raise ValueError('识别窗口必须为数组')
     allowed={v['action_id'] for v in definitions()};windows=[];last_end=-1;version=None
     for item in decisions:
@@ -50,7 +50,7 @@ def segment_decisions(decisions,duration_ms,unassessable=None):
         if action is not None and (not isinstance(action,str) or action not in allowed):raise ValueError('动作类别无效')
         model=item.get('model_version')
         if not isinstance(model,str) or not 1<=len(model)<=200:raise ValueError('识别模型身份无效')
-        if version is not None and model!=version:raise ValueError('单个视频不能混用识别模型版本')
+        if version is not None and model!=version:raise ValueError('请使用统一版本的识别模型')
         version=model;last_end=end
         windows.append({'start_ms':start,'end_ms':end,'action_id':action,'model_version':model})
     gaps=_gaps(unassessable,duration);segments=[];state=None;began=0;pending=None;pending_start=0;pending_count=0;ever_accepted=False;last_state_end=None

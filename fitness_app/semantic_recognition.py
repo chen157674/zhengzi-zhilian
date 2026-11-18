@@ -186,7 +186,7 @@ class SemanticRecognizer:
             supported=[a for a in LABELS if a]
             return {'mode':'auto','release_mode':self.info.get('release_mode','trained_video_fusion') if self.info else 'trained_video_fusion','state':state,'available':self.available and not self.closed,
                     'action_id':self.confirmed,'candidate_action_id':self.pending,'reason':reason or self.latest.get('reason') or self.reason,
-                    'message':'自动识别暂不可用，可使用手动备用' if not self.available else '已识别动作' if self.confirmed else '正在确认动作，请保持自然运动' if self.pending else '尚未确认动作变化，请保持清楚取景并自然完成动作' if self.latest.get('reason')=='motion_unconfirmed' else '正在观察动作',
+                    'message':'自动识别暂不可用，可使用手动备用' if not self.available else '已识别动作' if self.confirmed else '正在确认动作，请保持自然运动' if self.pending else '请保持清楚取景并自然完成动作' if self.latest.get('reason')=='motion_unconfirmed' else '正在观察动作',
                     'score':self.latest.get('score'),'score_is_calibrated_probability':False,
                     'model_version':self.info['version'] if self.info else None,'supported_actions':supported if self.available else [],
                     'trained_actions':supported if self.available else [],'target_actions':supported,'zero_shot_actions':[],

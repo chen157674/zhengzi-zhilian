@@ -41,7 +41,7 @@ def jpeg_dimensions(jpeg):
                 if image.format!='JPEG':raise APIError('INVALID_FRAME','仅接受实际 JPEG 图片',422)
                 width,height=image.size
                 if min(width,height)<1 or max(width,height)>1920 or min(width,height)>1080:
-                    raise APIError('FRAME_DIMENSIONS','提交帧长边不能超过1920，短边不能超过1080',422)
+                    raise APIError('FRAME_DIMENSIONS','请提交长边1920、短边1080以内的画面',422)
                 if image.getexif().get(274,1)!=1:raise APIError('FRAME_ORIENTATION','请提交已转正的图像',422)
                 image.verify()
     except (Image.DecompressionBombError,Image.DecompressionBombWarning) as error:raise APIError('FRAME_DIMENSIONS','JPEG 尺寸超出上限',422) from error
@@ -59,7 +59,7 @@ def decode_jpeg(jpeg,dimensions=None):
             frame=next(container.decode(video=0))
             if (frame.width,frame.height)!=expected:raise ValueError('decoded dimensions')
             return np.ascontiguousarray(frame.to_ndarray(format='rgb24'))
-    except (av.FFmpegError,StopIteration,ValueError) as error:raise APIError('INVALID_FRAME','JPEG 无法解码',422) from error
+    except (av.FFmpegError,StopIteration,ValueError) as error:raise APIError('INVALID_FRAME','请重新提交JPEG画面',422) from error
 
 
 def usable_point(point):

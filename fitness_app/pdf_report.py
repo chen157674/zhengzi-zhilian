@@ -83,7 +83,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
     def page(canvas,doc):
         if cancelled():raise ReportRenderCancelled('cancelled')
         if doc.page>MAX_PAGES or time.monotonic()-began>40:raise ReportRenderError('report_limit')
-        canvas.saveState();canvas.setFont('GuanDongHeading',13);canvas.setFillColor(navy);canvas.drawString(42,A4[1]-35,'知练同行');canvas.setFont('GuanDongBody',8);canvas.setFillColor(muted);canvas.drawRightString(A4[0]-42,A4[1]-35,'训练复盘报告');canvas.setStrokeColor(teal);canvas.setLineWidth(1.2);canvas.line(42,A4[1]-49,A4[0]-42,A4[1]-49)
+        canvas.saveState();canvas.setFont('GuanDongHeading',13);canvas.setFillColor(navy);canvas.drawString(42,A4[1]-35,'正姿智练');canvas.setFont('GuanDongBody',8);canvas.setFillColor(muted);canvas.drawRightString(A4[0]-42,A4[1]-35,'训练复盘报告');canvas.setStrokeColor(teal);canvas.setLineWidth(1.2);canvas.line(42,A4[1]-49,A4[0]-42,A4[1]-49)
         canvas.setFont('GuanDongBody',7.2);canvas.setFillColor(muted);canvas.drawString(42,29,('工程测试样例，非真人检测' if snapshot.get('fixture_label') else '训练动作与反馈')+' | '+report_id[:8]);canvas.drawRightString(A4[0]-42,29,'第 '+str(doc.page)+' 页');canvas.restoreState()
     records=snapshot['records'];ai=snapshot['ai_reports']
     add('训练复盘报告','h1')
@@ -109,7 +109,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
         elif r['status']=='ended_early':add('本段分析已结束，保留结束前成功保存的动作与观察。','muted')
         if r.get('source_range'):add('原视频范围：'+clock_text(r['source_range']['start_ms'])+' - '+clock_text(r['source_range']['end_ms'])+'。','muted')
         completion=r['completion']
-        if not completion['counting_available']:add('完成量：本动作暂未开放计数；不把参考运动区间显示为次数。')
+        if not completion['counting_available']:add('完成量：请查看该动作的姿态观察记录。')
         elif completion['unit']=='seconds':add('参考保持时间：'+clock_text(completion['reference_hold_ms'])+'。')
         elif completion['unit']=='per_side_reps':add(f"参考完整动作：左侧 {completion['left_count']} 次，右侧 {completion['right_count']} 次。")
         else:add('参考完整动作：'+str(completion['reference_count'])+' 次。')
@@ -128,8 +128,8 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
             unknown=str(item['unknown'])+' 个周期' if item['unit']=='cycles' else f"{item['unknown']/1000:.1f} 秒"
             stats.append((title+' / '+side+' / '+view,amount,unknown))
         if stats:table(['判项与机位','已保存可评估范围','未知'],stats,[body_width*.40,body_width*.41,body_width*.19])
-        else:add('没有足以形成分母的已保存观察；不能据此写成零错误。','muted')
-        for status,title in [('issue','参考提示与调整方向'),('unassessable','证据不足的区间')]:
+        else:add('请补充已保存的有效观察后查看比例。','muted')
+        for status,title in [('issue','参考提示与调整方向'),('unassessable','待评估时段')]:
             parts=[v for v in r['episodes'] if v['status']==status];add(title,'h2')
             if not parts:add('未保存该类区间。','muted');continue
             for item in parts:
@@ -180,7 +180,7 @@ def render_pdf(snapshot,report_id,created_at_ms,cancelled=lambda:False):
         for text in content['limitations']:add(text,'muted')
         scope=content['read_scope'];add('读取范围：'+str(scope.get('selected_records',0))+' 条直接记录，'+str(scope.get('history_records',0))+' 条历史记录（可能重叠）；可能引用当时本人档案/备注，本报告未另附其原文。','muted')
     if substituted[0]:add('部分特殊字符在本文件中用Unicode编号显示；应用内原文不变。','muted')
-    output=BytesIO();document=SimpleDocTemplate(output,pagesize=A4,leftMargin=42,rightMargin=42,topMargin=70,bottomMargin=48,title='知练同行训练复盘报告',author='知练同行',pageCompression=1)
+    output=BytesIO();document=SimpleDocTemplate(output,pagesize=A4,leftMargin=42,rightMargin=42,topMargin=70,bottomMargin=48,title='正姿智练训练复盘报告',author='正姿智练',pageCompression=1)
     document.build(story,onFirstPage=page,onLaterPages=page)
     result=output.getvalue()
     if len(result)>MAX_PDF_BYTES:raise ReportRenderError('report_limit')

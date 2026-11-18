@@ -58,7 +58,7 @@ class VideoActionVLM:
         self.directory=ROOT/f'data/models/qwen3-vl-{variant}-instruct'
         self.processor=self.model=None;self.code_ids=None
         self.info=json.loads((self.directory/'manifest.json').read_text(encoding='utf-8'))
-        if self.info['status']!='verified' or self.info['repo']!=f'Qwen/Qwen3-VL-{variant.upper()}-Instruct':raise ValueError('视觉模型尚未核实')
+        if self.info['status']!='verified' or self.info['repo']!=f'Qwen/Qwen3-VL-{variant.upper()}-Instruct':raise ValueError('请准备已验证的视觉模型')
         self.version=f'qwen3-vl-{variant}-'+self.info['revision'][:12]+'-'+hashlib.sha256((json.dumps(CONFIG,sort_keys=True)+prompt()).encode()).hexdigest()[:8]+('-nf4' if self.quantized else '')
 
     def load(self):
@@ -116,7 +116,7 @@ class VideoActionVLM:
         return result
 
     def prepare_inputs(self,frames,timestamps,observed=None,detail_rgb=None):
-        if self.processor is None:raise RuntimeError('视觉处理器尚未准备')
+        if self.processor is None:raise RuntimeError('请准备视觉处理资源')
         span=timestamps[-1]-timestamps[0]
         from .recognition_observations import describe
         content=[{'type':'video'}]

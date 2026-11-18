@@ -134,7 +134,7 @@ class ReportExports:
         with self.db.transaction() as c:
             self.sessions._actor(c,uid,auth);row=self._row(c,uid,uuid_id(rid));stale=self._refresh(c,row)
             if row['status'] in {'expired','invalidated','deleted'}:error=('EXPORT_UNAVAILABLE','报告已到期、删除或来源失效，请重新核对记录后导出',410)
-            elif row['status']!='ready':error=('EXPORT_NOT_READY','报告尚未生成成功',409)
+            elif row['status']!='ready':error=('EXPORT_NOT_READY','请重新生成报告',409)
             else:
                 pdf=c.scalar(select(s.report_exports.c.pdf_blob).where(s.report_exports.c.id==rid,s.report_exports.c.user_id==uid))
                 if hashlib.sha256(pdf).hexdigest()!=row['pdf_sha256']:
@@ -189,4 +189,4 @@ def register_report_exports(app):
     @app.get('/api/v1/reports/exports/<report_id>/download')
     def download(report_id):
         pdf,stale=service.download(current_user.user_id,current_user.id,report_id)
-        response=send_file(BytesIO(pdf),mimetype='application/pdf',as_attachment=True,download_name='知练同行-训练复盘报告.pdf',max_age=0);response.headers['Cache-Control']='no-store, private';response.headers['X-Content-Type-Options']='nosniff';response.headers['X-Report-Snapshot-State']='stale' if stale else 'current';return response
+        response=send_file(BytesIO(pdf),mimetype='application/pdf',as_attachment=True,download_name='正姿智练-训练复盘报告.pdf',max_age=0);response.headers['Cache-Control']='no-store, private';response.headers['X-Content-Type-Options']='nosniff';response.headers['X-Report-Snapshot-State']='stale' if stale else 'current';return response

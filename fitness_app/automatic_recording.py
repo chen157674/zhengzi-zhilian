@@ -41,7 +41,7 @@ class AutomaticRecorder:
     def _failure(self,error):
         logger.warning('自动训练保存冻结 run=%s type=%s code=%s',self.run_id,type(error).__name__,getattr(error,'code','storage'))
         self.failed=True
-        self.message='本段结果尚未全部保存，分析已冻结。请重试保存或保留已保存内容。'
+        self.message='请重试保存当前片段，或选择保留已保存内容。'
         self.error_type=type(error).__name__
         self.error_code=getattr(error,'code',self.error_type)
         self.error_detail=str(error)

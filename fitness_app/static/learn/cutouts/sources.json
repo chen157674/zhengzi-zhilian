@@ -1,0 +1,276 @@
+{
+  "generator": "Codex native imagegen via authorized compatibility entry",
+  "role": "AI-generated exercise UI illustrations pending biomechanical expert review",
+  "images": [
+    {
+      "id": "squat-start",
+      "label": "深蹲准备",
+      "source": "squat-start.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "f8d9561fd3fcb103915e98d921b627d9a7f2b7cc37779d348a8d6f59bcbb4c6f",
+      "transparent_fraction": 0.8246,
+      "prompt": "Calibration: Chinese adult male, right-facing side profile, charcoal T-shirt, taupe joggers, offwhite shoes, standing shoulder-width with hands loosely at chest; natural window light and real alpha-transparent background.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-start.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 31736,
+        "sha256": "7a7f40367c9c0914d06597dd110c73796c002dbaa9eb22416efa14e332cf0518"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "squat-bottom",
+      "label": "深蹲下蹲",
+      "source": "squat-bottom.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "bd065f3c62069cb2acb8339b895ddc774484c58c3a2ff5d0979b85e837431e85",
+      "transparent_fraction": 0.6488,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: controlled BODYWEIGHT SQUAT BOTTOM in strict right-facing SIDE PROFILE. Feet shoulder-width in depth, near foot clearly visible and far shoe offset slightly, both soles and heels flat on same ground plane. Hips lowered to about knee height, thighs approximately horizontal, knees flexed and track direction of feet (normal forward knee travel, do not force vertical shin). Hips naturally behind heels line, torso slightly inclined forward with neutral spine, no rounding or huge arch. Hands loosely clasped in front of chest, elbows bent without blocking hip/knee. Head neutral gaze forward-down. Weight balanced over midfoot. Never heels lifted or feet crossed. One person only, no weights, no mat. Full-body portrait canvas, coherent realistic squat anatomy.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-bottom.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 34126,
+        "sha256": "6c64ce044abc0497121a6748a7410dcabe6ee01b2ed7b45a8ecb6f57b1200a69"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "squat-rise",
+      "label": "深蹲起身",
+      "source": "squat-rise.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "bc62b6c7c51dbf6ab7a85f8adef5825115e6f9e527b166fbda7f8a91967f233f",
+      "transparent_fraction": 0.7829,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: MIDWAY RISING FROM BODYWEIGHT SQUAT, strict RIGHT-FACING SIDE PROFILE. Hips above knees now, hips and knees only moderately bent around35 degrees, torso near upright with slight natural forward inclination. Same shoulder-width two feet on ground, heels down; hands lightly clasped in front of chest. This is clearly an intermediate standing-up pose distinct from deep squat and fully upright, neutral spine and normal knee direction. No arrows or movement trails. No weights or mat. Whole person portrait canvas, not duplicate figures.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-rise.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 32266,
+        "sha256": "a0b7256e2cde0ac3de9458ba86d3826dea4de9bfaa40e93b881c48bf3ba9a497"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "bridge-start",
+      "label": "臀桥准备",
+      "source": "bridge-start.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "sha256": "694d4daab08933e676ea3057af5f8799d510d2c1fc1ba3ad1b72168bd5c10066",
+      "transparent_fraction": 0.7592,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: GLUTE BRIDGE START lying SUPINE on a thin plain warm-gray yoga mat, side profile, head to LEFT and feet toward RIGHT. Head/shoulders/back/pelvis resting on mat. Knees bent roughly90 degrees, feet flat hip-width, heels comfortably near hips, arms extended relaxed beside torso with palms down. Show near leg and a little of far leg so anatomy readable without duplicated joints. Neck neutral, no head raised or hands behind head. Fully clothed same charcoal shirt/taupe joggers and off-white shoes. Full human and entire mat visible in landscape3:2. Real contact under back/pelvis and shoe soles. Background beyond mat genuinely transparent.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "bridge-start.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 50880,
+        "sha256": "cbbccf599e9c29d63987c10b5497b3a29626b75d612784175f705990f97ad6de"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "bridge-top",
+      "label": "臀桥抬髋",
+      "source": "bridge-top.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "sha256": "c130359790804711a4e800deadbdc4953be59f6f7abd94cf9262a08b6a676720",
+      "transparent_fraction": 0.7246,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: GLUTE BRIDGE TOP hold lying SUPINE on a thin plain warm-gray yoga mat, side profile, head LEFT feet RIGHT. Back of head/shoulders and BOTH feet firmly contact mat. Pelvis lifted so shoulders-hips-knees form roughly straight diagonal line, knees bent approx90degrees, shins near vertical, hips neither sag nor hyperextend. Neck neutral, no pressure visibly on crown of head; arms relaxed on mat beside body, palms down. Two coherent legs, near shoe visible and far shoe slightly offset, full human/mat landscape3:2. Same modest outfit. No bench or weights. Transparent beyond mat, no opaque studio floor.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "bridge-top.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 56152,
+        "sha256": "4ce6b52bb29c3fc1e094d5e432d3bb02dec05673972ed20f85c339fdbfba4789"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "forearm-plank",
+      "label": "平板支撑",
+      "source": "forearm-plank.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "sha256": "8d958580d45eb4eb0d77a6832499f954a65e4d55cec092dd0eb806ec1f641738",
+      "transparent_fraction": 0.7186,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: FOREARM PLANK on thin plain warm-gray yoga mat, strict side profile, head to RIGHT feet LEFT. Elbows directly below shoulders, forearms forward on mat, hands relaxed separate or gently together with ordinary fingers. Legs straight, knees off mat; toes support body, heels naturally behind. Ears-shoulders-hips-ankles align in a neutral straight long line, gaze toward floor, neck not craned, pelvis not piking or sagging. Correct two arms/two legs no extra elbows. Entire person and mat in landscape3:2 with generous margin. Same charcoal shirt/taupe joggers/off-white shoes. Opaque mat under support retained, everything beyond mat transparent.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "forearm-plank.webp",
+        "size": [
+          1200,
+          800
+        ],
+        "bytes": 57342,
+        "sha256": "75d36362450a15824db6c9d16d0b10bd80ce5301b9bb1e1b177b4d6c35b073e5"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "curl-start",
+      "label": "哑铃弯举准备",
+      "source": "curl-start.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "f2dbb01d0b65582e0851912ec36f8f2a6511bbd9bb7e7aa569f26fd04d41af80",
+      "transparent_fraction": 0.7572,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: STANDING DUMBBELL CURL START, right-facing side/very slight three-quarter profile enough to distinguish both dumbbells. Upright neutral torso, feet hip-width grounded, knees soft. ONE small realistic dark-gray hex dumbbell firmly grasped in EACH hand, arms naturally nearly straight beside torso, PALMS FACING FORWARD away from thighs, wrists neutral aligned with forearms. Elbows close to torso. Near arm visible at side, far arm offset enough not fused. Two plausible complete dumbbells, no extra discs or floating objects. Portrait2:3 complete body and feet, no bench or mat. Natural ordinary gym learner pose, same outfit.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "curl-start.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 41674,
+        "sha256": "9edfda4ffe302820e160c85b1469c0c7ea43332c3578b0e229b0f3cd34113e4e"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "curl-top",
+      "label": "哑铃弯举屈肘",
+      "source": "curl-top.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "ba1276bf892a2fa66bfb37b5803cc764245ad86f9c15bc99ec7240cfeeb437f8",
+      "transparent_fraction": 0.7895,
+      "prompt": "Use case photorealistic-natural. Generate ONE separate isolated full-body human exercise PHOTOGRAPH CUTOUT, not a UI, collage, sequence sheet or graphic. REAL TRANSPARENT PNG ALPHA BACKGROUND. Set tool background parameter to transparent. No painted white/checkerboard. Only single human, explicitly requested dumbbells/mat, tiny semi-transparent close contact shadows. Chinese adult man around 28, short black hair, ordinary healthy athletic physique (not bodybuilder), charcoal gray crewneck short-sleeve athletic T-shirt, muted taupe-gray tapered joggers, simple off-white flat training shoes. Natural body proportions, realistic skin pores and fabric folds, no plastic smoothness, glamour enhancement, CGI or superhuman physique. Same consistent outfit/appearance concept across series. Strict side-profile facing image RIGHT unless specifically described, waist-height camera 70mm perspective, full relevant limbs, entire head/hands/shoes and requested prop visible with at least10% margins. Natural soft window light from upper left, restrained contrast and neutral color, all subject in focus. Portrait2:3 for upright poses, landscape3:2 for floor poses. Subject fills 70-80% usable dimensions. Coherent two arms/two legs/five fingers where visible, near and far limbs distinguishable, contact with floor physically believable. No text, arrows, logos, labels, UI, skeletons, fake muscles highlights, clipping, props not requested, furniture, visible studio floor plane, dramatic sports-ad lighting or floating body. This is a neutral educational illustrative photo, not diagnosis or proof of performance.\nSINGLE POSE: TOP OF STANDING DUMBBELL CURL, right-facing side/very slight three-quarter profile. Upright neutral torso, hip-width grounded feet. Both elbows remain near torso under shoulders, upper arms nearly vertical; elbows flexed so forearms lift diagonally forward/up with dark-gray hex dumbbells around lower-chest/shoulder height. Palms turn upward toward shoulders, wrists neutral, actual hands wrap grips and thumbs readable. Do not turn into shoulder press or front raise, do not lift elbows high. Two coherent arms/dumbbells slightly separated in depth, not fused or cloned. No back swing. Portrait2:3 full body, same outfit, no mat/bench.",
+      "review_status": "visual_layout_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "curl-top.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 35408,
+        "sha256": "34c45b289585e4045ea48fc946891100ddd2f3cba09b4764f60f8730b61947b4"
+      },
+      "review_scope": "Compressed contact sheets checked for full silhouette, plausible limbs and props, natural appearance, no obvious background rectangle. Real alpha and file boundaries verified. Sequential images are independently generated UI illustrations, not frame-accurate biomechanics or motion-analysis evidence."
+    },
+    {
+      "id": "squat-front-start",
+      "label": "深蹲正面准备",
+      "source": "squat-front-start.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "7863183f16f3e8c47344587f4bb4aac4cc9cbf74a3007cb760757763a619d24d",
+      "transparent_fraction": 0.7349,
+      "prompt": "Generate ONE separate photorealistic fitness website material PNG with REAL transparent alpha background. Use the native imagegen transparent background setting explicitly, not a painted white or checkerboard background. Natural soft window light, realistic skin texture, cloth wrinkles, restrained warm neutral palette, no plastic skin or exaggerated muscles. No text, labels, arrows, logos, UI or collage. A single isolated subject and only explicitly requested props. Full relevant silhouette with comfortable margins. This is an illustrative teaching asset, not measurement or proof of a real user's performance.One ordinary lean Chinese adult man about28, short black hair, charcoal plain T-shirt, taupe-gray joggers, off-white flat shoes. Direct FRONT camera at waist height,50mm perspective. Portrait2:3. Two arms/two legs natural, whole head/hands/shoes visible. Feet shoulder-width, toes gently outward, both heels on same invisible ground plane. No props or visible floor. Same family of outfit and natural light as a quiet editorial teaching photograph. STANDING START of bodyweight squat. Upright neutral torso, hips and knees extended without rigid lock, hands loosely clasped at chest, elbows comfortably bent. Direct front symmetrical stance, shoes and knees readable.",
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-front-start.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 35980,
+        "sha256": "25fb40622ef5a1a956da4332e5449fd0f306fc00e278e75e5d4b6b1150061b56"
+      },
+      "review_scope": "压缩联系表检查完整轮廓、自然外观与阶段可区分；真实alpha和SHA已核验，不等于专家动作学认证。"
+    },
+    {
+      "id": "squat-front-bottom",
+      "label": "深蹲正面下蹲",
+      "source": "squat-front-bottom.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "644c8aa27ab335f2ef9a2534ff1e23c9e9d1d9cb760a3ea1e24d2f967611f5bb",
+      "transparent_fraction": 0.5642,
+      "prompt": "Generate ONE separate photorealistic fitness website material PNG with REAL transparent alpha background. Use the native imagegen transparent background setting explicitly, not a painted white or checkerboard background. Natural soft window light, realistic skin texture, cloth wrinkles, restrained warm neutral palette, no plastic skin or exaggerated muscles. No text, labels, arrows, logos, UI or collage. A single isolated subject and only explicitly requested props. Full relevant silhouette with comfortable margins. This is an illustrative teaching asset, not measurement or proof of a real user's performance.One ordinary lean Chinese adult man about28, short black hair, charcoal plain T-shirt, taupe-gray joggers, off-white flat shoes. Direct FRONT camera at waist height,50mm perspective. Portrait2:3. Two arms/two legs natural, whole head/hands/shoes visible. Feet shoulder-width, toes gently outward, both heels on same invisible ground plane. No props or visible floor. Same family of outfit and natural light as a quiet editorial teaching photograph. BOTTOM of a controlled bodyweight squat. Hips around knee height, both knees following toes and separated rather than collapsing, both soles grounded. Hands lightly joined at chest, neutral spine with natural slight forward incline. Clear direct-front whole-body squat silhouette, not extreme wide stance or heels raised.",
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-front-bottom.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 29142,
+        "sha256": "d2556b9a7ca4d0ed5a2bfd1437fb89adc287ec587640dc51fd15cbc251fd3b9e"
+      },
+      "review_scope": "压缩联系表检查完整轮廓、自然外观与阶段可区分；真实alpha和SHA已核验，不等于专家动作学认证。"
+    },
+    {
+      "id": "squat-front-rise",
+      "label": "深蹲正面起身",
+      "source": "squat-front-rise.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "sha256": "3529d3ae6205eadf28eb5d25a3bb2f678860a0a3833361d3ebba949d430a53d7",
+      "transparent_fraction": 0.6703,
+      "prompt": "Generate ONE separate photorealistic fitness website material PNG with REAL transparent alpha background. Use the native imagegen transparent background setting explicitly, not a painted white or checkerboard background. Natural soft window light, realistic skin texture, cloth wrinkles, restrained warm neutral palette, no plastic skin or exaggerated muscles. No text, labels, arrows, logos, UI or collage. A single isolated subject and only explicitly requested props. Full relevant silhouette with comfortable margins. This is an illustrative teaching asset, not measurement or proof of a real user's performance.One ordinary lean Chinese adult man about28, short black hair, charcoal plain T-shirt, taupe-gray joggers, off-white flat shoes. Direct FRONT camera at waist height,50mm perspective. Portrait2:3. Two arms/two legs natural, whole head/hands/shoes visible. Feet shoulder-width, toes gently outward, both heels on same invisible ground plane. No props or visible floor. Same family of outfit and natural light as a quiet editorial teaching photograph. MIDWAY RISING from a bodyweight squat. Hips clearly above knees and knee/hip bend moderately around30degrees, distinct from the deep bottom and fully upright standing. Hands loosely clasped at chest. Both heels grounded, direct-front full-body view, balanced ordinary posture.",
+      "review_status": "compressed_contact_sheet_reviewed_not_expert_certified",
+      "web_asset": {
+        "file": "squat-front-rise.webp",
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 37292,
+        "sha256": "97b6818a09459b1864dc87381bb2e99d6888e74b877253f64274724d27e8027c"
+      },
+      "review_scope": "压缩联系表检查完整轮廓、自然外观与阶段可区分；真实alpha和SHA已核验，不等于专家动作学认证。"
+    }
+  ],
+  "reviewed_on": "2026-11-13",
+  "web_bytes": 339584,
+  "usage_note": "8 independent static images. Keep existing reviewed triptychs for teaching accuracy. Cutouts are not yet wired or published by the current curriculum. Do not animate as physically exact tracked motion; individual generation can differ in face/clothing detail.",
+  "views": {
+    "bodyweight_squat": {
+      "front": [
+        "squat-front-start",
+        "squat-front-bottom",
+        "squat-front-rise"
+      ],
+      "side": [
+        "squat-start",
+        "squat-bottom",
+        "squat-rise"
+      ]
+    }
+  }
+}

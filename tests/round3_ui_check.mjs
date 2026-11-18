@@ -29,7 +29,7 @@ db=Database(os.environ['FITNESS_DATABASE_PATH']);db.initialize();initialize_admi
   await page.locator('#ai-assistant-close').click();
   await page.setViewportSize({width:390,height:844});
   await page.evaluate(()=>scrollTo(0,0));
-  assert.equal(await page.locator('.topbar nav a').count(),5);
+  assert.equal(await page.locator('.topbar nav > a, .topbar nav > details').count(),5);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   const nav=await page.locator('.topbar nav').boundingBox();assert(nav.y>700,'手机五项导航应在底部');
   await page.locator('#live-camera-flip').click();assert.equal(await page.evaluate(()=>window.cameraRequests),0);

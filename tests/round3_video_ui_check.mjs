@@ -122,7 +122,7 @@ try{
   const restorePattern='**/api/v1/video-analyses/'+pid;
   page.once('close',()=>releaseRestore());
   await page.route(restorePattern,async route=>{if(route.request().method()==='GET'&&!restoreHeld){restoreHeld=true;await restoreGate;}if(!page.isClosed())await route.continue();});
-  await page.locator('#video-back').click();await page.waitForURL(fixture.origin+'/video');
+  await page.locator('#page-back').click();await page.waitForURL(fixture.origin+'/video');
   await page.locator('#video-recent a[href="/video/analyses/'+pid+'"]').click();await page.waitForURL('**/video/analyses/'+pid);
   await page.locator('#video-restore-state').waitFor({state:'visible'});assert.equal(await page.locator('#video-choices').isVisible(),false);
   await page.screenshot({path:path.join(root,'第四轮优化/实现核对/视频恢复加载.png'),animations:'disabled'});

@@ -103,7 +103,7 @@ class DeepSeekClient:
             name,message=mapped.get(code,('AI_PROVIDER_UNAVAILABLE','AI服务暂不可用'))
             raise ProviderError(name,message,code==429 or code>=500,payload is not None and code>=500) from None
         except (urllib.error.URLError,TimeoutError,socket.timeout,ConnectionError,OSError):
-            raise ProviderError('AI_NETWORK_UNCERTAIN','AI请求未能确认，请检查请求状态后重试',True,payload is not None) from None
+            raise ProviderError('AI_NETWORK_UNCERTAIN','请查看原请求状态后重试',True,payload is not None) from None
         except (json.JSONDecodeError,UnicodeError,ValueError,KeyError,IndexError,TypeError):
             raise ProviderError('AI_RESPONSE_INVALID','AI响应格式无效，未生成有效报告',uncertain_charge=payload is not None) from None
 
@@ -165,7 +165,7 @@ class DeepSeekClient:
         try:
             usage,cost=response_usage(data['usage'],model)
             choice=data['choices'][0]
-            if choice['finish_reason']!='stop':raise ProviderError('AI_OUTPUT_INCOMPLETE','AI回复未完整生成，不能作为有效报告',usage=usage,cost=cost)
+            if choice['finish_reason']!='stop':raise ProviderError('AI_OUTPUT_INCOMPLETE','请重新生成完整的AI回复后导出报告',usage=usage,cost=cost)
             content=choice['message']['content']
             if not isinstance(content,str) or not content.strip():raise ValueError('empty')
             result=json.loads(content)

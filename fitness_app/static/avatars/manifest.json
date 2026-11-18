@@ -14,7 +14,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-01.webp",
+        "url": "/static/avatars/avatar-01.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 6240,
+        "sha256": "78931dcb71def25a4d838fd6bfcfc6d3622a3f47619a43275d61a614e8f87e18",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     },
     {
       "id": "avatar-02",
@@ -26,7 +37,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-02.webp",
+        "url": "/static/avatars/avatar-02.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 6812,
+        "sha256": "4b5dfb87a191513d0c4510a789587e1d29c30d69cab783ca1761934aa1bcd0b1",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     },
     {
       "id": "avatar-03",
@@ -38,7 +60,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-03.webp",
+        "url": "/static/avatars/avatar-03.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 7420,
+        "sha256": "0d461f8341305100a3296a694b4d4419a49e2ee70b7defa24a73a2e45aa29ece",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     },
     {
       "id": "avatar-04",
@@ -50,7 +83,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-04.webp",
+        "url": "/static/avatars/avatar-04.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 6622,
+        "sha256": "f863824c4e886bc7c432bc5d19f3ab472b5b64b6ae087efac003396eac83860b",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     },
     {
       "id": "avatar-05",
@@ -62,7 +106,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-05.webp",
+        "url": "/static/avatars/avatar-05.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 7034,
+        "sha256": "a7c1d6b15a06588662d4570325cedc3c5eea5aef80279d658d9ace6099398d56",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     },
     {
       "id": "avatar-06",
@@ -74,7 +129,18 @@
       "size": [
         1254,
         1254
-      ]
+      ],
+      "thumbnail": {
+        "path": "fitness_app/static/avatars/avatar-06.webp",
+        "url": "/static/avatars/avatar-06.webp",
+        "size": [
+          256,
+          256
+        ],
+        "bytes": 7358,
+        "sha256": "908a459867200d6310cc318ac21730e9b6facd4594e46a43116fae05b17c84f2",
+        "method": "Pillow LANCZOS 256px WebP quality86 from original"
+      }
     }
   ]
 }

@@ -43,8 +43,8 @@ def actor_in_transaction(connection):
 def public_user(row,actor_id,admin_count):
     own=row["id"]==actor_id
     reset_reason="本人请使用修改密码" if own else ("停用账号不可重置" if not row["enabled"] else "")
-    disable_reason="不能停用当前账号" if own else ("账号已停用" if not row["enabled"] else (
-        "不能停用最后一个有效管理员" if row["role"]=="admin" and admin_count<=1 else ""))
+    disable_reason="请使用其他管理员账号操作" if own else ("账号已停用" if not row["enabled"] else (
+        "请保留至少一个有效管理员账号" if row["role"]=="admin" and admin_count<=1 else ""))
     return {"id":row["id"],"username":row["username_display"],"role":row["role"],"enabled":bool(row["enabled"]),
         "must_change_password":bool(row["must_change_password"]),"version":row["version"],"created_at_ms":row["created_at_ms"],
         "can_reset":not bool(reset_reason),"reset_reason":reset_reason,
@@ -59,7 +59,7 @@ def register_admin(app,db):
     @app.get("/api/v1/admin/users")
     def user_list():
         if set(request.args)-{"search","enabled","page","page_size"}:
-            raise APIError("INVALID_REQUEST","不支持的账号查询字段")
+            raise APIError("INVALID_REQUEST","请核对账号查询字段")
         search=request.args.get("search","")
         if len(search)>254:
             raise APIError("VALIDATION_FAILED","搜索内容过长",422,{"search":"最多 254 字符"})

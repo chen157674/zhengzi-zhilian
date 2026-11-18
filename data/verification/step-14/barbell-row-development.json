@@ -1,0 +1,3493 @@
+{
+  "schema_version": 1,
+  "action_id": "barbell_bent_over_row",
+  "source_id": "dvids-639914-side",
+  "config": {
+    "cycle": {
+      "start_threshold": 145.0,
+      "direction": -1,
+      "exit_delta": 12.0,
+      "minimum_excursion": 25.0,
+      "turn_delta": 8.0,
+      "start_confirm_ms": 200,
+      "departure_confirm_ms": 80,
+      "turn_confirm_ms": 80,
+      "return_confirm_ms": 100,
+      "maximum_gap_ms": 500,
+      "minimum_cycle_ms": 600,
+      "maximum_cycle_ms": 30000,
+      "return_tolerance": 15.0
+    },
+    "minimum_start_tilt": 30.0,
+    "minimum_continuing_tilt": 20.0,
+    "maximum_tilt": 100.0,
+    "minimum_knee": 80.0,
+    "minimum_leg_span": 0.6,
+    "minimum_hand_travel": 0.15,
+    "smoothing_window": 3,
+    "algorithm_version": "barbell-row-development-1"
+  },
+  "parameters_sha256": "582fc78c31a9f84682a254f6f93a3113c38ced541a261e32fa9f30531bde4fee",
+  "content_bounds_signature": {
+    "version": 1,
+    "config": {
+      "dark_max": 32,
+      "uniform_range": 16,
+      "minimum_pixels": 4,
+      "minimum_fraction": 0.01,
+      "maximum_fraction": 0.25,
+      "symmetry_fraction": 0.025,
+      "interior_pixels": 16,
+      "interior_contrast": 12,
+      "interior_fraction": 0.55
+    },
+    "source_sha256": "09c1e1d1cad293d8db1ecaa6d82fc923ea69e65cabbf77df3a90d798846140f8"
+  },
+  "input_validation": {
+    "action_id": "barbell_bent_over_row",
+    "source_sha256": "77ac60025c483b93b3ac10107eea81bf2a5918f6cf4d53692dddf30607613b50",
+    "source_bytes": 1055521,
+    "source_modified_ns": 1792434388241271300,
+    "counter_validated": false,
+    "input_implementation_sha256": "1f7fe5e514341900bb4869f3faba0867cbeaf686368dd45fe5cf72ba5bb1e4a7",
+    "frames": 855,
+    "bounds_runs": [
+      {
+        "start_seq": 0,
+        "end_seq": 855,
+        "bounds": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "invalidated_frames": 0,
+    "invalidated_landmark_counts": {},
+    "framing_counts": {
+      "VISIBLE": 852,
+      "MISSING_PARTS": 2,
+      "TARGET_AMBIGUOUS": 1
+    },
+    "usable_frames": 852,
+    "events": [],
+    "hold_ms": 0,
+    "previous_event_count": null,
+    "events_unchanged": null,
+    "previous_hold_ms": null,
+    "hold_unchanged": null,
+    "pose_cache_path": "data/verification/step-14/dvids-639914-side-poses.npz",
+    "pose_cache_bytes": 484473,
+    "pose_cache_modified_ns": 1792434430084700900
+  },
+  "input_decode_cache_hit": false,
+  "frames": 855,
+  "events": [
+    {
+      "side": "none",
+      "start_ms": 17150,
+      "end_ms": 18619,
+      "algorithm_version": "barbell-row-development-1",
+      "feature_schema_version": "barbell-row-image-geometry-1",
+      "assessments": []
+    },
+    {
+      "side": "none",
+      "start_ms": 19253,
+      "end_ms": 20587,
+      "algorithm_version": "barbell-row-development-1",
+      "feature_schema_version": "barbell-row-image-geometry-1",
+      "assessments": []
+    },
+    {
+      "side": "none",
+      "start_ms": 21221,
+      "end_ms": 22656,
+      "algorithm_version": "barbell-row-development-1",
+      "feature_schema_version": "barbell-row-image-geometry-1",
+      "assessments": []
+    }
+  ],
+  "reason_frame_counts": {
+    "bent_row_start_unconfirmed": 488,
+    "collecting_observations": 32,
+    "observable": 259,
+    "measurement_side_prepared": 18,
+    "tracking_lost": 21,
+    "departure_not_confirmed": 7,
+    "bent_row_variant_unconfirmed": 9,
+    "completed": 21
+  },
+  "transitions": [
+    {
+      "at_ms": 0,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 10077,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 10143,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 10344,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 10544,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 10611,
+      "phase": "seeking_start",
+      "reason": "measurement_side_prepared"
+    },
+    {
+      "at_ms": 10811,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 10844,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 10911,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 11111,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 12379,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 12412,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 12479,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 12679,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 12779,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 12880,
+      "phase": "seeking_start",
+      "reason": "departure_not_confirmed"
+    },
+    {
+      "at_ms": 12913,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 12980,
+      "phase": "seeking_start",
+      "reason": "departure_not_confirmed"
+    },
+    {
+      "at_ms": 13180,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 13213,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 13280,
+      "phase": "seeking_start",
+      "reason": "tracking_lost"
+    },
+    {
+      "at_ms": 13480,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 13847,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 13881,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 13947,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 13981,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 15849,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 15916,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 16116,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 16550,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 16617,
+      "phase": "seeking_start",
+      "reason": "measurement_side_prepared"
+    },
+    {
+      "at_ms": 16817,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 17150,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 17251,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 18252,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 18518,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 18619,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 18652,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 18719,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 18919,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 19253,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 19353,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 20320,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 20487,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 20587,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 20621,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 20687,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 20888,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 21221,
+      "phase": "departing",
+      "reason": null
+    },
+    {
+      "at_ms": 21321,
+      "phase": "moving",
+      "reason": null
+    },
+    {
+      "at_ms": 22389,
+      "phase": "returning",
+      "reason": null
+    },
+    {
+      "at_ms": 22556,
+      "phase": "confirming_return",
+      "reason": null
+    },
+    {
+      "at_ms": 22656,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 22689,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 22756,
+      "phase": "seeking_start",
+      "reason": "completed"
+    },
+    {
+      "at_ms": 22956,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 23023,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 23056,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 23123,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 23257,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 25025,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 25092,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    },
+    {
+      "at_ms": 25292,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 25526,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 25592,
+      "phase": "seeking_start",
+      "reason": "measurement_side_prepared"
+    },
+    {
+      "at_ms": 25792,
+      "phase": "ready",
+      "reason": null
+    },
+    {
+      "at_ms": 26426,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 26460,
+      "phase": "seeking_start",
+      "reason": "collecting_observations"
+    },
+    {
+      "at_ms": 26526,
+      "phase": "seeking_start",
+      "reason": "bent_row_variant_unconfirmed"
+    },
+    {
+      "at_ms": 26560,
+      "phase": "seeking_start",
+      "reason": "bent_row_start_unconfirmed"
+    }
+  ],
+  "observations": [
+    {
+      "at_ms": 0,
+      "sides": {
+        "left": {
+          "primary": 162.12948251028,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9920775294303894,
+          "scale": 69.683495580951,
+          "hand_distance": 73.62896795489159
+        },
+        "right": {
+          "primary": 179.67398672508082,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7606428861618042,
+          "scale": 64.30501540290564,
+          "hand_distance": 68.55691948004548
+        }
+      }
+    },
+    {
+      "at_ms": 200,
+      "sides": {
+        "left": {
+          "primary": 161.88446808923075,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.992999792098999,
+          "scale": 70.01630839222628,
+          "hand_distance": 73.03930944875368
+        },
+        "right": {
+          "primary": 178.77377639945684,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7716965079307556,
+          "scale": 65.19441357430514,
+          "hand_distance": 68.23145093850951
+        }
+      }
+    },
+    {
+      "at_ms": 400,
+      "sides": {
+        "left": {
+          "primary": 162.14515956290586,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.994962215423584,
+          "scale": 69.72667965517155,
+          "hand_distance": 74.0242946406225
+        },
+        "right": {
+          "primary": 179.1888683233744,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8177375197410583,
+          "scale": 64.99017748537594,
+          "hand_distance": 68.49640217549708
+        }
+      }
+    },
+    {
+      "at_ms": 601,
+      "sides": {
+        "left": {
+          "primary": 162.57740106712103,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.994408369064331,
+          "scale": 69.56171603936122,
+          "hand_distance": 73.55186092936827
+        },
+        "right": {
+          "primary": 178.28079409972196,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8259140253067017,
+          "scale": 64.7337553095591,
+          "hand_distance": 68.81311623996427
+        }
+      }
+    },
+    {
+      "at_ms": 801,
+      "sides": {
+        "left": {
+          "primary": 161.76485185579673,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.993925154209137,
+          "scale": 70.06906541183912,
+          "hand_distance": 73.39327754763913
+        },
+        "right": {
+          "primary": 178.46507383955344,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7862786650657654,
+          "scale": 65.03396035547377,
+          "hand_distance": 68.15834498230174
+        }
+      }
+    },
+    {
+      "at_ms": 1001,
+      "sides": {
+        "left": {
+          "primary": 161.92880044074738,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9921492338180542,
+          "scale": 69.88398591320366,
+          "hand_distance": 73.94096679395192
+        },
+        "right": {
+          "primary": 178.21820007546992,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7938722968101501,
+          "scale": 64.68637271059939,
+          "hand_distance": 69.33093420858785
+        }
+      }
+    },
+    {
+      "at_ms": 1201,
+      "sides": {
+        "left": {
+          "primary": 162.67159560617296,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9924710988998413,
+          "scale": 69.28560723018465,
+          "hand_distance": 73.39101198744991
+        },
+        "right": {
+          "primary": 178.56035631390733,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8040308356285095,
+          "scale": 64.86330347417913,
+          "hand_distance": 69.01185646130139
+        }
+      }
+    },
+    {
+      "at_ms": 1401,
+      "sides": {
+        "left": {
+          "primary": 162.84392567044793,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9935609102249146,
+          "scale": 70.04597461764624,
+          "hand_distance": 73.51884731782117
+        },
+        "right": {
+          "primary": 179.9978951871701,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8011429309844971,
+          "scale": 65.22192153538387,
+          "hand_distance": 69.16453984375971
+        }
+      }
+    },
+    {
+      "at_ms": 1602,
+      "sides": {
+        "left": {
+          "primary": 162.34950331318586,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9930411577224731,
+          "scale": 69.94618667882803,
+          "hand_distance": 73.5389413466235
+        },
+        "right": {
+          "primary": 179.48417664773072,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8087185621261597,
+          "scale": 65.06050974851253,
+          "hand_distance": 68.86293236752412
+        }
+      }
+    },
+    {
+      "at_ms": 1802,
+      "sides": {
+        "left": {
+          "primary": 163.23650208966254,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9936037659645081,
+          "scale": 69.84296797090484,
+          "hand_distance": 73.36327078474417
+        },
+        "right": {
+          "primary": 179.2753566010041,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.812458872795105,
+          "scale": 64.89218157604522,
+          "hand_distance": 68.85186105131777
+        }
+      }
+    },
+    {
+      "at_ms": 2002,
+      "sides": {
+        "left": {
+          "primary": 163.64095096003157,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9937294721603394,
+          "scale": 69.87717213290705,
+          "hand_distance": 73.07578094084295
+        },
+        "right": {
+          "primary": 177.6799657543699,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8167984485626221,
+          "scale": 65.22864591517839,
+          "hand_distance": 67.89000284012
+        }
+      }
+    },
+    {
+      "at_ms": 2202,
+      "sides": {
+        "left": {
+          "primary": 164.83769346597424,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9942516088485718,
+          "scale": 69.64529941510625,
+          "hand_distance": 74.60244916318896
+        },
+        "right": {
+          "primary": 177.3143904208695,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8382506966590881,
+          "scale": 65.02092704369234,
+          "hand_distance": 68.3361859899134
+        }
+      }
+    },
+    {
+      "at_ms": 2402,
+      "sides": {
+        "left": {
+          "primary": 167.09047271759118,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9934630393981934,
+          "scale": 70.22564553408475,
+          "hand_distance": 74.26721425128703
+        },
+        "right": {
+          "primary": 178.1413739468562,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8656868934631348,
+          "scale": 66.01560042639153,
+          "hand_distance": 68.14996673232802
+        }
+      }
+    },
+    {
+      "at_ms": 2603,
+      "sides": {
+        "left": {
+          "primary": 165.75726715809307,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9919831156730652,
+          "scale": 70.14274005559513,
+          "hand_distance": 75.37508580304619
+        },
+        "right": {
+          "primary": 177.15330806658696,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8407553434371948,
+          "scale": 65.2845067735174,
+          "hand_distance": 68.82857199767213
+        }
+      }
+    },
+    {
+      "at_ms": 2803,
+      "sides": {
+        "left": {
+          "primary": 163.16498267431652,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9924914240837097,
+          "scale": 70.49047161708556,
+          "hand_distance": 73.94356473058627
+        },
+        "right": {
+          "primary": 178.8029131656834,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8088114261627197,
+          "scale": 65.7112048925412,
+          "hand_distance": 69.33449499748882
+        }
+      }
+    },
+    {
+      "at_ms": 3003,
+      "sides": {
+        "left": {
+          "primary": 162.17340595660556,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9923130869865417,
+          "scale": 69.79704038816037,
+          "hand_distance": 73.81272426191639
+        },
+        "right": {
+          "primary": 178.36009243087366,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8440556526184082,
+          "scale": 65.80913365688747,
+          "hand_distance": 70.21398764441396
+        }
+      }
+    },
+    {
+      "at_ms": 3203,
+      "sides": {
+        "left": {
+          "primary": 164.47270461948375,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9933050274848938,
+          "scale": 68.8928044804396,
+          "hand_distance": 74.57224500887813
+        },
+        "right": {
+          "primary": 179.87967385009,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8406601548194885,
+          "scale": 65.25845598480517,
+          "hand_distance": 70.10949188261486
+        }
+      }
+    },
+    {
+      "at_ms": 3403,
+      "sides": {
+        "left": {
+          "primary": 163.9511976951939,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9928272366523743,
+          "scale": 69.4526827671902,
+          "hand_distance": 74.390013973887
+        },
+        "right": {
+          "primary": 179.61970648256508,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8242744207382202,
+          "scale": 65.8379984119527,
+          "hand_distance": 70.09601987872742
+        }
+      }
+    },
+    {
+      "at_ms": 3604,
+      "sides": {
+        "left": {
+          "primary": 161.5527996518181,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9913443326950073,
+          "scale": 69.84256976616335,
+          "hand_distance": 74.44980132088975
+        },
+        "right": {
+          "primary": 179.83144089972706,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7948915362358093,
+          "scale": 66.28470518972534,
+          "hand_distance": 69.89490272207122
+        }
+      }
+    },
+    {
+      "at_ms": 3804,
+      "sides": {
+        "left": {
+          "primary": 162.58279426530564,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9915931224822998,
+          "scale": 69.29949141465903,
+          "hand_distance": 74.62604706959456
+        },
+        "right": {
+          "primary": 177.85504622991112,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8082994222640991,
+          "scale": 65.45431196134685,
+          "hand_distance": 69.86754676109845
+        }
+      }
+    },
+    {
+      "at_ms": 4004,
+      "sides": {
+        "left": {
+          "primary": 163.18439676679333,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9919192790985107,
+          "scale": 69.38397057240807,
+          "hand_distance": 73.86256544633522
+        },
+        "right": {
+          "primary": 177.08964339794133,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8500208258628845,
+          "scale": 65.4368304374502,
+          "hand_distance": 68.27882588753504
+        }
+      }
+    },
+    {
+      "at_ms": 4204,
+      "sides": {
+        "left": {
+          "primary": 162.2467687512582,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9936309456825256,
+          "scale": 69.87844968108172,
+          "hand_distance": 74.3692203641638
+        },
+        "right": {
+          "primary": 176.95427849654598,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8544747829437256,
+          "scale": 65.52055836181026,
+          "hand_distance": 68.21864257650456
+        }
+      }
+    },
+    {
+      "at_ms": 4404,
+      "sides": {
+        "left": {
+          "primary": 162.6613217141585,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9936689734458923,
+          "scale": 70.14009670343988,
+          "hand_distance": 74.4434840168575
+        },
+        "right": {
+          "primary": 176.84641581914948,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8497020602226257,
+          "scale": 65.54416611874314,
+          "hand_distance": 68.70967330299081
+        }
+      }
+    },
+    {
+      "at_ms": 4605,
+      "sides": {
+        "left": {
+          "primary": 161.3459131282155,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9928855299949646,
+          "scale": 70.25146430307333,
+          "hand_distance": 74.75661353725985
+        },
+        "right": {
+          "primary": 177.68162927674246,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8191313743591309,
+          "scale": 64.78291540284276,
+          "hand_distance": 67.33185928913502
+        }
+      }
+    },
+    {
+      "at_ms": 4805,
+      "sides": {
+        "left": {
+          "primary": 160.62530690957382,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9918439984321594,
+          "scale": 70.11930952466011,
+          "hand_distance": 72.58779452813252
+        },
+        "right": {
+          "primary": 179.81971261312415,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8157073259353638,
+          "scale": 65.63484350272404,
+          "hand_distance": 67.62385585410243
+        }
+      }
+    },
+    {
+      "at_ms": 5005,
+      "sides": {
+        "left": {
+          "primary": 160.70009566737366,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9925481677055359,
+          "scale": 69.76285756636673,
+          "hand_distance": 73.96087666392039
+        },
+        "right": {
+          "primary": 178.48191886277516,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8325178623199463,
+          "scale": 65.00950390970384,
+          "hand_distance": 67.74338883182266
+        }
+      }
+    },
+    {
+      "at_ms": 5205,
+      "sides": {
+        "left": {
+          "primary": 164.97018259852092,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9956672191619873,
+          "scale": 69.82886057638677,
+          "hand_distance": 74.50515439500131
+        },
+        "right": {
+          "primary": 179.95995258824627,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8277395963668823,
+          "scale": 65.70962878583116,
+          "hand_distance": 67.77342030587299
+        }
+      }
+    },
+    {
+      "at_ms": 5405,
+      "sides": {
+        "left": {
+          "primary": 161.94475697021252,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.994196891784668,
+          "scale": 69.82743429388157,
+          "hand_distance": 73.2879015299915
+        },
+        "right": {
+          "primary": 179.6398546098657,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7994539737701416,
+          "scale": 65.61233306704156,
+          "hand_distance": 67.92110465728285
+        }
+      }
+    },
+    {
+      "at_ms": 5606,
+      "sides": {
+        "left": {
+          "primary": 163.2787498313977,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9930046200752258,
+          "scale": 69.88789950576782,
+          "hand_distance": 73.33387040711447
+        },
+        "right": {
+          "primary": 179.03421924354865,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8105136752128601,
+          "scale": 66.01947667474299,
+          "hand_distance": 67.8409035168644
+        }
+      }
+    },
+    {
+      "at_ms": 5806,
+      "sides": {
+        "left": {
+          "primary": 165.4432099912948,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9945091605186462,
+          "scale": 70.6142040501371,
+          "hand_distance": 74.62864281806712
+        },
+        "right": {
+          "primary": 177.7973090154105,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7967066764831543,
+          "scale": 66.06325760444949,
+          "hand_distance": 67.73439120546043
+        }
+      }
+    },
+    {
+      "at_ms": 6006,
+      "sides": {
+        "left": {
+          "primary": 164.46057504128765,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9941118359565735,
+          "scale": 69.78233581425297,
+          "hand_distance": 74.01733278109357
+        },
+        "right": {
+          "primary": 178.70612404413004,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7594856023788452,
+          "scale": 65.06571594305689,
+          "hand_distance": 67.37993044743084
+        }
+      }
+    },
+    {
+      "at_ms": 6206,
+      "sides": {
+        "left": {
+          "primary": 162.16821314756348,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9936689734458923,
+          "scale": 69.36077429520131,
+          "hand_distance": 72.40792607255071
+        },
+        "right": {
+          "primary": 179.5869319246855,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7437491416931152,
+          "scale": 64.44561723134258,
+          "hand_distance": 67.26886743601302
+        }
+      }
+    },
+    {
+      "at_ms": 6406,
+      "sides": {
+        "left": {
+          "primary": 162.2502845907885,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9930593967437744,
+          "scale": 70.45478764817194,
+          "hand_distance": 73.44022364833423
+        },
+        "right": {
+          "primary": 179.4393948769422,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7031645178794861,
+          "scale": 65.26864890793655,
+          "hand_distance": 68.0486093802663
+        }
+      }
+    },
+    {
+      "at_ms": 6607,
+      "sides": {
+        "left": {
+          "primary": 165.4628253398836,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9923190474510193,
+          "scale": 69.88681398581843,
+          "hand_distance": 73.13942075454597
+        },
+        "right": {
+          "primary": 178.7438354871066,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7626041173934937,
+          "scale": 65.43701481997846,
+          "hand_distance": 68.88762706954789
+        }
+      }
+    },
+    {
+      "at_ms": 6807,
+      "sides": {
+        "left": {
+          "primary": 164.45044235224483,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9926859140396118,
+          "scale": 70.08872812255434,
+          "hand_distance": 73.17912489416449
+        },
+        "right": {
+          "primary": 179.50253663933213,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8003017902374268,
+          "scale": 65.9067490888225,
+          "hand_distance": 69.08279315764284
+        }
+      }
+    },
+    {
+      "at_ms": 7007,
+      "sides": {
+        "left": {
+          "primary": 162.53216432502077,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.991971492767334,
+          "scale": 69.69828587456796,
+          "hand_distance": 73.3967739629414
+        },
+        "right": {
+          "primary": 179.785828739386,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.809302031993866,
+          "scale": 65.38099977564491,
+          "hand_distance": 68.31068823108873
+        }
+      }
+    },
+    {
+      "at_ms": 7207,
+      "sides": {
+        "left": {
+          "primary": 157.09680409520573,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9923182725906372,
+          "scale": 70.95262167607451,
+          "hand_distance": 72.80009573796997
+        },
+        "right": {
+          "primary": 178.67204364680182,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.744956910610199,
+          "scale": 66.08261126335734,
+          "hand_distance": 67.6214130595464
+        }
+      }
+    },
+    {
+      "at_ms": 7407,
+      "sides": {
+        "left": {
+          "primary": 162.3617854781845,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9921865463256836,
+          "scale": 70.392969215838,
+          "hand_distance": 73.13106758973147
+        },
+        "right": {
+          "primary": 179.20925877312732,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.744823157787323,
+          "scale": 65.48631727539372,
+          "hand_distance": 68.04676767685518
+        }
+      }
+    },
+    {
+      "at_ms": 7608,
+      "sides": {
+        "left": {
+          "primary": 163.5527108836781,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9913116693496704,
+          "scale": 69.29632728886764,
+          "hand_distance": 72.33621503829467
+        },
+        "right": {
+          "primary": 178.88065406543546,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7345232367515564,
+          "scale": 64.64852608434502,
+          "hand_distance": 68.08172232311792
+        }
+      }
+    },
+    {
+      "at_ms": 7808,
+      "sides": {
+        "left": {
+          "primary": 164.31646784003408,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9928332567214966,
+          "scale": 69.47819094019421,
+          "hand_distance": 73.53437212008141
+        },
+        "right": {
+          "primary": 178.86503723256237,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.726739764213562,
+          "scale": 65.02202198141516,
+          "hand_distance": 68.32804579828304
+        }
+      }
+    },
+    {
+      "at_ms": 8008,
+      "sides": {
+        "left": {
+          "primary": 163.10661471564163,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9932746887207031,
+          "scale": 70.52613197182717,
+          "hand_distance": 73.86688934038352
+        },
+        "right": {
+          "primary": 178.09419900923436,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.721216082572937,
+          "scale": 65.54326695067219,
+          "hand_distance": 68.58364312528954
+        }
+      }
+    },
+    {
+      "at_ms": 8208,
+      "sides": {
+        "left": {
+          "primary": 162.79094839005327,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9929706454277039,
+          "scale": 70.81561839738377,
+          "hand_distance": 73.35595493320277
+        },
+        "right": {
+          "primary": 179.59329645317447,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.723694384098053,
+          "scale": 65.67576270702105,
+          "hand_distance": 68.52498342993138
+        }
+      }
+    },
+    {
+      "at_ms": 8408,
+      "sides": {
+        "left": {
+          "primary": 163.8354400540443,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9934977293014526,
+          "scale": 69.62678091897978,
+          "hand_distance": 74.30761895868677
+        },
+        "right": {
+          "primary": 178.40562968558626,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7229908108711243,
+          "scale": 64.66149037755827,
+          "hand_distance": 68.2442043723752
+        }
+      }
+    },
+    {
+      "at_ms": 8609,
+      "sides": {
+        "left": {
+          "primary": 163.4509435120007,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9939395189285278,
+          "scale": 69.67912208430597,
+          "hand_distance": 73.8088112903013
+        },
+        "right": {
+          "primary": 177.5209363301676,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7291324734687805,
+          "scale": 64.8560884878882,
+          "hand_distance": 68.06147302748734
+        }
+      }
+    },
+    {
+      "at_ms": 8809,
+      "sides": {
+        "left": {
+          "primary": 163.15740225279632,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9931926131248474,
+          "scale": 69.8693203537366,
+          "hand_distance": 73.87536299053018
+        },
+        "right": {
+          "primary": 177.58408750798645,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7111495733261108,
+          "scale": 64.95102324741009,
+          "hand_distance": 68.04476806259827
+        }
+      }
+    },
+    {
+      "at_ms": 9009,
+      "sides": {
+        "left": {
+          "primary": 163.5651444479641,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9931021928787231,
+          "scale": 70.08080054149539,
+          "hand_distance": 73.6034415915242
+        },
+        "right": {
+          "primary": 178.07473711125004,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7455042004585266,
+          "scale": 65.43338965264822,
+          "hand_distance": 67.63713852946515
+        }
+      }
+    },
+    {
+      "at_ms": 9209,
+      "sides": {
+        "left": {
+          "primary": 163.47847367943123,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9933897256851196,
+          "scale": 70.28526823645922,
+          "hand_distance": 73.88966925615337
+        },
+        "right": {
+          "primary": 179.76650880228806,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7544870972633362,
+          "scale": 65.48243305315701,
+          "hand_distance": 67.49415796016343
+        }
+      }
+    },
+    {
+      "at_ms": 9409,
+      "sides": {
+        "left": {
+          "primary": 163.91105671068928,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9907709360122681,
+          "scale": 71.08455096241357,
+          "hand_distance": 73.79338511183863
+        },
+        "right": {
+          "primary": 179.279461468106,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7565618753433228,
+          "scale": 65.82554888183084,
+          "hand_distance": 67.6736014970082
+        }
+      }
+    },
+    {
+      "at_ms": 9610,
+      "sides": {
+        "left": {
+          "primary": 164.04226663038517,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.992347002029419,
+          "scale": 70.35288836744942,
+          "hand_distance": 73.66070938861075
+        },
+        "right": {
+          "primary": 179.40764307908043,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.812311053276062,
+          "scale": 65.81556961010588,
+          "hand_distance": 67.82719741435095
+        }
+      }
+    },
+    {
+      "at_ms": 9810,
+      "sides": {
+        "left": {
+          "primary": 158.53354899262445,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9934515953063965,
+          "scale": 69.07049731081533,
+          "hand_distance": 74.30944013953687
+        },
+        "right": {
+          "primary": 178.7837317500043,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8472013473510742,
+          "scale": 64.59116756050173,
+          "hand_distance": 65.06425767021489
+        }
+      }
+    },
+    {
+      "at_ms": 10010,
+      "sides": {
+        "left": {
+          "primary": 163.76549240225776,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9779707789421082,
+          "scale": 56.53059367300721,
+          "hand_distance": 78.5717930371837
+        },
+        "right": {
+          "primary": 177.89726584299012,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9272165894508362,
+          "scale": 56.440675328532805,
+          "hand_distance": 65.21756570610926
+        }
+      }
+    },
+    {
+      "at_ms": 10210,
+      "sides": {
+        "left": {
+          "primary": 168.39260692629526,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9322023987770081,
+          "scale": 41.836256857140576,
+          "hand_distance": 74.76993295748726
+        },
+        "right": {
+          "primary": 178.98200762347443,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8700344562530518,
+          "scale": 50.712800143614125,
+          "hand_distance": 67.46585176009577
+        }
+      }
+    },
+    {
+      "at_ms": 10410,
+      "sides": {
+        "left": {
+          "primary": 169.0329473608639,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.893222987651825,
+          "scale": 26.510355806189125,
+          "hand_distance": 76.98472218034875
+        },
+        "right": {
+          "primary": 179.064783931726,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6710712313652039,
+          "scale": 41.539201842688655,
+          "hand_distance": 67.73433984920486
+        }
+      }
+    },
+    {
+      "at_ms": 10611,
+      "sides": {
+        "left": {
+          "primary": 168.71830151838952,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9172065854072571,
+          "scale": 24.802001963522542,
+          "hand_distance": 81.26206285207269
+        },
+        "right": {
+          "primary": 178.8428945913602,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8769761323928833,
+          "scale": 36.75404605531979,
+          "hand_distance": 67.94182390904362
+        }
+      }
+    },
+    {
+      "at_ms": 10811,
+      "sides": {
+        "left": null,
+        "right": null
+      }
+    },
+    {
+      "at_ms": 11011,
+      "sides": {
+        "left": {
+          "primary": 160.1558289997437,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9330195188522339,
+          "scale": 23.87563302896034,
+          "hand_distance": 80.4241135886117
+        },
+        "right": {
+          "primary": 171.45294925242342,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6812252998352051,
+          "scale": 34.74494767291445,
+          "hand_distance": 62.264926699542684
+        }
+      }
+    },
+    {
+      "at_ms": 11211,
+      "sides": {
+        "left": {
+          "primary": 157.1943973720528,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9718969464302063,
+          "scale": 25.06872623809733,
+          "hand_distance": 80.91835352352786
+        },
+        "right": {
+          "primary": 176.86796681301502,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.777637779712677,
+          "scale": 40.76243628851106,
+          "hand_distance": 61.194688968391354
+        }
+      }
+    },
+    {
+      "at_ms": 11411,
+      "sides": {
+        "left": {
+          "primary": 153.6215252813921,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9788329005241394,
+          "scale": 26.60246764117361,
+          "hand_distance": 75.55878180127893
+        },
+        "right": {
+          "primary": 174.90393576752624,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8419744372367859,
+          "scale": 40.23995527109179,
+          "hand_distance": 61.659161902590974
+        }
+      }
+    },
+    {
+      "at_ms": 11612,
+      "sides": {
+        "left": {
+          "primary": 170.31730117810483,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.958791971206665,
+          "scale": 22.09762133246588,
+          "hand_distance": 67.8507447179538
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 11812,
+      "sides": {
+        "left": {
+          "primary": 156.59752924850386,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9781016707420349,
+          "scale": 23.82165127352479,
+          "hand_distance": 72.4645978274364
+        },
+        "right": {
+          "primary": 167.3811858972096,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7902674078941345,
+          "scale": 36.78538526758018,
+          "hand_distance": 60.415690556269034
+        }
+      }
+    },
+    {
+      "at_ms": 12012,
+      "sides": {
+        "left": {
+          "primary": 169.77628387346002,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9893901944160461,
+          "scale": 26.377305250310155,
+          "hand_distance": 79.10271626166615
+        },
+        "right": {
+          "primary": 173.4324189645765,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7883293628692627,
+          "scale": 40.256112765398655,
+          "hand_distance": 60.77372257863684
+        }
+      }
+    },
+    {
+      "at_ms": 12212,
+      "sides": {
+        "left": {
+          "primary": 162.14789631106822,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9840826392173767,
+          "scale": 26.113853354838394,
+          "hand_distance": 74.33546230834871
+        },
+        "right": {
+          "primary": 172.68162207638113,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7700067162513733,
+          "scale": 38.26663301675557,
+          "hand_distance": 60.19657581919881
+        }
+      }
+    },
+    {
+      "at_ms": 12412,
+      "sides": {
+        "left": {
+          "primary": 165.60781001453205,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8947942852973938,
+          "scale": 19.58827793401403,
+          "hand_distance": 57.06509323585083
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 12613,
+      "sides": {
+        "left": {
+          "primary": 163.64713835801376,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.954709529876709,
+          "scale": 22.058372055246565,
+          "hand_distance": 63.808765025447826
+        },
+        "right": {
+          "primary": 166.9089979387971,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.5442460179328918,
+          "scale": 32.55532588078552,
+          "hand_distance": 54.99179599567184
+        }
+      }
+    },
+    {
+      "at_ms": 12813,
+      "sides": {
+        "left": {
+          "primary": 161.21541210994187,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9839044809341431,
+          "scale": 25.908246915331496,
+          "hand_distance": 80.35890910509872
+        },
+        "right": {
+          "primary": 176.6031882650429,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8277782797813416,
+          "scale": 36.38389754077464,
+          "hand_distance": 60.72808568031503
+        }
+      }
+    },
+    {
+      "at_ms": 13013,
+      "sides": {
+        "left": {
+          "primary": 161.73415884930708,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9433932900428772,
+          "scale": 25.442723762798696,
+          "hand_distance": 75.23696697653227
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 13213,
+      "sides": {
+        "left": {
+          "primary": 165.94360416058285,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9675812125205994,
+          "scale": 26.83369612457896,
+          "hand_distance": 81.41263818343933
+        },
+        "right": {
+          "primary": 178.71380890783414,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8060826063156128,
+          "scale": 36.81815133938489,
+          "hand_distance": 57.101404304572384
+        }
+      }
+    },
+    {
+      "at_ms": 13413,
+      "sides": {
+        "left": {
+          "primary": 165.43443763175887,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9773358106613159,
+          "scale": 27.105672871135596,
+          "hand_distance": 84.32219468599317
+        },
+        "right": {
+          "primary": 176.28231130257163,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8828977346420288,
+          "scale": 38.57437528801633,
+          "hand_distance": 61.74346006619619
+        }
+      }
+    },
+    {
+      "at_ms": 13614,
+      "sides": {
+        "left": {
+          "primary": 163.36893003007827,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.941524863243103,
+          "scale": 26.861896920375997,
+          "hand_distance": 75.54854155846209
+        },
+        "right": {
+          "primary": 175.65049648553625,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8880520462989807,
+          "scale": 37.31297751823634,
+          "hand_distance": 62.935145742073345
+        }
+      }
+    },
+    {
+      "at_ms": 13814,
+      "sides": {
+        "left": {
+          "primary": 172.4338620932258,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9359824657440186,
+          "scale": 36.68082803366871,
+          "hand_distance": 74.68422350505499
+        },
+        "right": {
+          "primary": 179.76708072499653,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8583749532699585,
+          "scale": 46.27808603833604,
+          "hand_distance": 66.10845321610584
+        }
+      }
+    },
+    {
+      "at_ms": 14014,
+      "sides": {
+        "left": {
+          "primary": 174.75010622814608,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9669870734214783,
+          "scale": 50.871613392439706,
+          "hand_distance": 76.62650755666894
+        },
+        "right": {
+          "primary": 176.89356412858845,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.870185375213623,
+          "scale": 54.48689060171868,
+          "hand_distance": 63.79842174623604
+        }
+      }
+    },
+    {
+      "at_ms": 14214,
+      "sides": {
+        "left": {
+          "primary": 174.7408940521081,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.950664222240448,
+          "scale": 64.133727643531,
+          "hand_distance": 77.41698453790718
+        },
+        "right": {
+          "primary": 177.74858786120416,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7039300799369812,
+          "scale": 64.65267211054436,
+          "hand_distance": 65.77339657967903
+        }
+      }
+    },
+    {
+      "at_ms": 14414,
+      "sides": {
+        "left": {
+          "primary": 172.84003529778784,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9906186461448669,
+          "scale": 69.69756504082049,
+          "hand_distance": 77.87690646919872
+        },
+        "right": {
+          "primary": 174.40786948003498,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7760840654373169,
+          "scale": 68.40618080314094,
+          "hand_distance": 65.35169430426537
+        }
+      }
+    },
+    {
+      "at_ms": 14615,
+      "sides": {
+        "left": {
+          "primary": 173.29817835846092,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9919551014900208,
+          "scale": 70.37372208383542,
+          "hand_distance": 76.85932655724004
+        },
+        "right": {
+          "primary": 173.2268556338937,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7492666840553284,
+          "scale": 67.76808474567531,
+          "hand_distance": 65.73525769111174
+        }
+      }
+    },
+    {
+      "at_ms": 14815,
+      "sides": {
+        "left": {
+          "primary": 174.24369674144037,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9874792098999023,
+          "scale": 70.10362721424653,
+          "hand_distance": 76.2642121023842
+        },
+        "right": {
+          "primary": 172.89245917289597,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7357519865036011,
+          "scale": 67.64023096070476,
+          "hand_distance": 66.64038495681922
+        }
+      }
+    },
+    {
+      "at_ms": 15015,
+      "sides": {
+        "left": {
+          "primary": 175.31755810333001,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.985908567905426,
+          "scale": 70.35104124330284,
+          "hand_distance": 75.72506571858851
+        },
+        "right": {
+          "primary": 171.34717088339187,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7508660554885864,
+          "scale": 67.26069966384205,
+          "hand_distance": 66.80512767859041
+        }
+      }
+    },
+    {
+      "at_ms": 15215,
+      "sides": {
+        "left": {
+          "primary": 176.63544341697968,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.988118588924408,
+          "scale": 70.47300770263818,
+          "hand_distance": 78.00352958710336
+        },
+        "right": {
+          "primary": 173.94778122432166,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7001863718032837,
+          "scale": 67.56220759890448,
+          "hand_distance": 66.36441742343673
+        }
+      }
+    },
+    {
+      "at_ms": 15415,
+      "sides": {
+        "left": {
+          "primary": 175.31042932438643,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9915294647216797,
+          "scale": 71.44550151029716,
+          "hand_distance": 78.17762399491292
+        },
+        "right": {
+          "primary": 172.96942593636635,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7764444947242737,
+          "scale": 69.0481036324359,
+          "hand_distance": 64.33572168386817
+        }
+      }
+    },
+    {
+      "at_ms": 15616,
+      "sides": {
+        "left": {
+          "primary": 172.10005427685917,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9763944745063782,
+          "scale": 63.81082811849534,
+          "hand_distance": 78.15160725001392
+        },
+        "right": {
+          "primary": 178.92250055326318,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7918082475662231,
+          "scale": 64.47004735322386,
+          "hand_distance": 64.54869362319172
+        }
+      }
+    },
+    {
+      "at_ms": 15816,
+      "sides": {
+        "left": {
+          "primary": 169.56411068688953,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9765640497207642,
+          "scale": 52.152992659924436,
+          "hand_distance": 75.56175933002378
+        },
+        "right": {
+          "primary": 179.50105390000834,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.8773847222328186,
+          "scale": 57.24689999918011,
+          "hand_distance": 62.12452494249609
+        }
+      }
+    },
+    {
+      "at_ms": 16016,
+      "sides": {
+        "left": {
+          "primary": 171.0913478996219,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9502244591712952,
+          "scale": 38.73827044460849,
+          "hand_distance": 73.21399281612025
+        },
+        "right": {
+          "primary": 174.03672070626632,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9169389009475708,
+          "scale": 48.67500933116306,
+          "hand_distance": 62.33594197082053
+        }
+      }
+    },
+    {
+      "at_ms": 16216,
+      "sides": {
+        "left": {
+          "primary": 164.45773510729563,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9523319005966187,
+          "scale": 34.65868134781229,
+          "hand_distance": 74.5806603674955
+        },
+        "right": {
+          "primary": 179.08304228593192,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8883643746376038,
+          "scale": 45.38750862669199,
+          "hand_distance": 65.02088872334788
+        }
+      }
+    },
+    {
+      "at_ms": 16416,
+      "sides": {
+        "left": {
+          "primary": 166.4294528722279,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9684941172599792,
+          "scale": 25.090556592709646,
+          "hand_distance": 78.3508756848481
+        },
+        "right": {
+          "primary": 177.41184828807678,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9159303903579712,
+          "scale": 38.033042104360604,
+          "hand_distance": 63.64529211317606
+        }
+      }
+    },
+    {
+      "at_ms": 16617,
+      "sides": {
+        "left": {
+          "primary": 167.5399056849201,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9622704386711121,
+          "scale": 26.207630056913395,
+          "hand_distance": 79.79974162517706
+        },
+        "right": {
+          "primary": 175.75869068078705,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9136998653411865,
+          "scale": 38.8465902719219,
+          "hand_distance": 65.95784195832195
+        }
+      }
+    },
+    {
+      "at_ms": 16817,
+      "sides": {
+        "left": {
+          "primary": 169.42414754694246,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9623305201530457,
+          "scale": 24.543081438090372,
+          "hand_distance": 75.61159078866928
+        },
+        "right": {
+          "primary": 175.39354187561617,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9029608368873596,
+          "scale": 36.92358979842634,
+          "hand_distance": 64.44967985909251
+        }
+      }
+    },
+    {
+      "at_ms": 17017,
+      "sides": {
+        "left": {
+          "primary": 171.0333996305093,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9576700329780579,
+          "scale": 26.988913991070245,
+          "hand_distance": 75.8577394375162
+        },
+        "right": {
+          "primary": 177.46173322079002,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8853616714477539,
+          "scale": 39.122562527447016,
+          "hand_distance": 63.95464419509194
+        }
+      }
+    },
+    {
+      "at_ms": 17217,
+      "sides": {
+        "left": {
+          "primary": 136.1879885834105,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9439020156860352,
+          "scale": 29.9569339082152,
+          "hand_distance": 65.49741203690664
+        },
+        "right": {
+          "primary": 178.73655352725302,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8312779068946838,
+          "scale": 41.71263643370707,
+          "hand_distance": 55.009836483786636
+        }
+      }
+    },
+    {
+      "at_ms": 17417,
+      "sides": {
+        "left": {
+          "primary": 99.38455063033581,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9751503467559814,
+          "scale": 36.83496194601512,
+          "hand_distance": 56.036650418070096
+        },
+        "right": {
+          "primary": 171.5018497043542,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6001418828964233,
+          "scale": 43.92988606521444,
+          "hand_distance": 37.04685216558618
+        }
+      }
+    },
+    {
+      "at_ms": 17618,
+      "sides": {
+        "left": {
+          "primary": 81.05537785441534,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9620510339736938,
+          "scale": 38.657631850388434,
+          "hand_distance": 41.793668932757775
+        },
+        "right": {
+          "primary": 137.69561473343214,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.548954427242279,
+          "scale": 42.275427030258854,
+          "hand_distance": 23.919092828019732
+        }
+      }
+    },
+    {
+      "at_ms": 17818,
+      "sides": {
+        "left": {
+          "primary": 85.59170080567752,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9553731679916382,
+          "scale": 42.957987123716464,
+          "hand_distance": 44.313523448070434
+        },
+        "right": {
+          "primary": 129.13007794912406,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.7036874294281006,
+          "scale": 43.25261769957383,
+          "hand_distance": 28.405448713073273
+        }
+      }
+    },
+    {
+      "at_ms": 18018,
+      "sides": {
+        "left": {
+          "primary": 85.64684736323535,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9494292140007019,
+          "scale": 38.43988696357442,
+          "hand_distance": 44.68145185172842
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 18218,
+      "sides": {
+        "left": {
+          "primary": 104.24870243985602,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9471760392189026,
+          "scale": 37.997337217685576,
+          "hand_distance": 57.7562153196022
+        },
+        "right": {
+          "primary": 178.66484802184635,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7222949266433716,
+          "scale": 45.790229444828924,
+          "hand_distance": 42.83055734984323
+        }
+      }
+    },
+    {
+      "at_ms": 18418,
+      "sides": {
+        "left": {
+          "primary": 144.22369971440645,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.917317271232605,
+          "scale": 33.65700011330019,
+          "hand_distance": 69.50425661492996
+        },
+        "right": {
+          "primary": 178.78905407948184,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8000348210334778,
+          "scale": 43.47549561521499,
+          "hand_distance": 56.28715356223077
+        }
+      }
+    },
+    {
+      "at_ms": 18619,
+      "sides": {
+        "left": {
+          "primary": 174.32633713658197,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8610191345214844,
+          "scale": 27.512704572630504,
+          "hand_distance": 73.13888234098468
+        },
+        "right": {
+          "primary": 179.3168607961976,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6748579740524292,
+          "scale": 40.29778269170245,
+          "hand_distance": 62.62774048089512
+        }
+      }
+    },
+    {
+      "at_ms": 18819,
+      "sides": {
+        "left": {
+          "primary": 170.8108267606545,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9639845490455627,
+          "scale": 27.297361669024767,
+          "hand_distance": 79.93416590847474
+        },
+        "right": {
+          "primary": 175.2754962661825,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8905265927314758,
+          "scale": 41.31946586786055,
+          "hand_distance": 62.773224561872745
+        }
+      }
+    },
+    {
+      "at_ms": 19019,
+      "sides": {
+        "left": {
+          "primary": 176.34777975027586,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9593263864517212,
+          "scale": 30.213849437361116,
+          "hand_distance": 79.61488507698905
+        },
+        "right": {
+          "primary": 176.77342780954248,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8793816566467285,
+          "scale": 42.98806278649596,
+          "hand_distance": 65.05841495333176
+        }
+      }
+    },
+    {
+      "at_ms": 19219,
+      "sides": {
+        "left": {
+          "primary": 157.6065169963981,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9251609444618225,
+          "scale": 29.907784746072895,
+          "hand_distance": 78.40717836054145
+        },
+        "right": {
+          "primary": 179.12260556736257,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8049556612968445,
+          "scale": 41.24272026825684,
+          "hand_distance": 60.955917195971445
+        }
+      }
+    },
+    {
+      "at_ms": 19419,
+      "sides": {
+        "left": {
+          "primary": 110.57383747205643,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9577044248580933,
+          "scale": 33.391701419734986,
+          "hand_distance": 59.940288410317535
+        },
+        "right": {
+          "primary": 177.62796168549795,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7651430368423462,
+          "scale": 43.59272348593498,
+          "hand_distance": 46.90273580795025
+        }
+      }
+    },
+    {
+      "at_ms": 19620,
+      "sides": {
+        "left": {
+          "primary": 80.09802140676665,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9389870762825012,
+          "scale": 37.86700653491484,
+          "hand_distance": 44.38708008687969
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 19820,
+      "sides": {
+        "left": {
+          "primary": 80.5183117140558,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.950076162815094,
+          "scale": 40.373721742102084,
+          "hand_distance": 43.468259066555255
+        },
+        "right": {
+          "primary": 146.03313010845181,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6007595658302307,
+          "scale": 44.194849485471224,
+          "hand_distance": 25.057193619106933
+        }
+      }
+    },
+    {
+      "at_ms": 20020,
+      "sides": {
+        "left": {
+          "primary": 80.54888130712334,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9492807388305664,
+          "scale": 37.96534899459555,
+          "hand_distance": 43.87772684113168
+        },
+        "right": {
+          "primary": 156.56266099508412,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.5328457951545715,
+          "scale": 43.524447189213056,
+          "hand_distance": 24.298182318041558
+        }
+      }
+    },
+    {
+      "at_ms": 20220,
+      "sides": {
+        "left": {
+          "primary": 102.93536306198014,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9637961387634277,
+          "scale": 37.19906559581086,
+          "hand_distance": 58.268817958203314
+        },
+        "right": {
+          "primary": 169.91616197907032,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7055373787879944,
+          "scale": 45.48985426708904,
+          "hand_distance": 39.045704907265865
+        }
+      }
+    },
+    {
+      "at_ms": 20420,
+      "sides": {
+        "left": {
+          "primary": 150.12286990775354,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8968266248703003,
+          "scale": 33.65415958373196,
+          "hand_distance": 73.5228294444694
+        },
+        "right": {
+          "primary": 176.02007336288878,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7127820253372192,
+          "scale": 44.76967567327495,
+          "hand_distance": 58.428728369025066
+        }
+      }
+    },
+    {
+      "at_ms": 20621,
+      "sides": {
+        "left": {
+          "primary": 168.82770519933695,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9759944677352905,
+          "scale": 25.221889800312447,
+          "hand_distance": 79.70030876972857
+        },
+        "right": {
+          "primary": 178.95175791665068,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9218919277191162,
+          "scale": 39.537148736161015,
+          "hand_distance": 63.19668525774524
+        }
+      }
+    },
+    {
+      "at_ms": 20821,
+      "sides": {
+        "left": {
+          "primary": 167.128885219433,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9712098836898804,
+          "scale": 25.806059729781385,
+          "hand_distance": 79.30974806572365
+        },
+        "right": {
+          "primary": 174.7347748306378,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9224790930747986,
+          "scale": 40.72802686720893,
+          "hand_distance": 62.54416124258703
+        }
+      }
+    },
+    {
+      "at_ms": 21021,
+      "sides": {
+        "left": {
+          "primary": 172.57702025537327,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9606389999389648,
+          "scale": 29.038149608410283,
+          "hand_distance": 78.72141269924299
+        },
+        "right": {
+          "primary": 176.72211950641113,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8803171515464783,
+          "scale": 42.75689866048445,
+          "hand_distance": 63.59763386272134
+        }
+      }
+    },
+    {
+      "at_ms": 21221,
+      "sides": {
+        "left": {
+          "primary": 148.80736567194754,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9524493217468262,
+          "scale": 33.09729500986121,
+          "hand_distance": 72.41541652372435
+        },
+        "right": {
+          "primary": 179.71847884442124,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8332808017730713,
+          "scale": 44.26746022865813,
+          "hand_distance": 61.197134611021426
+        }
+      }
+    },
+    {
+      "at_ms": 21421,
+      "sides": {
+        "left": {
+          "primary": 100.87951167341964,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9647982120513916,
+          "scale": 35.14613391160487,
+          "hand_distance": 56.486007986294084
+        },
+        "right": {
+          "primary": 171.26317777871714,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.6268250346183777,
+          "scale": 44.72891894097048,
+          "hand_distance": 42.107705256934636
+        }
+      }
+    },
+    {
+      "at_ms": 21622,
+      "sides": {
+        "left": {
+          "primary": 79.41068388426112,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9495662450790405,
+          "scale": 38.07677049451461,
+          "hand_distance": 42.11286225356768
+        },
+        "right": null
+      }
+    },
+    {
+      "at_ms": 21822,
+      "sides": {
+        "left": {
+          "primary": 82.82487149212848,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9377043843269348,
+          "scale": 37.96612167316988,
+          "hand_distance": 43.41475543139096
+        },
+        "right": {
+          "primary": 143.79992386364208,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.5759546756744385,
+          "scale": 42.19641671688519,
+          "hand_distance": 24.554575097470188
+        }
+      }
+    },
+    {
+      "at_ms": 22022,
+      "sides": {
+        "left": {
+          "primary": 82.20761146687515,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9442597031593323,
+          "scale": 38.078680465252056,
+          "hand_distance": 43.81139170342798
+        },
+        "right": {
+          "primary": 136.43556020900178,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.6815832853317261,
+          "scale": 42.75538179657075,
+          "hand_distance": 25.604445752604178
+        }
+      }
+    },
+    {
+      "at_ms": 22222,
+      "sides": {
+        "left": {
+          "primary": 86.95306539260342,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9568343758583069,
+          "scale": 36.80129452191832,
+          "hand_distance": 50.056080925628734
+        },
+        "right": {
+          "primary": 177.34547029116172,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.573297381401062,
+          "scale": 45.028495966250134,
+          "hand_distance": 29.7496308805434
+        }
+      }
+    },
+    {
+      "at_ms": 22422,
+      "sides": {
+        "left": {
+          "primary": 137.15544910738268,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9554387331008911,
+          "scale": 34.199533659871356,
+          "hand_distance": 65.81838297088788
+        },
+        "right": {
+          "primary": 170.00171366300066,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7203022241592407,
+          "scale": 44.4552352837332,
+          "hand_distance": 54.25272272411181
+        }
+      }
+    },
+    {
+      "at_ms": 22623,
+      "sides": {
+        "left": {
+          "primary": 178.68291849655296,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9159491062164307,
+          "scale": 35.99571944797926,
+          "hand_distance": 70.0489945773451
+        },
+        "right": {
+          "primary": 178.24855252785827,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.7926231026649475,
+          "scale": 47.03328650585166,
+          "hand_distance": 63.109069022581096
+        }
+      }
+    },
+    {
+      "at_ms": 22823,
+      "sides": {
+        "left": {
+          "primary": 171.7713284216408,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9226430654525757,
+          "scale": 35.51773125396737,
+          "hand_distance": 72.35033506172539
+        },
+        "right": {
+          "primary": 178.29203672348075,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8228372931480408,
+          "scale": 43.80060680928948,
+          "hand_distance": 64.17091376187449
+        }
+      }
+    },
+    {
+      "at_ms": 23023,
+      "sides": {
+        "left": {
+          "primary": 177.05710781367145,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9402608871459961,
+          "scale": 35.59032493774932,
+          "hand_distance": 73.39504956564265
+        },
+        "right": {
+          "primary": 178.2825889296456,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8044148683547974,
+          "scale": 45.175813027129436,
+          "hand_distance": 63.178962891310775
+        }
+      }
+    },
+    {
+      "at_ms": 23223,
+      "sides": {
+        "left": {
+          "primary": 173.70869848024566,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9498619437217712,
+          "scale": 46.988519439363586,
+          "hand_distance": 73.88350918446739
+        },
+        "right": {
+          "primary": 172.4699712151262,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8877043128013611,
+          "scale": 53.40634428861556,
+          "hand_distance": 64.42734095559928
+        }
+      }
+    },
+    {
+      "at_ms": 23423,
+      "sides": {
+        "left": {
+          "primary": 175.8355907845763,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9822386503219604,
+          "scale": 61.51197317307534,
+          "hand_distance": 78.13714710382729
+        },
+        "right": {
+          "primary": 175.91122773116047,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.7824937701225281,
+          "scale": 64.20829445672204,
+          "hand_distance": 64.02952212953417
+        }
+      }
+    },
+    {
+      "at_ms": 23624,
+      "sides": {
+        "left": {
+          "primary": 172.8679656700871,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9819726943969727,
+          "scale": 67.8235492369413,
+          "hand_distance": 77.63296674741073
+        },
+        "right": {
+          "primary": 179.95372117610123,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7022202014923096,
+          "scale": 66.71097773568806,
+          "hand_distance": 65.17308047584329
+        }
+      }
+    },
+    {
+      "at_ms": 23824,
+      "sides": {
+        "left": {
+          "primary": 175.76973655151463,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.989919900894165,
+          "scale": 69.11695125674055,
+          "hand_distance": 76.7332246066026
+        },
+        "right": {
+          "primary": 176.22114102578522,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7414868474006653,
+          "scale": 67.34178812011903,
+          "hand_distance": 66.12076180618777
+        }
+      }
+    },
+    {
+      "at_ms": 24024,
+      "sides": {
+        "left": {
+          "primary": 176.41513187888896,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9922181367874146,
+          "scale": 70.69462938620286,
+          "hand_distance": 77.70175551111157
+        },
+        "right": {
+          "primary": 175.37155154517197,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.656170666217804,
+          "scale": 68.1354003527619,
+          "hand_distance": 68.26657202091232
+        }
+      }
+    },
+    {
+      "at_ms": 24224,
+      "sides": {
+        "left": {
+          "primary": 178.24911424968423,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9910215735435486,
+          "scale": 70.71106746679777,
+          "hand_distance": 77.32449770501262
+        },
+        "right": {
+          "primary": 173.93273099519257,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.6767632961273193,
+          "scale": 67.19514948573836,
+          "hand_distance": 68.2360404427703
+        }
+      }
+    },
+    {
+      "at_ms": 24424,
+      "sides": {
+        "left": {
+          "primary": 177.38467293462267,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9875785708427429,
+          "scale": 69.21266186906271,
+          "hand_distance": 77.82776774015768
+        },
+        "right": {
+          "primary": 175.65815750058258,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7029863595962524,
+          "scale": 67.03775704422404,
+          "hand_distance": 67.0618485097024
+        }
+      }
+    },
+    {
+      "at_ms": 24625,
+      "sides": {
+        "left": {
+          "primary": 174.29394952454706,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9934365749359131,
+          "scale": 68.51927477215284,
+          "hand_distance": 77.50185632446029
+        },
+        "right": {
+          "primary": 179.3740649183156,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7632178068161011,
+          "scale": 67.16332685455713,
+          "hand_distance": 64.5466245912219
+        }
+      }
+    },
+    {
+      "at_ms": 24825,
+      "sides": {
+        "left": {
+          "primary": 178.1479908062445,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9678754806518555,
+          "scale": 60.32617057272214,
+          "hand_distance": 77.26740436843984
+        },
+        "right": {
+          "primary": 176.93725587284948,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.7984727025032043,
+          "scale": 61.710669394226734,
+          "hand_distance": 66.04498117966997
+        }
+      }
+    },
+    {
+      "at_ms": 25025,
+      "sides": {
+        "left": {
+          "primary": 173.21225589467122,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9298252463340759,
+          "scale": 44.42954585070762,
+          "hand_distance": 75.81954069168407
+        },
+        "right": {
+          "primary": 174.49402558589716,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8378812074661255,
+          "scale": 51.344876155416564,
+          "hand_distance": 64.39530422763976
+        }
+      }
+    },
+    {
+      "at_ms": 25225,
+      "sides": {
+        "left": {
+          "primary": 174.7074061530924,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.9354881048202515,
+          "scale": 33.52251355113023,
+          "hand_distance": 77.18489564624275
+        },
+        "right": {
+          "primary": 178.31025081250482,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8406838774681091,
+          "scale": 42.15256528786725,
+          "hand_distance": 66.97693814903589
+        }
+      }
+    },
+    {
+      "at_ms": 25425,
+      "sides": {
+        "left": {
+          "primary": 166.72888758997416,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9809340834617615,
+          "scale": 26.90573335985754,
+          "hand_distance": 81.55754292769775
+        },
+        "right": {
+          "primary": 178.52821778989838,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9342780709266663,
+          "scale": 40.985254106318926,
+          "hand_distance": 63.512758812583286
+        }
+      }
+    },
+    {
+      "at_ms": 25626,
+      "sides": {
+        "left": {
+          "primary": 166.98691071241694,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.976459801197052,
+          "scale": 31.52675575817717,
+          "hand_distance": 83.0920938195036
+        },
+        "right": {
+          "primary": 179.59465581400968,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9263169765472412,
+          "scale": 41.80476881584708,
+          "hand_distance": 62.19478692168197
+        }
+      }
+    },
+    {
+      "at_ms": 25826,
+      "sides": {
+        "left": {
+          "primary": 167.21856478432545,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.988438069820404,
+          "scale": 29.201924865645893,
+          "hand_distance": 80.9123018633888
+        },
+        "right": {
+          "primary": 178.8743895469375,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9579773545265198,
+          "scale": 39.2102427748001,
+          "hand_distance": 62.180193310199584
+        }
+      }
+    },
+    {
+      "at_ms": 26026,
+      "sides": {
+        "left": {
+          "primary": 171.68635865901248,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9879975318908691,
+          "scale": 30.893716807007284,
+          "hand_distance": 87.18370139325116
+        },
+        "right": {
+          "primary": 178.2936585163174,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9313214421272278,
+          "scale": 38.384049139624736,
+          "hand_distance": 62.085885082351176
+        }
+      }
+    },
+    {
+      "at_ms": 26226,
+      "sides": {
+        "left": {
+          "primary": 169.7361305571165,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9814345836639404,
+          "scale": 29.321781916184158,
+          "hand_distance": 82.37513631924223
+        },
+        "right": {
+          "primary": 178.5629479712999,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.9384011626243591,
+          "scale": 42.51840382585093,
+          "hand_distance": 63.89810286937059
+        }
+      }
+    },
+    {
+      "at_ms": 26426,
+      "sides": {
+        "left": {
+          "primary": 170.1964527480091,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.912674069404602,
+          "scale": 37.25327740553097,
+          "hand_distance": 72.22894524269677
+        },
+        "right": {
+          "primary": 178.76404372856757,
+          "start": true,
+          "continuation": true,
+          "confidence": 0.8818469643592834,
+          "scale": 46.95725015961603,
+          "hand_distance": 64.70156213675081
+        }
+      }
+    },
+    {
+      "at_ms": 26627,
+      "sides": {
+        "left": {
+          "primary": 161.3774943553248,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9766861796379089,
+          "scale": 56.29153391344142,
+          "hand_distance": 74.98245552494627
+        },
+        "right": {
+          "primary": 179.22223745268934,
+          "start": false,
+          "continuation": true,
+          "confidence": 0.8459064364433289,
+          "scale": 58.57078476698916,
+          "hand_distance": 66.33182621363792
+        }
+      }
+    },
+    {
+      "at_ms": 26827,
+      "sides": {
+        "left": {
+          "primary": 155.20188624280598,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9903168678283691,
+          "scale": 67.72976929703135,
+          "hand_distance": 74.44339446853877
+        },
+        "right": {
+          "primary": 178.06732070560955,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7724430561065674,
+          "scale": 65.15215724884376,
+          "hand_distance": 66.27068772907379
+        }
+      }
+    },
+    {
+      "at_ms": 27027,
+      "sides": {
+        "left": {
+          "primary": 155.88118855642196,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9919183850288391,
+          "scale": 70.1474835785829,
+          "hand_distance": 70.66865333427785
+        },
+        "right": {
+          "primary": 175.17205352461363,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.8152340054512024,
+          "scale": 66.09600419714262,
+          "hand_distance": 65.10192815496742
+        }
+      }
+    },
+    {
+      "at_ms": 27227,
+      "sides": {
+        "left": {
+          "primary": 156.19021303416335,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9930928945541382,
+          "scale": 70.68472276109769,
+          "hand_distance": 71.22336241398347
+        },
+        "right": {
+          "primary": 177.8381931291846,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7806420922279358,
+          "scale": 66.72627939603963,
+          "hand_distance": 65.56273974900971
+        }
+      }
+    },
+    {
+      "at_ms": 27427,
+      "sides": {
+        "left": {
+          "primary": 155.37736238756014,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9934724569320679,
+          "scale": 70.129283407417,
+          "hand_distance": 70.99765861486831
+        },
+        "right": {
+          "primary": 177.7226029000392,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7399723529815674,
+          "scale": 65.47198339186731,
+          "hand_distance": 66.37904880887558
+        }
+      }
+    },
+    {
+      "at_ms": 27628,
+      "sides": {
+        "left": {
+          "primary": 164.1383135823291,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9932150840759277,
+          "scale": 69.90404628099537,
+          "hand_distance": 72.25564109420816
+        },
+        "right": {
+          "primary": 179.21284459573795,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7290562987327576,
+          "scale": 65.16179793922069,
+          "hand_distance": 67.42879710492984
+        }
+      }
+    },
+    {
+      "at_ms": 27828,
+      "sides": {
+        "left": {
+          "primary": 161.30310748730088,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9905965328216553,
+          "scale": 71.12192064490829,
+          "hand_distance": 71.765438135531
+        },
+        "right": {
+          "primary": 178.94648439265902,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7240602374076843,
+          "scale": 66.02421661436347,
+          "hand_distance": 66.916355953543
+        }
+      }
+    },
+    {
+      "at_ms": 28028,
+      "sides": {
+        "left": {
+          "primary": 161.02039155050164,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9933419823646545,
+          "scale": 70.907445654987,
+          "hand_distance": 71.40740977271408
+        },
+        "right": {
+          "primary": 178.7000139759453,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7382811307907104,
+          "scale": 65.7545784978684,
+          "hand_distance": 66.76755696342256
+        }
+      }
+    },
+    {
+      "at_ms": 28228,
+      "sides": {
+        "left": {
+          "primary": 163.3044908334776,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9942187070846558,
+          "scale": 70.05893737711537,
+          "hand_distance": 71.23156255386588
+        },
+        "right": {
+          "primary": 177.95978121306015,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.767632782459259,
+          "scale": 65.1487182726094,
+          "hand_distance": 66.1352959737662
+        }
+      }
+    },
+    {
+      "at_ms": 28428,
+      "sides": {
+        "left": {
+          "primary": 161.10179216772403,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.9943934679031372,
+          "scale": 68.94389967017759,
+          "hand_distance": 72.11031915122881
+        },
+        "right": {
+          "primary": 179.14978694029395,
+          "start": false,
+          "continuation": false,
+          "confidence": 0.7283618450164795,
+          "scale": 63.82081553888615,
+          "hand_distance": 66.82949280272835
+        }
+      }
+    }
+  ],
+  "parameter_basis": "候选145度伸臂起点、25度肘屈伸幅度、0.15起点躯干长的手肩距离变化用于可分周期，不是幅度合格线。俯身范围用于区别站起结束，较宽持续范围允许躯干摆动；质量交步骤17。参数仅在本开发素材上诊断，尚未通过独立效果验收。",
+  "evidence_status": "development_input_only_no_independent_ground_truth",
+  "limitations": [
+    "单一人物、斜侧面；模型关键点并不能证明被器械遮挡的部位真实可见",
+    "不识别器械种类、杠铃路径、重量或脊柱曲度",
+    "无逐次／质量独立标签；本次观察和输出不能充当准确率"
+  ],
+  "resource_parameters": {
+    "barbell_bent_over_row": "582fc78c31a9f84682a254f6f93a3113c38ced541a261e32fa9f30531bde4fee"
+  },
+  "resource_implementations": {
+    "barbell_bent_over_row": {
+      "pose_model_sha256": "5134a3aad27a58b93da0088d431f366da362b44e3ccfbe3462b3827a839011b1",
+      "frame_schema": 1,
+      "visibility_threshold": 0.5,
+      "content_bounds": {
+        "version": 1,
+        "config": {
+          "dark_max": 32,
+          "uniform_range": 16,
+          "minimum_pixels": 4,
+          "minimum_fraction": 0.01,
+          "maximum_fraction": 0.25,
+          "symmetry_fraction": 0.025,
+          "interior_pixels": 16,
+          "interior_contrast": 12,
+          "interior_fraction": 0.55
+        },
+        "source_sha256": "09c1e1d1cad293d8db1ecaa6d82fc923ea69e65cabbf77df3a90d798846140f8"
+      },
+      "framing_requirements": [
+        [
+          11,
+          13,
+          15,
+          23,
+          25,
+          27,
+          31
+        ],
+        [
+          12,
+          14,
+          16,
+          24,
+          26,
+          28,
+          32
+        ]
+      ],
+      "code": {
+        "CycleConfig": "c87c96125453cedea1f32e44c270df9b641f572d93c824080b81b244c6d1224b",
+        "CycleTracker": "9d96a6aa9fd49f1ae74b0a13dbcac4b6198eb658a3054cfa3249c2d1100a4375",
+        "BarbellRowConfig": "0a07a0b8b807c9a49d628a530cfcb59a82883a42bf4a38aa9beddd2c7a7f7ef3",
+        "BarbellRowCounter": "142f620f3471a8ae4e8959caacfaec3102e739550ee2e447ee1941826a75b7d9",
+        "row_observation": "82fdab0b61f6fd49985b84b302d07046c3a62fc749829cff1dc7f8aa502134de",
+        "usable_point": "4fd41e49cf84b261f87e474cb0be997064a9410ae7fa2179b275eb38c112a6eb",
+        "framing": "25a58e32e674c1479c8fdf238e9473234b8f785a4f618f6effa80121fed23a8b",
+        "calculate_angle": "355dc8acb7f3f90f610c0d511b00d1d5cb041ed1aa23411405dc4f574da07e77"
+      }
+    }
+  },
+  "actions": {
+    "barbell_bent_over_row": {
+      "counter_cases": 1,
+      "events": 3,
+      "hold_ms": 0,
+      "frames": 855
+    }
+  }
+}

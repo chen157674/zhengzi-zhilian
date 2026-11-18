@@ -4,6 +4,7 @@
 
 | 来源 | 本项目使用方式 | 许可与记录 |
 | --- | --- | --- |
+| Apache ECharts 6.1.0 | 成长看板的折线、柱状图与SVG交互；本地固定发行构建 | Apache-2.0，`third_party/echarts/LICENSE`、`NOTICE`及`third_party/sources.json`固定提交/SHA |
 | Flask、Jinja、SQLAlchemy、Waitress | Web服务、模板、数据映射与本机HTTP服务 | 按各发行包的许可证分发 |
 | MediaPipe | 人体姿态关键点输入 | Apache-2.0，`data/models/manifest.json`与`data/models/LICENSE` |
 | OpenMMLab MMPose、RTMPose、RTMDet | ONNX身体/手部关键点与输入适配 | Apache-2.0，固定权重摘要见`资源清单.json` |

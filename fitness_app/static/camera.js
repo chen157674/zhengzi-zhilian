@@ -10,13 +10,13 @@ let processedStamps=[],resultTimer=null,resultController=null,lastDrawn=-1;
 const pendingFrames=new Map();
 function stopFlow(){generation++;clearTimeout(timer);clearTimeout(resultTimer);timer=resultTimer=null;controller?.abort();resultController?.abort();controller=resultController=null;pendingFrames.clear();lastDrawn=-1}
 const connections=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[27,29],[29,31],[28,30],[30,32]];
-const failureMessages={NotAllowedError:'摄像头授权被拒绝，请在浏览器站点权限中允许后重试。',NotFoundError:'没有找到可用摄像头。',NotReadableError:'摄像头无法读取，可能正被其他应用占用。',OverconstrainedError:'所选设备不可用，请重新选择。'};
+const failureMessages={NotAllowedError:'摄像头授权被拒绝，请在浏览器站点权限中允许后重试。',NotFoundError:'没有找到可用摄像头。',NotReadableError:'请关闭其他应用中的摄像头后重试。',OverconstrainedError:'请重新选择摄像头。'};
 function status(text,error=false){message.textContent=text;message.classList.toggle('error',error)}
 function updateControls(){toggle.disabled=opening||closing>0;toggle.textContent=opening?'正在开启…':stream?'关闭摄像头':'开启摄像头';toggle.dataset.action=stream?'camera.close':'camera.open';devices.disabled=opening||closing>0||!stream;document.querySelector('#realtime-start').disabled=true}
 async function releasePreview(value,keepalive=false){
   if(!value||!csrf)return;
   const response=await fetch(`/api/v1/previews/${value.preview_id}`,{method:'DELETE',headers:{'Content-Type':'application/json','X-CSRFToken':csrf,'Idempotency-Key':crypto.randomUUID()},credentials:'same-origin',cache:'no-store',keepalive,signal:keepalive?undefined:AbortSignal.timeout(2000),body:JSON.stringify({preview_token:value.preview_token,stream_epoch:value.stream_epoch})});
-  if(!response.ok)throw new Error('预览释放尚未确认');
+  if(!response.ok)throw new Error('待关闭预览');
   if(!keepalive){for(let attempt=0;attempt<20;attempt++){const snapshot=await api('/api/v1/previews/'+value.preview_id);if(!snapshot.queue.processing)return;await new Promise(resolve=>setTimeout(resolve,100))}throw new Error('预览引擎仍在释放，请稍后重新开启。')}
 }
 async function close({leaving=false,notice=true}={}){
@@ -29,7 +29,7 @@ async function close({leaving=false,notice=true}={}){
   document.querySelector('#preview-model-status').textContent='预览未开启。';updateControls();
   status('当前未采集画面；继续分析前需要重新检查取景。');
   try{await releasePreview(old,leaving);if(notice)status('摄像头已关闭；准备预览未生成训练记录。')}
-  catch{if(notice)status('摄像头已关闭；服务端释放尚未确认，原预览会在输入租约到期后释放。',true)}
+  catch{if(notice)status('摄像头已关闭，正在释放预览。',true)}
   finally{closing--;updateControls()}
 }
 async function refreshDevices(){
@@ -54,7 +54,7 @@ async function draw(result,packet,epoch){
   }
   document.querySelector('#camera-empty').hidden=true;canvas.hidden=false;
   status(result.framing.ready_for_tracking?'取景已稳定，请保持所需部位完整入镜。':result.framing.message);
-  document.querySelector('#preview-model-status').textContent=root.dataset.countingAvailable==='1'?'姿态模型已加载。准备画面不计次数。':'姿态预览模型已加载。动作分析能力尚未开放。';
+  document.querySelector('#preview-model-status').textContent=root.dataset.countingAvailable==='1'?'姿态模型已加载。准备画面不计次数。':'姿态预览模型已加载。';
   processedStamps.push({stamp:result.captured_ms,usable:result.framing.usable});if(processedStamps.length>60)processedStamps.shift();
   const span=processedStamps.at(-1).stamp-processedStamps[0].stamp,fps=processedStamps.length>1&&span>0?(processedStamps.length-1)*1000/span:null;
   const usableFps=fps===null?null:processedStamps.slice(1).filter(frame=>frame.usable).length*1000/span;
@@ -65,11 +65,11 @@ async function capture(epoch){
   if(pendingFrames.size>=2){timer=setTimeout(()=>capture(epoch),15);return}
   const requestController=new AbortController();controller=requestController;const signal=requestController.signal;const timeout=setTimeout(()=>requestController.abort(),15000);
   try{
-    if(!video.videoWidth||!video.videoHeight)throw new Error('尚未取得摄像头画面，请重新开启。');
+    if(!video.videoWidth||!video.videoHeight)throw new Error('请重新开启摄像头。');
     const capturedAt=performance.now();
     const scale=Math.min(1,1280/video.videoWidth,720/video.videoHeight),width=Math.max(1,Math.floor(video.videoWidth*scale)),height=Math.max(1,Math.floor(video.videoHeight*scale));
     if(buffer.width!==width||buffer.height!==height){buffer.width=width;buffer.height=height}buffer.getContext('2d').drawImage(video,0,0,buffer.width,buffer.height);
-    const blob=await new Promise(resolve=>buffer.toBlob(resolve,'image/jpeg',.8));if(epoch!==generation)return;if(!blob)throw new Error('无法生成预览帧。');
+    const blob=await new Promise(resolve=>buffer.toBlob(resolve,'image/jpeg',.8));if(epoch!==generation)return;if(!blob)throw new Error('请重试获取预览画面。');
     const binding=sessionBinding?{...sessionBinding}:null;
     const seq=sequence++,metadata={stream_epoch:binding?binding.stream_epoch:preview.stream_epoch,frame_seq:seq,captured_ms:Math.floor(capturedAt-began),width:buffer.width,height:buffer.height};
     if(binding)metadata.controller_epoch=binding.controller_epoch;
@@ -99,7 +99,7 @@ async function pollResults(epoch){
     if(epoch!==generation)return;
     if(!current.ok)throw new RequestError(value.error?.message||'预览读取失败',current.status,{},value.error?.code);
     if(binding){snapshotListener?.(value.data);if(epoch!==generation)return}
-    else if(value.data.status!=='active')throw new Error(value.data.status==='failed'?'姿态预览不可用，请关闭后重试。':'预览已释放，请重新开启摄像头。');
+    else if(value.data.status!=='active')throw new Error(value.data.status==='failed'?'请重新开启姿态预览。':'预览已释放，请重新开启摄像头。');
     const result=binding&&value.data.latest_frame?{...value.data.latest_frame,skeleton:value.data.skeleton}:value.data.result;
     if(result&&result.frame_seq>lastDrawn){
       const packet=pendingFrames.get(result.frame_seq);
@@ -115,7 +115,7 @@ async function open(deviceId=''){
   if(opening||closing>0)return;
   await close({notice:false});if(document.hidden)return;opening=true;updateControls();const epoch=generation;
   try{
-    if(!navigator.mediaDevices?.getUserMedia)throw new Error('当前浏览器无法使用摄像头，请用 Edge 或 Chrome 从本机地址打开。');
+    if(!navigator.mediaDevices?.getUserMedia)throw new Error('请使用 Edge 或 Chrome 从本机地址打开摄像头。');
     status('正在申请摄像头权限…');
     const media=await navigator.mediaDevices.getUserMedia({audio:false,video:{width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30,max:30},...(deviceId?{deviceId:{exact:deviceId}}:{})}});
     if(epoch!==generation){for(const track of media.getTracks())track.stop();return}
@@ -127,12 +127,12 @@ async function open(deviceId=''){
     const settings=stream.getVideoTracks()[0].getSettings();document.querySelector('#capture-settings').textContent=`实际采集 ${settings.width??'未知'}×${settings.height??'未知'} · ${settings.frameRate?settings.frameRate.toFixed(1):'未知'} fps`;
     stream.getVideoTracks()[0].addEventListener('ended',async()=>{if(epoch!==generation)return;await close({notice:false});status('摄像头已断开或权限被撤销，请重新选择设备。',true)},{once:true});
     await refreshDevices();status('正在加载姿态预览…');capture(epoch);
-  }catch(error){if(epoch!==generation)return;await close({notice:false});if(!privateError(error))status(failureMessages[error.name]||error.message||'摄像头未能开启。',true)}
+  }catch(error){if(epoch!==generation)return;await close({notice:false});if(!privateError(error))status(failureMessages[error.name]||error.message||'请检查摄像头权限后重试。',true)}
   finally{opening=false;updateControls()}
 }
 toggle.onclick=()=>stream?close():open();devices.onchange=()=>open(devices.value);
 document.querySelector('#camera-mirror').onchange=event=>canvas.classList.toggle('mirrored',event.target.checked);
-if(navigator.mediaDevices)navigator.mediaDevices.addEventListener('devicechange',()=>{if(stream)refreshDevices().catch(()=>status('设备列表无法更新，请重新开启摄像头。',true))});
+if(navigator.mediaDevices)navigator.mediaDevices.addEventListener('devicechange',()=>{if(stream)refreshDevices().catch(()=>status('请重新开启摄像头并刷新设备列表。',true))});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(stream||opening))close()});
 window.fitnessLeaveGuard=async()=>{await close({notice:false});return true};
 window.addEventListener('pagehide',()=>{close({leaving:true,notice:false})});
@@ -149,10 +149,10 @@ export const cameraControl={
     if(!stream)await open();
     for(let attempt=0;attempt<120;attempt++){
       const current=this.current();if(current?.ready)return current;
-      if(!stream)throw new Error(message.textContent||'摄像头尚未就绪');
+      if(!stream)throw new Error(message.textContent||'正在准备摄像头');
       await new Promise(resolve=>setTimeout(resolve,100));
     }
-    throw new Error('必要部位尚未持续可见，请调整取景后重试。');
+    throw new Error('请调整取景，让肩、髋、膝、踝持续入镜。');
   },
   attach(binding){
     if(!stream)throw new Error('当前页摄像头已关闭，请重新取景。');

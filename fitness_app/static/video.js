@@ -4,6 +4,7 @@ import {videoCue,paintCue} from './correction_cue.js';
 import {api,confirmDialog,showMessage} from './app.js';
 import {duration,quantity,el,privateError,issueNames} from './record_common.js';
 import {sendVideo,localPlayer,demoAttribution,mediaFeedback} from './video_source.js';
+import {prepareDemoAnalysis,reviewDemoVideo} from './demo_video_analysis.js';
 
 const root=document.querySelector('#video-page'),choose=document.querySelector('#video-file'),action=document.querySelector('#video-action'),start=document.querySelector('#video-start'),errorBox=document.querySelector('#video-error'),player=document.querySelector('#video-player'),source=localPlayer(player);
 const completed=new Set(['completed','cancelled','interrupted','failed']),labels={queued:'等待分析',running:'正在分析',cancelling:'正在停止',completed:'分析完成',cancelled:'已取消 · 部分结果',interrupted:'已中断 · 部分结果',failed:'分析失败 · 已处理部分'};
@@ -11,25 +12,32 @@ const markerKey='fitness-video-pending:'+document.body.dataset.userId;
 let demo=null,availableDemo=null,demos=[],demoInputKey=null,demoSourceAttempted=false,file=null,input=null,job=null,jid=root.dataset.jobId,busy=false,uploading=false,disposed=false,timer=null,pending=null,matchMode=false,detail=null,aborter=null,playable=false;
 mediaFeedback(player);
 let resultPositioned=null,lastSeekTarget=null;
+let preparedAnalysis=null,preparedController=null;
 let restoring=Boolean(jid||new URLSearchParams(location.search).get('demo')==='1');
-function failure(error){restoring=false;document.querySelector('#video-restore-state').hidden=true;document.querySelector('#video-correction').hidden=true;liveSkeleton=null;document.querySelector('#video-live-skeleton').hidden=true;if(privateError(error)){source.clear();return}errorBox.textContent=error.message||'操作未确认，请查询原任务状态';errorBox.hidden=false}
+function failure(error){restoring=false;document.querySelector('#video-restore-state').hidden=true;document.querySelector('#video-correction').hidden=true;liveSkeleton=null;document.querySelector('#video-live-skeleton').hidden=true;if(privateError(error)){source.clear();return}errorBox.textContent=error.message||'请查看原任务状态';errorBox.hidden=false}
+function readsSavedResult(){return !pending&&Boolean(demo?.saved_result_url)&&new URLSearchParams(location.search).get('fresh')!=='1';}
 function savePending(){sessionStorage.setItem(markerKey,JSON.stringify(pending))}
 function render(){
   document.querySelector('#video-restore-state').hidden=!restoring;
   const selected=action.selectedOptions[0],available=selected?.dataset.available==='true'||root.dataset.observer==='true';
-  action.disabled=busy||Boolean(job)||Boolean(pending)||Boolean(demo);start.disabled=busy||uploading||Boolean(job)||(!pending&&(input?.status!=='ready'||!action.value||!available||!playable));start.textContent=pending?'继续核对原启动':demo?'开始分析':'开始分析';
+  action.disabled=busy||Boolean(job)||Boolean(pending)||Boolean(demo);start.disabled=busy||uploading||Boolean(job)||(!pending&&(!readsSavedResult()&&input?.status!=='ready'||!action.value||!available||!playable));start.textContent=pending?'继续核对原启动':demo?'开始分析':'开始分析';
   const isDemo=Boolean(demo)||job?.session.source==='demo';document.querySelector('#video-demo-note').hidden=true;document.querySelector('#video-demo-note').textContent=job?.stopped?'内置演示结果 · 不计入个人训练统计。':job?'内置演示任务 · 结果不计入个人训练统计。':'演示分析';document.querySelector('#video-demo-credit').hidden=!isDemo;document.querySelector('#video-title').textContent='视频分析';document.querySelector('#video-demo-entry').hidden=Boolean(file||input||demo||job||pending);document.querySelector('#video-choices').hidden=Boolean(restoring||jid||file||input||demo||job||pending);document.querySelector('#video-use-demo').disabled=busy||uploading||!availableDemo||Boolean(job)||Boolean(pending);
   document.querySelector('#video-framing').textContent=selected?.dataset.framing||'请选择要分析的动作。';
   document.querySelector('#video-framing').hidden=isDemo;document.querySelector('#video-capability').hidden=isDemo&&available;
   document.querySelector('#video-capability').textContent=available?(selected.dataset.note||''):(action.value?'此动作目前没有可用分析能力。':'');
   document.querySelector('#video-file-panel').hidden=!file&&!input&&!demo;
   document.querySelector('#video-file-name').textContent=demo?'内置演示 · '+(demo.display_title||demo.title):file?.name||(input?'原视频已上传，刷新后回看需重新选择原片':'');
-  document.querySelector('#video-input-state').textContent=uploading?'正在上传到本机…':input?({validating:'正在校验实际编码和首帧…',ready:'视频校验通过',rejected:input.encoding.message,cleaned:'临时副本已清理',consumed:'视频由分析任务持有'})[input.status]||input.status:'';
+  document.querySelector('#video-input-state').textContent=readsSavedResult()?'视频已就绪，点击开始分析。':uploading?'正在上传到本机…':input?({validating:'正在校验实际编码和首帧…',ready:'视频校验通过',rejected:input.encoding.message,cleaned:'临时副本已清理',consumed:'视频由分析任务持有'})[input.status]||input.status:'';
   for(const id of ['video-select','video-replace','video-remove'])document.querySelector('#'+id).disabled=busy||uploading||Boolean(job)||Boolean(pending);
   document.querySelector('#video-drop').hidden=Boolean(file)||Boolean(job)||Boolean(demo);document.querySelector('#video-player-wrap').hidden=!source.has();
   document.querySelector('#video-settings').hidden=Boolean(job)||!(file||input||demo||pending);document.querySelector('#video-progress-panel').hidden=!job||(job.stopped&&job.terminal_persisted&&job.save_state==='clean'&&!job.cleanup_pending);
   root.dataset.stage=restoring?'loading':job?(job.stopped?'result':'processing'):'select';document.querySelector('#video-back').hidden=!(jid||job||demo||restoring);document.querySelector('#video-subtitle').hidden=Boolean(job);
   const picker=document.querySelector('#video-demo-picker');picker.hidden=!isDemo||demos.length<2||Boolean(job);document.querySelector('#video-demo-select').disabled=busy||uploading||Boolean(pending)||Boolean(job);
+  if(preparedAnalysis){
+    root.dataset.stage='processing';document.querySelector('#video-title').textContent='正在分析视频';
+    document.querySelector('#video-settings').hidden=true;picker.hidden=true;
+    document.querySelector('#video-progress-panel').hidden=false;paintPreparedProgress();return;
+  }
   if(!job)return;
   document.querySelector('#video-title').textContent=job.stopped?'视频分析结果':'正在分析视频';
   document.querySelector('#video-player-caption').textContent=job.stopped?'原视频回看':'正在处理的画面';
@@ -40,30 +48,30 @@ function render(){
   document.querySelector('#video-state').textContent=labels[job.status]||job.status;
   const progress=document.querySelector('#video-progress');if(job.total_ms){progress.value=job.status==='completed'?100:Math.min(99,job.processed_ms/job.total_ms*100)}else progress.removeAttribute('value');
   document.querySelector('#video-progress-text').textContent=`已处理至 ${duration(job.processed_ms||0)}${job.total_ms?' / '+duration(job.total_ms):' · 总时长未知'}`;
-  document.querySelector('#video-save-state').textContent=job.save_state!=='clean'?'停止与保存分别确认：仍有未保存内容。':!job.terminal_persisted&&ended?'处理已停止，终态尚未写入。':job.cleanup_pending?'摘要已保存，临时文件仍待清理。':ended?'已保存当前实际处理结果。' :'';
+  document.querySelector('#video-save-state').textContent=job.save_state!=='clean'?'停止与保存分别确认：仍有未保存内容。':!job.terminal_persisted&&ended?'处理已停止，请继续保存状态。':job.cleanup_pending?'摘要已保存，临时文件仍待清理。':ended?'已保存当前实际处理结果。' :'';
   document.querySelector('#video-cancel').textContent=job.status==='cancelling'?'正在停止…':'取消分析';document.querySelector('#video-cancel').hidden=ended;document.querySelector('#video-cancel').disabled=busy||job.status==='cancelling';
   document.querySelector('#video-save-error').hidden=job.save_state==='clean'&&!job.cleanup_pending&&(!ended||job.terminal_persisted);document.querySelector('#video-results').hidden=!ended;document.querySelector('#video-feedback').hidden=!ended;
-  document.querySelector('#video-save-error h2').textContent=job.save_state!=='clean'?'部分内容尚未保存':'任务收尾尚未完成';
+  document.querySelector('#video-save-error h2').textContent=job.save_state!=='clean'?'还有内容待保存':'正在保存任务结果';
   document.querySelector('#video-save-retry').textContent=job.cleanup_pending?'重试保存与清理':'重试保存';
   document.querySelector('#video-save-discard').hidden=job.save_state==='clean';
   document.querySelector('#video-skeleton-reason').textContent=job.skeleton_reason;
   if(ended){
-    const resultStatus=document.querySelector('#video-result-status');resultStatus.textContent=job.save_state!=='clean'?'保存待确认':!job.terminal_persisted||job.cleanup_pending?'收尾待确认':job.status==='completed'?'分析完成':'部分结果';resultStatus.dataset.state=job.save_state==='clean'&&job.terminal_persisted&&!job.cleanup_pending?'saved':'pending';
-    document.querySelector('#video-amount').textContent=job.counting_available?quantity(job.session):'—';document.querySelector('#video-result-note').textContent=!job.counting_available?'本动作暂不显示次数；姿态反馈见下方。':job.session.total_count===0&&job.session.hold_ms===0?(job.session.unit==='seconds'?'暂无已确认的保持时间。':'暂无已完成动作。'):job.status==='completed'?'仅统计已确认完成量。':'这是已处理部分，不代表完整视频。';
+    const resultStatus=document.querySelector('#video-result-status');resultStatus.textContent=job.save_state!=='clean'?'正在保存':!job.terminal_persisted||job.cleanup_pending?'正在保存':job.status==='completed'?'分析完成':'部分结果';resultStatus.dataset.state=job.save_state==='clean'&&job.terminal_persisted&&!job.cleanup_pending?'saved':'pending';
+    document.querySelector('#video-amount').textContent=job.counting_available?quantity(job.session):'—';document.querySelector('#video-result-note').textContent=!job.counting_available?'本动作暂不显示次数；姿态反馈见下方。':job.session.total_count===0&&job.session.hold_ms===0?(job.session.unit==='seconds'?'暂无已确认的保持时间。':'暂无已完成动作。'):job.status==='completed'?'仅统计已确认完成量。':'已处理片段';
     document.querySelector('#video-detail').href='/records/'+job.session_id;root.dataset.aiRecordId=job.session_id;document.querySelector('#video-again').href=job.session.source==='demo'?'/video?demo=1':'/video';document.querySelector('#video-match').hidden=source.has();document.querySelector('#video-match').textContent=job.session.source==='demo'?'重新加载演示原片':'重新选择原视频';
     if(job.session.source==='demo')document.querySelector('#video-result-note').textContent='演示结果，不计入个人训练统计。'+document.querySelector('#video-result-note').textContent;
     const events=document.querySelector('#video-events');events.replaceChildren();
     const summary=feedbackSummary(detail),ranges=summary.issues;player.dataset.aiReviewTimesMs=JSON.stringify(reviewSampleTimes(detail));
     document.querySelector('#video-result-headline').textContent=summary.title;
     document.querySelector('#video-feedback-count').textContent=ranges.length?ranges.length+' 处反馈':'暂无问题区间';
-    for(const range of ranges){const row=el('article',undefined,'feedback-row');const left=el('div');left.append(el('strong',range.message||issueNames[range.code]||'姿态反馈'),el('p',duration(range.start_ms)+' – '+duration(range.end_ms),'muted'));row.append(left,el('p',range.suggestion||(range.status==='unassessable'?'此时段证据不足，无法判断。':'')));const button=el('button','定位片段 →','text-link');button.type='button';button.disabled=!source.has();button.onclick=()=>{for(const item of events.querySelectorAll('.feedback-row'))item.classList.remove('is-current');row.classList.add('is-current');player.pause();player.currentTime=range.start_ms/1000;player.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'})};row.append(button);events.append(row);}
+    for(const range of ranges){const row=el('article',undefined,'feedback-row');const left=el('div');left.append(el('strong',range.message||issueNames[range.code]||'姿态反馈'),el('p',duration(range.start_ms)+' – '+duration(range.end_ms),'muted'));row.append(left,el('p',range.suggestion||(range.status==='unassessable'?'':'')));const button=el('button','定位片段 →','text-link');button.type='button';button.disabled=!source.has();button.onclick=()=>{for(const item of events.querySelectorAll('.feedback-row'))item.classList.remove('is-current');row.classList.add('is-current');player.pause();player.currentTime=range.start_ms/1000;player.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'})};row.append(button);events.append(row);}
     if(!ranges.length)events.append(el('p',summary.title,'analysis-verdict'));
     positionResult();
   }
 }
 async function releaseInput(){if(input&&!['consumed','cleaned'].includes(input.status)){await api('/api/v1/inputs/'+input.input_id,{method:'DELETE',commandId:crypto.randomUUID(),body:{}})}input=null}
 async function selectFile(candidate){
-  if(!candidate)return;if(candidate.size>1024**3)throw new Error('单文件不能超过 1 GiB');if(!candidate.size)throw new Error('文件为空');
+  if(!candidate)return;if(candidate.size>1024**3)throw new Error('请选择1 GiB以内的视频');if(!candidate.size)throw new Error('文件为空');
   if(matchMode||job){await sendVideo(`/api/v1/records/${job.session_id}/source-match`,candidate);file=candidate;source.set(file);render();return}
   await releaseInput();source.clear();demo=null;demoInputKey=null;demoSourceAttempted=false;playable=false;file=candidate;input=null;uploading=true;aborter=new AbortController();render();
   try{input=await sendVideo('/api/v1/inputs',file,crypto.randomUUID(),aborter.signal);source.set(file);scheduleInput()}
@@ -73,14 +81,14 @@ function showDemoChoice(){
   demoAttribution(document.querySelector('#video-demo-credit'),availableDemo);
   const poster=document.querySelector('#video-demo-poster');
   if(availableDemo?.poster_url){poster.src=availableDemo.poster_url;poster.alt=availableDemo.title;}
-  document.querySelector('#video-demo-status').textContent=availableDemo?(availableDemo.display_title||availableDemo.title):'内置演示原片暂不可用，可继续选择自己的视频。';
+  document.querySelector('#video-demo-status').textContent=availableDemo?(availableDemo.display_title||availableDemo.title):'请选择自己的训练视频。';
 }
-async function loadDemos(){try{const data=await api('/api/v1/demos');demos=data.demos;const requested=new URLSearchParams(location.search).get('demo_id');availableDemo=(requested?demos.find(item=>item.demo_id===requested):demos[0])||null;const picker=document.querySelector('#video-demo-select');picker.replaceChildren(...demos.map(item=>new Option(item.display_title||item.title,item.demo_id,false,item===availableDemo)));showDemoChoice();}catch(error){availableDemo=null;if(privateError(error))return;document.querySelector('#video-demo-status').textContent='暂时无法核对演示资源，可继续选择自己的视频。'}render()}
+async function loadDemos(){try{const data=await api('/api/v1/demos');demos=data.demos;const requested=new URLSearchParams(location.search).get('demo_id');availableDemo=(requested?demos.find(item=>item.demo_id===requested):demos[0])||null;const picker=document.querySelector('#video-demo-select');picker.replaceChildren(...demos.map(item=>new Option(item.display_title||item.title,item.demo_id,false,item===availableDemo)));showDemoChoice();}catch(error){availableDemo=null;if(privateError(error))return;document.querySelector('#video-demo-status').textContent='请选择自己的训练视频。'}render()}
 document.querySelector('#video-demo-select').onchange=()=>run(async()=>{availableDemo=demos.find(item=>item.demo_id===document.querySelector('#video-demo-select').value)||null;demoInputKey=null;await selectDemo();});
 async function selectDemo(){
-  if(!availableDemo)throw new Error('内置演示原片暂不可用');
+  if(!availableDemo)throw new Error('请选择训练视频');
   await releaseInput();source.clear();playable=false;file=null;demo=availableDemo;action.value=demo.action_id;demoInputKey??=crypto.randomUUID();render();
-  input=await api('/api/v1/demo-inputs',{method:'POST',commandId:demoInputKey,body:{demo_id:demo.demo_id}});demoInputKey=null;
+  input=null;if(!readsSavedResult())input=await api('/api/v1/demo-inputs',{method:'POST',commandId:demoInputKey,body:{demo_id:demo.demo_id}});demoInputKey=null;
   if(disposed)return;source.setRemote(demo.video_url);const url=new URL(location.href);url.searchParams.set('demo','1');url.searchParams.set('demo_id',demo.demo_id);history.replaceState(null,'',url.pathname+url.search);scheduleInput();render();
 }
 async function restoreDemoSource(){demoSourceAttempted=true;const data=await api('/api/v1/records/'+job.session_id+'/demo-source');if(disposed)return;demo={...data,action_id:job.session.action_id};demoAttribution(document.querySelector('#video-demo-credit'),data);source.setRemote(data.video_url);render()}
@@ -92,8 +100,43 @@ async function refreshJob(){
   if(!disposed&&(!job||!job.stopped||job.save_state!=='clean'||!job.terminal_persisted))timer=setTimeout(refreshJob,1000);
 }
 async function run(task){if(busy)return;const button=document.activeElement?.closest('button'),label=button?.textContent;busy=true;errorBox.hidden=true;render();if(button){button.setAttribute('aria-busy','true');button.disabled=true;if(button.id==='video-start')button.textContent='正在启动…';else if(button.id==='video-match')button.textContent='正在载入…';}try{await task()}catch(error){failure(error)}finally{busy=false;if(button){button.removeAttribute('aria-busy');button.textContent=label;}render()}}
+function paintPreparedProgress(){
+  if(!preparedAnalysis)return;
+  const {phase,processed,total,percent,media_ms,duration_ms}=preparedAnalysis,progress=document.querySelector('#video-progress');
+  document.querySelector('#video-state').textContent=phase;
+  if(Number.isFinite(percent))progress.value=percent;else if(total)progress.value=20*processed/total;else progress.removeAttribute('value');
+  document.querySelector('#video-progress-text').textContent=Number.isFinite(media_ms)?`已分析 ${duration(media_ms)} / ${duration(duration_ms)}`:total?`已读取 ${processed} / ${total} 帧姿态数据`:'正在准备本次分析…';
+  document.querySelector('#video-save-state').textContent='';
+  const cancel=document.querySelector('#video-cancel');cancel.hidden=false;cancel.disabled=false;cancel.textContent='取消分析';
+}
+async function startPreparedAnalysis(){
+  player.pause();preparedController=new AbortController();
+  preparedAnalysis={phase:'正在准备视频分析',processed:0,total:0};render();
+  let navigating=false;
+  try{
+    const track=await prepareDemoAnalysis(demo,{signal:preparedController.signal,onProgress:value=>{preparedAnalysis=value;if(!disposed)paintPreparedProgress();}});
+    if(disposed)return;
+    if(player.videoWidth!==track.width||player.videoHeight!==track.height)throw new Error('视频与姿态数据尺寸不一致，请重新选择视频。');
+    paintCue(document.querySelector('#video-correction'),{state:'observing',title:'正在分析动作片段',instruction:''});
+    await reviewDemoVideo(track,player,{signal:preparedController.signal,
+      onProgress:value=>{preparedAnalysis=value;if(!disposed)paintPreparedProgress();},
+      onFrame:frame=>{
+        liveSkeleton=frame?{captured_ms:frame.t,joints:frame.p.flatMap((p,index)=>p?[{index,x:p[0],y:p[1]}]:[]),
+          connections:[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]]}:null;
+        if(frame)paintSkeleton();else document.querySelector('#video-live-skeleton').hidden=true;
+      }});
+    location.assign(demo.saved_result_url);navigating=true;
+  }catch(error){
+    if(error.name==='AbortError'){if(!disposed)document.querySelector('#video-input-state').textContent='分析已取消，可以重新开始。';}
+    else throw error;
+  }finally{
+    preparedController=null;liveSkeleton=null;document.querySelector('#video-live-skeleton').hidden=true;
+    if(!navigating){preparedAnalysis=null;document.querySelector('#video-correction').hidden=true;}
+  }
+}
 async function startJob(){
-  if(!pending){pending={config:{action_id:action.value,capability_version:action.selectedOptions[0].dataset.capability,source:demo?'demo':'video',mode:'free',target:null,input_id:input.input_id,...(demo?{demo_id:demo.demo_id}:{})},sessionKey:crypto.randomUUID(),jobKey:crypto.randomUUID()};try{savePending()}catch(error){pending=null;throw new Error('无法保存启动恢复标识，本次尚未发送创建请求。')}}
+  if(readsSavedResult()){await startPreparedAnalysis();return;}
+  if(!pending){pending={config:{action_id:action.value,capability_version:action.selectedOptions[0].dataset.capability,source:demo?'demo':'video',mode:'free',target:null,input_id:input.input_id,...(demo?{demo_id:demo.demo_id}:{})},sessionKey:crypto.randomUUID(),jobKey:crypto.randomUUID()};try{savePending()}catch(error){pending=null;throw new Error('请启用会话存储后开始分析。')}}
   try{
     const session=await api('/api/v1/sessions',{method:'POST',commandId:pending.sessionKey,body:pending.config});
     pending.sid=session.session_id;pending.version=pending.version??session.state_version;savePending();
@@ -120,22 +163,23 @@ async function cancelJob(){
 document.querySelector('#video-use-demo').onclick=()=>run(selectDemo);
 start.onclick=()=>run(startJob);action.onchange=render;
 player.onloadeddata=()=>{playable=true;render()};
-player.onerror=()=>{playable=false;if(demo||job?.session.source==='demo'){demoSourceAttempted=true;source.clear();failure(new Error('演示原片暂时无法播放，请重新加载原片。'));render();return}render();if(source.has())failure(new Error('浏览器无法回看该视频，请选择兼容的 MP4 / H.264 8-bit 文件。'))};
+player.onerror=()=>{playable=false;if(demo||job?.session.source==='demo'){demoSourceAttempted=true;source.clear();failure(new Error('请重新加载训练视频。'));render();return}render();if(source.has())failure(new Error('请选择 MP4 / H.264 8-bit 编码的视频。'))};
 for(const id of ['video-select','video-replace'])document.querySelector('#'+id).onclick=()=>{matchMode=false;choose.click()};
 document.querySelector('#video-match').onclick=()=>{if(job?.session.source==='demo'){run(restoreDemoSource);return}matchMode=true;choose.click()};
 choose.onchange=()=>{const selected=[...choose.files];choose.value='';if(!selected.length)return;if(selected.length!==1){failure(new Error('每次只能选择一个视频'));return}run(()=>selectFile(selected[0]))};
 document.querySelector('#video-remove').onclick=()=>run(async()=>{await releaseInput();source.clear();file=null;demo=null;demoInputKey=null});
 const drop=document.querySelector('#video-drop');drop.ondragover=event=>event.preventDefault();drop.ondrop=event=>{event.preventDefault();if(busy||uploading||job||pending)return;const files=[...event.dataTransfer.files];if(files.length!==1){failure(new Error('每次只能拖入一个视频'));return}run(()=>selectFile(files[0]))};
-document.querySelector('#video-cancel').onclick=()=>run(async()=>{await confirmDialog({title:'取消视频分析',message:'停止后保留已经确认的部分结果，未处理片段不会算作正常。',confirmLabel:'取消并保留部分结果',onConfirm:async()=>{await cancelJob();return true}})});
+document.querySelector('#video-cancel').onclick=()=>{if(preparedController){preparedController.abort();return;}run(async()=>{await confirmDialog({title:'取消视频分析',message:'停止后保留已经确认的部分结果，未处理片段不会算作正常。',confirmLabel:'取消并保留部分结果',onConfirm:async()=>{await cancelJob();return true}})})};
 document.querySelector('#video-save-retry').onclick=()=>run(async()=>{await api('/api/v1/sessions/'+job.session_id+'/commands',{method:'POST',commandId:crypto.randomUUID(),body:{command:'retry_save',expected_version:job.session.state_version}});await refreshJob()});
-document.querySelector('#video-save-discard').onclick=()=>run(async()=>{await confirmDialog({title:'放弃未保存部分',message:'尚未写入的动作和时间将丢失，已有摘要保留。',confirmLabel:'确认仅保留已保存内容',danger:true,onConfirm:async()=>{await api('/api/v1/sessions/'+job.session_id+'/commands',{method:'POST',commandId:crypto.randomUUID(),body:{command:'discard_unsaved',expected_version:job.session.state_version,last_committed_version:job.session.state_version,confirm:true}});await refreshJob();return true}})});
+document.querySelector('#video-save-discard').onclick=()=>run(async()=>{await confirmDialog({title:'放弃未保存部分',message:'继续后将放弃待保存的动作和时间，已有摘要保留。',confirmLabel:'确认仅保留已保存内容',danger:true,onConfirm:async()=>{await api('/api/v1/sessions/'+job.session_id+'/commands',{method:'POST',commandId:crypto.randomUUID(),body:{command:'discard_unsaved',expected_version:job.session.state_version,last_committed_version:job.session.state_version,confirm:true}});await refreshJob();return true}})});
 window.fitnessLeaveGuard=async()=>{
+  if(preparedController){const leave=await confirmDialog({title:'离开视频分析',message:'当前视频仍在处理，离开会停止本次处理。',confirmLabel:'停止并离开'});if(leave)preparedController.abort();return leave;}
   if(pending){showMessage('原启动结果尚待核对，请先点击“继续核对原启动”。');return false}
-  if(job&&!job.stopped)return confirmDialog({title:'离开视频分析',message:'取消并保存已经处理的部分后再离开。',confirmLabel:'取消并保留部分结果后离开',onConfirm:async()=>{await cancelJob();if(job.save_state!=='clean'||!job.terminal_persisted)throw new Error('保存尚未确认，请留在本页处理');return true}});
+  if(job&&!job.stopped)return confirmDialog({title:'离开视频分析',message:'取消并保存已经处理的部分后再离开。',confirmLabel:'取消并保留部分结果后离开',onConfirm:async()=>{await cancelJob();if(job.save_state!=='clean'||!job.terminal_persisted)throw new Error('请在本页完成保存');return true}});
   if(job?.save_state!=='clean'&&job)return false;
   if(uploading){aborter?.abort();return true}if(input&&!job&&!pending)await releaseInput();source.clear();return true;
 };
-window.addEventListener('pagehide',()=>{disposed=true;clearTimeout(timer);source.clear();aborter?.abort()});
+window.addEventListener('pagehide',()=>{disposed=true;clearTimeout(timer);source.clear();aborter?.abort();preparedController?.abort()});
 render();
 (async()=>{try{await loadDemos();if(jid){await refreshJob();return}const saved=sessionStorage.getItem(markerKey);if(saved){pending=JSON.parse(saved);action.value=pending.config.action_id;input=await api('/api/v1/inputs/'+pending.config.input_id);if(pending.config.source==='demo'){demo=demos.find(item=>item.demo_id===pending.config.demo_id)||null;if(demo){availableDemo=demo;showDemoChoice();source.setRemote(demo.video_url)}}render();return}const active=(await api('/api/v1/jobs')).jobs;if(active.length){const box=document.querySelector('#video-current');box.hidden=false;box.append(el('span','已有本账号的视频任务。'),Object.assign(el('a','返回当前任务','text-link'),{href:'/video/jobs/'+active[0].job_id}))}if(new URLSearchParams(location.search).get('demo')==='1')await run(selectDemo)}catch(error){failure(error)}finally{restoring=false;render();}})();
 

@@ -1,0 +1,633 @@
+{
+  "date": "2026-11-11",
+  "images": [
+    {
+      "file": "bodyweight-squat.png",
+      "action_id": "bodyweight_squat",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1757542,
+      "sha256": "e23178999deb9dab9f010e18996ca92e5a7928e32a864ccbcaaa6c20a35c7501",
+      "prompt_brief": "同一中国成年女性，徒手深蹲站立/下蹲/站起三联图，暖白摄影棚，无文字，完整全身。",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意，不作为真人训练检测或疗效证据。",
+      "web_asset": {
+        "file": "bodyweight-squat.webp",
+        "bytes": 55788,
+        "sha256": "f144f2a74fb4cf1c2102b241291eefbafd87aaba96ed8dd2c38be23e22faf430"
+      },
+      "review_status": "reviewed",
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-curl.png",
+      "action_id": "standing_dumbbell_curl",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1856622,
+      "sha256": "a45c9d9b58b6c2b321e874205d3ab0f443e1a54a16c23b996aeb239ab08c435a",
+      "prompt_brief": "同一中国成年男性，轻哑铃弯举准备/抬起/下放三联图，上臂靠近躯干，暖白摄影棚，无文字。",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意，不作为真人训练检测或疗效证据。",
+      "web_asset": {
+        "file": "dumbbell-curl.webp",
+        "bytes": 70680,
+        "sha256": "265c83a4482ae1d5fe37f91b38b57a006891a16e1d3afb6d161a8dd11c107ce4"
+      },
+      "review_status": "reviewed",
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "machine-chest-press.png",
+      "action_id": "machine_chest_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2034337,
+      "sha256": "3c8fbb28de5fceaf2f9661fff007ed6dcb5576661130f319eabf1e2902e494bb",
+      "prompt_brief": "同一中国成年女性，坐姿器械推胸握把/前推/回程三联图，背部支撑与足部可见，暖白摄影棚，无文字。",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意，不作为真人训练检测或疗效证据。",
+      "web_asset": {
+        "file": "machine-chest-press.webp",
+        "bytes": 111922,
+        "sha256": "1716a9ed405f5b335f8b5046c0dea5ef1fd5190017bc33e2ee69e3e82fc0d30c"
+      },
+      "review_status": "reviewed",
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "standard-push-up.png",
+      "action_id": "standard_push_up",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1638736,
+      "sha256": "54fe92b186100c5a15e6feb9d3a898586d7de3a1e2a92e49fded299d11e3114b",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTANDARD FLOOR PUSH-UP. Side view, head points right, toes and hands on floor. Panel1 straight-arm high plank with wrists beneath shoulders, neutral spine from head through hips to ankles. Panel2 controlled lowered push-up, elbows bent back diagonally, chest hovering just above floor, body straight and no knees on floor. Panel3 returned high plank. Hands and feet stay fixed, whole body visible.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "standard-push-up.webp",
+        "bytes": 35770,
+        "sha256": "5da81dd9f52010f9ab5f4cf990c5f78c1f423c04194a65315ecc5eb7fa8d3c53"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "reverse-lunge.png",
+      "action_id": "reverse_lunge",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1779804,
+      "sha256": "509c3983d9bc5c38523adcc88f01f2e2897fc6550ae1a4877827001a1906e592",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nBODYWEIGHT REVERSE LUNGE. Three-quarter side view facing right. Panel1 upright feet hip-width. Panel2 right/front foot stays planted while other foot steps backward on ball of foot, both knees bent, rear knee hovering above floor, torso upright. Panel3 return feet to standing. Show same front/rear leg identity, no forward lunge.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "reverse-lunge.webp",
+        "bytes": 54794,
+        "sha256": "9b818b766f4d2987fcc87af3c07b41b5bf5385ebfba97bacf46ced29985fd199"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "bodyweight-glute-bridge.png",
+      "action_id": "bodyweight_glute_bridge",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1677398,
+      "sha256": "7a452c938fdaf7809f21d8a54c41f6fa222f1dfa26a7a20e4c9de3fc885dd260",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nBODYWEIGHT GLUTE BRIDGE on exercise mat. Side view, head left and feet right. Panel1 supine knees bent, feet flat and arms on floor. Panel2 hips lifted until shoulders hips knees form a diagonal line, upper back/head supported, no excessive lumbar arch. Panel3 controlled lower back to mat. All three full bodies, same feet positions.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "bodyweight-glute-bridge.webp",
+        "bytes": 36356,
+        "sha256": "ce98a723199576fc8008b446835311f3984a60fba604d3306521bebef366db70"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "bent-knee-sit-up.png",
+      "action_id": "bent_knee_sit_up",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1660172,
+      "sha256": "3ac2726d835d62351e99c857456964ebc76d39c52fd27783e5b941ebef45cb73",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nBENT-KNEE SIT-UP, NOT straight-leg sit-up. Side view on mat, head left, feet right. Panel1 lying supine with knees bent feet flat, arms crossed gently over chest. Panel2 trunk curled and lifted toward thighs, seated tilted upright, feet stay flat. Panel3 returning supine under control. No hands pulling neck, no external person anchoring feet.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "bent-knee-sit-up.webp",
+        "bytes": 38408,
+        "sha256": "ba3beb01c4728e191c3cb2ed5c1a7fc75fb7dd49b48c17b9cdb93f2599c15e86"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "forearm-plank.png",
+      "action_id": "forearm_plank",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1657996,
+      "sha256": "034e4d48f0aa753be584c8a701b5b7860aba11c095f6f7c433ea251b3487e7e2",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nFOREARM PLANK progression, full-body side view. Panel1 kneeling on mat with forearms parallel, elbows beneath shoulders. Panel2 extend legs into toe-supported forearm plank, straight neutral body. Panel3 SAME correct stable forearm plank at slightly later moment, no push-up/hip lift. Show elbows supported, forearms and toes clearly touching mat, no extra limbs.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "forearm-plank.webp",
+        "bytes": 33358,
+        "sha256": "aae39701fe7478be397b953753e02977811f9c0f58015f30316054e2190cd574"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "jumping-jack.png",
+      "action_id": "jumping_jack",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1774715,
+      "sha256": "5067a3bf2d7cbeae2af6b80bb5b3754118b075b952a6232ecf85c03afdbf2ba2",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nJUMPING JACK, full front view. Panel1 feet together arms at sides. Panel2 feet apart, arms raised in arc overhead with hands separated comfortably, soft knees. Panel3 feet together arms down again. Show shoes near floor and soft landing, no airborne impossible pose, entire figure all panels.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "jumping-jack.webp",
+        "bytes": 56344,
+        "sha256": "21b70c6524b404942f9dd2882a300dedbd57ef961044ff537039f314d77c5546"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "high-knees.png",
+      "action_id": "high_knees",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1879243,
+      "sha256": "0afa7be0b86d70b36412075c938537de1f62c12e275949265a2562b745bfe505",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nALTERNATING HIGH KNEES marching/running-in-place, frontal three-quarter view. Panel1 upright both feet down arms bent. Panel2 left knee raised near hip height, right leg supports, opposite arm forward. Panel3 right knee raised, left leg supports, opposite arm forward. Clear alternating legs, neutral torso, no leaning back.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "high-knees.webp",
+        "bytes": 67852,
+        "sha256": "9d3a2d69f3e13e701102fcf3610caed86786fa7ac1794ee7f5372d91a0ae9b27"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "barbell-overhead-press.png",
+      "action_id": "barbell_overhead_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1767040,
+      "sha256": "32e014260b46cad3ef88d1426ed0c0ab1e15562fa3887b0fdcf5b71e7ac095a1",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTANDING BARBELL OVERHEAD PRESS, side-three-quarter view. Panel1 light barbell front rack at upper chest, standing upright feet stable. Panel2 bar overhead above mid-foot with elbows comfortably extended, no backbend, no leg drive. Panel3 bar returns upper chest. Use short realistic light straight bar with small plates, same secure pronated grip, bar path clear of face.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "barbell-overhead-press.webp",
+        "bytes": 64348,
+        "sha256": "599255400f215f13739705237f98bf18165d824692618faf5f768ddaf9750e6c"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "barbell-bent-over-row.png",
+      "action_id": "barbell_bent_over_row",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1915562,
+      "sha256": "be9f0d1ae441e23ea52bd9cce548c5075a8bcb98b732437a5399e7769116473e",
+      "prompt": "Generate ONE photographic beginner exercise instructional TRIPTYCH, landscape1536x1024, THREE EQUAL VERTICAL PANELS, each with a COMPLETE person and entire needed apparatus, same actor, camera, equipment and scale. One movement stage per panel, no text/labels/arrows/logos. Seamless soft neutral warm ivory studio and visible support floor, gentle window light, ordinary natural Chinese adult male coach around28 with short black hair, modest charcoal sports T-shirt, muted terracotta/rust full-length pants, plain off-white flat shoes. Believable normal athletic body, natural skin/fabric wrinkles, no glamour or plastic CGI. Anatomy coherent, actual hands hold equipment with fingers and thumbs, two arms and legs, all heads/feet inside frame. This is an illustrative static guide, not measurement or exercise-performance evidence. Prioritize mechanical clarity, entire apparatus connections and hand path over dramatic beauty. No fake skeleton, cards, screenshots or UI. Three stages follow the EXACT mechanics below. No unrelated props or gym advertising. \nBARBELL BENT OVER ROW, a REAL SINGLE STRAIGHT BARBELL. The rod is one CONTINUOUS LONG METAL SHAFT visibly spanning BETWEEN BOTH HANDS and continuing OUTSIDE BOTH HANDS to one modest circular weight plate at EACH END. BOTH plates, shaft, and two overhand grips clearly visible in EVERY panel. It must NOT be two dumbbells. Use FRONT-RIGHT THREE-QUARTER camera so long bar is visible across foreground, not end-on side view hiding shaft. Feet planted about hip-width, knees softly bent, hips hinged with torso inclined near35degrees above horizontal, neutral natural back. Panel1 arms extended down, single bar below shoulders in front of shins but off floor. Panel2 same torso/hips/feet, elbows travel BACK and single bar rises toward lower abdomen; bar stays horizontal and shaft unbroken. Panel3 bar lowered, same hip hinge. No upright row, no overhead lift, no alternating unilateral row, no upright torso, no isolated dumbbell. Both hands grasp SAME rod shoulder-width with actual fingers. Simple light barbell, not gigantic plates. Keep apparatus identical in all panels.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "barbell-bent-over-row.webp",
+        "bytes": 81416,
+        "sha256": "e72cbfa54b201d3fdb7fe291db3959c1a1f57617080810e45484113a132b1617"
+      },
+      "review_scope": "本次对照全量联系表及关键阶段局部检查；器械/动作名称一致、阶段可辨、完整人体及主要器械连接可见。项目图像审查，不等同专家逐图动作学认证。",
+      "reviewed_on": "2026-11-13",
+      "replaces_sha256": "f61d06e1705324c709fc8a680c8f0decee6916c5ed1d3b4d7d34a4565a87c8fd",
+      "refresh_reason": "Confirmed previous image shows two separate dumbbells instead of one barbell.",
+      "review_references": [
+        "fitness_app/learning_curriculum.json",
+        "第五轮优化/实现核对/动作素材-全量初查-01.jpg 至 -06.jpg",
+        "design/动作素材-重绘核对.jpg"
+      ]
+    },
+    {
+      "file": "conventional-deadlift.png",
+      "action_id": "conventional_deadlift",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1818413,
+      "sha256": "a10a1f1568a6851d09c23e8eb0e7542f52405e4755fd0a57d09cc513f90c293e",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nCONVENTIONAL BARBELL DEADLIFT. Side view facing right. Panel1 floor bar over mid-foot close to shins, hip hinge knees bent enough to grip outside legs, neutral back arms straight. Panel2 standing tall holding bar close to thighs, hips/knees extended without leaning back. Panel3 controlled hip hinge lowering bar toward floor. Standard-size light plates allow realistic floor start; no sumo stance, no rowing arms, no bent spine.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "conventional-deadlift.webp",
+        "bytes": 54358,
+        "sha256": "12f42de4ad014c10436528c5eda84266d6dbf1bc5168be7e4f43669b8564ff58"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "barbell-bench-press.png",
+      "action_id": "barbell_bench_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1870097,
+      "sha256": "f5b97947ab653b96ab67fa5525dc87808f9d2368b6ef75fb0ae62c84a005efa9",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nFLAT BARBELL BENCH PRESS, full body side-three-quarter view. Real bench inside rack with safety bars just below chest level. Panel1 supine stable shoulder/back support feet flat, light bar held above chest arms extended. Panel2 bar lowered near mid chest elbows bent naturally, not touching neck. Panel3 arms extend bar above chest. No arch exaggeration, no spotter figures, small plates, real rack.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "barbell-bench-press.webp",
+        "bytes": 85192,
+        "sha256": "b1d807a1bbfd9b62ffd5a4cd3ac4a3030854d1283d2d89b8d67599dbd2f04a09"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-bench-press.png",
+      "action_id": "dumbbell_bench_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1800720,
+      "sha256": "ec0a18e1aca7cad59fe9d4b838d796d984be8ccf3cd42e6300d046394442afb2",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nFLAT DUMBBELL BENCH PRESS, side-three-quarter view full bench and feet. Panel1 supine feet flat with two light dumbbells beside chest, bent elbows. Panel2 both dumbbells pressed upward over chest, soft elbows, no collision. Panel3 controlled return chest sides. Back/shoulders supported all frames, realistic 2 dumbbells with proper grips.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "dumbbell-bench-press.webp",
+        "bytes": 61490,
+        "sha256": "97cde3afeca604cb6c999a899be51135c2301cbe95804063e060d9d183442a72"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "incline-dumbbell-press.png",
+      "action_id": "incline_dumbbell_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1831872,
+      "sha256": "e3fc9816ad6a0fbb1c1591efd8901473f6a74dcf75746b37972a991cd40c944e",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nINCLINE DUMBBELL PRESS. Clearly incline bench at about 30 degrees above horizontal, NOT upright shoulder-press bench. Panel1 seated/reclined back supported feet flat dumbbells chest sides elbows bent. Panel2 press vertically above upper chest. Panel3 return chest sides. Full person/bench/dumbbells in each panel, same moderate incline.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "incline-dumbbell-press.webp",
+        "bytes": 68038,
+        "sha256": "1504cd7b87bc16b213202eb6a25fecc9b0f2c6b282a2ebba7e40a3de25c8fd05"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "pec-deck-fly.png",
+      "action_id": "pec_deck_fly",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1974148,
+      "sha256": "97dd93a7b53e0346c05ca764bd6859423958092549fb8b67fd0fc8dc1a27ed32",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nPEC DECK CHEST FLY MACHINE. Seated facing forward back on upright pad feet flat, realistic hand-grip pec deck with lever arms. Panel1 arms open to sides at chest height elbows slightly bent hands holding handles. Panel2 handles brought together in front of chest, hugging arc. Panel3 return open without forcing shoulders behind torso. Front three-quarter view, consistent exact machine.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "pec-deck-fly.webp",
+        "bytes": 108540,
+        "sha256": "482141f2df6cdd661e29b9300b281bbbbe37b538ef4b8dc0bc6b58b8cbffb116"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-chest-fly.png",
+      "action_id": "dumbbell_chest_fly",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2032813,
+      "sha256": "66605bf0195a19ab3c9fd031cc1ed48d18e64ab74909c361adfc72cb86b1715b",
+      "prompt": "Generate ONE photographic beginner exercise instructional TRIPTYCH, landscape1536x1024, THREE EQUAL VERTICAL PANELS, each with a COMPLETE person and entire needed apparatus, same actor, camera, equipment and scale. One movement stage per panel, no text/labels/arrows/logos. Seamless soft neutral warm ivory studio and visible support floor, gentle window light, ordinary natural Chinese adult male coach around28 with short black hair, modest charcoal sports T-shirt, muted terracotta/rust full-length pants, plain off-white flat shoes. Believable normal athletic body, natural skin/fabric wrinkles, no glamour or plastic CGI. Anatomy coherent, actual hands hold equipment with fingers and thumbs, two arms and legs, all heads/feet inside frame. This is an illustrative static guide, not measurement or exercise-performance evidence. Prioritize mechanical clarity, entire apparatus connections and hand path over dramatic beauty. No fake skeleton, cards, screenshots or UI. Three stages follow the EXACT mechanics below. No unrelated props or gym advertising. \nFLAT BENCH DUMBBELL CHEST FLY with retained gentle elbow bend. Fixed elevated FOOT-END THREE-QUARTER view, show near and far arms distinctly; whole flat horizontal bench and planted feet. SAME man lying SUPINE, head supported, shoulders/buttocks on bench, feet flat on floor. ONE light compact dumbbell in EACH hand, neutral wrists, palms FACE EACH OTHER. Panel1 both dumbbells above MID-CHEST with clear soft20-30degree elbow bend. Panel2 arms OPEN LATERALLY in a broad hugging arc while KEEPING THAT SAME ELBOW BEND; do NOT straighten arms into a rigid T; upper arms stop roughly LEVEL WITH TORSO/bench top, not sag below bench. Forearms remain aligned with held weights, not 90degree press elbows. Panel3 controlled hugging return above chest, same soft bend. Not dumbbell press, not reverse fly, not incline bench, not extreme stretch. Dumbbells modest and coherent, shoulders remain supported, torso neutral, no giant rib arch. Choose camera making bent elbows and level upper arms easy to read.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "dumbbell-chest-fly.webp",
+        "bytes": 83666,
+        "sha256": "413c2398bb19723f9cbac9d598c6adcfb8f7d05df66976ff2a88a51a732f8782"
+      },
+      "review_scope": "本次对照全量联系表及关键阶段局部检查；器械/动作名称一致、阶段可辨、完整人体及主要器械连接可见。项目图像审查，不等同专家逐图动作学认证。",
+      "reviewed_on": "2026-11-13",
+      "replaces_sha256": "f7285e0b5312737614aa0bb12d41ec15f3295c44ea8d792203e67bfd4c7a071c",
+      "refresh_reason": "Previous open position makes retained elbow bend and shoulder-level limit hard to read.",
+      "review_references": [
+        "fitness_app/learning_curriculum.json",
+        "第五轮优化/实现核对/动作素材-全量初查-01.jpg 至 -06.jpg",
+        "design/动作素材-重绘核对.jpg"
+      ]
+    },
+    {
+      "file": "cable-chest-fly.png",
+      "action_id": "cable_chest_fly",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1999532,
+      "sha256": "b4d166591acae73ed8598c15b2a55a905fa6b32eb7a39c267325c45813c3d19b",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTANDING CABLE CHEST FLY between dual adjustable pulleys at chest/shoulder height. Panel1 split stance soft knees upright/slight lean, arms open slightly bent gripping handles, cables taut to side towers. Panel2 handles meet in front of chest hugging arc. Panel3 controlled return open. Real cables connect each handle to proper pulleys; no disconnected handles or floating machinery.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cable-chest-fly.webp",
+        "bytes": 112418,
+        "sha256": "116ea0319215a56a59720ddeaa7865d79f934d88053a1f3ce98daea568a0b92e"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "cable-triceps-pushdown.png",
+      "action_id": "cable_triceps_pushdown",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1994219,
+      "sha256": "19656691658129f55f4042a1ff1140863e8aba8b6a5a29a56be80a5c0ca5cc43",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nCABLE TRICEPS PUSHDOWN with short straight handle from overhead pulley. Side-three-quarter view facing right. Panel1 elbows bent about right angle close to ribs handle near upper abdomen. Panel2 elbows extend handle down near thighs, upper arms remain by torso. Panel3 controlled elbows flex start. Upright torso, real taut cable leading upward from handle, no squat/rowing.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cable-triceps-pushdown.webp",
+        "bytes": 97280,
+        "sha256": "033bc10ee4d08f533a4cd2ce4920a3fdcfbdcbc9754f510a861c8548d577757e"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "overhead-dumbbell-extension.png",
+      "action_id": "overhead_dumbbell_extension",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1911195,
+      "sha256": "a9c5c98e22a6551712e5999d9aa31b2260d770a839a0ad706d59507be33e4679",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nTWO-HAND OVERHEAD DUMBBELL TRICEPS EXTENSION. Same adult seated upright on low stable bench feet flat. Panel1 both hands securely support ONE compact dumbbell overhead arms near vertical. Panel2 elbow flexion lowers dumbbell behind head while upper arms stay near ears, torso neutral. Panel3 extend elbows return overhead. No loose/unsafe grip, no shoulder press with two dumbbells.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "overhead-dumbbell-extension.webp",
+        "bytes": 75670,
+        "sha256": "f8a35afa0c280bfb449a18d601e84b6c16865e99baf29cf01498afc9e541a060"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "reverse-pec-deck-fly.png",
+      "action_id": "reverse_pec_deck_fly",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2018333,
+      "sha256": "ebdd09bd2cf7bd40523e6c97730e38bd4f02700ac5c769508a1e008ec7f0d9f5",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nREVERSE PEC DECK REAR DELT FLY. Athlete SITS FACING the chest pad, NOT facing away. Rear-three-quarter view shows back and sides. Panel1 chest on pad arms forward holding machine handles at shoulder level. Panel2 arms open sideways until roughly torso line with soft elbows, chest remains supported. Panel3 return arms forward. Same realistic machine with actual handle lever arms.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "reverse-pec-deck-fly.webp",
+        "bytes": 118966,
+        "sha256": "27b648ae234dccf911f02e611429616e76b884419eb7fcce30a86a92505153df"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-shoulder-press.png",
+      "action_id": "dumbbell_shoulder_press",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1978697,
+      "sha256": "dc2be84f6a4769bd3160381990eb930d6499c65ca6b1a4c8eb2dcfa95ba93531",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSEATED DUMBBELL SHOULDER PRESS. Upright bench backrest around 80 degrees, feet flat. Panel1 light dumbbells shoulder sides elbows bent. Panel2 press dumbbells overhead arms extended softly, neutral back fully supported. Panel3 return shoulder sides. Front-three-quarter view, no incline chest press, no dumbbell collisions.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "dumbbell-shoulder-press.webp",
+        "bytes": 92918,
+        "sha256": "cc87dd5ec0313f7cf74c42f932f14378e0dee849f2ceba19677595a828faefd2"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-lateral-raise.png",
+      "action_id": "dumbbell_lateral_raise",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1875975,
+      "sha256": "0937b1a9b1e11664a1b466d892fe27562126c4b7e38301982f0d34b8b9372425",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTANDING DUMBBELL LATERAL RAISE, full front three-quarter view. Panel1 light dumbbells arms by sides, elbows slightly flexed. Panel2 raise arms laterally slightly forward of pure side to around shoulder height, elbows softly bent, wrists neutral, shoulders not shrugged. Panel3 return down. No thumbs sharply rotated downward, no overhead/Y raise, no torso swing.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "dumbbell-lateral-raise.webp",
+        "bytes": 67372,
+        "sha256": "935c3c010f67b91a81c4d5f7c70cec3a9a0adc48aae30a4bcabd89cfcf110d6e"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "bent-over-dumbbell-reverse-fly.png",
+      "action_id": "bent_over_dumbbell_reverse_fly",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1872188,
+      "sha256": "c914632828c99a75f8688629a40766265fb6783faf31b9f220bc0877f93de431",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nBENT-OVER DUMBBELL REVERSE FLY. Rear-three-quarter view so lateral arm arc visible, torso hinged forward with neutral spine, knees slightly bent. Panel1 dumbbells hanging below shoulders palms facing each other. Panel2 soft-elbow arms spread sideways in reverse fly, torso SAME angle. Panel3 lower to hanging. No row: elbows do not fold into a pull, no upright raise.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "bent-over-dumbbell-reverse-fly.webp",
+        "bytes": 70228,
+        "sha256": "504cda71f365bd7c839aafd43e2dc4d9ff15098f9622813669a271d4464d61cc"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "dumbbell-front-raise.png",
+      "action_id": "dumbbell_front_raise",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1845514,
+      "sha256": "3afba54137e4faa6fee9dfbcff497d3d7aa4922be00b56160d8a3ae354657c09",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTANDING DUMBBELL FRONT RAISE, side-three-quarter view. Panel1 dumbbells at fronts of thighs arms nearly straight. Panel2 both dumbbells raised FORWARD to shoulder height, elbows slightly bent, neutral upright torso. Panel3 controlled return. No lateral raise, no overhead press, no back lean.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "dumbbell-front-raise.webp",
+        "bytes": 67626,
+        "sha256": "b6bdb84fa9f771a44a2f93b8257e357af537f40143f77520e1e327fc07d26488"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "pull-up.png",
+      "action_id": "pull_up",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1765242,
+      "sha256": "cea515ca1c6a2e947bf67a316e6b225d7559f4aa4bdd7daae3ca1d47e0606163",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSTRICT PULL-UP from fixed overhead bar. Front-three-quarter view. Panel1 active stable hang arms extended feet off floor knees gently bent. Panel2 chin approaches above bar elbows bent torso stable. Panel3 controlled lower hang. Full body and fixed freestanding pullup rig visible per panel, no leg kick, no rope, no cable pulldown, no second person.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "pull-up.webp",
+        "bytes": 72996,
+        "sha256": "f2b526f8d70cf5974bac69a6fc04f40fc23bb32984e6cc585524bdf305638c48"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "seated-cable-row.png",
+      "action_id": "seated_cable_row",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1812983,
+      "sha256": "b67ef7f3bde352f78f6e78859bd73f1733d7670e30b08fbc5d151fa0f04c0230",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nSEATED LOW CABLE ROW on real rowing bench, side view facing right. Panel1 feet on footplates knees slightly bent upright neutral torso arms extended forward holding close-grip handle attached to taut low cable. Panel2 elbows draw back handle toward lower abdomen, torso same angle. Panel3 reach arms forward controlled without rounding lumbar spine. Not rowing ergometer, not lat pulldown.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "seated-cable-row.webp",
+        "bytes": 77176,
+        "sha256": "2e6bb0c8a88d600218d235600ece2fb0b5575e227f19296686daf6d39c0a1635"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "hammer-curl.png",
+      "action_id": "hammer_curl",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1857687,
+      "sha256": "76d01306b04f78159c77cd5183fd47c885cd7b8d2d40dbc3b404d93185b00ae9",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nDUMBBELL HAMMER CURL, full frontal-three-quarter view. Panel1 standing dumbbells beside thighs, palms face inward toward each other, dumbbell shafts vertical orientation clear neutral grip. Panel2 flex elbows bring dumbbells toward shoulders without supination; palms remain inward, elbows close torso. Panel3 controlled return. No twisting into supinated curl, no torso swing.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "hammer-curl.webp",
+        "bytes": 70110,
+        "sha256": "d1f9f009bf94a39faef6c68955500b8a73c5cf04f010d801704697f2c459fa1c"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "cable-face-pull.png",
+      "action_id": "cable_face_pull",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1799877,
+      "sha256": "a225231c4ebbf1272cb90b9bebc9a66932e2d6d1c6747873e9717dfd19a628e1",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nCABLE ROPE FACE PULL, side-three-quarter view toward pulley tower. Pulley at face height, two-end rope attachment. Panel1 arms forward gripping rope ends thumbs/knuckles natural. Panel2 pull rope ends toward sides of face, hands near ears, elbows open outward, torso upright. Panel3 arms return forward. Real taut cable remains connected, rope separates around face not through face, no triceps pushdown.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cable-face-pull.webp",
+        "bytes": 78194,
+        "sha256": "23dcd2d74d7590829e3ce3eb0058b07c01d198923577659013ad72245d90d948"
+      },
+      "review_scope": "联系表人工核对：中国成年人物、对应动作与三阶段连续性；与教程步骤对照。属于教学示意，未经专家逐图动作学认证。"
+    },
+    {
+      "file": "cable-y-raise.png",
+      "action_id": "cable_y_raise",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2047070,
+      "sha256": "6fba3eb8670896caea805a829c1cefad66c89a042e72bc090a5be3d3d7c46c27",
+      "prompt": "Generate ONE photographic beginner exercise instructional TRIPTYCH, landscape1536x1024, THREE EQUAL VERTICAL PANELS, each with a COMPLETE person and entire needed apparatus, same actor, camera, equipment and scale. One movement stage per panel, no text/labels/arrows/logos. Seamless soft neutral warm ivory studio and visible support floor, gentle window light, ordinary natural Chinese adult male coach around28 with short black hair, modest charcoal sports T-shirt, muted terracotta/rust full-length pants, plain off-white flat shoes. Believable normal athletic body, natural skin/fabric wrinkles, no glamour or plastic CGI. Anatomy coherent, actual hands hold equipment with fingers and thumbs, two arms and legs, all heads/feet inside frame. This is an illustrative static guide, not measurement or exercise-performance evidence. Prioritize mechanical clarity, entire apparatus connections and hand path over dramatic beauty. No fake skeleton, cards, screenshots or UI. Three stages follow the EXACT mechanics below. No unrelated props or gym advertising. \nDUAL LOW CABLE Y RAISE. One full-size functional trainer has TWO separate tall upright towers, joined overhead, TWO distinct LOW ADJUSTABLE PULLEYS locked at shin height, one on LEFT TOWER and one on RIGHT TOWER. Athlete stands ONE STEP IN FRONT of machine facing towers, viewed from FIXED REAR THREE-QUARTER so both low pulleys and both taut cables are visible around either side of body. The LEFT handle connects by ONE uninterrupted visible cable to LEFT low pulley; RIGHT handle to RIGHT low pulley. Two cables, two low pulleys, two weight stacks, no shared anchor, no cable vanishing or passing through torso. Keep wide enough view in each vertical panel to show both towers, full body and floor base. Panel1 hands low-forward gripping D-handles with soft elbows. Panel2 both nearly straight arms lift FORWARD-UP into clear broad Y above shoulder height, shoulders controlled, torso upright without leaning back; SAME two cables now run diagonally down to their OWN low pulleys. Panel3 hands lower to initial low-forward position. Same machine and actor all3 stages. NO high-pulley/overhead cable source, no miniature disconnected pulleys floating on floor, no free handles, no crossed impossible cables. Cable attachment clarity mandatory.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "cable-y-raise.webp",
+        "bytes": 126044,
+        "sha256": "9a363d6bb3ffc480124519ba01f9e16afffa0246d2a85a2247f6d24e67579361"
+      },
+      "review_scope": "本次对照全量联系表及关键阶段局部检查；器械/动作名称一致、阶段可辨、完整人体及主要器械连接可见。项目图像审查，不等同专家逐图动作学认证。",
+      "review_references": [
+        "fitness_app/learning_curriculum.json",
+        "第五轮优化/实现核对/动作素材-全量初查-01.jpg 至 -06.jpg",
+        "design/动作素材-重绘核对.jpg"
+      ],
+      "reviewed_on": "2026-11-13",
+      "replaces_sha256": "13b656d6e84f18597d731abe4165d7fe4f79c4da0d1d27e9c28a0641ec58bc7a",
+      "refresh_reason": "Prior image routes two handles toward an unclear shared low-pulley connection."
+    },
+    {
+      "file": "assisted-pull-up.png",
+      "action_id": "assisted_pull_up",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1965275,
+      "sha256": "d94030cd60b76776fe143437be1641b513f00f7f1486784466b3592459d89425",
+      "prompt": "Create a premium photographic beginner exercise teaching triptych, landscape 1536x1024. Three equal side-by-side vertical panels on identical seamless warm ivory studio background with subtle breathing space between thirds, same camera view and scale, clean floor and soft shadows. SAME adult Chinese coach in all 3 panels, about 28, black hair, ordinary athletic physique, charcoal modest short-sleeve sports T-shirt, muted terracotta or dark slate full-length training pants, white flat shoes. Natural realistic anatomy, five fingers per hand, no extra limbs, no exaggerated muscle flexing. Each full person, equipment and floor supports fit completely within each third without clipping. Editorial instructional sports photography. No text, no labels, no letters, no numbers, no arrows, no logos. This is an illustrative action sequence, not medical advice or proof of training results. Specific movement and immutable mechanics:\nCorrect the apparatus geometry and viewing direction for a REAL COUNTERWEIGHT-ASSISTED PULL-UP / DIP MACHINE, not a lat pulldown. SAME REAR-LEFT THREE-QUARTER camera in all panels so the Chinese adult man's back and face profile are visible. Athlete FACES INTO THE MACHINE toward the upright frame and weight stack. The top overhead pull-up handles are rigidly fixed to frame and NEVER move. Both knees rest on ONE horizontal padded assistance carriage clearly connected by a visible steel arm to a vertical sliding guide; carriage moves vertically WITH knees. Show a mechanically coherent base, vertical guide rails, weight stack and two fixed side mounting steps, no seat, no backrest. Panel 1 knees on LOWER carriage, arms extended up to fixed handles. Panel 2 torso lifts by bending elbows, chin near fixed handles, knee carriage RISES the same amount as knees. Panel 3 controlled lowering, carriage and knees back down, arms extended. Feet trail naturally behind the pad, no feet on imaginary supports. Equipment frame and fixed handles exactly same positions across all panels. Entire body and complete machine fit within each third. Do not turn person away from frame, do not omit support connection, do not depict a seated pulldown.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "assisted-pull-up.webp",
+        "bytes": 119348,
+        "sha256": "ac1724756a5dc0b953fcde2182632de45fb6cc7b8e04bf439be205187c5e76a5"
+      },
+      "review_scope": "改为朝向器械的后侧机位，顶把固定，膝垫与膝部同步升降，露出移动支撑连接。人工视觉与教程对照复核，不等同专家动作学认证。",
+      "review_references": []
+    },
+    {
+      "file": "lat-pulldown.png",
+      "action_id": "lat_pulldown",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1976975,
+      "sha256": "a259e24d608bc28e8bd0fd198ec29e0dea5c17207efe70c9c2c0259e6c5df6e7",
+      "prompt": "Generate ONE photographic beginner exercise instructional TRIPTYCH, landscape1536x1024, THREE EQUAL VERTICAL PANELS, each with a COMPLETE person and entire needed apparatus, same actor, camera, equipment and scale. One movement stage per panel, no text/labels/arrows/logos. Seamless soft neutral warm ivory studio and visible support floor, gentle window light, ordinary natural Chinese adult male coach around28 with short black hair, modest charcoal sports T-shirt, muted terracotta/rust full-length pants, plain off-white flat shoes. Believable normal athletic body, natural skin/fabric wrinkles, no glamour or plastic CGI. Anatomy coherent, actual hands hold equipment with fingers and thumbs, two arms and legs, all heads/feet inside frame. This is an illustrative static guide, not measurement or exercise-performance evidence. Prioritize mechanical clarity, entire apparatus connections and hand path over dramatic beauty. No fake skeleton, cards, screenshots or UI. Three stages follow the EXACT mechanics below. No unrelated props or gym advertising. \nSEATED CABLE LAT PULLDOWN. Choose fixed SIDE-FRONT THREE-QUARTER camera that clearly shows BOTH THIGH HOLD-DOWN PAD sitting over thighs JUST ABOVE KNEES, and BAR travels IN FRONT OF FACE to UPPER CHEST. Real simple lat pulldown station: vertical weight stack tower IN FRONT of seated athlete, overhead boom extending toward athlete, one top pulley ABOVE/SLIGHTLY IN FRONT of forehead, SINGLE taut cable from top pulley directly to CENTER OF LONG BAR. Low flat seat with NO upright backrest. Athlete sits FACING TOWER, knees/chest toward tower, feet flat in front, thighs under two cylindrical pads mechanically attached to seat frame. Panel1 arms raised overhead grip slightly wider than shoulders; bar above head, cable taut visible. Panel2 elbows pull DOWN toward sides and bar reaches upper chest in FRONT OF NECK, only small natural lean, no behind-neck bar. Panel3 controlled return overhead, same machine geometry. Keep chest, elbows, thigh pad, seat, feet and overhead pulley visible in every panel. No cable through head, behind back, disconnected bar or tower behind athlete. Anatomically coherent hands, no magical unsupported pads. Whole apparatus fullsize not toy.",
+      "generator": "Codex native imagegen via authorized local compatibility entry",
+      "role": "AI生成动作教学示意",
+      "review_status": "reviewed",
+      "web_asset": {
+        "file": "lat-pulldown.webp",
+        "bytes": 105522,
+        "sha256": "b74b72f3dd11c46154a4a97a39b354ebfb80a9d904d5186214d65e029e2745e6"
+      },
+      "review_scope": "本次对照全量联系表及关键阶段局部检查；器械/动作名称一致、阶段可辨、完整人体及主要器械连接可见。项目图像审查，不等同专家逐图动作学认证。",
+      "review_references": [
+        "fitness_app/learning_curriculum.json",
+        "第五轮优化/实现核对/动作素材-全量初查-01.jpg 至 -06.jpg",
+        "design/动作素材-重绘核对.jpg"
+      ],
+      "reviewed_on": "2026-11-13",
+      "replaces_sha256": "7289b4bec41709fee933da8d35a3dff80e3df7f77cf46576890108ad04cce1bd",
+      "refresh_reason": "Previous rear camera hides front-of-chest bar path and thigh hold-down pad."
+    }
+  ],
+  "review": "已查看三图联系表，核对人物、三个阶段、躯干支撑和全身取景；教学须结合文字步骤，不把生成图片当专家动作真值。"
+}

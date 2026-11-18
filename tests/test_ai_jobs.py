@@ -25,6 +25,26 @@ class Provider:
 
 
 class AIJobsTests(unittest.TestCase):
+    def test_personal_food_statement_is_saved_and_read_on_next_chat(self):
+        conversation=self.conversation();sent=[];original=self.provider.generate
+        def generate(key,model,messages,max_output_tokens):
+            sent.append(json.loads(json.dumps(messages)))
+            return original(key,model,messages,max_output_tokens)
+        self.provider.generate=generate
+        response=self.post('/api/v1/ai/conversations/'+conversation['conversation_id']+'/messages',
+            {'text':'我喜欢吃西兰花。今天午餐吃了米饭和鸡蛋。','expected_context_revision':conversation['context_revision'],'consent':True})
+        row=self.wait(response.json['data']['request_id']);self.assertEqual(row['status'],'succeeded',row)
+        self.assertTrue(row['result']['memory_saved']['saved'])
+        store=self.fx.app.extensions['diet_journal'];today=store.today().isoformat()
+        records=store.list(self.fx.user,self.fx.auth,today,today)['records']
+        self.assertEqual(len(records),1);self.assertEqual({x['name'] for x in records[0]['foods']},{'米饭','鸡蛋'})
+        next_chat=self.conversation()
+        response=self.post('/api/v1/ai/conversations/'+next_chat['conversation_id']+'/messages',
+            {'text':'帮我搭配下一餐','expected_context_revision':next_chat['context_revision'],'consent':True})
+        self.assertEqual(self.wait(response.json['data']['request_id'])['status'],'succeeded')
+        context=json.dumps(sent[-1],ensure_ascii=False)
+        self.assertIn('personal_statements',context);self.assertIn('西兰花',context);self.assertIn('recent_foods',context)
+
     def test_invalid_form_reply_uses_registered_issue_without_publishing_invalid_answer(self):
         conversation=self.conversation();self.provider.forged=True
         response=self.post('/api/v1/ai/conversations/'+conversation['conversation_id']+'/messages',

@@ -29,7 +29,7 @@ class OverheadPressConfig:
             self.minimum_continuing_leg_span,self.maximum_rack_elbow,self.maximum_rack_wrist_offset,self.minimum_elbow_extension,self.minimum_wrist_above_shoulder)
         if any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in values):raise ValueError('站姿肩推参数无效')
         if not 0<self.minimum_continuing_knee<=self.minimum_start_knee<180 or not self.minimum_start_hip<180 or not self.maximum_rack_elbow<180 or self.cycle.direction!=1:raise ValueError('站姿肩推分段参数无效')
-        if self.minimum_continuing_leg_span>self.minimum_standing_leg_span:raise ValueError('持续站姿范围不能比起点更窄')
+        if self.minimum_continuing_leg_span>self.minimum_standing_leg_span:raise ValueError('请扩大持续站姿的观察范围')
         if type(self.smoothing_window) is not int or self.smoothing_window not in (1,3,5):raise ValueError('平滑窗口无效')
         if not isinstance(self.algorithm_version,str) or not self.algorithm_version:raise ValueError('需要肩推算法版本')
 

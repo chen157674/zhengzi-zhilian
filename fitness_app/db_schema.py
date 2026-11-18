@@ -1,4 +1,4 @@
-"""正式schema13：计划、逐组执行与练习扩展；旧库升级必须显式授权。"""
+"""正式schema14：计划执行、餐食与个人记忆；旧库升级必须显式授权。"""
 from __future__ import annotations
 
 import time
@@ -7,7 +7,7 @@ from sqlalchemy import (MetaData, Table, Column, String, Text, Integer, LargeBin
                         ForeignKeyConstraint, CheckConstraint as Check, UniqueConstraint as Unique, Index)
 
 metadata = MetaData()
-SCHEMA_VERSION = 13
+SCHEMA_VERSION = 14
 TABLE_VERSIONS = {'posture_observations': 2, 'user_profiles': 3,
                   'training_profiles': 6, 'training_notes': 6,
                   'ai_settings': 7, 'ai_system_policy': 7, 'ai_requests': 7,
@@ -393,6 +393,24 @@ coach_practice_details=Table('coach_practice_details',metadata,
     ForeignKeyConstraint(['linked_workout_id','user_id'],['training_workouts.id','training_workouts.user_id'],ondelete='RESTRICT'),Check('state_version>=0'))
 for name in ('training_plans','training_plan_revisions','training_plan_sessions','training_plan_items','training_workouts','training_workout_sets','training_record_allocations','training_schedule_events','coach_practice_details'):
     TABLE_VERSIONS[name]=13
+
+nutrition_journal=Table('nutrition_journal',metadata,
+    ident(),Column('user_id',String(36),ForeignKey('users.id',ondelete='CASCADE'),nullable=False),Column('source_key',Text,nullable=False),
+    Column('consumed_date',String(10),nullable=False),
+    *enum('meal_type',('breakfast','lunch','dinner','snack','daily','meal'),'meal'),
+    *json_field('foods_json','array'),*json_field('analysis_json',nullable=True),Column('summary',Text,nullable=False,server_default=''),
+    Column('source',Text,nullable=False),number('version',1),number('deleted'),
+    stamp(),stamp('updated_at_ms'),
+    Unique('user_id','source_key'),Check('version>=1 AND deleted IN (0,1) AND length(foods_json)<=12000 AND length(summary)<=500 AND (analysis_json IS NULL OR length(analysis_json)<=48000)'))
+Index('ix_nutrition_journal_owner_date',nutrition_journal.c.user_id,nutrition_journal.c.consumed_date)
+personal_memories=Table('personal_memories',metadata,
+    ident(),Column('user_id',String(36),ForeignKey('users.id',ondelete='CASCADE'),nullable=False),Column('kind',Text,nullable=False),
+    Column('value_key',String(64),nullable=False),Column('value',Text,nullable=False),
+    Column('evidence',Text,nullable=False),number('version',1),number('deleted'),
+    stamp(),stamp('updated_at_ms'),
+    Unique('user_id','kind','value_key'),Check('version>=1 AND deleted IN (0,1) AND length(value)<=200 AND length(evidence)<=500'))
+Index('ix_personal_memories_owner',personal_memories.c.user_id,personal_memories.c.deleted,personal_memories.c.updated_at_ms)
+TABLE_VERSIONS.update(nutrition_journal=14,personal_memories=14)
 
 
 for table in metadata.tables.values():

@@ -53,7 +53,7 @@ def atomic_json(path,value):
 
 
 def extract(sample,config,allow_test=False,retry_failed=False):
-    if sample.partition=='excluded':raise ValueError('隔离样本不能用于特征或拟合')
+    if sample.partition=='excluded':raise ValueError('请选择开发集样本')
     if sample.partition=='test' and not allow_test:raise ValueError('未冻结前禁止读取独立测试视频')
     if sample.partition=='test':
         frozen_path=OUTPUT/'freeze.json';baseline_path=OUTPUT/'baseline.json'
@@ -67,14 +67,14 @@ def extract(sample,config,allow_test=False,retry_failed=False):
     stat=sample.absolute_path.stat();identity={'source_sha256':sample.sha256,'bytes':stat.st_size,'modified_ns':stat.st_mtime_ns}
     if feature_path.exists():
         result=json.loads(feature_path.read_text(encoding='utf-8'))
-        if result['source']!=identity or result['feature_key']!=feature_key:raise ValueError('源文件状态或特征缓存身份变化，不能复用')
+        if result['source']!=identity or result['feature_key']!=feature_key:raise ValueError('请重新生成特征缓存')
         if result['status']!='failed' or not retry_failed:return {**result,'cache_hit':True}
     began=time.monotonic();rows=[]
     try:
         if pose_path.exists():
             with np.load(pose_path,allow_pickle=False) as cached:
                 metadata=json.loads(str(cached['metadata']))
-                if metadata['source']!=identity or metadata['pose_key']!=pose_key:raise ValueError('源文件状态或姿态缓存身份变化，不能复用')
+                if metadata['source']!=identity or metadata['pose_key']!=pose_key:raise ValueError('请重新生成姿态缓存')
                 stamps=cached['timestamps_ms'];sizes=cached['sizes'];points=cached['points'];people=cached['person_counts'];accepted=cached['identity_accepted']
         else:
             timestamps=[];dimensions=[];landmarks=[];people=[];accepted=[];tracker=IdentityContinuity()

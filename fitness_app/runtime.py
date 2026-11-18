@@ -131,7 +131,7 @@ def launch(port: int = 8765, open_browser: bool = True) -> dict:
         if process.poll() is not None:
             raise RuntimeError("服务启动失败，请查看项目内运行日志")
         time.sleep(0.1)
-    raise RuntimeError("启动尚未确认，请检查项目内运行日志，不要重复启动")
+    raise RuntimeError("请查看项目运行日志和启动状态")
 
 
 def stop_instance() -> dict:
@@ -139,15 +139,15 @@ def stop_instance() -> dict:
     if not record:
         return {"stopped": True, "was_running": False}
     if not health(record):
-        raise RuntimeError("实例身份／状态无法确认，未向未知进程发送停止")
+        raise RuntimeError("请核对当前实例状态后停止服务")
     request = urllib.request.Request(f"http://127.0.0.1:{record['port']}/_local/stop", method="POST",
                                      headers={"X-Local-Stop": record["stop_token"]})
     try:
         with urllib.request.urlopen(request, timeout=5) as response:
             json.load(response)
     except urllib.error.HTTPError as error:
-        try:message=json.load(error).get('error',{}).get('message','服务尚未停止')
-        except (ValueError,AttributeError):message='服务尚未停止，请检查当前保存状态'
+        try:message=json.load(error).get('error',{}).get('message','正在停止服务')
+        except (ValueError,AttributeError):message='请查看训练保存状态后停止服务'
         raise RuntimeError(message) from error
     for _ in range(60):
         if not health(record) and not (runtime_path() / "instance.json").exists():
@@ -156,7 +156,7 @@ def stop_instance() -> dict:
                 owned.wait(timeout=5)
             return {"stopped": True, "was_running": True}
         time.sleep(0.1)
-    raise RuntimeError("停止尚未确认，未强制结束进程")
+    raise RuntimeError("请查看服务停止状态")
 
 
 def main():
@@ -173,7 +173,7 @@ def main():
         parser.error("端口不合法")
     if args.init_admin or args.recover_admin:
         if args.init_admin and args.recover_admin:
-            parser.error("初始化与恢复不能同时执行")
+            parser.error("请选择初始化或恢复其中一种操作")
         import getpass
         from sqlalchemy import select
         from .database import Database
@@ -189,7 +189,7 @@ def main():
                 with db.transaction(False) as connection:
                     names=connection.execute(select(users.c.username_display).where(users.c.role=="admin",users.c.enabled==1)).scalars().all()
                 if not names:
-                    raise RuntimeError("没有既有有效管理员，不能自动创建或启用账号")
+                    raise RuntimeError("请先配置有效管理员账号")
                 print("可恢复的有效管理员："+"、".join(names))
             username=input("管理员用户名：")
             password=getpass.getpass("新密码（12–128 字符，隐藏输入）：")

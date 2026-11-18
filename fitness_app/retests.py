@@ -14,7 +14,7 @@ MINIMUM_COVERAGE=.8
 
 
 def evaluate(origin,target,evidence,allow_video=False):
-    result={'policy_version':VERSION,'state':'not_comparable','message':'两段观察条件不一致，暂不能比较。',
+    result={'policy_version':VERSION,'state':'not_comparable','message':'请选择观察条件一致的记录进行比较。',
         'source_record_id':origin['session_id'],'target_record_id':target['session_id'],
         'code':evidence['code'],'side':evidence.get('side','none'),'rule_version':evidence['rule_version'],
         'title':evidence['title'],'suggestion':evidence.get('suggestion'),
@@ -26,7 +26,7 @@ def evaluate(origin,target,evidence,allow_video=False):
     if target['status'] not in TERMINAL:return {**result,'state':'collecting','message':'复测采集中；主动结束后再查看这一项的结果。'}
     view=evidence.get('evidence',{}).get('view')
     items=[v for v in record_statistics(target) if v['code']==evidence['code'] and v['side']==result['side']]
-    if not items:return {**result,'state':'insufficient_evidence','message':'没有保存足够的同项观察，不能确认这项调整。'}
+    if not items:return {**result,'state':'insufficient_evidence','message':'请补充同项训练记录后进行对比。'}
     unit='cycles' if target.get('counting_available') and target.get('unit')!='seconds' else 'ms'
     source_unit='cycles' if origin.get('counting_available') and origin.get('unit')!='seconds' else 'ms'
     if unit!=source_unit:return result
@@ -40,10 +40,10 @@ def evaluate(origin,target,evidence,allow_video=False):
     observation['coverage']=coverage;result['observation']=observation
     minimum=MINIMUM_CYCLES if unit=='cycles' else MINIMUM_OBSERVED_MS
     if item['evaluated']<minimum or coverage<MINIMUM_COVERAGE:
-        return {**result,'state':'insufficient_evidence','message':'同项有效观察还不足，无法确认调整效果；未知区间不算正常。'}
+        return {**result,'state':'insufficient_evidence','message':'请补充同项有效观察后查看调整效果。'}
     if item['issue']:
         return {**result,'state':'reobserved','message':'本次复测仍观察到这一项参考提示。'}
-    return {**result,'state':'not_reobserved','message':'本次可评估范围未再次观察到这一项偏差；不代表整体动作正确。'}
+    return {**result,'state':'not_reobserved','message':'本次该检查项通过，可继续查看其他动作反馈。'}
 
 
 class Retests:

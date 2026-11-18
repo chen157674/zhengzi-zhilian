@@ -1,0 +1,15 @@
+<dialog id="meal-editor-dialog" class="meal-editor-dialog" aria-labelledby="meal-editor-title">
+  <div class="approved-dialog-heading"><h2 id="meal-editor-title">我吃了这餐</h2><button class="approved-close" id="meal-editor-close" type="button" aria-label="关闭餐食编辑">×</button></div>
+  <p class="field-help">核对实际吃的内容后，再保存。</p>
+  <form id="meal-form">
+    <div class="journal-date-meal">
+      <label class="field">日期<input type="date" id="meal-date" required></label>
+      <label class="field">餐次<select id="meal-type"><option value="breakfast">早餐</option><option value="lunch">午餐</option><option value="dinner">晚餐</option><option value="snack">加餐</option><option value="meal">一餐</option><option value="daily">全天饮食</option></select></label>
+    </div>
+    <div id="meal-foods"></div>
+    <button class="text-link" id="meal-add" type="button">＋ 添加食物</button>
+    <details><summary>备注 · 选填</summary><label class="field"><span class="sr-only">餐食备注</span><textarea id="meal-note" maxlength="500" rows="2"></textarea></label></details>
+    <p class="approved-dialog-error" id="meal-status" role="status"></p>
+    <div class="approved-dialog-actions"><button class="button ghost" type="button" id="meal-cancel">取消</button><button class="button" type="submit" id="meal-save">确认记录</button></div>
+  </form>
+</dialog>

@@ -112,7 +112,7 @@ class VideoAnalysisStore:
         row=c.execute(select(s.command_receipts).where(s.command_receipts.c.command_id==uuid_id(key))).mappings().first()
         if row:
             if row['actor_user_id']!=uid or row['request_digest']!=command_digest(kind,resource,payload):raise ConflictError('幂等标识与请求不匹配','IDEMPOTENCY_CONFLICT')
-            if row['status']!='succeeded':raise ConflictError('原操作尚未确认，请先读取状态')
+            if row['status']!='succeeded':raise ConflictError('请先查看原操作状态')
             return json.loads(row['result_json'])['id']
         return None
 
@@ -137,7 +137,7 @@ class VideoAnalysisStore:
             if old:return self.snapshot(uid,auth,old)
             media=self.inputs._row(c,uid,payload['input_id']);info=json.loads(media['encoding_json'] or '{}')
             if media['status']!='ready' or media['expires_at_ms']<=self.clock():raise APIError('INPUT_UNAVAILABLE','请先选择已校验、未过期的视频',409)
-            if info.get('demo_id'):raise APIError('DEMO_SOURCE_REQUIRED','内置演示请沿用演示入口，不作为个人上传视频',422)
+            if info.get('demo_id'):raise APIError('DEMO_SOURCE_REQUIRED','请选择示例视频入口打开内置视频',422)
             if not media['sha256'] or len(media['sha256'])!=64 or not media['bytes'] or not info.get('width') or not info.get('height'):
                 raise APIError('INPUT_UNAVAILABLE','视频校验信息不完整',409)
             def write():
@@ -192,7 +192,7 @@ class VideoAnalysisStore:
         with self.db.transaction() as c:
             row=self._parent(c,uid,pid)
             if row['status']!='running' or row['cancel_requested']:raise APIError('ANALYSIS_CANCELLED','分析已停止',409)
-            if phase==row['phase'] and processed_ms<row['processed_ms']:raise ValueError('同阶段进度不能倒退')
+            if phase==row['phase'] and processed_ms<row['processed_ms']:raise ValueError('请核对当前处理进度')
             c.execute(update(s.video_analyses).where(s.video_analyses.c.id==pid).values(phase=phase,processed_ms=processed_ms,
                 recognition_model_version=model_version or row['recognition_model_version'],state_version=row['state_version']+1))
 
@@ -289,11 +289,11 @@ class VideoAnalysisStore:
         with self.db.transaction() as c:
             self.sessions._actor(c,uid,auth);revision=self._revision(c,uid,rid);segment=self._segment(c,uid,revision['segment_id'])
             if revision['status']=='completed' and revision['is_current']:return revision['session_id']
-            if revision['status']!='running' or not revision['session_id']:raise ConflictError('修订尚未完成处理')
+            if revision['status']!='running' or not revision['session_id']:raise ConflictError('正在处理本次分析')
             parent=self._parent(c,uid,segment['analysis_id'])
             if json.loads(revision['config_json']).get('parent_pass') and (parent['status']!='running' or parent['cancel_requested']):raise APIError('ANALYSIS_CANCELLED','取消已生效，未发布迟到结果',409)
             child=self.sessions._session(c,uid,revision['session_id']);config=json.loads(child['config_json'])
-            if child['status']!='completed' or config.get('video_revision_id')!=rid or config.get('included_in_statistics') is not False:raise ConflictError('新结果尚未成功保存')
+            if child['status']!='completed' or config.get('video_revision_id')!=rid or config.get('included_in_statistics') is not False:raise ConflictError('请重试保存新结果')
             current=c.execute(select(s.video_revisions).where(s.video_revisions.c.segment_id==segment['id'],s.video_revisions.c.is_current==1)).mappings().first()
             if (current['id'] if current else None)!=revision['previous_revision_id']:raise ConflictError('原有效修订已改变，未替换记录')
             if current:
@@ -329,7 +329,7 @@ class VideoAnalysisStore:
                 segments=c.execute(select(s.video_segments.c.id,s.video_segments.c.kind).where(s.video_segments.c.analysis_id==pid)).mappings().all()
                 current=set(c.execute(select(s.video_revisions.c.segment_id).where(s.video_revisions.c.user_id==uid,s.video_revisions.c.is_current==1)).scalars())
                 if row['status']!='running' or not segments or any(x['kind']=='action' and x['id'] not in current for x in segments):
-                    raise ConflictError('部分动作片段尚无已保存结果，不能标为完整完成')
+                    raise ConflictError('请先保存全部动作片段的结果')
             c.execute(update(s.video_analyses).where(s.video_analyses.c.id==pid).values(status=status,phase='completed' if status=='completed' else row['phase'],
                 error_code=error,cleanup_pending=int(cleanup_pending),result_completeness='full' if status=='completed' else row['result_completeness'],
                 ended_at_ms=self.clock(),state_version=row['state_version']+1))

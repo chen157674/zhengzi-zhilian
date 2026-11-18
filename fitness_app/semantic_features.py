@@ -15,7 +15,7 @@ def feature_blocks(embedding,prediction,world=None,world_visibility=0.):
     embedding=np.asarray(embedding,np.float32)
     if embedding.shape!=(SEMANTIC_DIM,) or not np.isfinite(embedding).all():raise ValueError('视频语义维度或数值无效')
     norm=float(np.linalg.norm(embedding))
-    if norm<1e-8:raise ValueError('视频语义不能为零')
+    if norm<1e-8:raise ValueError('请重新提取视频语义特征')
     semantic=embedding/norm
     scores=prediction['scores'];visual=np.asarray([scores[a or 'unknown'] for a in LABELS],np.float32)
     if not np.isfinite(visual).all() or np.any(visual<0) or np.any(visual>1):raise ValueError('视觉候选分数无效')

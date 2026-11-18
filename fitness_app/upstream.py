@@ -39,6 +39,6 @@ def calculate_angle(a, b, c) -> float:
     bc = [points[4] - points[2], points[5] - points[3]]
     denominator = math.hypot(*ba) * math.hypot(*bc)
     if denominator < 1e-12:
-        raise ValueError("关节向量退化，无法计算角度")
+        raise ValueError("请调整取景并重新检测关节")
     cosine = sum(x*y for x, y in zip(ba, bc)) / denominator
     return math.degrees(math.acos(max(-1.0, min(1.0, cosine))))

@@ -56,10 +56,16 @@ def register_media(app,db):
 
     @app.get('/api/v1/demos')
     def demos():
-        return jsonify(data={'demos':[{'demo_id':item['id'],'action_id':item['action_id'],'title':item['title'],'display_title':item.get('display_title',item['title']),
-            'video_url':item['video_url'],'poster_url':item['poster_url'],'source_type':item.get('source_type','public'),
-            'source_label':item.get('source_label','DVIDS / Barbell Bent Over Row'),
-            **{k:item.get(k) for k in ('credit','source_url','license','non_endorsement')}} for item in demo_catalogue()]})
+        items=[]
+        for item in demo_catalogue():
+            result=demo_resource(item['id'])
+            items.append({'demo_id':item['id'],'action_id':item['action_id'],'title':item['title'],'display_title':item.get('display_title',item['title']),
+                'video_url':item['video_url'],'poster_url':item['poster_url'],'saved_result_url':'/video/examples/'+item['id'] if result else None,
+                'analysis_track_url':'/static/demo/'+item['id']+'/analysis-track?v='+result['track']['sha256'][:12] if result else None,
+                'source_sha256':item['video']['sha256'],'source_type':item.get('source_type','public'),
+                'source_label':item.get('source_label','DVIDS / Barbell Bent Over Row'),
+                **{k:item.get(k) for k in ('credit','source_url','license','non_endorsement')}})
+        return jsonify(data={'demos':items})
 
     @app.get('/api/v1/voice')
     def voice():
@@ -69,7 +75,7 @@ def register_media(app,db):
     @app.post('/api/v1/demo-inputs')
     def demo_input():
         data=body({'demo_id'});item=demo_resource(data.get('demo_id'),require_track=False)
-        if not item:raise APIError('DEMO_UNAVAILABLE','内置演示原片暂不可用',503)
+        if not item:raise APIError('DEMO_UNAVAILABLE','请选择训练视频',503)
         with project_path(item['video']['path']).open('rb') as stream:
             result=manager.upload(current_user.user_id,current_user.id,stream,uuid_id(request.headers.get('Idempotency-Key')),demo_id=item['id'])
         return jsonify(data=result),202

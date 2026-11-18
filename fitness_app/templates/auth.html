@@ -1,13 +1,13 @@
-{% extends 'base.html' %}{% block title %}{{ {'setup':'首次使用','login':'登录','register':'注册','password':'修改密码'}[kind] }} · 知练同行{% endblock %}{% block page %}{{ 'register' if kind=='setup' else kind }}{% endblock %}
-{% block head %}<script type="module" src="{{ url_for('static',filename='auth.js') }}"></script>{% endblock %}
+{% extends 'base.html' %}{% block title %}{{ {'setup':'首次使用','login':'登录','register':'注册','password':'修改密码'}[kind] }} · 正姿智练{% endblock %}{% block page %}{{ 'register' if kind=='setup' else kind }}{% endblock %}
+{% block head %}<script type="module" src="{{ asset_url('auth.js') }}"></script>{% endblock %}
 {% block content %}<div class="design-container auth-layout">
 
 {% if kind!='password' %}{% elif forced %}<button type="button" class="back-link" data-action="auth.logout"><svg aria-hidden="true"><use href="#arrow-left"/></svg>退出登录</button>{% else %}<a class="back-link" href="{{ '/settings' if kind=='password' else '/' }}" data-nav><svg aria-hidden="true"><use href="#arrow-left"/></svg>返回{{ '设置' if kind=='password' else '首页' }}</a>{% endif %}
 <div class="{{ 'password-layout' if kind=='password' else 'auth-columns' }}">
 {% if kind!='password' %}<section class="auth-visual"><div class="auth-copy"><h1>看清动作，练好下一组。</h1><p>从每一次小小的调整，<br>开始更有把握的训练。</p></div><div class="auth-artwork"><img class="auth-backdrop" src="{{ url_for('round4_asset',asset_name='认证共用背景.webp') }}" width="1536" height="1024" alt="" fetchpriority="high"></div></section>{% endif %}
-<section class="auth-form-panel">{% if kind!='password' %}<a class="auth-form-brand" href="/" aria-label="知练同行首页"><img src="{{ url_for('round4_asset',asset_name='知形横版标识.svg') }}" width="176" height="48" alt="知练同行"></a>{% endif %}<h{{ '1' if kind=='password' else '2' }}>{{ {'setup':'欢迎使用知练同行','login':'登录知练同行','register':'创建知练同行账号','password':'修改密码'}[kind] }}</h{{ '1' if kind=='password' else '2' }}>{% if kind=='password' %}<p class="auth-intro">设置一个新的登录密码。</p>{% endif %}
+<section class="auth-form-panel">{% if kind!='password' %}<a class="auth-form-brand" href="/" aria-label="正姿智练首页"><img src="{{ asset_url('brand/知形横版标识.svg') }}" width="176" height="48" alt="正姿智练"></a>{% endif %}<h{{ '1' if kind=='password' else '2' }}>{{ {'setup':'欢迎使用正姿智练','login':'登录正姿智练','register':'创建正姿智练账号','password':'修改密码'}[kind] }}</h{{ '1' if kind=='password' else '2' }}>{% if kind=='password' %}<p class="auth-intro">设置一个新的登录密码。</p>{% endif %}
 {% if kind=='register' and not initialized %}<p class="notice warning">请先在运行此应用的电脑上创建账号。</p>{% endif %}
-{% if forced %}<p class="notice warning">当前使用临时密码，请先设置新密码。完成前无法进入其他功能。</p>{% endif %}
+{% if forced %}<p class="notice warning">请设置新密码后继续使用。</p>{% endif %}
 {% if notice=='registered' %}<p class="notice success">账号已创建，请登录。</p>{% elif notice=='changed' %}<p class="notice success">密码已更新，请重新登录。</p>{% endif %}
 
 <form id="auth-form" novalidate data-kind="{{ kind }}" data-first-registration="{{ 'true' if first_registration else 'false' }}" data-return-to="{{ return_to }}" data-initialized="{{ 'true' if initialized else 'false' }}" data-forced="{{ 'true' if forced else 'false' }}">

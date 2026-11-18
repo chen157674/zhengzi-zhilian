@@ -128,7 +128,7 @@ class VideoJobs:
             if self.writer.unhealthy:raise APIError('STORAGE_UNAVAILABLE','请先处理原会话保存故障',503)
             self._prune_finished()
             adapter=self.engine_provider(action) if self.engine_provider else None
-            if adapter is None and not self.allow_observer:raise APIError('ACTION_UNAVAILABLE','该动作的分析能力尚未开放',409)
+            if adapter is None and not self.allow_observer:raise APIError('ACTION_UNAVAILABLE','请选择已配置分析的动作',409)
             jid=s.new_id();self.slot.claim(uid,jid,'video')
             try:
                 with self.db.transaction() as c:
@@ -160,7 +160,7 @@ class VideoJobs:
                 if rt.stop.is_set():outcome='cancelled'
                 else:
                     data=self._state(rt,'running','video_started')
-                    if data['save_state']!='clean':raise StorageError('初始状态尚未保存')
+                    if data['save_state']!='clean':raise StorageError('初始状态待保存')
                     self._update(rt,status='running',started_at_ms=self.store.clock())
             if not rt.stop.is_set():
                 model=self.pose_factory(video=True);iterator=self.frames(self.inputs._path(rt.input_id),rt.info)
@@ -193,10 +193,10 @@ class VideoJobs:
                         data=self.writer.snapshot(rt.user_id,rt.session_id)
                         if produced.get('posture_findings'):
                             data=self.writer.submit(rt.user_id,rt.session_id,rt.auth_id,'posture',{'set_index':1,'findings':produced['posture_findings'],'active_ms':rt.active_ms})
-                            if data['save_state']!='clean':raise StorageError('姿态结果尚未保存')
+                            if data['save_state']!='clean':raise StorageError('姿态结果待保存')
                         for event in produced.get('events',[]):
                             data=self.writer.submit(rt.user_id,rt.session_id,rt.auth_id,'event',{**event,'event_seq':data['last_event_seq']+1,'set_index':1,'active_ms':rt.active_ms})
-                            if data['save_state']!='clean':raise StorageError('动作事件尚未保存')
+                            if data['save_state']!='clean':raise StorageError('动作事件待保存')
                         if produced.get('intervals'):
                             data=self.writer.submit(rt.user_id,rt.session_id,rt.auth_id,'intervals',{'set_index':1,'intervals':produced['intervals'],'active_ms':rt.active_ms})
                             if data['save_state']!='clean':raise StorageError('时间区间尚未保存')

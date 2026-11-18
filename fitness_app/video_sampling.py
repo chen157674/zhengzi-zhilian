@@ -22,7 +22,7 @@ def sample_frames(entry,count=8,center=None):
                 h,w=rgb.shape[:2];left,top,right,bottom=entry['crop'];rgb=np.ascontiguousarray(rgb[round(top*h):round(bottom*h),round(left*w):round(right*w)])
             images.append(rgb);times.append(stamp);index+=1
             if index==count:return images,times
-    raise ValueError('没有足够真实源帧，不能复制最后一帧伪装连续视频')
+    raise ValueError('请提供包含完整动作过程的视频')
 
 
 def fit_pixels(frames,config,augmentation=None):

@@ -7,8 +7,8 @@ VERSION='action-label-specificity-1'
 
 def scope(entry):
     action=entry['action_id']
-    if entry.get('evaluation_only') and entry.get('partition')=='train':raise ValueError('评估专用来源不能转入训练')
-    if entry.get('exclude_from_training') and entry.get('partition')=='train':raise ValueError('已排除的重复来源不能转入训练')
+    if entry.get('evaluation_only') and entry.get('partition')=='train':raise ValueError('请选择训练来源')
+    if entry.get('exclude_from_training') and entry.get('partition')=='train':raise ValueError('请选择新的训练来源')
     if action=='standing_dumbbell_curl' and not entry.get('fine_action_verified'):
         return {'specificity':'family','family':'dumbbell_curl','allowed_actions':list(CURL_ACTIONS),'leaf_label':None,
             'reason':'generic bicep_curl label does not establish supination or exclude neutral grip'}
@@ -30,7 +30,7 @@ def route(primary,subtype,score,margin,minimum=.8,minimum_margin=.25):
 def reviewed_scope(entry,review,cache_sha256):
     """复核只绑定确切输入；保留官方动作族，拒绝拿别的裁剪/时段的结论来细分。"""
     original=scope(entry)
-    if entry['action_id'] not in CURL_ACTIONS:raise ValueError('握法复核不能改写其他动作')
+    if entry['action_id'] not in CURL_ACTIONS:raise ValueError('请核对复核动作类型')
     for key in ('id','source_sha256','start_ms','end_ms','crop'):
         if review.get(key)!=entry.get(key):raise ValueError('握法复核与原输入身份不一致')
     if review.get('semantic_cache_sha256')!=cache_sha256:raise ValueError('握法复核特征缓存已变化')

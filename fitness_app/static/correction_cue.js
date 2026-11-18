@@ -4,8 +4,9 @@ export function coachingCue(coaching){
   const withdrawn=new Set(['preparing','paused','resting','ended','save_failed','interrupted','waiting_for_input','no_person','multiple_people','positioning','evidence_insufficient']);
   const issue=withdrawn.has(state)?null:coaching?.primary_cue;
   if(issue)return {state:'issue',title:issue.message||'需要调整',instruction:issue.suggestion||''};
+  if(state==='evidence_insufficient'||state==='observing'&&coaching?.has_unassessable_items)return {state:'unassessable',title:'',instruction:''};
   if(state==='observing')return {state:'unassessable',title:'正在观察',instruction:''};
-  const labels={preparing:'准备就绪',no_person:'请站入画面',multiple_people:'请保持单人入镜',positioning:'请完整入镜',evidence_insufficient:'分析中',waiting_for_input:'等待画面',paused:'已暂停',resting:'组间休息',ended:'分析结束',save_failed:'结果尚未保存',interrupted:'分析中断'};
+  const labels={preparing:'准备就绪',no_person:'请站入画面',multiple_people:'请保持单人入镜',positioning:'请完整入镜',evidence_insufficient:'分析中',waiting_for_input:'等待画面',paused:'已暂停',resting:'组间休息',ended:'分析结束',save_failed:'结果待保存',interrupted:'分析中断'};
   return {state:'unassessable',title:labels[state]||'分析中',instruction:coaching?.instruction||''};
 }
 
@@ -17,9 +18,9 @@ export function recordCue(record,stamp){
   const active=findings.filter(x=>Number.isFinite(x.start_ms)&&Number.isFinite(x.end_ms)&&x.start_ms<=stamp&&stamp<x.end_ms);
   const issue=active.find(x=>x.status==='issue');
   if(issue)return {state:'issue',title:issue.message||'需要调整',instruction:issue.suggestion||''};
-  if(findings.some(x=>x.status==='issue'))return {state:'unassessable',title:'此处暂无新的姿态结论',instruction:''};
-  if(active.some(x=>x.status==='not_observed'))return {state:'clear',title:'已检查项目未见偏差',instruction:''};
-  return {state:'unassessable',title:'该片段暂无结论',instruction:''};
+  if(findings.some(x=>x.status==='issue'))return {state:'unassessable',title:'',instruction:''};
+  if(active.some(x=>x.status==='not_observed'))return {state:'clear',title:'检查项通过',instruction:''};
+  return {state:'unassessable',title:'',instruction:''};
 }
 
 // 分析过程保持观察状态；完成后仅回放已保存的真实时间段结论。
@@ -35,11 +36,16 @@ export function videoCue(job,record,stamp){
 
 export function paintCue(panel,cue){
   if(!panel)return;
-  panel.hidden=false;panel.dataset.state=cue.state;
+  panel.dataset.state=cue.state;panel.hidden=!cue.title&&!cue.instruction;if(panel.hidden)return;
   const title=panel.querySelector('[data-cue-title]'),text=panel.querySelector('[data-cue-text]');
   if(title.textContent!==cue.title)title.textContent=cue.title;
   if(text.textContent!==cue.instruction)text.textContent=cue.instruction;
-  text.hidden=!cue.instruction;
+  if(text.hidden!==!cue.instruction)text.hidden=!cue.instruction;
+  const label=panel.querySelector('[data-cue-label]'),marker=panel.querySelector('[data-cue-marker]'),next=panel.querySelector('[data-cue-next]');
+  const issue=cue.state==='issue';
+  if(label){const value=issue?'动作纠正提示':cue.state==='observing'?'分析状态':'片段反馈';if(label.textContent!==value)label.textContent=value;}
+  if(marker){const value=issue?'!':cue.state==='clear'?'✓':cue.state==='observing'?'…':'·';if(marker.textContent!==value)marker.textContent=value;}
+  if(next){const hidden=!issue||!cue.instruction;if(next.hidden!==hidden)next.hidden=hidden;}
 }
 
 // 只格式化正式来源已有字段，未知部位、侧别和时间不猜测。

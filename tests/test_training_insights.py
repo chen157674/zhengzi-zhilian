@@ -4,7 +4,7 @@ from sqlalchemy import update
 from fitness_app import db_schema as s
 from fitness_app.catalogue import get_action
 from fitness_app.database import json_text
-from fitness_app.training_insights import record_statistics,record_evidence
+from fitness_app.training_insights import record_statistics,record_evidence,observation_groups
 import test_formal_records as shared
 
 
@@ -71,6 +71,21 @@ class InsightsTests(unittest.TestCase):
         self.assertEqual(data['rule_cohorts'][0]['assessed_records'],3)
         r=self.get(path='/api/v1/account/training-insights?date_from=bad-date');self.assertEqual(r.status_code,422,r.json)
         r=self.get(path='/api/v1/account/training-insights?user_id='+self.fx.other);self.assertEqual(r.status_code,400,r.json)
+
+    def test_trend_never_merges_capability_or_input_policy(self):
+        first=self.create([(0,1000,'issue'),(1000,2000,'not_observed')])
+        snapshot=self.fx.store.snapshot(self.fx.user,first,True)
+        # 相同观察内容来自不同算法能力或取景策略时，不能拼成一条进步曲线。
+        from copy import deepcopy
+        changed_version=deepcopy(snapshot)
+        changed_version.update(session_id='changed-version',capability_version='different-capability')
+        changed_policy=deepcopy(snapshot)
+        changed_policy.update(session_id='changed-policy',input_policy={'view':'front','fixture':True})
+        groups=observation_groups([snapshot,changed_version,changed_policy])
+        self.assertEqual(len(groups),3)
+        self.assertTrue(all(len(group['records'])==1 for group in groups))
+        self.assertEqual({group['records'][0]['record_id'] for group in groups},
+                         {first,'changed-version','changed-policy'})
 
 
 if __name__=='__main__':unittest.main()

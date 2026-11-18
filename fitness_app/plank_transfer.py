@@ -88,7 +88,7 @@ class PlankGeometryEnsemble:
         return self
 
     def predict_proba(self,x):
-        if len(self.models)!=2:raise ValueError('组合模型尚未拟合')
+        if len(self.models)!=2:raise ValueError('请先训练组合模型')
         return (self.models[0].predict_proba(x)+self.models[1].predict_proba(x))/2
 
 

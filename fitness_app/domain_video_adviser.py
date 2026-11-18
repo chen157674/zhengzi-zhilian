@@ -15,7 +15,7 @@ def verify_resources():
     signature=hashlib.sha256(json.dumps(report['identity'],sort_keys=True).encode()).hexdigest()
     if signature!=report['signature'] or manifest['signature']!=signature or manifest['sha256']!=report['checkpoint_sha256'] or digest(DIRECTORY/'candidate.pt')!=report['checkpoint_sha256']:raise ValueError('健身域候选身份或参数摘要不同')
     for relative,expected in report['identity']['code'].items():
-        if digest(ROOT/relative)!=expected:raise ValueError('健身域候选的采样/网络源码不同，不能沿用')
+        if digest(ROOT/relative)!=expected:raise ValueError('请核对健身域模型的采样与网络版本')
     return report,manifest
 
 
@@ -32,7 +32,7 @@ def reusable_prediction(entry,snapshot,prediction,actual_ms,frozen_ms):
 class DomainVideoAdviser:
     def __init__(self,report,manifest,*,research=False):
         if not research and not (manifest.get('runtime_enabled',False) and manifest.get('development_gate_passed',False) and manifest.get('release_gate_passed',False)):
-            raise RuntimeError('健身域视频候选未完成发布门槛，普通推理不能加载')
+            raise RuntimeError('请使用已发布的健身域视频模型')
         self.report=report;self.manifest=manifest;self.labels=manifest['labels'];self.net=None;self.calls=0;self.latencies=[]
         self.config=json.loads((ROOT/'data/models/xclip-base-patch32/preprocessor_config.json').read_text(encoding='utf-8'))
     def _load(self):

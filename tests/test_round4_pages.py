@@ -53,7 +53,7 @@ class Round4PagesTests(unittest.TestCase):
                 self.assertNotIn('username-help', html)
                 self.assertNotIn('aria-label="主要导航"', html)
                 self.assertNotIn('id="ai-assistant"', html)
-                self.assertIn('alt="知练同行"', html)
+                self.assertIn('alt="正姿智练"', html)
 
     def test_coach_context_is_selected_from_owned_records(self):
         sid = self.fx.running()
@@ -108,7 +108,9 @@ class Round4PagesTests(unittest.TestCase):
                     self.assertEqual(response.status_code, 200)
                     self.assertEqual(response.mimetype, mime)
                     self.assertEqual(response.headers['X-Content-Type-Options'], 'nosniff')
-                    expected = ROOT / '第四轮优化' / '开发素材' / name
+                    expected = ROOT / 'fitness_app' / 'static' / 'brand' / name
+                    if not expected.exists():
+                        expected = ROOT / '第四轮优化' / '开发素材' / name
                     self.assertEqual(response.get_data(), expected.read_bytes())
                     etag = response.headers['ETag']
                 with anonymous.get(url, headers={'If-None-Match': etag}) as cached:
@@ -117,7 +119,7 @@ class Round4PagesTests(unittest.TestCase):
             self.assertEqual(anonymous.get('/static/round4/' + quote(name, safe='')).status_code, 404)
 
     def test_resolved_asset_must_stay_in_asset_directory(self):
-        directory = ROOT / '第四轮优化' / '开发素材'
+        directory = ROOT / 'fitness_app' / 'static' / 'brand'
         outside_asset_directory = ROOT / 'PRD.md'
         with patch('fitness_app.pages.project_path',
                    side_effect=[directory, outside_asset_directory]):

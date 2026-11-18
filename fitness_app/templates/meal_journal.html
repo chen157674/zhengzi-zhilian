@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block title %}我的餐食 · 正姿智练{% endblock %}{% block page %}meal-journal{% endblock %}
+{% block head %}<script type="module" src="{{ asset_url('meal_journal.js') }}"></script>{% endblock %}
+{% block content %}<div class="design-container workspace-page journal-page" id="meal-journal-page">
+<a class="back-link" href="/coach/nutrition" data-nav>返回今天这一餐</a>
+<div class="heading-with-action"><div class="page-heading"><h1>我的餐食</h1></div><button class="button" id="journal-add-meal" type="button">记一餐</button></div>
+<p id="journal-error" class="notice error" role="alert" hidden></p><button id="journal-retry" type="button" class="button secondary" hidden>重新读取</button>
+<div class="journal-range-controls"><label><span class="sr-only">日期范围</span><select id="journal-period"><option value="7">最近7天</option><option value="30">最近30天</option><option value="1">指定一天</option></select></label><button type="button" class="button ghost small" id="journal-prev" aria-label="上一个日期范围">‹</button><span id="journal-date-label"></span><button type="button" class="button ghost small" id="journal-next" aria-label="下一个日期范围">›</button><label><span class="sr-only">范围结束日期</span><input type="date" id="journal-date"></label></div>
+<section id="journal-records" aria-live="polite" aria-label="餐食记录"></section>
+<details class="journal-memory" id="memories"><summary>我的口味与忌口</summary><div id="journal-memories" aria-live="polite"></div></details>
+<a class="text-link" href="/training/review?tab=diet&from=nutrition" data-nav>饮食习惯 →</a>
+{% include 'meal_entry_dialog.html' %}
+<dialog id="journal-detail-dialog" aria-labelledby="journal-detail-title"><div class="approved-dialog-heading"><h2 id="journal-detail-title">这一餐</h2><button id="journal-detail-close" type="button" class="approved-close" aria-label="关闭餐食详情">×</button></div><div id="journal-detail-content"></div></dialog>
+</div>{% endblock %}

@@ -51,10 +51,10 @@ class PreviewManager:
         save_skeleton=payload.get('save_skeleton',False)
         if type(save_skeleton) is not bool or save_skeleton and not save_training:raise APIError('VALIDATION_FAILED','保存骨架须同时保存训练记录',422)
         if not isinstance(save_training,bool):raise APIError('VALIDATION_FAILED','保存选项无效',422)
-        if save_training and self.record_store is None:raise APIError('INVALID_STATE','训练保存尚未可用',409)
+        if save_training and self.record_store is None:raise APIError('INVALID_STATE','请准备训练存储后重试',409)
         if payload.get('training_id') is not None:
             uuid_id(payload['training_id'])
-            if not save_training:raise APIError('VALIDATION_FAILED','纯预览不能关联训练',422)
+            if not save_training:raise APIError('VALIDATION_FAILED','请从实时训练入口开始',422)
         mode=payload.get('recognition_mode','manual' if payload.get('action_id') is not None else 'auto')
         if mode not in ('auto','manual'):raise APIError('VALIDATION_FAILED','识别模式无效',422)
         if mode=='auto' and (payload.get('action_id') is not None or payload.get('capability_version') is not None):
@@ -77,8 +77,8 @@ class PreviewManager:
                 if payload.get('training_id'):
                     prior=[x['recorder'] for x in [*self.history.values(),*([self.active] if self.active else [])] if x['user_id']==user_id and x.get('recorder') and x['recorder'].run_id==payload['training_id']]
                     if not prior:raise APIError('NOT_FOUND','原训练上下文不存在，请开始新训练',404)
-                    if any(getattr(rec,'retest_origin',None)!=retest for rec in prior):raise ConflictError('同次训练不能切换复测来源，请结束后新建训练')
-                    if any(getattr(rec,'save_skeleton',False)!=save_skeleton for rec in prior):raise ConflictError('同次训练不能切换骨架保存选择，请结束后新建训练')
+                    if any(getattr(rec,'retest_origin',None)!=retest for rec in prior):raise ConflictError('请结束当前训练，再选择新的复测来源')
+                    if any(getattr(rec,'save_skeleton',False)!=save_skeleton for rec in prior):raise ConflictError('请结束当前训练，再调整骨架保存选项')
                 pid=new_id();self.slot.claim(user_id,pid,'preview');token=secrets.token_urlsafe(32)
                 from .automatic_recording import AutomaticRecorder
                 recorder=AutomaticRecorder(self.record_store,user_id,auth_id,payload.get('training_id') or pid,retest_origin=retest,save_skeleton=save_skeleton) if save_training else None
@@ -180,11 +180,11 @@ class PreviewManager:
             raise APIError('INVALID_REQUEST','帧元数据字段不完整或含未知字段')
         seq=integer(metadata['frame_seq'],'frame_seq',0,2**53-1);stamp=integer(metadata['captured_ms'],'captured_ms',0,2**53-1)
         width=integer(metadata['width'],'width',1,1920);height=integer(metadata['height'],'height',1,1920)
-        if min(width,height)>1080:raise APIError('FRAME_DIMENSIONS','提交帧短边不能超过1080',422)
+        if min(width,height)>1080:raise APIError('FRAME_DIMENSIONS','请提交短边1080以内的画面',422)
         # 在解码前后都校验代次，撤销／关闭不能让旧工作继续发布结果。
         with self.lock:
             self.expire();item=self._authorize(user_id,pid,token,metadata['stream_epoch'],internal=internal)
-            if item.get('recorder') and item['recorder'].failed:raise APIError('SAVE_FAILED','训练保存未确认，输入已冻结',409)
+            if item.get('recorder') and item['recorder'].failed:raise APIError('SAVE_FAILED','请先保存训练结果，再继续输入',409)
         dimensions=jpeg_dimensions(jpeg)
         if dimensions!=(width,height):raise APIError('FRAME_DIMENSIONS','元数据与 JPEG 实际尺寸不一致',422)
         digest=hashlib.sha256(jpeg+json_text(metadata).encode()).hexdigest()
@@ -206,7 +206,7 @@ class PreviewManager:
         with self.lock:
             self.expire();item=self._find(user_id,pid,internal)
             self._authorize(user_id,pid,token,item['stream_epoch'],internal=internal)
-            if item['uploading']:raise APIError('FRAME_IN_FLIGHT','原帧提交尚未完成，请等待',429)
+            if item['uploading']:raise APIError('FRAME_IN_FLIGHT','正在提交画面，请稍候',429)
             item['uploading']=True
         def release():
             with self.lock:item['uploading']=False
@@ -333,7 +333,7 @@ class PreviewManager:
             if self._thread.is_alive():raise APIError('POSE_STOPPING','姿态引擎正在释放，请稍后核对',503)
             self._thread=None
         if any(item.get('recorder') and item['recorder'].failed for item in self.history.values()):
-            raise APIError('SAVE_FAILED','仍有自动训练结果尚未保存，请在实时分析页恢复或明确保留已保存内容后再停止服务',503)
+            raise APIError('SAVE_FAILED','请在实时分析页完成结果保存后停止服务',503)
 
     def _flush_releases(self):
         for reference in self._deferred_release:self.slot.release(*reference)
@@ -344,14 +344,14 @@ class PreviewManager:
         with self.lock:
             self.expire();old=self._find(user_id,pid)
             self._authorize(user_id,pid,token,old['stream_epoch'])
-            if old.get('recognition_mode')=='auto':raise APIError('AUTO_OBSERVATION_ONLY','自动观察尚未接入训练保存；可使用手动备用入口',409)
+            if old.get('recognition_mode')=='auto':raise APIError('AUTO_OBSERVATION_ONLY','请从实时分析页保存训练',409)
             if old['auth_id']!=auth_id or old['page_id']!=page_id or old['action_id']!=action_id:
                 raise APIError('CONTROL_CONFLICT','预览不属于当前控制页或动作',409)
             if not old['result'] or not old['result']['framing']['ready_for_tracking'] or self.monotonic()-old.get('last_result_at',-100)>0.5:
                 raise APIError('FRAMING_REQUIRED','请先确认必要部位持续可见',409)
             if not self.slot.owns(user_id,pid,'preview'):raise APIError('CONTROL_CONFLICT','原预览占用已失效',409)
             result=commit()
-            if result.get('save_state')=='save_failed':raise APIError('STORAGE_UNAVAILABLE','开始状态尚未保存，请处理原会话',503)
+            if result.get('save_state')=='save_failed':raise APIError('STORAGE_UNAVAILABLE','请先完成原会话的状态保存',503)
             self.slot.transfer(user_id,pid,'preview',session_id,'session')
             new={**old,'preview_id':new_id(),'session_id':session_id,'token':secrets.token_urlsafe(32),'stream_epoch':new_id(),
                  'frame_seq':-1,'captured_ms':-1,'digest':None,'pending':None,'result':None,'status':'active','reason':None,

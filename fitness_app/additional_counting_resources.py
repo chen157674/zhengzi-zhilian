@@ -28,7 +28,7 @@ def digest(value):return hashlib.sha256(json_text(value).encode()).hexdigest()
 
 @lru_cache(maxsize=8)
 def implementation_signature(action):
-    if action not in RESOURCES:raise ValueError('动作尚未实现')
+    if action not in RESOURCES:raise ValueError('请选择已配置的训练动作')
     model=json.loads((ROOT/'data/models/manifest.json').read_text(encoding='utf-8'))
     components={'reverse_lunge':(CycleConfig,CycleTracker,ReverseLungeConfig,ReverseLungeCounter,lunge_observation),
         'forearm_plank':(PlankHoldConfig,PlankHoldCounter,plank_observation),
@@ -47,10 +47,10 @@ def configuration(action,raw):
 
 
 def read_manifest(action,path=None):
-    if action not in RESOURCES:raise ValueError('动作尚未实现')
+    if action not in RESOURCES:raise ValueError('请选择已配置的训练动作')
     filename,config_type,_=RESOURCES[action]
     path=project_path(path or ROOT/'data/models'/filename);doc=json.loads(path.read_text(encoding='utf-8'))
-    if doc.get('schema_version')!=1 or doc.get('status')!='ready' or doc.get('action_id')!=action:raise ValueError('动作资源尚未冻结')
+    if doc.get('schema_version')!=1 or doc.get('status')!='ready' or doc.get('action_id')!=action:raise ValueError('请准备动作资源')
     raw=doc['config'];config=configuration(action,raw)
     if asdict(config)!=raw or digest(raw)!=doc['parameters_sha256']:raise ValueError('动作参数摘要不符')
     evidence=project_path(doc['calibration_path']);evidence.relative_to(ROOT/'data/verification/step-14')

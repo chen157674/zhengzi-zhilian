@@ -34,7 +34,7 @@ def register_pretrained(app):
         except (ValueError,TypeError,OverflowError) as error:raise APIError('INVALID_MODEL_INPUT',str(error),422) from error
         except (OSError,KeyError,StopIteration) as error:
             LOG.exception('预训练参考资源不可用')
-            raise APIError('MODEL_UNAVAILABLE','本机参考模型尚未准备完成',503) from error
+            raise APIError('MODEL_UNAVAILABLE','请准备本机参考模型',503) from error
         finally:slot.release()
 
     @app.get('/api/v1/correction-models')
