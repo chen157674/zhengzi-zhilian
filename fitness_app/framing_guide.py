@@ -19,9 +19,9 @@ def guide(frame=None,action_id=None,requested_view='auto',fresh=True):
         'view_is_estimate':True,'guide_is_posture_error':False,'action_clarification_required':False,
         'items':[{'code':r['code'],'title':r['title'],'views':r['views'],'body_parts':r['body_parts']} for r in rules]}
     if definition:result['steps']=[definition['view']]
-    if not fresh:return {**result,'state':'waiting_for_input','message':'等待新的画面，再检查取景。','steps':['恢复输入后重新确认身体部位，旧骨架不作为当前证据。']}
+    if not fresh:return {**result,'state':'waiting_for_input','message':'等待新的画面，再检查取景。','steps':['请检查摄像头连接，让身体重新入镜。']}
     if not frame:return result
-    if recognition.get('reason')=='stale_frame':return {**result,'state':'waiting_for_input','message':'等待新的画面，再检查取景。','steps':['恢复输入后重新确认身体部位，旧骨架不作为当前证据。']}
+    if recognition.get('reason')=='stale_frame':return {**result,'state':'waiting_for_input','message':'等待新的画面，再检查取景。','steps':['请检查摄像头连接，让身体重新入镜。']}
     if quality.get('person_count')==0:return {**result,'state':'no_person','message':'未检测到训练者。','steps':['检查镜头朝向，移到画面中央并保持光线清楚。']}
     if quality.get('person_count',1)>1 or quality.get('code')=='TARGET_AMBIGUOUS':return {**result,'state':'multiple_people','message':'当前训练目标不唯一。','steps':['让本次训练者单独、连续入镜，避免旁人或镜面影响。']}
     if definition:
@@ -34,13 +34,13 @@ def guide(frame=None,action_id=None,requested_view='auto',fresh=True):
     if not quality.get('usable',False):
         result.update(state='missing_parts',message=('请让'+ '、'.join(result['missing_parts'])+'清楚入镜。') if result['missing_parts'] else '请调整取景，让关键部位持续入镜。')
         return result
-    if recognition.get('reason')=='motion_unconfirmed':return {**result,'state':'waiting_for_motion','message':'等待自然动作变化，准备状态不作技术评价。'}
+    if recognition.get('reason')=='motion_unconfirmed':return {**result,'state':'waiting_for_motion','message':'准备好后开始动作。'}
     if not definition:return result
     limited=[r for r in rules if current and current not in r['views']]
     if posture.get('view_basis')=='view_mismatch':return {**result,'state':'view_mismatch','message':'机位设置与画面估计不一致。','steps':['请调整拍摄位置，或选择自动判断机位。']}
     if limited:
         item=limited[0];needed='或'.join(VIEWS[v] for v in item['views'])
         result.update(state='view_limited',message=item['title']+'需要'+needed+'观察。',
-            steps=['当前视角仅为自动估计；这项暂不判断对错。','若已按建议摆放相机，可在设备设置主动确认拍摄机位。'])
-    else:result.update(state='visible',message='所需关键部位已检出；只评估支持的姿态项目。')
+            steps=['请调整相机到'+needed+'，再在设备设置中选择对应机位。'])
+    else:result.update(state='visible',message='所需部位已入镜。')
     return result

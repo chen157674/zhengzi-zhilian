@@ -19,7 +19,7 @@ class ReportLanguageTests(unittest.TestCase):
         self.assertEqual(display['summary'],'6 条记录出现下蹲幅度偏小提示。下一组保持节奏。')
         self.assertEqual(display['explanations'][0]['evidence'],source['explanations'][0]['evidence'])
         self.assertEqual(json.dumps(source,ensure_ascii=False),before)
-        self.assertIn('机位不清时无法判断。',display['limitations'])
+        self.assertIn('请调整机位，让动作部位入镜。',display['limitations'])
         self.assertIn('本次仅读取选中的6条记录。',display['limitations'])
         self.assertNotIn('工程参考带',display['explanations'][0]['explanation'])
         self.assertNotIn('独立人群',display['explanations'][0]['explanation'])
